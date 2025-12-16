@@ -1,0 +1,3465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spelling Master Kids - Level Up</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #a8c0ff 0%, #3f2b96 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 25px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        header h1 {
+            font-size: 36px;
+            margin-bottom: 5px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        /* SCREENS */
+        .screen { display: none; animation: fadeIn 0.3s ease-in-out; }
+        .screen.active { display: block; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* LAYOUTS */
+        .home-layout {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 20px;
+        }
+
+        /* SIDEBAR */
+        .category-sidebar {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            height: fit-content;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .category-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #3f2b96;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .category-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .category-item {
+            padding: 12px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            background: #f4f6f9;
+            color: #555;
+            transition: all 0.2s;
+            border-left: 4px solid transparent;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .category-item:hover {
+            background: #eef2ff;
+            color: #3f2b96;
+        }
+
+        .category-item.active {
+            background: #eef2ff;
+            color: #3f2b96;
+            border-left-color: #3f2b96;
+            box-shadow: 0 2px 8px rgba(63, 43, 150, 0.15);
+        }
+
+        /* SUMMARY / REPORT SECTION */
+        .summary-section {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .summary-header {
+            font-size: 18px;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .stat-box {
+            background: #f7fafc;
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-label { font-size: 11px; color: #718096; text-transform: uppercase; font-weight: 700; }
+        .stat-val { font-size: 20px; font-weight: 800; color: #3f2b96; }
+
+        .trend-bar-container {
+            display: flex;
+            align-items: flex-end;
+            height: 60px;
+            gap: 8px;
+            padding-top: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .trend-bar {
+            flex: 1;
+            background: #e2e8f0;
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            transition: height 0.5s;
+        }
+        .trend-bar.high { background: #667eea; }
+        .trend-bar:hover::after {
+            content: attr(data-score);
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            background: #333;
+            color: white;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        /* MAIN CONTENT */
+        .list-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .list-card {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .list-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .list-card h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+
+        .list-card .meta {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        /* BUTTONS */
+        .btn {
+            border: none;
+            border-radius: 12px;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.1s, box-shadow 0.1s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn:active { transform: scale(0.98); }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(118, 75, 162, 0.3);
+        }
+        
+        .btn-primary:hover { filter: brightness(1.1); }
+
+        .btn-secondary { background: #e0e7ff; color: #3f2b96; }
+        .btn-secondary:hover { background: #d0dbff; }
+
+        .btn-warning { background: #fff8e1; color: #b7791f; }
+        .btn-warning:hover { background: #fefcbf; }
+
+        .btn-add {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px dashed #cbd5e0;
+            background: transparent;
+            color: #718096;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-add:hover {
+            border-color: #764ba2;
+            color: #764ba2;
+            background: #f7fafc;
+        }
+
+        .btn-icon { padding: 8px; border-radius: 50%; width: 40px; height: 40px; }
+
+        /* PRACTICE AREA */
+        .game-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .card-panel {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .pill-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .progress-pill {
+            background: #f0f2f5;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .score-pill {
+            background: #fff8e1;
+            color: #f59e0b;
+        }
+
+        .timer-pill {
+            background: #e6fffa;
+            color: #319795;
+        }
+
+        .hint-section {
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            min-height: 40px;
+        }
+
+        .hint-text {
+            font-size: 28px;
+            font-weight: 800;
+            color: #2d3748;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+            padding: 0 10px;
+            transition: opacity 0.3s;
+        }
+        .hint-hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .speak-btn {
+            background: #eef2ff;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            color: #3f2b96;
+            font-size: 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+            transition: all 0.2s;
+        }
+        .speak-btn:hover { transform: scale(1.1); background: #dbe4ff; }
+
+        /* WORD DISPLAY SYSTEM */
+        .word-display-container {
+            display: flex;
+            flex-wrap: wrap; /* Allows wrapping of word blocks */
+            justify-content: center;
+            gap: 8px;
+            margin: 30px 0;
+            min-height: 70px;
+        }
+
+        .word-block {
+            display: inline-flex;
+            gap: 4px;
+            margin-right: 15px; /* Replaces the visible space character */
+            margin-bottom: 10px;
+        }
+        .word-block:last-child { margin-right: 0; }
+
+        .char-box {
+            width: 40px;
+            height: 50px;
+            border-bottom: 4px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: #2d3748;
+            font-family: monospace;
+            transition: all 0.3s;
+        }
+
+        .char-box.filled {
+            border-bottom-color: #3f2b96;
+            color: #3f2b96;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .char-box.pre-filled {
+            color: #a0aec0;
+            border-bottom-color: #cbd5e0;
+        }
+
+        .char-box.vowel { border-bottom-color: #4A90E2; }
+        .char-box.filled.vowel { color: #4A90E2; }
+        .char-box.pre-filled.vowel { color: #90cdf4; border-bottom-color: #cbd5e0; }
+
+        .char-box.current {
+            border-bottom-color: #f59e0b;
+            background: #fffbeb;
+            transform: translateY(-3px);
+        }
+
+        .keyboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        /* Full keyboard for Level 4 */
+        .keyboard-grid.full-kb {
+            grid-template-columns: repeat(10, 1fr);
+            gap: 4px;
+        }
+        .keyboard-grid.full-kb .key-btn {
+            height: 45px;
+            font-size: 18px;
+            border-radius: 6px;
+        }
+
+        .key-btn {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            height: 60px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #4a5568;
+            cursor: pointer;
+            transition: all 0.1s;
+            position: relative;
+            overflow: hidden;
+            font-family: monospace;
+        }
+
+        .key-btn.vowel {
+            color: #4A90E2; 
+            background: #f0f7ff;
+            border-color: #dbeafe;
+        }
+
+        .key-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            border-color: #cbd5e0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .key-btn:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .key-btn.correct {
+            background: #c6f6d5;
+            border-color: #48bb78;
+            color: #276749;
+        }
+        .key-btn.correct.vowel { color: #276749; }
+
+        .key-btn.wrong {
+            background: #fed7d7;
+            border-color: #f56565;
+            color: #c53030;
+            animation: shake 0.4s;
+        }
+
+        .key-btn:disabled {
+            opacity: 0.6;
+            cursor: default;
+            transform: none !important;
+        }
+
+        @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+
+        /* RESULTS SCREEN */
+        .results-panel {
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .big-score {
+            font-size: 80px;
+            font-weight: 800;
+            background: -webkit-linear-gradient(#667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .stars-container {
+            font-size: 40px;
+            margin-bottom: 20px;
+            letter-spacing: 10px;
+        }
+
+        /* RECAP SECTION */
+        .recap-section {
+            margin-top: 20px;
+            text-align: left;
+            background: #fff5f5;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #fed7d7;
+            display: none; /* Hidden by default */
+        }
+
+        .recap-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #c53030;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .recap-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .recap-item {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-family: monospace;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #2d3748;
+        }
+        
+        .recap-hint { font-size: 14px; color: #718096; font-family: sans-serif; }
+        
+        .char-error { color: #e53e3e; text-decoration: underline; text-decoration-color: #e53e3e; text-decoration-thickness: 3px; }
+
+        /* MODALS */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-overlay.active { display: flex; }
+
+        .modal-box {
+            background: white;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            animation: popIn 0.3s;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        /* WORD COMPLETION OVERLAY */
+        .completion-modal {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            text-align: center;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            animation: popIn 0.4s;
+            border: 4px solid #667eea;
+        }
+        .completion-word { font-size: 48px; font-weight: 800; color: #3f2b96; margin-bottom: 10px; line-height: 1.2; }
+        .completion-hint { font-size: 32px; color: #666; font-weight: 600; }
+
+        .form-label { display: block; margin-bottom: 8px; font-weight: 600; color: #4a5568; }
+        .form-input {
+            width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px;
+            font-size: 16px; margin-bottom: 15px; outline: none; transition: 0.2s;
+        }
+        .form-input:focus { border-color: #667eea; }
+        textarea.form-input { min-height: 120px; font-family: monospace; }
+
+        /* DIFFICULTY SELECTION STYLES */
+        .diff-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .diff-card {
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #f8fafc;
+        }
+        .diff-card:hover {
+            border-color: #667eea;
+            background: #eef2ff;
+            transform: translateX(5px);
+        }
+        .diff-title {
+            font-weight: 800;
+            color: #2d3748;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+        .diff-desc {
+            font-size: 13px;
+            color: #718096;
+        }
+
+        /* DATA MANAGEMENT TABS */
+        .tabs { display: flex; gap: 5px; margin-bottom: 15px; border-bottom: 2px solid #edf2f7; }
+        .tab-btn {
+            padding: 10px 15px; background: none; border: none; font-weight: 700; color: #718096; cursor: pointer;
+            border-bottom: 3px solid transparent; margin-bottom: -2px;
+        }
+        .tab-btn.active { color: #3f2b96; border-bottom-color: #3f2b96; }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        .code-view {
+            background: #2d3748; color: #a3bffa; font-family: monospace; font-size: 12px;
+            padding: 15px; border-radius: 8px; width: 100%; height: 200px; overflow: auto;
+            margin-bottom: 10px; border: none; resize: vertical;
+        }
+        .help-box {
+            background: #ebf8ff; padding: 12px; border-radius: 8px; font-size: 13px; color: #2c5282; margin-bottom: 10px;
+            border-left: 4px solid #4299e1;
+        }
+
+        /* CONFETTI CANVAS */
+        #confetti-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 999;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .home-layout { grid-template-columns: 1fr; }
+            .keyboard-grid { gap: 8px; }
+            .key-btn { height: 50px; font-size: 20px; }
+            header h1 { font-size: 28px; }
+            .keyboard-grid.full-kb { grid-template-columns: repeat(7, 1fr); }
+            .keyboard-grid.full-kb .key-btn { font-size: 14px; height: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <div class="container">
+        <header>
+            <h1>Spelling Master</h1>
+            <p>Kids Edition</p>
+        </header>
+
+        <!-- HOME SCREEN -->
+        <div id="homeScreen" class="screen active">
+            <div class="home-layout">
+                <!-- Sidebar -->
+                <div class="category-sidebar">
+                    <div class="category-title">
+                        Categories
+                        <button class="btn-icon btn-secondary" onclick="app.showAddCategory()" title="Add Category">+</button>
+                    </div>
+                    <div id="categoriesList" class="category-list">
+                        <!-- Categories injected here -->
+                    </div>
+
+                    <!-- New Data Button (Added from newer version) -->
+                    <div style="margin-top: auto; padding-top: 15px; border-top: 1px solid #edf2f7;">
+                        <button class="btn btn-secondary" style="width: 100%; font-size: 13px;" onclick="app.showDataModal()">
+                            ⚙️ Manage Data
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="main-content">
+                    
+                    <!-- PROGRESS REPORT (Previous Logic) -->
+                    <div class="summary-section" id="summarySection">
+                        <div class="summary-header">
+                            <span>📊</span> Progress Report
+                        </div>
+                        <div class="stats-grid">
+                            <div class="stat-box">
+                                <div class="stat-label">Total Lists</div>
+                                <div class="stat-val" id="statLists">0</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Lists Completed</div>
+                                <div class="stat-val" id="statCompleted">0</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Avg. Score</div>
+                                <div class="stat-val" id="statAvg">0</div>
+                            </div>
+                        </div>
+                        <div style="font-size: 11px; color: #718096; margin-bottom: 5px; font-weight: 700;">RECENT SCORES</div>
+                        <div class="trend-bar-container" id="trendContainer">
+                            <!-- Bars injected via JS -->
+                            <div style="font-size: 12px; color: #aaa; width: 100%; text-align: center; padding-top: 15px;">Play a game to see trends!</div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h2 id="currentCategoryTitle" style="color: white; font-size: 24px; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">All Lists</h2>
+                        <button class="btn btn-secondary" onclick="app.showCreateList()">+ New List</button>
+                    </div>
+
+                    <div id="listsContainer" class="list-grid">
+                        <!-- Lists injected here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRACTICE SCREEN -->
+        <div id="practiceScreen" class="screen">
+            <div class="game-container">
+                <button class="btn btn-secondary" style="margin-bottom: 20px;" onclick="app.backHome()">← Back Home</button>
+                
+                <div class="card-panel">
+                    <div class="top-bar">
+                        <div class="pill-container">
+                            <div class="progress-pill">
+                                <span>📝</span>
+                                <span id="progressText">1 / 10</span>
+                            </div>
+                            <div class="progress-pill timer-pill">
+                                <span>⏱️</span>
+                                <span id="timerText">0:00</span>
+                            </div>
+                            <div class="progress-pill" style="background: #ebf8ff; color: #2b6cb0;">
+                                <span>🎓</span>
+                                <span id="levelText">Level 1</span>
+                            </div>
+                        </div>
+                        <div class="progress-pill score-pill">
+                            <span>⭐</span>
+                            <span id="scoreText">100</span>
+                        </div>
+                    </div>
+
+                    <div class="hint-section">
+                        <div class="hint-text" id="hintText">Question Hint</div>
+                        <button class="speak-btn" onclick="app.speakWord()" title="Listen">🔊</button>
+                    </div>
+
+                    <div class="word-display-container" id="wordDisplay">
+                        <!-- Word blocks go here -->
+                    </div>
+
+                    <div id="feedbackArea" style="height: 20px; text-align: center; color: #e53e3e; font-weight: 700; margin-bottom: 10px;"></div>
+
+                    <div class="keyboard-grid" id="keyboard">
+                        <!-- Buttons go here -->
+                    </div>
+                    <div style="text-align: center; margin-top: 10px; font-size: 12px; color: #a0aec0;">
+                        (You can also use your physical keyboard)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESULTS SCREEN -->
+        <div id="resultsScreen" class="screen">
+            <div class="game-container">
+                <div class="card-panel results-panel">
+                    <h2 style="color: #4a5568; margin-bottom: 20px;">Lesson Complete!</h2>
+                    
+                    <div class="stars-container" id="finalStars">⭐⭐⭐</div>
+                    <div class="big-score" id="finalScoreDisplay">100</div>
+                    <p style="color: #718096; margin-bottom: 30px; font-weight: 600;">POINTS</p>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; text-align: left;">
+                        <div style="background: #f7fafc; padding: 15px; border-radius: 12px;">
+                            <div style="font-size: 12px; color: #718096; text-transform: uppercase;">Correct Words</div>
+                            <div style="font-size: 20px; font-weight: 700; color: #2d3748;" id="finalCorrect">10/10</div>
+                        </div>
+                        <div style="background: #f7fafc; padding: 15px; border-radius: 12px;">
+                            <div style="font-size: 12px; color: #718096; text-transform: uppercase;">Time Taken</div>
+                            <div style="font-size: 20px; font-weight: 700; color: #667eea;" id="finalTimeDisplay">0:00</div>
+                        </div>
+                    </div>
+
+                    <!-- RECAP SECTION -->
+                    <div id="recapSection" class="recap-section">
+                        <div class="recap-title">Review Mistakes</div>
+                        <div class="recap-list" id="recapList">
+                            <!-- Mistakes injected here -->
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button class="btn btn-secondary" style="flex: 1;" onclick="app.backHome()">Menu</button>
+                        <button id="retryBtn" class="btn btn-primary" style="flex: 1;" onclick="app.retryList()">Play Again</button>
+                    </div>
+                    <!-- New Retry Mistakes Button -->
+                    <div id="retryMistakesContainer" style="margin-top: 10px; display: none;">
+                         <button class="btn btn-warning" style="width: 100%;" onclick="app.startMistakesSession()">⚠️ Retry Mistakes Only</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- WORD COMPLETION OVERLAY -->
+    <div id="overlayCompletion" class="modal-overlay">
+        <div class="completion-modal">
+            <div class="completion-word" id="compWord">APPLE</div>
+            <div class="completion-hint" id="compHint">蘋果</div>
+        </div>
+    </div>
+
+    <!-- MODALS -->
+    
+    <!-- LEVEL SELECTION MODAL (Previous Logic) -->
+    <div id="modalDifficulty" class="modal-overlay">
+        <div class="modal-box">
+            <h3 style="margin-bottom: 15px; text-align: center;">Select Difficulty</h3>
+            <div class="diff-grid">
+                <div class="diff-card" onclick="app.confirmStart(1)">
+                    <div class="diff-title">Level 1: Beginner</div>
+                    <div class="diff-desc">Fills 70% of letters. Focus on vowels. 4 Choices.</div>
+                </div>
+                <div class="diff-card" onclick="app.confirmStart(2)">
+                    <div class="diff-title">Level 2: Intermediate</div>
+                    <div class="diff-desc">Fills 20% of letters. 4 Choices.</div>
+                </div>
+                <div class="diff-card" onclick="app.confirmStart(3)">
+                    <div class="diff-title">Level 3: Standard</div>
+                    <div class="diff-desc">Fill 100%. 6 Choices. (Default)</div>
+                </div>
+                <div class="diff-card" onclick="app.confirmStart(4)">
+                    <div class="diff-title">Level 4: Expert</div>
+                    <div class="diff-desc">No Hint Text (Audio Only). Full Keyboard.</div>
+                </div>
+            </div>
+            <button class="btn btn-secondary" style="width: 100%" onclick="app.closeModals()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- DATA MANAGEMENT MODAL (Added Feature) -->
+    <div id="modalData" class="modal-overlay">
+        <div class="modal-box">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                <h3>Manage Data</h3>
+                <button class="btn-icon" style="background:none; font-size:20px;" onclick="app.closeModals()">✕</button>
+            </div>
+            
+            <div class="tabs">
+                <button class="tab-btn active" onclick="app.switchTab('tabTextImport', this)">Smart Import</button>
+                <button class="tab-btn" onclick="app.switchTab('tabExport', this)">Share / Backup</button>
+                <button class="tab-btn" onclick="app.switchTab('tabImport', this)">Restore JSON</button>
+            </div>
+
+            <!-- TAB 1: SMART TEXT IMPORT -->
+            <div id="tabTextImport" class="tab-content active">
+                <div class="help-box">
+                    <strong>Instructions:</strong> Use <b>#</b> for Category and <b>##</b> for List Name.<br/>
+                    Example:<br/>
+                    <code># Animals</code><br/>
+                    <code>## Farm</code><br/>
+                    <code>Cow, 牛</code><br/>
+                    <code>## Jungle</code><br/>
+                    <code>Lion, 獅子</code>
+                </div>
+                <textarea id="bulkTextInput" class="form-input" style="height: 150px;" placeholder="# My Category&#10;## My List&#10;Apple, 蘋果&#10;Banana, 香蕉"></textarea>
+                <button class="btn btn-primary" style="width: 100%" onclick="app.processBulkImport()">Import Text</button>
+            </div>
+
+            <!-- TAB 2: EXPORT -->
+            <div id="tabExport" class="tab-content">
+                <p style="margin-bottom: 10px; font-size: 14px; color: #666;">Copy this code to share your lists with another device.</p>
+                <textarea id="exportJsonOutput" class="code-view" readonly></textarea>
+                <button class="btn btn-primary" style="width: 100%" onclick="app.copyExportData()">Copy to Clipboard</button>
+            </div>
+
+            <!-- TAB 3: IMPORT JSON -->
+            <div id="tabImport" class="tab-content">
+                <p style="margin-bottom: 10px; font-size: 14px; color: #666;">Paste the code from another device here.</p>
+                <textarea id="importJsonInput" class="code-view" placeholder='Paste code here...'></textarea>
+                <button class="btn btn-warning" style="width: 100%" onclick="app.processJsonImport()">Restore / Merge Data</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalAddCategory" class="modal-overlay">
+        <div class="modal-box">
+            <h3 style="margin-bottom: 20px;">Add New Category</h3>
+            <form onsubmit="app.handleCreateCategory(event)">
+                <label class="form-label">Category Name</label>
+                <input type="text" id="inputCatName" class="form-input" placeholder="e.g. My Custom Words" required>
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" class="btn btn-secondary" style="flex:1" onclick="app.closeModals()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" style="flex:1">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="modalAddList" class="modal-overlay">
+        <div class="modal-box">
+            <h3 style="margin-bottom: 20px;">Create New List</h3>
+            <form onsubmit="app.handleCreateList(event)">
+                <label class="form-label">List Name</label>
+                <input type="text" id="inputListName" class="form-input" placeholder="e.g. Lesson 1" required>
+                
+                <label class="form-label">Category</label>
+                <select id="inputListCategory" class="form-input" required></select>
+                
+                <label class="form-label">Words (English, Hint/Chinese)</label>
+                <textarea id="inputListWords" class="form-input" placeholder="apple, 蘋果&#10;banana, 香蕉" required></textarea>
+                
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" class="btn btn-secondary" style="flex:1" onclick="app.closeModals()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" style="flex:1">Save List</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // --- CONFETTI ENGINE ---
+        const confetti = {
+            canvas: document.getElementById('confetti-canvas'),
+            ctx: document.getElementById('confetti-canvas').getContext('2d'),
+            particles: [],
+            isActive: false,
+            init() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+                window.addEventListener('resize', () => {
+                    this.canvas.width = window.innerWidth;
+                    this.canvas.height = window.innerHeight;
+                });
+            },
+            fire() {
+                this.isActive = true;
+                this.particles = [];
+                for(let i=0; i<100; i++) {
+                    this.particles.push({
+                        x: window.innerWidth / 2,
+                        y: window.innerHeight / 2,
+                        vx: (Math.random() - 0.5) * 20,
+                        vy: (Math.random() - 0.5) * 20,
+                        color: `hsl(${Math.random()*360}, 100%, 50%)`,
+                        life: 100
+                    });
+                }
+                this.animate();
+            },
+            animate() {
+                if (!this.isActive) return;
+                this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height);
+                let activeCount = 0;
+                this.particles.forEach(p => {
+                    if(p.life > 0) {
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        p.vy += 0.5; // gravity
+                        p.life--;
+                        this.ctx.fillStyle = p.color;
+                        this.ctx.fillRect(p.x, p.y, 8, 8);
+                        activeCount++;
+                    }
+                });
+                if(activeCount > 0) requestAnimationFrame(() => this.animate());
+                else this.isActive = false;
+            }
+        };
+        confetti.init();
+
+ // --- DATA ---
+const P1_CURRICULUM = {
+  "Week 1": {
+    "words": [
+      [
+        "cat",
+        "貓"
+      ],
+      [
+        "dog",
+        "狗"
+      ],
+      [
+        "bird",
+        "鳥"
+      ],
+      [
+        "fish",
+        "魚"
+      ],
+      [
+        "mouse",
+        "鼠"
+      ],
+      [
+        "rabbit",
+        "兔"
+      ],
+      [
+        "pig",
+        "豬"
+      ],
+      [
+        "cow",
+        "牛"
+      ],
+      [
+        "sheep",
+        "綿羊"
+      ],
+      [
+        "horse",
+        "馬"
+      ]
+    ]
+  },
+  "Week 2": {
+    "words": [
+      [
+        "apple",
+        "蘋果"
+      ],
+      [
+        "banana",
+        "香蕉"
+      ],
+      [
+        "orange",
+        "橙"
+      ],
+      [
+        "grape",
+        "葡萄"
+      ],
+      [
+        "mango",
+        "芒果"
+      ],
+      [
+        "pear",
+        "梨"
+      ],
+      [
+        "plum",
+        "梅"
+      ],
+      [
+        "peach",
+        "桃"
+      ],
+      [
+        "melon",
+        "瓜"
+      ],
+      [
+        "lemon",
+        "檸檬"
+      ]
+    ]
+  },
+  "Week 3": {
+    "words": [
+      [
+        "red",
+        "紅"
+      ],
+      [
+        "blue",
+        "藍"
+      ],
+      [
+        "green",
+        "綠"
+      ],
+      [
+        "yellow",
+        "黃"
+      ],
+      [
+        "white",
+        "白"
+      ],
+      [
+        "black",
+        "黑"
+      ],
+      [
+        "pink",
+        "粉紅"
+      ],
+      [
+        "purple",
+        "紫"
+      ],
+      [
+        "brown",
+        "啡"
+      ],
+      [
+        "orange",
+        "橙"
+      ]
+    ]
+  },
+  "Week 4": {
+    "words": [
+      [
+        "sun",
+        "太陽"
+      ],
+      [
+        "moon",
+        "月亮"
+      ],
+      [
+        "star",
+        "星星"
+      ],
+      [
+        "cloud",
+        "雲"
+      ],
+      [
+        "rain",
+        "下雨"
+      ],
+      [
+        "snow",
+        "雪"
+      ],
+      [
+        "wind",
+        "風"
+      ],
+      [
+        "storm",
+        "暴風"
+      ],
+      [
+        "hot",
+        "熱"
+      ],
+      [
+        "cold",
+        "冷"
+      ]
+    ]
+  },
+  "Week 5": {
+    "words": [
+      [
+        "book",
+        "書"
+      ],
+      [
+        "pen",
+        "筆"
+      ],
+      [
+        "desk",
+        "書枱"
+      ],
+      [
+        "chair",
+        "椅子"
+      ],
+      [
+        "teacher",
+        "老師"
+      ],
+      [
+        "student",
+        "學生"
+      ],
+      [
+        "class",
+        "班級"
+      ],
+      [
+        "school",
+        "學校"
+      ],
+      [
+        "bell",
+        "鐘"
+      ],
+      [
+        "paper",
+        "紙"
+      ]
+    ]
+  },
+  "Week 6": {
+    "words": [
+      [
+        "head",
+        "頭"
+      ],
+      [
+        "hair",
+        "頭髮"
+      ],
+      [
+        "face",
+        "臉"
+      ],
+      [
+        "eye",
+        "眼睛"
+      ],
+      [
+        "nose",
+        "鼻子"
+      ],
+      [
+        "mouth",
+        "嘴巴"
+      ],
+      [
+        "ear",
+        "耳朵"
+      ],
+      [
+        "hand",
+        "手"
+      ],
+      [
+        "leg",
+        "腿"
+      ],
+      [
+        "foot",
+        "腳"
+      ]
+    ]
+  },
+  "Week 7": {
+    "words": [
+      [
+        "shirt",
+        "襯衫"
+      ],
+      [
+        "pants",
+        "褲子"
+      ],
+      [
+        "dress",
+        "連衣裙"
+      ],
+      [
+        "skirt",
+        "裙子"
+      ],
+      [
+        "shoes",
+        "鞋"
+      ],
+      [
+        "socks",
+        "襪子"
+      ],
+      [
+        "hat",
+        "帽子"
+      ],
+      [
+        "jacket",
+        "夾克"
+      ],
+      [
+        "coat",
+        "外套"
+      ],
+      [
+        "tie",
+        "領帶"
+      ]
+    ]
+  },
+  "Week 8": {
+    "words": [
+      [
+        "one",
+        "一"
+      ],
+      [
+        "two",
+        "二"
+      ],
+      [
+        "three",
+        "三"
+      ],
+      [
+        "four",
+        "四"
+      ],
+      [
+        "five",
+        "五"
+      ],
+      [
+        "six",
+        "六"
+      ],
+      [
+        "seven",
+        "七"
+      ],
+      [
+        "eight",
+        "八"
+      ],
+      [
+        "nine",
+        "九"
+      ],
+      [
+        "ten",
+        "十"
+      ]
+    ]
+  },
+  "Week 9": {
+    "words": [
+      [
+        "run",
+        "跑"
+      ],
+      [
+        "walk",
+        "走"
+      ],
+      [
+        "jump",
+        "跳"
+      ],
+      [
+        "sit",
+        "坐"
+      ],
+      [
+        "stand",
+        "站"
+      ],
+      [
+        "eat",
+        "吃"
+      ],
+      [
+        "drink",
+        "喝"
+      ],
+      [
+        "sleep",
+        "睡覺"
+      ],
+      [
+        "play",
+        "玩"
+      ],
+      [
+        "listen",
+        "聽"
+      ]
+    ]
+  },
+  "Week 10": {
+    "words": [
+      [
+        "read",
+        "讀"
+      ],
+      [
+        "write",
+        "寫"
+      ],
+      [
+        "draw",
+        "畫"
+      ],
+      [
+        "sing",
+        "唱"
+      ],
+      [
+        "dance",
+        "跳舞"
+      ],
+      [
+        "swim",
+        "游泳"
+      ],
+      [
+        "laugh",
+        "笑"
+      ],
+      [
+        "cry",
+        "哭"
+      ],
+      [
+        "smile",
+        "微笑"
+      ],
+      [
+        "clap",
+        "拍手"
+      ]
+    ]
+  },
+  "Week 11": {
+    "words": [
+      [
+        "father",
+        "父親"
+      ],
+      [
+        "mother",
+        "母親"
+      ],
+      [
+        "brother",
+        "兄弟"
+      ],
+      [
+        "sister",
+        "姐妹"
+      ],
+      [
+        "grandfather",
+        "祖父"
+      ],
+      [
+        "grandmother",
+        "祖母"
+      ],
+      [
+        "uncle",
+        "叔叔"
+      ],
+      [
+        "aunt",
+        "姨媽"
+      ],
+      [
+        "baby",
+        "嬰兒"
+      ],
+      [
+        "family",
+        "家庭"
+      ]
+    ]
+  },
+  "Week 12": {
+    "words": [
+      [
+        "home",
+        "家"
+      ],
+      [
+        "house",
+        "房子"
+      ],
+      [
+        "room",
+        "房間"
+      ],
+      [
+        "bedroom",
+        "臥室"
+      ],
+      [
+        "kitchen",
+        "廚房"
+      ],
+      [
+        "bathroom",
+        "浴室"
+      ],
+      [
+        "living room",
+        "客廳"
+      ],
+      [
+        "door",
+        "門"
+      ],
+      [
+        "window",
+        "窗戶"
+      ],
+      [
+        "bed",
+        "床"
+      ]
+    ]
+  },
+  "Week 13": {
+    "words": [
+      [
+        "doll",
+        "洋娃娃"
+      ],
+      [
+        "ball",
+        "球"
+      ],
+      [
+        "teddy bear",
+        "泰迪熊"
+      ],
+      [
+        "blocks",
+        "積木"
+      ],
+      [
+        "puzzle",
+        "拼圖"
+      ],
+      [
+        "toy car",
+        "玩具車"
+      ],
+      [
+        "train",
+        "火車"
+      ],
+      [
+        "plane",
+        "飛機"
+      ],
+      [
+        "kite",
+        "風箏"
+      ],
+      [
+        "skateboard",
+        "滑板"
+      ]
+    ]
+  },
+  "Week 14": {
+    "words": [
+      [
+        "big",
+        "大"
+      ],
+      [
+        "small",
+        "小"
+      ],
+      [
+        "tall",
+        "高"
+      ],
+      [
+        "short",
+        "矮"
+      ],
+      [
+        "long",
+        "長"
+      ],
+      [
+        "fat",
+        "胖"
+      ],
+      [
+        "thin",
+        "瘦"
+      ],
+      [
+        "happy",
+        "快樂"
+      ],
+      [
+        "sad",
+        "傷心"
+      ],
+      [
+        "angry",
+        "生氣"
+      ]
+    ]
+  },
+  "Week 15": {
+    "words": [
+      [
+        "good",
+        "好"
+      ],
+      [
+        "bad",
+        "壞"
+      ],
+      [
+        "new",
+        "新"
+      ],
+      [
+        "old",
+        "舊"
+      ],
+      [
+        "young",
+        "年輕"
+      ],
+      [
+        "beautiful",
+        "美麗"
+      ],
+      [
+        "ugly",
+        "醜"
+      ],
+      [
+        "clean",
+        "乾淨"
+      ],
+      [
+        "dirty",
+        "骯髒"
+      ],
+      [
+        "fast",
+        "快"
+      ]
+    ]
+  },
+  "Week 16": {
+    "words": [
+      [
+        "slow",
+        "慢"
+      ],
+      [
+        "in",
+        "在...裡"
+      ],
+      [
+        "on",
+        "在...上"
+      ],
+      [
+        "under",
+        "在...下"
+      ],
+      [
+        "behind",
+        "在...後"
+      ],
+      [
+        "in front of",
+        "在...前"
+      ],
+      [
+        "beside",
+        "在...旁"
+      ],
+      [
+        "between",
+        "在...之間"
+      ],
+      [
+        "near",
+        "靠近"
+      ],
+      [
+        "here",
+        "這裡"
+      ]
+    ]
+  },
+  "Week 17": {
+    "words": [
+      [
+        "there",
+        "那裡"
+      ],
+      [
+        "what",
+        "什麼"
+      ],
+      [
+        "who",
+        "誰"
+      ],
+      [
+        "where",
+        "哪裡"
+      ],
+      [
+        "when",
+        "什麼時候"
+      ],
+      [
+        "why",
+        "為什麼"
+      ],
+      [
+        "how",
+        "怎麼樣"
+      ],
+      [
+        "which",
+        "哪一個"
+      ],
+      [
+        "yes",
+        "是"
+      ],
+      [
+        "no",
+        "否"
+      ]
+    ]
+  },
+  "Week 18": {
+    "words": [
+      [
+        "swimming",
+        "游泳"
+      ],
+      [
+        "reading",
+        "閱讀"
+      ],
+      [
+        "drawing",
+        "畫畫"
+      ],
+      [
+        "singing",
+        "唱歌"
+      ],
+      [
+        "cycling",
+        "騎自行車"
+      ],
+      [
+        "skating",
+        "溜冰"
+      ],
+      [
+        "painting",
+        "繪畫"
+      ],
+      [
+        "cooking",
+        "烹飪"
+      ],
+      [
+        "fishing",
+        "釣魚"
+      ],
+      [
+        "camping",
+        "露營"
+      ]
+    ]
+  },
+  "Week 19": {
+    "words": [
+      [
+        "January",
+        "一月"
+      ],
+      [
+        "February",
+        "二月"
+      ],
+      [
+        "March",
+        "三月"
+      ],
+      [
+        "April",
+        "四月"
+      ],
+      [
+        "May",
+        "五月"
+      ],
+      [
+        "June",
+        "六月"
+      ],
+      [
+        "July",
+        "七月"
+      ],
+      [
+        "August",
+        "八月"
+      ],
+      [
+        "September",
+        "九月"
+      ],
+      [
+        "October",
+        "十月"
+      ]
+    ]
+  },
+  "Week 20": {
+    "words": [
+      [
+        "November",
+        "十一月"
+      ],
+      [
+        "December",
+        "十二月"
+      ],
+      [
+        "slide",
+        "滑梯"
+      ],
+      [
+        "swing",
+        "鞦韆"
+      ],
+      [
+        "seesaw",
+        "蹺蹺板"
+      ],
+      [
+        "bench",
+        "長凳"
+      ],
+      [
+        "tree",
+        "樹"
+      ],
+      [
+        "flower",
+        "花"
+      ],
+      [
+        "grass",
+        "草"
+      ],
+      [
+        "playground",
+        "遊樂場"
+      ]
+    ]
+  },
+  "Week 21": {
+    "words": [
+      [
+        "bread",
+        "麵包"
+      ],
+      [
+        "rice",
+        "米飯"
+      ],
+      [
+        "noodles",
+        "麵條"
+      ],
+      [
+        "egg",
+        "雞蛋"
+      ],
+      [
+        "chicken",
+        "雞肉"
+      ],
+      [
+        "fish",
+        "魚肉"
+      ],
+      [
+        "vegetables",
+        "蔬菜"
+      ],
+      [
+        "carrot",
+        "胡蘿蔔"
+      ],
+      [
+        "tomato",
+        "番茄"
+      ],
+      [
+        "potato",
+        "馬鈴薯"
+      ]
+    ]
+  },
+  "Week 22": {
+    "words": [
+      [
+        "cake",
+        "蛋糕"
+      ],
+      [
+        "cookie",
+        "曲奇"
+      ],
+      [
+        "candy",
+        "糖果"
+      ],
+      [
+        "chocolate",
+        "巧克力"
+      ],
+      [
+        "ice cream",
+        "雪糕"
+      ],
+      [
+        "water",
+        "水"
+      ],
+      [
+        "milk",
+        "牛奶"
+      ],
+      [
+        "juice",
+        "果汁"
+      ],
+      [
+        "tea",
+        "茶"
+      ],
+      [
+        "coffee",
+        "咖啡"
+      ]
+    ]
+  },
+  "Week 23": {
+    "words": [
+      [
+        "strawberry",
+        "草莓"
+      ],
+      [
+        "watermelon",
+        "西瓜"
+      ],
+      [
+        "pineapple",
+        "菠蘿"
+      ],
+      [
+        "duck",
+        "鴨"
+      ],
+      [
+        "chicken",
+        "雞"
+      ],
+      [
+        "monkey",
+        "猴子"
+      ],
+      [
+        "elephant",
+        "大象"
+      ],
+      [
+        "lion",
+        "獅子"
+      ],
+      [
+        "tiger",
+        "老虎"
+      ],
+      [
+        "bear",
+        "熊"
+      ]
+    ]
+  },
+  "Week 24": {
+    "words": [
+      [
+        "panda",
+        "熊貓"
+      ],
+      [
+        "ant",
+        "螞蟻"
+      ],
+      [
+        "bee",
+        "蜜蜂"
+      ],
+      [
+        "butterfly",
+        "蝴蝶"
+      ],
+      [
+        "frog",
+        "青蛙"
+      ],
+      [
+        "spider",
+        "蜘蛛"
+      ],
+      [
+        "hamster",
+        "倉鼠"
+      ],
+      [
+        "turtle",
+        "烏龜"
+      ],
+      [
+        "rabbit",
+        "兔子"
+      ],
+      [
+        "goat",
+        "山羊"
+      ]
+    ]
+  },
+  "Week 25": {
+    "words": [
+      [
+        "pencil",
+        "鉛筆"
+      ],
+      [
+        "eraser",
+        "橡皮擦"
+      ],
+      [
+        "ruler",
+        "尺"
+      ],
+      [
+        "marker",
+        "麥克筆"
+      ],
+      [
+        "crayon",
+        "蠟筆"
+      ],
+      [
+        "notebook",
+        "筆記本"
+      ],
+      [
+        "pencil case",
+        "筆袋"
+      ],
+      [
+        "schoolbag",
+        "書包"
+      ],
+      [
+        "classroom",
+        "課室"
+      ],
+      [
+        "blackboard",
+        "黑板"
+      ]
+    ]
+  },
+  "Week 26": {
+    "words": [
+      [
+        "whiteboard",
+        "白板"
+      ],
+      [
+        "scissors",
+        "剪刀"
+      ],
+      [
+        "glue",
+        "膠水"
+      ],
+      [
+        "tape",
+        "膠帶"
+      ],
+      [
+        "table",
+        "桌子"
+      ],
+      [
+        "sofa",
+        "沙發"
+      ],
+      [
+        "TV",
+        "電視"
+      ],
+      [
+        "fridge",
+        "雪櫃"
+      ],
+      [
+        "lamp",
+        "燈"
+      ],
+      [
+        "clock",
+        "時鐘"
+      ]
+    ]
+  },
+  "Week 27": {
+    "words": [
+      [
+        "mirror",
+        "鏡子"
+      ],
+      [
+        "pillow",
+        "枕頭"
+      ],
+      [
+        "blanket",
+        "毛毯"
+      ],
+      [
+        "towel",
+        "毛巾"
+      ],
+      [
+        "soap",
+        "肥皂"
+      ],
+      [
+        "toothbrush",
+        "牙刷"
+      ],
+      [
+        "toothpaste",
+        "牙膏"
+      ],
+      [
+        "comb",
+        "梳子"
+      ],
+      [
+        "hairbrush",
+        "髮刷"
+      ],
+      [
+        "shampoo",
+        "洗髮水"
+      ]
+    ]
+  },
+  "Week 28": {
+    "words": [
+      [
+        "tooth",
+        "牙齒"
+      ],
+      [
+        "teeth",
+        "牙齒(複數)"
+      ],
+      [
+        "neck",
+        "脖子"
+      ],
+      [
+        "shoulder",
+        "肩膀"
+      ],
+      [
+        "arm",
+        "手臂"
+      ],
+      [
+        "finger",
+        "手指"
+      ],
+      [
+        "thumb",
+        "拇指"
+      ],
+      [
+        "knee",
+        "膝蓋"
+      ],
+      [
+        "feet",
+        "腳(複數)"
+      ],
+      [
+        "toe",
+        "腳趾"
+      ]
+    ]
+  },
+  "Week 29": {
+    "words": [
+      [
+        "chest",
+        "胸"
+      ],
+      [
+        "back",
+        "背"
+      ],
+      [
+        "stomach",
+        "肚子"
+      ],
+      [
+        "sweater",
+        "毛衣"
+      ],
+      [
+        "scarf",
+        "圍巾"
+      ],
+      [
+        "gloves",
+        "手套"
+      ],
+      [
+        "belt",
+        "腰帶"
+      ],
+      [
+        "uniform",
+        "制服"
+      ],
+      [
+        "slippers",
+        "拖鞋"
+      ],
+      [
+        "T-shirt",
+        "T恤"
+      ]
+    ]
+  },
+  "Week 30": {
+    "words": [
+      [
+        "jeans",
+        "牛仔褲"
+      ],
+      [
+        "shorts",
+        "短褲"
+      ],
+      [
+        "cap",
+        "鴨舌帽"
+      ],
+      [
+        "eleven",
+        "十一"
+      ],
+      [
+        "twelve",
+        "十二"
+      ],
+      [
+        "thirteen",
+        "十三"
+      ],
+      [
+        "fourteen",
+        "十四"
+      ],
+      [
+        "fifteen",
+        "十五"
+      ],
+      [
+        "sixteen",
+        "十六"
+      ],
+      [
+        "seventeen",
+        "十七"
+      ]
+    ]
+  },
+  "Week 31": {
+    "words": [
+      [
+        "eighteen",
+        "十八"
+      ],
+      [
+        "nineteen",
+        "十九"
+      ],
+      [
+        "twenty",
+        "二十"
+      ],
+      [
+        "wave",
+        "揮手"
+      ],
+      [
+        "open",
+        "打開"
+      ],
+      [
+        "close",
+        "關閉"
+      ],
+      [
+        "speak",
+        "說"
+      ],
+      [
+        "talk",
+        "談話"
+      ],
+      [
+        "look",
+        "看"
+      ],
+      [
+        "sky",
+        "天空"
+      ]
+    ]
+  },
+  "Week 32": {
+    "words": [
+      [
+        "sunny",
+        "晴天"
+      ],
+      [
+        "cloudy",
+        "多雲"
+      ],
+      [
+        "rainy",
+        "下雨"
+      ],
+      [
+        "windy",
+        "有風"
+      ],
+      [
+        "warm",
+        "暖和"
+      ],
+      [
+        "cool",
+        "涼爽"
+      ],
+      [
+        "rainbow",
+        "彩虹"
+      ],
+      [
+        "thunder",
+        "打雷"
+      ],
+      [
+        "lightning",
+        "閃電"
+      ],
+      [
+        "fog",
+        "霧"
+      ]
+    ]
+  },
+  "Week 33": {
+    "words": [
+      [
+        "path",
+        "小路"
+      ],
+      [
+        "pond",
+        "池塘"
+      ],
+      [
+        "sandbox",
+        "沙池"
+      ],
+      [
+        "monkey bars",
+        "攀爬架"
+      ],
+      [
+        "boxing",
+        "拳擊"
+      ],
+      [
+        "hiking",
+        "遠足"
+      ],
+      [
+        "row boat",
+        "划船"
+      ],
+      [
+        "sailboat",
+        "帆船"
+      ],
+      [
+        "skateboard",
+        "滑板"
+      ],
+      [
+        "scooter",
+        "滑板車"
+      ]
+    ]
+  },
+  "Week 34": {
+    "words": [
+      [
+        "gold",
+        "金色"
+      ],
+      [
+        "silver",
+        "銀色"
+      ],
+      [
+        "grey",
+        "灰色"
+      ],
+      [
+        "strawberry",
+        "草莓"
+      ],
+      [
+        "blueberry",
+        "藍莓"
+      ],
+      [
+        "raspberry",
+        "樹莓"
+      ],
+      [
+        "blackberry",
+        "黑莓"
+      ],
+      [
+        "cherry",
+        "櫻桃"
+      ],
+      [
+        "coconut",
+        "椰子"
+      ],
+      [
+        "papaya",
+        "木瓜"
+      ]
+    ]
+  },
+  "Week 35": {
+    "words": [
+      [
+        "guava",
+        "番石榴"
+      ],
+      [
+        "kiwi",
+        "奇異果"
+      ],
+      [
+        "persimmon",
+        "柿子"
+      ],
+      [
+        "pomegranate",
+        "石榴"
+      ],
+      [
+        "fig",
+        "無花果"
+      ],
+      [
+        "avocado",
+        "牛油果"
+      ],
+      [
+        "olive",
+        "橄欖"
+      ],
+      [
+        "walnut",
+        "核桃"
+      ],
+      [
+        "almond",
+        "杏仁"
+      ],
+      [
+        "peanut",
+        "花生"
+      ]
+    ]
+  },
+  "Week 36": {
+    "words": [
+      [
+        "cheese",
+        "芝士"
+      ],
+      [
+        "butter",
+        "黃油"
+      ],
+      [
+        "yogurt",
+        "酸奶"
+      ],
+      [
+        "honey",
+        "蜂蜜"
+      ],
+      [
+        "jam",
+        "果醬"
+      ],
+      [
+        "peanut butter",
+        "花生醬"
+      ],
+      [
+        "oil",
+        "油"
+      ],
+      [
+        "salt",
+        "鹽"
+      ],
+      [
+        "sugar",
+        "糖"
+      ],
+      [
+        "spice",
+        "香料"
+      ]
+    ]
+  },
+  "Week 37": {
+    "words": [
+      [
+        "fork",
+        "叉子"
+      ],
+      [
+        "spoon",
+        "勺子"
+      ],
+      [
+        "knife",
+        "刀"
+      ],
+      [
+        "plate",
+        "盤子"
+      ],
+      [
+        "bowl",
+        "碗"
+      ],
+      [
+        "cup",
+        "杯子"
+      ],
+      [
+        "glass",
+        "玻璃杯"
+      ],
+      [
+        "bottle",
+        "瓶子"
+      ],
+      [
+        "napkin",
+        "餐巾"
+      ],
+      [
+        "tablecloth",
+        "桌布"
+      ]
+    ]
+  },
+  "Week 38": {
+    "words": [
+      [
+        "garden",
+        "花園"
+      ],
+      [
+        "plant",
+        "植物"
+      ],
+      [
+        "leaf",
+        "葉子"
+      ],
+      [
+        "stem",
+        "莖"
+      ],
+      [
+        "root",
+        "根"
+      ],
+      [
+        "seed",
+        "種子"
+      ],
+      [
+        "flower",
+        "花"
+      ],
+      [
+        "bush",
+        "灌木"
+      ],
+      [
+        "cactus",
+        "仙人掌"
+      ],
+      [
+        "bamboo",
+        "竹子"
+      ]
+    ]
+  },
+  "Week 39": {
+    "words": [
+      [
+        "sunrise",
+        "日出"
+      ],
+      [
+        "sunset",
+        "日落"
+      ],
+      [
+        "dawn",
+        "黎明"
+      ],
+      [
+        "dusk",
+        "黃昏"
+      ],
+      [
+        "midnight",
+        "午夜"
+      ],
+      [
+        "afternoon",
+        "下午"
+      ],
+      [
+        "morning",
+        "早上"
+      ],
+      [
+        "evening",
+        "晚上"
+      ],
+      [
+        "night",
+        "晚上"
+      ],
+      [
+        "day",
+        "白天"
+      ]
+    ]
+  },
+  "Week 40": {
+    "words": [
+      [
+        "autumn",
+        "秋天"
+      ],
+      [
+        "summer",
+        "夏天"
+      ],
+      [
+        "spring",
+        "春天"
+      ],
+      [
+        "winter",
+        "冬天"
+      ],
+      [
+        "season",
+        "季節"
+      ],
+      [
+        "weather",
+        "天氣"
+      ],
+      [
+        "climate",
+        "氣候"
+      ],
+      [
+        "temperature",
+        "溫度"
+      ],
+      [
+        "degree",
+        "度數"
+      ],
+      [
+        "forecast",
+        "預報"
+      ]
+    ]
+  }
+};
+
+
+        const app = {
+            // State
+            wordLists: [],
+            records: [], // { date, score, listId }
+            customCategories: [],
+            selectedCategory: 'all',
+            
+            // Game State
+            activeList: null,
+            currentWordIdx: 0,
+            currentWord: null,
+            targetString: null, // No spaces version for logic
+            charIndex: 0,
+            preFilledIndices: new Set(),
+            score: 100,
+            errors: 0,
+            currentDifficulty: 3, // Default Level 3
+            
+            // Stats Tracking
+            sessionStartTime: 0,
+            timerInterval: null,
+            currentWordErrors: new Set(), // Set of indices where errors occurred for current word
+            sessionMistakes: [], // Array of { word, hint, errorIndices }
+            isRetryMode: false,
+            
+            init() {
+                this.loadData();
+                this.renderHome();
+                this.renderSummary(); // Render Report
+                
+                // Global Keyboard Listener (Preserved from preferred version)
+                window.addEventListener('keydown', (e) => {
+                    if (document.getElementById('practiceScreen').classList.contains('active')) {
+                        const key = e.key.toLowerCase();
+                        if (/^[a-z]$/.test(key)) {
+                            const btns = document.querySelectorAll('.key-btn');
+                            let matchedBtn = null;
+                            btns.forEach(b => {
+                                if (b.textContent === key && !b.disabled) matchedBtn = b;
+                            });
+
+                            if (this.currentDifficulty === 4) {
+                                // For Level 4, simulate click or find button
+                                if (matchedBtn) matchedBtn.click();
+                            } else {
+                                // For L1-L3, only accept if it's one of the options on screen
+                                if (matchedBtn) matchedBtn.click();
+                            }
+                        }
+                    }
+                });
+            },
+
+            loadData() {
+                // 1. Categories
+                const savedCats = localStorage.getItem('customCategories');
+                this.customCategories = savedCats ? JSON.parse(savedCats) : ['P1 Hong Kong'];
+
+                // 2. Records (for report)
+                const savedRecs = localStorage.getItem('records');
+                this.records = savedRecs ? JSON.parse(savedRecs) : [];
+
+                // 3. Lists
+                const savedLists = localStorage.getItem('wordLists');
+                let userLists = [];
+                if (savedLists) {
+                    try {
+                        userLists = JSON.parse(savedLists).filter(l => l.category !== 'P1 Hong Kong');
+                    } catch(e) {}
+                }
+
+                // 4. Defaults
+                const defaultLists = [];
+                for (const [week, data] of Object.entries(P1_CURRICULUM)) {
+                    defaultLists.push({
+                        id: 'def_' + week.replace(/\s/g, ''),
+                        name: week,
+                        category: "P1 Hong Kong",
+                        words: data.words.map(w => ({ en: w[0], hint: w[1] }))
+                    });
+                }
+
+                this.wordLists = [...defaultLists, ...userLists];
+            },
+
+            saveData() {
+                const userLists = this.wordLists.filter(l => l.category !== 'P1 Hong Kong');
+                localStorage.setItem('wordLists', JSON.stringify(userLists));
+                localStorage.setItem('customCategories', JSON.stringify(this.customCategories));
+                localStorage.setItem('records', JSON.stringify(this.records));
+            },
+
+            // --- REPORT & SUMMARY (Preserved) ---
+            renderSummary() {
+                document.getElementById('statLists').textContent = this.wordLists.length;
+                document.getElementById('statCompleted').textContent = this.records.length;
+
+                const avg = this.records.length > 0 
+                    ? Math.round(this.records.reduce((a,b) => a + b.score, 0) / this.records.length) 
+                    : 0;
+                document.getElementById('statAvg').textContent = avg;
+
+                const container = document.getElementById('trendContainer');
+                container.innerHTML = '';
+                const last5 = this.records.slice(-5);
+                
+                if (last5.length === 0) {
+                     container.innerHTML = '<div style="font-size: 12px; color: #aaa; width: 100%; text-align: center; padding-top: 15px;">Play a game to see trends!</div>';
+                } else {
+                    last5.forEach(rec => {
+                        const bar = document.createElement('div');
+                        bar.className = 'trend-bar';
+                        const h = Math.max(10, rec.score);
+                        bar.style.height = h + '%';
+                        bar.setAttribute('data-score', rec.score);
+                        if (rec.score >= 80) bar.classList.add('high');
+                        container.appendChild(bar);
+                    });
+                }
+            },
+
+            // --- NAVIGATION ---
+            renderHome() {
+                const catListEl = document.getElementById('categoriesList');
+                catListEl.innerHTML = '';
+
+                const allEl = document.createElement('div');
+                allEl.className = `category-item ${this.selectedCategory === 'all' ? 'active' : ''}`;
+                allEl.textContent = 'All Categories';
+                allEl.onclick = () => this.selectCategory('all');
+                catListEl.appendChild(allEl);
+
+                const usedCats = new Set(this.wordLists.map(l => l.category));
+                const allCats = new Set([...this.customCategories, ...usedCats]);
+
+                allCats.forEach(cat => {
+                    const el = document.createElement('div');
+                    el.className = `category-item ${this.selectedCategory === cat ? 'active' : ''}`;
+                    el.innerHTML = `<span>${cat}</span>`;
+                    el.onclick = () => this.selectCategory(cat);
+                    catListEl.appendChild(el);
+                });
+
+                document.getElementById('currentCategoryTitle').textContent = this.selectedCategory === 'all' ? 'All Lists' : this.selectedCategory;
+
+                const gridEl = document.getElementById('listsContainer');
+                gridEl.innerHTML = '';
+                
+                const filteredLists = this.selectedCategory === 'all' 
+                    ? this.wordLists 
+                    : this.wordLists.filter(l => l.category === this.selectedCategory);
+
+                if (filteredLists.length === 0) {
+                    gridEl.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: #888; padding: 40px;">No lists found. Create one!</div>`;
+                } else {
+                    filteredLists.forEach((list, idx) => {
+                        const globalIdx = this.wordLists.indexOf(list);
+                        const card = document.createElement('div');
+                        card.className = 'list-card';
+                        card.innerHTML = `
+                            <h3>${list.name}</h3>
+                            <div class="meta">${list.category} • ${list.words.length} words</div>
+                            <button class="btn btn-primary" onclick="app.startGame(${globalIdx})">Play</button>
+                        `;
+                        gridEl.appendChild(card);
+                    });
+                }
+            },
+
+            selectCategory(cat) {
+                this.selectedCategory = cat;
+                this.renderHome();
+            },
+
+            showScreen(id) {
+                document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+                document.getElementById(id).classList.add('active');
+            },
+
+            // --- GAME LOGIC (Restored Exactly) ---
+            startGame(listIdx) {
+                this.activeList = this.wordLists[listIdx];
+                this.isRetryMode = false;
+                document.getElementById('modalDifficulty').classList.add('active');
+            },
+            
+            confirmStart(level) {
+                this.currentDifficulty = level;
+                this.closeModals();
+                this.initGameSession();
+            },
+
+            startMistakesSession() {
+                if (this.sessionMistakes.length === 0) return;
+                const mistakeWords = this.sessionMistakes.map(m => ({ en: m.word, hint: m.hint }));
+                this.activeList = {
+                    id: 'temp_retry',
+                    name: 'Mistakes Review',
+                    words: mistakeWords
+                };
+                this.isRetryMode = true;
+                this.initGameSession();
+            },
+
+            initGameSession() {
+                this.currentWordIdx = 0;
+                this.score = 100;
+                this.errors = 0;
+                this.sessionMistakes = [];
+                
+                this.sessionStartTime = Date.now();
+                if (this.timerInterval) clearInterval(this.timerInterval);
+                this.timerInterval = setInterval(() => this.updateTimer(), 1000);
+                this.updateTimer();
+
+                const levels = ["", "Level 1", "Level 2", "Level 3", "Level 4"];
+                document.getElementById('levelText').textContent = levels[this.currentDifficulty] || "Level 3";
+
+                this.showScreen('practiceScreen');
+                this.loadQuestion();
+            },
+
+            updateTimer() {
+                const diff = Math.floor((Date.now() - this.sessionStartTime) / 1000);
+                const mins = Math.floor(diff / 60);
+                const secs = diff % 60;
+                document.getElementById('timerText').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+            },
+
+            loadQuestion() {
+                if (this.currentWordIdx >= this.activeList.words.length) {
+                    this.showResults();
+                    return;
+                }
+
+                const q = this.activeList.words[this.currentWordIdx];
+                this.currentWord = q.en.toLowerCase(); 
+                this.targetString = this.currentWord.replace(/\s+/g, '');
+                this.charIndex = 0; 
+                this.currentWordErrors = new Set();
+                this.preFilledIndices = new Set();
+
+                document.getElementById('progressText').textContent = `${this.currentWordIdx + 1} / ${this.activeList.words.length}`;
+                document.getElementById('scoreText').textContent = this.score;
+                
+                // Difficulty Specific UI
+                const hintEl = document.getElementById('hintText');
+                hintEl.textContent = q.hint;
+                if (this.currentDifficulty === 4) {
+                    hintEl.classList.add('hint-hidden');
+                } else {
+                    hintEl.classList.remove('hint-hidden');
+                }
+                
+                document.getElementById('feedbackArea').textContent = '';
+
+                // PRE-FILL LOGIC (Restored Level 1-4 logic)
+                const len = this.targetString.length;
+                let indices = Array.from({length: len}, (_, i) => i);
+                let holesNeeded = 0;
+
+                if (this.currentDifficulty === 1) {
+                    holesNeeded = Math.max(1, Math.round(len * 0.3));
+                    const vowelIndices = indices.filter(i => 'aeiou'.includes(this.targetString[i]));
+                    const constIndices = indices.filter(i => !'aeiou'.includes(this.targetString[i]));
+                    
+                    let holes = [];
+                    holes = [...vowelIndices]; 
+                    if (holes.length > holesNeeded) {
+                        holes = holes.sort(() => 0.5 - Math.random()).slice(0, holesNeeded);
+                    } else {
+                        const remaining = holesNeeded - holes.length;
+                        const extra = constIndices.sort(() => 0.5 - Math.random()).slice(0, remaining);
+                        holes = [...holes, ...extra];
+                    }
+                    
+                    const holesSet = new Set(holes);
+                    indices.forEach(i => {
+                        if (!holesSet.has(i)) this.preFilledIndices.add(i);
+                    });
+
+                } else if (this.currentDifficulty === 2) {
+                    holesNeeded = Math.max(1, Math.round(len * 0.8));
+                    const preFillCount = len - holesNeeded;
+                    const toFill = indices.sort(() => 0.5 - Math.random()).slice(0, preFillCount);
+                    toFill.forEach(i => this.preFilledIndices.add(i));
+                }
+                // Levels 3 & 4 have 0% prefilled (standard)
+
+                // Render Char Boxes
+                const display = document.getElementById('wordDisplay');
+                display.innerHTML = '';
+                
+                let logicIdx = 0;
+                const parts = this.currentWord.split(' ');
+                
+                parts.forEach((part) => {
+                    const block = document.createElement('div');
+                    block.className = 'word-block';
+                    
+                    for (let char of part) {
+                        const box = document.createElement('div');
+                        box.className = 'char-box';
+                        if ('aeiou'.includes(char)) box.classList.add('vowel');
+                        
+                        if (this.preFilledIndices.has(logicIdx)) {
+                            box.classList.add('filled', 'pre-filled');
+                            box.textContent = char;
+                        }
+                        
+                        block.appendChild(box);
+                        logicIdx++;
+                    }
+                    display.appendChild(block);
+                });
+
+                setTimeout(() => this.speakWord(), 300);
+                this.processNextChar();
+            },
+
+            processNextChar() {
+                while (this.charIndex < this.targetString.length && this.preFilledIndices.has(this.charIndex)) {
+                    this.charIndex++;
+                }
+
+                if (this.charIndex >= this.targetString.length) {
+                    this.showCompletionAnimation();
+                    return;
+                }
+
+                const boxes = document.querySelectorAll('.char-box');
+                boxes.forEach(b => b.classList.remove('current'));
+                
+                if (boxes[this.charIndex]) {
+                    boxes[this.charIndex].classList.add('current');
+                }
+
+                this.generateButtons();
+            },
+
+            showCompletionAnimation() {
+                if (this.currentWordErrors.size > 0) {
+                    this.sessionMistakes.push({
+                        word: this.activeList.words[this.currentWordIdx].en,
+                        hint: this.activeList.words[this.currentWordIdx].hint,
+                        errorIndices: new Set(this.currentWordErrors)
+                    });
+                }
+
+                const q = this.activeList.words[this.currentWordIdx];
+                document.getElementById('compWord').textContent = q.en.toUpperCase();
+                document.getElementById('compHint').textContent = q.hint;
+                
+                const overlay = document.getElementById('overlayCompletion');
+                overlay.classList.add('active');
+
+                this.speakWord();
+
+                setTimeout(() => {
+                    overlay.classList.remove('active');
+                    this.currentWordIdx++;
+                    this.loadQuestion();
+                }, 1500);
+            },
+
+            generateButtons() {
+                const targetChar = this.targetString[this.charIndex];
+                const grid = document.getElementById('keyboard');
+                grid.innerHTML = ''; 
+                grid.className = 'keyboard-grid'; 
+
+                if (this.currentDifficulty === 4) {
+                    // FULL KEYBOARD for Level 4
+                    grid.classList.add('full-kb');
+                    const qwerty = "qwertyuiopasdfghjklzxcvbnm";
+                    for(let char of qwerty) {
+                        const btn = document.createElement('button');
+                        btn.className = 'key-btn';
+                        btn.textContent = char;
+                        btn.onclick = () => this.handleInput(char, btn, targetChar);
+                        grid.appendChild(btn);
+                    }
+                } else {
+                    // RESTRICTED OPTIONS for Levels 1-3
+                    grid.classList.remove('full-kb');
+                    
+                    const options = new Set([targetChar]);
+                    const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+                    
+                    if (Math.random() > 0.5) options.add('a');
+                    if (Math.random() > 0.5) options.add('e');
+
+                    // L1/L2: 4 choices, L3: 6 choices
+                    const numChoices = (this.currentDifficulty === 1 || this.currentDifficulty === 2) ? 4 : 6;
+
+                    while(options.size < numChoices) {
+                        options.add(alphabet[Math.floor(Math.random() * alphabet.length)]);
+                    }
+
+                    const buttonsArr = Array.from(options).sort(() => Math.random() - 0.5);
+
+                    buttonsArr.forEach(char => {
+                        const btn = document.createElement('button');
+                        btn.className = 'key-btn';
+                        btn.textContent = char;
+                        if ('aeiou'.includes(char)) btn.classList.add('vowel');
+                        btn.onclick = () => this.handleInput(char, btn, targetChar);
+                        grid.appendChild(btn);
+                    });
+                }
+            },
+
+            handleInput(char, btn, target) {
+                const allBtns = document.querySelectorAll('.key-btn');
+                
+                if (char === target) {
+                    btn.classList.add('correct');
+                    allBtns.forEach(b => b.disabled = true);
+                    
+                    const boxes = document.querySelectorAll('.char-box');
+                    boxes[this.charIndex].textContent = char;
+                    boxes[this.charIndex].classList.add('filled');
+                    boxes[this.charIndex].classList.remove('current');
+
+                    this.charIndex++;
+                    const delay = this.currentDifficulty === 4 ? 150 : 300;
+                    setTimeout(() => this.processNextChar(), delay);
+                } else {
+                    btn.classList.add('wrong');
+                    btn.disabled = true; 
+                    this.errors++;
+                    this.currentWordErrors.add(this.charIndex); 
+                    
+                    this.score = Math.max(0, this.score - 2);
+                    document.getElementById('scoreText').textContent = this.score;
+                    
+                    const boxes = document.querySelectorAll('.char-box');
+                    if (boxes[this.charIndex]) {
+                        boxes[this.charIndex].animate([
+                            { transform: 'translateX(0)' },
+                            { transform: 'translateX(-5px)' },
+                            { transform: 'translateX(5px)' },
+                            { transform: 'translateX(0)' }
+                        ], { duration: 300 });
+                    }
+                }
+            },
+
+            speakWord() {
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                    const utterance = new SpeechSynthesisUtterance(this.currentWord);
+                    utterance.lang = 'en-US';
+                    utterance.rate = 0.9;
+                    window.speechSynthesis.speak(utterance);
+                }
+            },
+
+            // --- RESULTS (Restored) ---
+            showResults() {
+                clearInterval(this.timerInterval);
+                this.showScreen('resultsScreen');
+                
+                const finalScore = Math.max(20, this.score);
+                
+                if (!this.isRetryMode) {
+                    this.records.push({
+                        date: Date.now(),
+                        score: finalScore,
+                        listId: this.activeList.id
+                    });
+                    this.saveData();
+                    this.renderSummary(); 
+                }
+
+                document.getElementById('finalScoreDisplay').textContent = finalScore;
+                document.getElementById('finalCorrect').textContent = `${this.activeList.words.length}/${this.activeList.words.length}`;
+                document.getElementById('finalTimeDisplay').textContent = document.getElementById('timerText').textContent;
+
+                let stars = '⭐';
+                if (finalScore > 60) stars += '⭐';
+                if (finalScore > 90) stars += '⭐';
+                document.getElementById('finalStars').textContent = stars;
+
+                // RECAP
+                const recapEl = document.getElementById('recapSection');
+                const listEl = document.getElementById('recapList');
+                listEl.innerHTML = '';
+                const retryMistakesBtn = document.getElementById('retryMistakesContainer');
+
+                if (this.sessionMistakes.length > 0) {
+                    recapEl.style.display = 'block';
+                    retryMistakesBtn.style.display = 'block';
+
+                    this.sessionMistakes.forEach(item => {
+                        const div = document.createElement('div');
+                        div.className = 'recap-item';
+                        
+                        let htmlWord = '';
+                        let logicIdx = 0;
+                        for(let i=0; i<item.word.length; i++) {
+                            const char = item.word[i];
+                            if (char === ' ') {
+                                htmlWord += ' ';
+                            } else {
+                                if (item.errorIndices.has(logicIdx)) {
+                                    htmlWord += `<span class="char-error">${char}</span>`;
+                                } else {
+                                    htmlWord += char;
+                                }
+                                logicIdx++;
+                            }
+                        }
+
+                        div.innerHTML = `
+                            <div>${htmlWord}</div>
+                            <div class="recap-hint">${item.hint}</div>
+                        `;
+                        listEl.appendChild(div);
+                    });
+                } else {
+                    recapEl.style.display = 'none';
+                    retryMistakesBtn.style.display = 'none';
+                }
+
+                if (finalScore >= 80) confetti.fire();
+            },
+
+            retryList() {
+                if (this.isRetryMode) {
+                    this.backHome(); 
+                } else {
+                    this.startGame(this.wordLists.indexOf(this.activeList));
+                }
+            },
+
+            backHome() {
+                this.showScreen('homeScreen');
+            },
+
+            // --- DATA & MODAL HANDLERS ---
+            showAddCategory() { document.getElementById('modalAddCategory').classList.add('active'); },
+            showCreateList() {
+                const select = document.getElementById('inputListCategory');
+                select.innerHTML = '';
+                const cats = new Set([...this.customCategories, ...this.wordLists.map(l=>l.category)]);
+                cats.forEach(c => {
+                    const opt = document.createElement('option');
+                    opt.value = c;
+                    opt.textContent = c;
+                    if (c === this.selectedCategory && c !== 'all') opt.selected = true;
+                    select.appendChild(opt);
+                });
+                document.getElementById('modalAddList').classList.add('active');
+            },
+            
+            // --- NEW ADMIN FUNCTIONS ---
+            showDataModal() {
+                document.getElementById('modalData').classList.add('active');
+                const exportObj = {
+                    categories: this.customCategories,
+                    lists: this.wordLists.filter(l => l.category !== 'P1 Hong Kong') // Only export user lists
+                };
+                document.getElementById('exportJsonOutput').value = JSON.stringify(exportObj, null, 2);
+            },
+            
+            switchTab(tabId, btn) {
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.getElementById(tabId).classList.add('active');
+                btn.classList.add('active');
+            },
+
+            processBulkImport() {
+                const text = document.getElementById('bulkTextInput').value;
+                if (!text.trim()) return;
+
+                const lines = text.split('\n');
+                let currentCat = "Imported";
+                let currentList = null;
+                let listsCreated = 0;
+                let newLists = [];
+                let catsToAdd = new Set();
+
+                lines.forEach(line => {
+                    line = line.trim();
+                    if (!line) return;
+
+                    if (line.startsWith('##')) {
+                        const listName = line.substring(2).trim();
+                        currentList = {
+                            id: Date.now() + Math.random().toString(), 
+                            name: listName,
+                            category: currentCat,
+                            words: []
+                        };
+                        newLists.push(currentList);
+                        listsCreated++;
+                    } else if (line.startsWith('#')) {
+                        currentCat = line.substring(1).trim();
+                        catsToAdd.add(currentCat);
+                        currentList = null; 
+                    } else {
+                        if (currentList) {
+                            const [en, hint] = line.split(/,|，/);
+                            if (en) {
+                                currentList.words.push({ 
+                                    en: en.trim(), 
+                                    hint: hint ? hint.trim() : en.trim() 
+                                });
+                            }
+                        }
+                    }
+                });
+
+                if (listsCreated > 0) {
+                    catsToAdd.forEach(c => {
+                        if (!this.customCategories.includes(c)) this.customCategories.push(c);
+                    });
+                    const validLists = newLists.filter(l => l.words.length > 0);
+                    this.wordLists = [...this.wordLists, ...validLists];
+                    
+                    this.saveData();
+                    this.renderHome();
+                    alert(`Successfully imported ${validLists.length} lists!`);
+                    this.closeModals();
+                    document.getElementById('bulkTextInput').value = '';
+                } else {
+                    alert('No valid lists found. Use # for Category and ## for List Name.');
+                }
+            },
+
+            copyExportData() {
+                const copyText = document.getElementById("exportJsonOutput");
+                copyText.select();
+                copyText.setSelectionRange(0, 99999); 
+                navigator.clipboard.writeText(copyText.value).then(() => {
+                    alert("Data copied to clipboard!");
+                });
+            },
+
+            processJsonImport() {
+                const jsonStr = document.getElementById('importJsonInput').value;
+                try {
+                    const data = JSON.parse(jsonStr);
+                    let importedCount = 0;
+
+                    if (data.categories && Array.isArray(data.categories)) {
+                        data.categories.forEach(c => {
+                            if (!this.customCategories.includes(c)) this.customCategories.push(c);
+                        });
+                    }
+
+                    if (data.lists && Array.isArray(data.lists)) {
+                        data.lists.forEach(l => {
+                            if (l.name && l.words && l.words.length > 0) {
+                                l.id = Date.now() + Math.random().toString(); 
+                                this.wordLists.push(l);
+                                importedCount++;
+                            }
+                        });
+                    }
+
+                    if (importedCount > 0) {
+                        this.saveData();
+                        this.renderHome();
+                        alert(`Successfully restored ${importedCount} lists!`);
+                        this.closeModals();
+                        document.getElementById('importJsonInput').value = '';
+                    } else {
+                        alert('No valid lists found in JSON.');
+                    }
+
+                } catch (e) {
+                    alert('Invalid JSON data.');
+                }
+            },
+
+            closeModals() { document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active')); },
+            
+            handleCreateCategory(e) {
+                e.preventDefault();
+                const name = document.getElementById('inputCatName').value.trim();
+                if (name && !this.customCategories.includes(name)) {
+                    this.customCategories.push(name);
+                    this.saveData();
+                    this.selectedCategory = name;
+                    this.renderHome();
+                }
+                this.closeModals();
+                document.getElementById('inputCatName').value = '';
+            },
+            handleCreateList(e) {
+                e.preventDefault();
+                const name = document.getElementById('inputListName').value.trim();
+                const cat = document.getElementById('inputListCategory').value;
+                const rawWords = document.getElementById('inputListWords').value;
+                if (!name || !cat) return;
+                const parsedWords = rawWords.split('\n').map(line => {
+                    const [en, hint] = line.split(/,|，/);
+                    return { en: en ? en.trim() : '', hint: hint ? hint.trim() : (en ? en.trim() : '') };
+                }).filter(w => w.en.length > 0);
+                if (parsedWords.length === 0) { alert('Please add at least one word'); return; }
+                this.wordLists.push({ id: Date.now().toString(), name: name, category: cat, words: parsedWords });
+                this.saveData();
+                this.selectedCategory = cat;
+                this.renderHome();
+                this.closeModals();
+                document.getElementById('inputListName').value = '';
+                document.getElementById('inputListWords').value = '';
+            }
+        };
+
+        // Init App
+        app.init();
+
+    </script>
+</body>
+</html>
