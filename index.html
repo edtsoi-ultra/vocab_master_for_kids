@@ -3457,9 +3457,26 @@ const P1_CURRICULUM = {
             }
         };
 
-        // Init App
-        app.init();
+    // Init App
+    app.init();
+</script>
 
-    </script>
+<script>
+  // --- Simple CEDICT connectivity test ---
+  (async () => {
+    try {
+      const res = await fetch('./cedict_ts.txt');
+      if (!res.ok) {
+        console.log('CEDICT not reachable:', res.status);
+        return;
+      }
+      const text = await res.text();
+      console.log('CEDICT loaded, length =', text.length);
+    } catch (e) {
+      console.error('Error loading cedict_ts.txt', e);
+    }
+  })();
+</script>
+
 </body>
 </html>
