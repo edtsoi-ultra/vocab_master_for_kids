@@ -3462,30 +3462,60 @@ const P1_CURRICULUM = {
 </script>
 
 <script>
-  // --- CEDICT loading status UI ---
-  const statusDiv = document.createElement('div');
-  statusDiv.id = 'cedict-status';
-  statusDiv.textContent = 'CEDICT: not loaded';
-  statusDiv.style.cssText = 'position:fixed;bottom:10px;right:10px;background:#333;color:#fff;padding:6px 10px;border-radius:6px;font-size:12px;z-index:9999;';
-  document.body.appendChild(statusDiv);
+// --- 1. GLOBAL DICTIONARY OBJECT ---
+window.CEDICT_DICT = {}; // English(lowercase) -> Traditional Chinese
 
-  (async () => {
-    try {
-      statusDiv.textContent = 'CEDICT: loading...';
-      const res = await fetch('./cedict_ts.txt');
-      if (!res.ok) {
-        statusDiv.textContent = 'CEDICT: load failed (' + res.status + ')';
-        console.log('CEDICT not reachable:', res.status);
-        return;
-      }
-      const text = await res.text();
-      statusDiv.textContent = 'CEDICT: loaded (' + text.length + ' chars)';
-      console.log('CEDICT loaded, length =', text.length);
-    } catch (e) {
-      statusDiv.textContent = 'CEDICT: error (see console)';
-      console.error('Error loading cedict_ts.txt', e);
+// --- 2. LOAD & PARSE CEDICT ONCE ---
+(async () => {
+  const statusId = 'cedict-status';
+  let statusDiv = document.getElementById(statusId);
+  if (!statusDiv) {
+    statusDiv = document.createElement('div');
+    statusDiv.id = statusId;
+    statusDiv.style.cssText = 'position:fixed;bottom:10px;right:10px;background:#333;color:#fff;padding:6px 10px;border-radius:6px;font-size:12px;z-index:9999;';
+    document.body.appendChild(statusDiv);
+  }
+
+  try {
+    statusDiv.textContent = 'Dictionary: loading...';
+    const res = await fetch('./cedict_ts.txt');
+    if (!res.ok) {
+      statusDiv.textContent = 'Dictionary: load failed (' + res.status + ')';
+      return;
     }
-  })();
+    const text = await res.text();
+    const lines = text.split('\n');
+
+    // Very simple English->Chinese mapping based on first English word in definition
+    let count = 0;
+    for (const line of lines) {
+      if (!line || line.startsWith('#')) continue;
+      const m = line.match(/(\S+)\s+(\S+)\s+\[(.+?)\]\s+\/(.+?)\//);
+      if (!m) continue;
+      const traditional = m[1];
+      const defs = m[4].split('/');
+      const firstDef = defs[0].toLowerCase(); // crude English key
+      if (firstDef && !window.CEDICT_DICT[firstDef]) {
+        window.CEDICT_DICT[firstDef] = traditional;
+        count++;
+      }
+      if (count >= 200000) break; // safety limit
+    }
+
+    statusDiv.textContent = 'Dictionary: ready (' + count + ' entries)';
+    console.log('Dictionary ready, entries =', count);
+  } catch (e) {
+    console.error(e);
+    statusDiv.textContent = 'Dictionary: error (see console)';
+  }
+})();
+
+// --- 3. HELPER: LOOKUP FUNCTION ---
+window.lookupChinese = function(englishWord) {
+  if (!englishWord) return '';
+  const key = englishWord.trim().toLowerCase();
+  return window.CEDICT_DICT[key] || '';
+};
 </script>
 </body>
 </html>
