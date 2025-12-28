@@ -398,6 +398,7 @@
         .keyboard-grid.full-kb {
             grid-template-columns: repeat(10, 1fr);
             gap: 4px;
+            margin-bottom: 20px;
         }
         .keyboard-grid.full-kb .key-btn {
             height: 45px;
@@ -991,49 +992,69 @@
                 for(let [en, zh] of Object.entries(this.commonWords)) {
                     this.data.set(en.toLowerCase(), zh);
                 }
-                this.updateStatus('ready', `Ready (${this.data.size} common words)`);
+                
+                // Set default status to ready (using common words)
+                this.updateStatus('ready', `Active (Common Words Only)`);
                 
                 // Try to fetch external file if available (legacy support)
                 fetch('./cedict_ts.txt')
                     .then(res => {
                         if(res.ok) return res.text();
-                        throw new Error('No local dictionary file');
+                        throw new Error(`${res.status} ${res.statusText}`);
                     })
                     .then(text => this.parseCEDICT(text))
-                    .catch(err => console.log('Using built-in dictionary only initially.'));
+                    .catch(err => {
+                        console.log('Dictionary Fetch Error:', err.message);
+                        // Don't show error to user immediately unless they open the modal
+                        // But keep the status as "Common Words Only"
+                        this.updateStatus('ready', `Active (Common Words Only)`);
+                    });
             },
 
             parseCEDICT(text) {
                 this.updateStatus('loading', 'Parsing Dictionary...');
+                
                 // Allow UI to render before blocking
                 setTimeout(() => {
-                    const lines = text.split('\n');
-                    let count = 0;
-                    
-                    for (const line of lines) {
-                        if (!line || line.startsWith('#')) continue;
-                        // Format: Traditional Simplified [pinyin] /gloss1/gloss2/.../
-                        // Regex: Captures Traditional(Group1) and Glosses(Group4)
-                        const m = line.match(/^(\S+)\s+(\S+)\s+\[.+?\]\s+\/(.+?)\/$/);
-                        if (!m) continue;
+                    try {
+                        // CRITICAL FIX: Split by \r\n or \n to handle Windows line endings
+                        const lines = text.split(/\r?\n/);
+                        let count = 0;
+                        
+                        for (const line of lines) {
+                            // Skip comments and empty lines
+                            if (!line || line.startsWith('#') || line.trim().length === 0) continue;
+                            
+                            // Format: Traditional Simplified [pinyin] /gloss1/gloss2/.../
+                            // We use a looser regex to avoid failing on trailing characters
+                            // Match: (Non-space) (space) (Non-space) (space) [brackets] (space) /definitions...
+                            const m = line.match(/^(\S+)\s+(\S+)\s+\[(.*?)\]\s+\/(.*)/);
+                            
+                            if (!m) continue;
 
-                        const traditional = m[1];
-                        const definitions = m[3].split('/');
+                            const traditional = m[1];
+                            // Remove trailing slash if it exists
+                            const rawDefs = m[4].replace(/\/$/, ''); 
+                            const definitions = rawDefs.split('/');
 
-                        // Index ALL english definitions, not just the first one
-                        for(let def of definitions) {
-                            // Clean up definition: remove (idiom), (slang), references inside
-                            const cleanDef = def.replace(/\(.*\)/g, '').trim().toLowerCase();
-                            if(cleanDef && cleanDef.length > 1) {
-                                // Only set if not exists, or if the current one is very long (prioritize shorter translations)
-                                if (!this.data.has(cleanDef)) {
-                                    this.data.set(cleanDef, traditional);
+                            // Index ALL english definitions
+                            for(let def of definitions) {
+                                // Clean up definition: remove (idiom), (slang), references inside
+                                const cleanDef = def.replace(/\(.*\)/g, '').trim().toLowerCase();
+                                if(cleanDef && cleanDef.length > 1) {
+                                    // Only set if not exists, or if the current one is very long (prioritize shorter translations)
+                                    if (!this.data.has(cleanDef)) {
+                                        this.data.set(cleanDef, traditional);
+                                    }
                                 }
                             }
+                            count++;
                         }
-                        count++;
+                        this.updateStatus('ready', `Full Dictionary Ready (${this.data.size} entries)`);
+                    } catch (e) {
+                        console.error("Parse Error", e);
+                        this.updateStatus('error', 'Failed to parse dictionary file');
                     }
-                    this.updateStatus('ready', `Ready (${this.data.size} entries)`);
                 }, 100);
             },
 
@@ -1051,8 +1072,16 @@
                     badge.className = `status-badge status-${state}`;
                 }
                 if(hint) {
-                    hint.textContent = state === 'ready' ? 'Dictionary Active ✅' : 'Dictionary Offline ❌';
-                    hint.style.color = state === 'ready' ? '#48bb78' : '#e53e3e';
+                    if (msg.includes('Common')) {
+                        hint.textContent = 'Basic Dictionary ✅';
+                        hint.style.color = '#d69e2e'; // Orange/Yellow
+                    } else if (state === 'ready') {
+                        hint.textContent = 'Full Dictionary Active ✅';
+                        hint.style.color = '#48bb78'; // Green
+                    } else {
+                        hint.textContent = 'Dictionary Offline ❌';
+                        hint.style.color = '#e53e3e';
+                    }
                 }
             }
         };
