@@ -1,7 +1,7 @@
 {
   "service": "daughter-school",
   "student": "蔡諾琳 2A",
-  "updated": "2026-10-19T23:27:14.449540+00:00",
+  "updated": "2026-10-20T07:38:44.533051+08:00",
   "homework": [
     {
       "subject": "人文",
@@ -9,7 +9,7 @@
       "due": "2026-11-01",
       "status": "pending",
       "due_display": "11月1日 (日)",
-      "days_left": 13
+      "days_left": 12
     }
   ],
   "upcoming": [
@@ -19,7 +19,7 @@
       "title": "數學 FA",
       "date": "2026-10-22",
       "date_display": "10月22日 (四)",
-      "days_left": 3
+      "days_left": 2
     },
     {
       "type": "默書",
@@ -27,7 +27,7 @@
       "title": "英文默書",
       "date": "2026-10-23",
       "date_display": "10月23日 (五)",
-      "days_left": 4
+      "days_left": 3
     },
     {
       "type": "默書",
@@ -35,7 +35,7 @@
       "title": "中文默書",
       "date": "2026-10-28",
       "date_display": "10月28日 (三)",
-      "days_left": 9
+      "days_left": 8
     },
     {
       "type": "評估",
@@ -43,38 +43,13 @@
       "title": "評估一 (中英數常人文)",
       "date": "2026-11-19",
       "date_display": "11月19日 (四)",
-      "days_left": 31
+      "days_left": 30
     }
   ],
   "notices": {
-    "new_count": 7,
-    "latest_title": "16th PTA 有關家長校董選舉及家長活動事宜",
-    "latest_date": "2026-10-20",
-    "items": [
-      {
-        "code": "No.11",
-        "title": "16th PTA 有關家長校董選舉及家長活動事宜",
-        "brief": "16th PTA 有關家長校董選舉及家長活動事宜",
-        "deadline": "2026-10-20",
-        "deadline_display": "10月20日 (二)",
-        "days_left": 1
-      },
-      {
-        "code": "2627-082",
-        "title": "評估政策事宜",
-        "brief": "評估政策事宜",
-        "deadline": "2026-10-20",
-        "deadline_display": "10月20日 (二)",
-        "days_left": 1
-      },
-      {
-        "code": "2627-100",
-        "title": "耆樂天地長者學苑―「敬老護老愛心券」義賣日",
-        "brief": "耆樂天地長者學苑―「敬老護老愛心券」義賣日",
-        "deadline": "2026-10-20",
-        "deadline_display": "10月20日 (二)",
-        "days_left": 1
-      }
-    ]
+    "new_count": 0,
+    "latest_title": "",
+    "latest_date": "",
+    "items": []
   }
 }
