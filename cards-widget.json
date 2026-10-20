@@ -1,69 +1,114 @@
 {
   "service": "card-repayment",
-  "updated": "2026-10-20T22:38:01.307635+08:00",
+  "updated": "2026-10-20T22:43:17.247859+08:00",
   "cards": [
     {
-      "name": "DBS",
-      "tail": "4011",
-      "amount": 208,
-      "estimated": false,
-      "due_date": "2026-10-20",
-      "due_display": "10月20日",
-      "days_left": 0
+      "name": "HSBC",
+      "tail": "group",
+      "entries": [
+        {
+          "due_date": "2026-11-11",
+          "amount": 41085,
+          "estimated": false
+        },
+        {
+          "due_date": "2027-01-11",
+          "amount": 69996,
+          "estimated": true
+        },
+        {
+          "due_date": "2027-02-11",
+          "amount": 17499,
+          "estimated": true
+        }
+      ]
     },
     {
-      "name": "UA SIM",
-      "tail": "1185",
-      "amount": 6027,
-      "estimated": false,
-      "due_date": "2026-10-20",
-      "due_display": "10月20日",
-      "days_left": 0
+      "name": "WeWa",
+      "tail": "4440/4457",
+      "entries": [
+        {
+          "due_date": "2026-11-04",
+          "amount": 50409,
+          "estimated": false
+        },
+        {
+          "due_date": "2027-02-04",
+          "amount": 17499,
+          "estimated": true
+        }
+      ]
     },
     {
       "name": "AEON",
       "tail": "3706",
-      "amount": 23183,
-      "estimated": false,
-      "due_date": "2026-11-02",
-      "due_display": "11月2日",
-      "days_left": 13
-    },
-    {
-      "name": "WeWa",
-      "tail": "4457",
-      "amount": 50409,
-      "estimated": false,
-      "due_date": "2026-11-04",
-      "due_display": "11月4日",
-      "days_left": 15
+      "entries": [
+        {
+          "due_date": "2026-11-02",
+          "amount": 23183,
+          "estimated": false
+        }
+      ]
     },
     {
       "name": "Explorer",
       "tail": "51009",
-      "amount": 22998,
-      "estimated": false,
-      "due_date": "2026-11-05",
-      "due_display": "11月5日",
-      "days_left": 16
-    },
-    {
-      "name": "HSBC",
-      "tail": "group",
-      "amount": 41085,
-      "estimated": false,
-      "due_date": "2026-11-11",
-      "due_display": "11月11日",
-      "days_left": 22
+      "entries": [
+        {
+          "due_date": "2026-11-05",
+          "amount": 22998,
+          "estimated": false
+        },
+        {
+          "due_date": "2027-01-05",
+          "amount": 17499,
+          "estimated": true
+        }
+      ]
     },
     {
       "name": "CCB Eye",
       "tail": "7993",
-      "amount": 22998,
-      "estimated": false,
-      "due_date": "2026-11-16",
-      "due_display": "11月16日",
-      "days_left": 27
+      "entries": [
+        {
+          "due_date": "2026-11-16",
+          "amount": 22998,
+          "estimated": false
+        }
+      ]
+    },
+    {
+      "name": "DBS",
+      "tail": "4011",
+      "entries": [
+        {
+          "due_date": "2026-10-20",
+          "amount": 208,
+          "estimated": false
+        }
+      ]
+    },
+    {
+      "name": "MMPOWER",
+      "tail": "8887",
+      "entries": [
+        {
+          "due_date": "2027-02-14",
+          "amount": 17499,
+          "estimated": true
+        }
+      ]
+    },
+    {
+      "name": "UA SIM",
+      "tail": "1185",
+      "entries": [
+        {
+          "due_date": "2026-10-20",
+          "amount": 6027,
+          "estimated": false
+        }
+      ]
     }
   ]
 }
