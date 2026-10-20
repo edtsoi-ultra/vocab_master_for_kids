@@ -1,0 +1,60 @@
+{
+  "service": "card-repayment",
+  "updated": "2026-10-20T22:27:18.620128+08:00",
+  "cards": [
+    {
+      "name": "DBS",
+      "tail": "4011",
+      "amount": 208,
+      "estimated": false,
+      "due_date": "2026-10-20",
+      "due_display": "10月20日",
+      "days_left": 0
+    },
+    {
+      "name": "AEON",
+      "tail": "3706",
+      "amount": 23183,
+      "estimated": false,
+      "due_date": "2026-11-02",
+      "due_display": "11月2日",
+      "days_left": 13
+    },
+    {
+      "name": "WeWa",
+      "tail": "4457",
+      "amount": 50409,
+      "estimated": false,
+      "due_date": "2026-11-04",
+      "due_display": "11月4日",
+      "days_left": 15
+    },
+    {
+      "name": "Explorer",
+      "tail": "51009",
+      "amount": 22998,
+      "estimated": false,
+      "due_date": "2026-11-05",
+      "due_display": "11月5日",
+      "days_left": 16
+    },
+    {
+      "name": "HSBC",
+      "tail": "group",
+      "amount": 41085,
+      "estimated": false,
+      "due_date": "2026-11-11",
+      "due_display": "11月11日",
+      "days_left": 22
+    },
+    {
+      "name": "CCB Eye",
+      "tail": "7993",
+      "amount": 22998,
+      "estimated": false,
+      "due_date": "2026-11-16",
+      "due_display": "11月16日",
+      "days_left": 27
+    }
+  ]
+}
