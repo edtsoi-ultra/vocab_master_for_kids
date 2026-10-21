@@ -1,0 +1,336 @@
+{
+ "updated": "2026-10-21T22:54:28.789834+08:00",
+ "technical": {
+  "status": "ok",
+  "data_date": "2026-10-20",
+  "tickers": {
+   "AAPL": {
+    "symbol": "AAPL",
+    "tier": "mag7",
+    "score": 70.4,
+    "band": "強勢",
+    "subs": {
+     "trend": 1.0,
+     "mom": -0.33,
+     "str": 0.21,
+     "vol": 0.26,
+     "pos": 0.92,
+     "vola": 0.55
+    },
+    "rsi": 56.0,
+    "adx": 18.0,
+    "pct52": 96.0,
+    "range_pos": 96.0,
+    "history_days": 501,
+    "degraded": [],
+    "data_quality": [],
+    "flags": [],
+    "divergence": false,
+    "subs_row": "趨+1.0 動-0.3 強+0.2 量+0.3 位+0.9 波+0.6",
+    "sample_ok": true,
+    "warnings": [
+     "高位"
+    ],
+    "severe": false
+   },
+   "MSFT": {
+    "symbol": "MSFT",
+    "tier": "mag7",
+    "score": 73.1,
+    "band": "強勢",
+    "subs": {
+     "trend": 1.0,
+     "mom": -0.3,
+     "str": 0.81,
+     "vol": 0.18,
+     "pos": 0.88,
+     "vola": 0.03
+    },
+    "rsi": 58.0,
+    "adx": 35.0,
+    "pct52": 97.0,
+    "range_pos": 94.0,
+    "history_days": 501,
+    "degraded": [],
+    "data_quality": [],
+    "flags": [],
+    "divergence": false,
+    "subs_row": "趨+1.0 動-0.3 強+0.8 量+0.2 位+0.9 波+0.0",
+    "sample_ok": true,
+    "warnings": [
+     "高位"
+    ],
+    "severe": false
+   },
+   "GOOGL": {
+    "symbol": "GOOGL",
+    "tier": "mag7",
+    "score": 39.5,
+    "band": "偏弱",
+    "subs": {
+     "trend": -0.4,
+     "mom": -0.46,
+     "str": -0.11,
+     "vol": 0.1,
+     "pos": 0.18,
+     "vola": 0.18
+    },
+    "rsi": 45.0,
+    "adx": 15.0,
+    "pct52": 57.0,
+    "range_pos": 59.0,
+    "history_days": 501,
+    "degraded": [],
+    "data_quality": [],
+    "flags": [],
+    "divergence": false,
+    "subs_row": "趨-0.4 動-0.5 強-0.1 量+0.1 位+0.2 波+0.2",
+    "sample_ok": true,
+    "warnings": [],
+    "severe": false
+   },
+   "AMZN": {
+    "symbol": "AMZN",
+    "tier": "mag7",
+    "score": 75.3,
+    "band": "強勢",
+    "subs": {
+     "trend": 1.0,
+     "mom": 0.49,
+     "str": 0.07,
+     "vol": 0.09,
+     "pos": 0.5,
+     "vola": 0.2
+    },
+    "rsi": 57.0,
+    "adx": 14.0,
+    "pct52": 86.0,
+    "range_pos": 75.0,
+    "history_days": 501,
+    "degraded": [],
+    "data_quality": [],
+    "flags": [],
+    "divergence": false,
+    "subs_row": "趨+1.0 動+0.5 強+0.1 量+0.1 位+0.5 波+0.2",
+    "sample_ok": true,
+    "warnings": [],
+    "severe": false
+   },
+   "META": {
+    "symbol": "META",
+    "tier": "mag7",
+    "score": 51.7,
+    "band": "中性",
+    "subs": {
+     "trend": 1.0,
+     "mom": -0.44,
+     "str": -0.66,
+     "vol": -0.41,
+     "pos": 0.34,
+     "vola": -0.57
+    },
+    "rsi": 46.0,
+    "adx": 30.0,
+    "pct52": 87.0,
+    "range_pos": 67.0,
+    "history_days": 501,
+    "degraded": [],
+    "data_quality": [],
+    "flags": [],
+    "divergence": false,
+    "subs_row": "趨+1.0 動-0.4 強-0.7 量-0.4 位+0.3 波-0.6",
+    "sample_ok": true,
+    "warnings": [],
+    "severe": false
+   },
+   "NVDA": {
+    "symbol": "NVDA",
+    "tier": "mag7",
+    "score": 47.1,
+    "band": "中性",
+    "subs": {
+     "trend": 0.4,
+     "mom": -0.51,
+     "str": -0.21,
+     "vol": -0.6,
+     "pos": 0.39,
+     "vola": 0.64
+    },
+    "rsi": 41.0,
+    "adx": 18.0,
+    "pct52": 77.0,
+    "range_pos": 69.0,
+    "history_days": 501,
+    "degraded": [],
+    "data_quality": [],
+    "flags": [],
+    "divergence": false,
+    "subs_row": "趨+0.4 動-0.5 強-0.2 量-0.6 位+0.4 波+0.6",
+    "sample_ok": true,
+    "warnings": [],
+    "severe": false
+   },
+   "TSLA": {
+    "symbol": "TSLA",
+    "tier": "mag7",
+    "score": 38.9,
+    "band": "偏弱",
+    "subs": {
+     "trend": -0.4,
+     "mom": -0.36,
+     "str": 0.03,
+     "vol": -0.3,
+     "pos": -0.21,
+     "vola": 0.95
+    },
+    "rsi": 54.0,
+    "adx": 13.0,
+    "pct52": 26.0,
+    "range_pos": 39.0,
+    "history_days": 501,
+    "degraded": [],
+    "data_quality": [],
+    "flags": [],
+    "divergence": false,
+    "subs_row": "趨-0.4 動-0.4 強+0.0 量-0.3 位-0.2 波+0.9",
+    "sample_ok": true,
+    "warnings": [],
+    "severe": false
+   },
+   "SPCX": {
+    "symbol": "SPCX",
+    "tier": "wishlist",
+    "score": 38.6,
+    "band": "偏弱",
+    "subs": {
+     "trend": -0.1,
+     "mom": -0.46,
+     "str": -0.37,
+     "vol": -0.42,
+     "pos": -0.23,
+     "vola": 0.61
+    },
+    "rsi": 45.0,
+    "adx": 22.0,
+    "pct52": 49.0,
+    "range_pos": 38.0,
+    "history_days": 90,
+    "degraded": [
+     "歷史得 90 日，無 200 日線"
+    ],
+    "data_quality": [],
+    "flags": [],
+    "divergence": false,
+    "subs_row": "趨-0.1 動-0.5 強-0.4 量-0.4 位-0.2 波+0.6",
+    "sample_ok": false,
+    "warnings": [],
+    "severe": false
+   },
+   "SNDK": {
+    "symbol": "SNDK",
+    "tier": "wishlist",
+    "score": 41.0,
+    "band": "偏弱",
+    "subs": {
+     "trend": 0.4,
+     "mom": -0.57,
+     "str": -0.34,
+     "vol": -0.64,
+     "pos": 0.11,
+     "vola": 0.11
+    },
+    "rsi": 36.0,
+    "adx": 22.0,
+    "pct52": 60.0,
+    "range_pos": 56.0,
+    "history_days": 423,
+    "degraded": [],
+    "data_quality": [],
+    "flags": [],
+    "divergence": false,
+    "subs_row": "趨+0.4 動-0.6 強-0.3 量-0.6 位+0.1 波+0.1",
+    "sample_ok": true,
+    "warnings": [],
+    "severe": false
+   }
+  }
+ },
+ "sentiment": {
+  "as_of": "2026-10-21",
+  "states": {
+   "SPCX": {
+    "market": {
+     "state": "偏好",
+     "conf": "低信心",
+     "neg_rate": null,
+     "driver": "Q3 收入 +161%、首次季度盈利；與 Tesla 探討合併；多家投行上調目標價"
+    }
+   },
+   "TSLA": {
+    "market": {
+     "state": "偏好",
+     "conf": "低信心",
+     "neg_rate": null,
+     "driver": "與 SpaceX 各設獨立委員會探討合併"
+    }
+   },
+   "SNDK": {
+    "market": {
+     "state": "中性",
+     "conf": "低信心",
+     "neg_rate": null,
+     "driver": "未有重大消息；NAND 價格平穩"
+    }
+   },
+   "AAPL": {
+    "market": {
+     "state": "中性",
+     "conf": "低信心",
+     "neg_rate": null,
+     "driver": ""
+    }
+   },
+   "MSFT": {
+    "market": {
+     "state": "中性",
+     "conf": "低信心",
+     "neg_rate": null,
+     "driver": ""
+    }
+   },
+   "GOOGL": {
+    "market": {
+     "state": "中性",
+     "conf": "低信心",
+     "neg_rate": null,
+     "driver": ""
+    }
+   },
+   "AMZN": {
+    "market": {
+     "state": "中性",
+     "conf": "低信心",
+     "neg_rate": null,
+     "driver": ""
+    }
+   },
+   "META": {
+    "market": {
+     "state": "中性",
+     "conf": "低信心",
+     "neg_rate": null,
+     "driver": "今晚盤後公佈業績"
+    }
+   },
+   "NVDA": {
+    "market": {
+     "state": "中性",
+     "conf": "低信心",
+     "neg_rate": null,
+     "driver": ""
+    }
+   }
+  },
+  "note": "種子狀態（2026-10-21 晚間新聞）；正式三組採集由星期日週報開始"
+ }
+}
