@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>市場報告 — GMRWI ＋ 外匯商品</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0D1117; color: #F0F6FC; font-family: -apple-system, "PingFang HK", "Microsoft JhengHei", sans-serif; padding: 16px; max-width: 860px; margin: 0 auto; }
+  h1 { font-size: 20px; margin-bottom: 2px; }
+  .sub { color: #8B949E; font-size: 12px; margin-bottom: 16px; }
+  section { background: #161B22; border: 1px solid #30363D; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+  h2 { font-size: 16px; margin-bottom: 10px; }
+  .scoreRow { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .bigScore { font-size: 64px; font-weight: 800; line-height: 1; }
+  .chip { font-size: 16px; font-weight: 700; padding: 4px 12px; border-radius: 999px; border: 2px solid currentColor; }
+  .safe { color: #00E676; } .watch { color: #FFD600; } .danger { color: #FF1744; } .warn { color: #FF9100; }
+  .bar { height: 10px; background: #21262D; border-radius: 5px; overflow: hidden; margin: 10px 0 4px; }
+  .bar > div { height: 100%; }
+  .scale { display: flex; justify-content: space-between; color: #8B949E; font-size: 11px; margin-bottom: 12px; }
+  .daily { font-size: 14px; margin: 8px 0 12px; }
+  .tag { font-weight: 700; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  td, th { padding: 5px 4px; text-align: left; vertical-align: middle; }
+  th { color: #8B949E; font-weight: 600; border-bottom: 1px solid #30363D; }
+  .mini { height: 6px; background: #21262D; border-radius: 3px; overflow: hidden; min-width: 60px; }
+  .mini > div { height: 100%; background: #58A6FF; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } .bigScore { font-size: 52px; } }
+  .card { background: #0D1117; border: 1px solid #30363D; border-radius: 10px; padding: 10px 12px; }
+  .card h3 { font-size: 13px; color: #8B949E; margin-bottom: 6px; }
+  .card .row { display: flex; justify-content: space-between; font-size: 14px; padding: 2px 0; }
+  .up { color: #00E676; font-weight: 600; } .down { color: #FF1744; font-weight: 600; }
+  .foot { color: #8B949E; font-size: 11px; text-align: center; margin-top: 4px; line-height: 1.7; }
+  .err { color: #FF1744; font-size: 14px; }
+</style>
+</head>
+<body>
+<h1>📊 市場報告</h1>
+<div class="sub">GMRWI 全球市場風險指數 ＋ 外匯・商品強弱 — 數據嚟源：本 repo 嘅 gmrwi.json / finance-widget.json（自動更新，開頁即讀最新）</div>
+
+<section id="gmrwi"><h2>🌐 GMRWI 全球市場風險指數</h2><div class="err">載入中…</div></section>
+<section id="fin"><h2>💱 外匯・商品強弱</h2><div class="err">載入中…</div></section>
+
+<div class="foot">GMRWI：分數越高＝風險越高（≤30 安全區・31–70 觀察區・&gt;70 危險區）；週報逢星期日晚更新，每日快照逢交易日 05:30 更新。<br>外匯／商品：52 週百分位（100＝一年最高位）；週報逢星期日晚更新，每日排名逢交易日更新。<br>本頁只係數據匯總，唔構成投資建議。</div>
+
+<script>
+const RAW = "https://raw.githubusercontent.com/edtsoi-ultra/vocab_master_for_kids/main/";
+const bandClass = b => b === "safe" ? "safe" : (b === "danger" ? "danger" : "watch");
+const esc = s => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
+const barRow = (label, v) => "<tr><td style='white-space:nowrap'>" + esc(label) + "</td><td style='width:45%'><div class='mini'><div style='width:" + Math.max(2, Math.min(100, v)) + "%'></div></div></td><td class='num'>" + Math.round(v) + "</td></tr>";
+
+async function load(name) {
+  const r = await fetch(RAW + name + "?t=" + Date.now());
+  if (!r.ok) throw new Error(name + " HTTP " + r.status);
+  return r.json();
+}
+
+function renderGMRWI(g) {
+  const el = document.getElementById("gmrwi");
+  const bc = bandClass(g.band);
+  let h = "<h2>🌐 GMRWI 全球市場風險指數<span style='color:#8B949E;font-size:12px'> ｜ 週報 " + esc((g.date || "").substring(5)) + "</span></h2>";
+  h += "<div class='scoreRow'><div class='bigScore " + bc + "'>" + esc(g.score) + "</div><div class='chip " + bc + "'>" + esc(g.band_display || "") + "</div></div>";
+  h += "<div class='bar'><div class='" + bc + "' style='background:currentColor;width:" + Math.min(100, g.score) + "%'></div></div>";
+  h += "<div class='scale'><span>0 安全</span><span>30</span><span>70</span><span>100 危險</span></div>";
+  if (g.daily) {
+    h += "<div class='daily'>每日快照 " + esc((g.daily.date || "").substring(5)) + "：<b class='" + bandClass(g.daily.band) + "'>" + esc(g.daily.score) + " " + esc(g.daily.band_display || "") + "</b>";
+    if (g.daily.divergence && g.daily.divergence.active) {
+      h += " <span class='tag warn'>⚠️ 背離 Δ" + (g.daily.divergence.delta >= 0 ? "+" : "") + esc(g.daily.divergence.delta) + "（週 " + esc(g.daily.divergence.weekly) + " vs 日 " + esc(g.daily.divergence.daily) + "）</span>";
+    }
+    h += "</div>";
+  }
+  const comp = g.components || g.subs;
+  if (comp) {
+    const defs = [["bond", "債市與流動性（30%）"], ["equity", "股市（25%）"], ["sentiment", "情緒波動（20%）"], ["commodity", "商品（15%）"], ["fx", "匯率（10%）"]];
+    h += "<table><tr><th>成分</th><th></th><th class='num'>分數</th></tr>";
+    defs.forEach(d => { if (comp[d[0]] != null) h += barRow(d[1], comp[d[0]]); });
+    h += "</table>";
+  }
+  el.innerHTML = h;
+}
+
+function rankCard(title, top, bot) {
+  let h = "<div class='card'><h3>" + title + "</h3>";
+  top.forEach(e => { h += "<div class='row'><span class='up'>▲ " + esc(e.name) + "</span><span class='up'>" + Math.round(e.percentile) + "%</span></div>"; });
+  bot.forEach(e => { h += "<div class='row'><span class='down'>" + esc(e.name) + " ▼</span><span class='down'>" + Math.round(e.percentile) + "%</span></div>"; });
+  return h + "</div>";
+}
+
+function rankTable(rows, priceLabel) {
+  let h = "<table><tr><th>#</th><th>名稱</th><th style='width:35%'>52週位置</th><th class='num'>百分位</th>" + (priceLabel ? "<th class='num'>" + priceLabel + "</th>" : "") + "</tr>";
+  rows.forEach((e, i) => {
+    h += "<tr><td>" + (i + 1) + "</td><td>" + esc(e.name) + "</td><td><div class='mini'><div style='width:" + Math.max(2, Math.min(100, e.percentile)) + "%'></div></div></td><td class='num'>" + Math.round(e.percentile) + "%</td>";
+    if (priceLabel) h += "<td class='num'>" + esc(e.price || e.rate || "") + "</td>";
+    h += "</tr>";
+  });
+  return h + "</table>";
+}
+
+function renderFin(f) {
+  const el = document.getElementById("fin");
+  let h = "<h2>💱 外匯・商品強弱</h2>";
+  let lists = null, asOf = "";
+  if (f.fx && f.fx.top3 && f.commodity && f.commodity.top3) {
+    lists = { fxTop: f.fx.top3, fxBot: f.fx.bottom3, cmdTop: f.commodity.top3, cmdBot: f.commodity.bottom3 };
+    asOf = "週報 " + (f.updated || "").substring(5, 10);
+  } else if (f.daily && Array.isArray(f.daily.fx) && Array.isArray(f.daily.commodities)) {
+    const fx = f.daily.fx, cm = f.daily.commodities;
+    lists = { fxTop: fx.slice(0, 3), fxBot: fx.slice(-3).reverse(), cmdTop: cm.slice(0, 3), cmdBot: cm.slice(-3).reverse() };
+    asOf = "每日排名 " + (f.daily.date || "").substring(5);
+  }
+  if (lists) {
+    h += "<div class='grid'>" + rankCard("💱 外匯 — 頭三 / 尾三", lists.fxTop, lists.fxBot) + rankCard("📦 商品 — 頭三 / 尾三", lists.cmdTop, lists.cmdBot) + "</div>";
+    h += "<div class='sub' style='margin-top:8px'>" + esc(asOf) + "</div>";
+  }
+  if (f.daily && Array.isArray(f.daily.fx)) {
+    h += "<h3 style='font-size:14px;margin:12px 0 4px'>外匯完整排名（" + esc((f.daily.date || "").substring(5)) + "）</h3>" + rankTable(f.daily.fx, "匯率");
+  }
+  if (f.daily && Array.isArray(f.daily.commodities)) {
+    h += "<h3 style='font-size:14px;margin:12px 0 4px'>商品完整排名（" + esc((f.daily.date || "").substring(5)) + "）</h3>" + rankTable(f.daily.commodities, "價格");
+  }
+  el.innerHTML = h;
+}
+
+load("gmrwi.json").then(renderGMRWI).catch(e => { document.getElementById("gmrwi").innerHTML = "<h2>🌐 GMRWI</h2><div class='err'>⚠️ 載入失敗：" + esc(e.message) + "</div>"; });
+load("finance-widget.json").then(renderFin).catch(e => { document.getElementById("fin").innerHTML = "<h2>💱 外匯・商品</h2><div class='err'>⚠️ 載入失敗：" + esc(e.message) + "</div>"; });
+</script>
+</body>
+</html>
