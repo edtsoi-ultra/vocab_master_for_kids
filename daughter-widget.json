@@ -1,7 +1,7 @@
 {
   "service": "daughter-school",
   "student": "蔡諾琳 2A",
-  "updated": "2026-10-21T21:22:06.571883+08:00",
+  "updated": "2026-10-21T22:33:57.706614+00:00",
   "homework": [
     {
       "subject": "人文",
@@ -9,7 +9,7 @@
       "due": "2026-11-01",
       "status": "pending",
       "due_display": "11月1日 (日)",
-      "days_left": 11
+      "days_left": 10
     }
   ],
   "upcoming": [
@@ -19,7 +19,7 @@
       "title": "數學 FA",
       "date": "2026-10-22",
       "date_display": "10月22日 (四)",
-      "days_left": 1
+      "days_left": 0
     },
     {
       "type": "默書",
@@ -27,7 +27,7 @@
       "title": "英文默書",
       "date": "2026-10-23",
       "date_display": "10月23日 (五)",
-      "days_left": 2
+      "days_left": 1
     },
     {
       "type": "默書",
@@ -35,7 +35,7 @@
       "title": "中文默書",
       "date": "2026-10-28",
       "date_display": "10月28日 (三)",
-      "days_left": 7
+      "days_left": 6
     },
     {
       "type": "評估",
@@ -43,7 +43,7 @@
       "title": "評估一 (中英數常人文)",
       "date": "2026-11-19",
       "date_display": "11月19日 (四)",
-      "days_left": 29
+      "days_left": 28
     }
   ],
   "notices": {
@@ -57,7 +57,7 @@
         "brief": "Star Miracle頒獎禮（回條未簽）",
         "deadline": "2026-10-26",
         "deadline_display": "10月26日 (一)",
-        "days_left": 5
+        "days_left": 4
       }
     ]
   }
