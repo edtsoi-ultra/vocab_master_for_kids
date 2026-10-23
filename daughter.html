@@ -40,7 +40,14 @@ h2.sec { font-size: 16.5px; font-weight: 900; margin: 20px 0 10px; }
 .wordunit.known .word::after { content: " ✓"; color: #86EFAC; }
 .wlegend { font-size: 12px; color: #93C5FD; font-weight: 700; margin-bottom: 7px; }
 .scope .sline { display: block; margin-left: 3em; }
-.practice li.known, .hints li.known { opacity: .55; }
+.practice li.known, .hints li.known, .sent li.known { opacity: .55; }
+.sentrow { display: flex; align-items: flex-start; gap: 8px; }
+.senttext { flex: 1; }
+.sentrow .lchk { margin: 0; flex: 0 0 auto; }
+.sent li { margin-bottom: 7px; }
+.speak1 { background: #2563EB; color: #fff; border: none; border-radius: 8px; padding: 5px 10px; font-size: 13px; font-weight: 800; cursor: pointer; flex: 0 0 auto; }
+.speak1:active { background: #1D4ED8; }
+.words .word { cursor: pointer; }
 .words .word .mean { color: #FDE68A; font-weight: 700; margin-left: 7px; font-size: 13px; }
 .words .word .syl { color: #93C5FD; font-weight: 600; margin-left: 7px; font-size: 12.5px; }
 .words, .sent { background: rgba(30,58,138,.30); }
@@ -236,7 +243,7 @@ function refreshProgCounts() {
     const cb = u.querySelector("input.lcb");
     if (cb) u.classList.toggle("known", cb.checked);
   });
-  document.querySelectorAll(".practice li, .hints li").forEach(li => {
+  document.querySelectorAll(".practice li, .hints li, .sent li").forEach(li => {
     const cb = li.querySelector("input.lcb");
     if (cb) li.classList.toggle("known", cb.checked);
   });
@@ -282,6 +289,30 @@ function speakSeq(texts, lang, btn, prog) {
     say(texts[i], () => setTimeout(() => { if (!alive()) return; say(texts[i], () => setTimeout(() => { i++; playItem(); }, 6000)); }, 2000));
   }
   playItem();
+}
+/* 單項讀默：只讀嗰一項，讀兩次（逐句/逐字用，唔使成串聽晒） */
+let tapSeq = 0;
+function sayTwice(text, lang, isAlive, onDone) {
+  const say = (t, cb) => { const u = new SpeechSynthesisUtterance(t); u.lang = lang; u.rate = 0.78; u.onend = cb; u.onerror = cb; speechSynthesis.speak(u); };
+  say(text, () => setTimeout(() => { if (!isAlive()) return; say(text, onDone || (() => {})); }, 900));
+}
+function speakSingle(text, lang, btn) {
+  if (!("speechSynthesis" in window)) { btn.textContent = "此瀏覽器不支援語音"; return; }
+  if (speakingBtn === btn) { speechSynthesis.cancel(); speakingBtn = null; btn.textContent = btn.dataset.label; return; }
+  tapSeq++;
+  speechSynthesis.cancel();
+  if (speakingBtn) speakingBtn.textContent = speakingBtn.dataset.label;
+  speakingBtn = btn;
+  btn.dataset.label = btn.textContent;
+  btn.textContent = "⏹";
+  sayTwice(text, lang, () => speakingBtn === btn, () => { if (speakingBtn !== btn) return; speakingBtn = null; btn.textContent = btn.dataset.label; });
+}
+function speakTap(text, lang) {
+  if (!("speechSynthesis" in window)) return;
+  if (speakingBtn) { speakingBtn.textContent = speakingBtn.dataset.label; speakingBtn = null; }
+  speechSynthesis.cancel();
+  const my = ++tapSeq;
+  sayTwice(text, lang, () => tapSeq === my);
 }
 
 /* ---------- 分頁 (tabs) ---------- */
@@ -332,6 +363,7 @@ function enrichmentHTML(card, item, opts) {
   const ck = opts.cardKey || "";
   const checkable = !!opts.checkable;
   const isGuess = item.source_tier === "scope_guess";
+  const isDict = /默書/.test(item.type || "") || /默書|Dict/.test(item.title || "");
   if (opts.showTier && !isGuess) { const tb = tierBadge(item); if (tb) card.appendChild(tb); }
   if (isGuess) card.appendChild(el("div", "flag", "⚠️ 基礎範圍練習 — 待傳課本/默書紙相片以生成精準字表"));
   else if (item.flag) card.appendChild(el("div", "flag", item.flag));
@@ -339,7 +371,7 @@ function enrichmentHTML(card, item, opts) {
   if (tabs) card.appendChild(tabs);
   const mode = card._tabMode;
   const gAttr = (g) => mode ? (g || "") : null;
-  if (item.detail) {
+  if (item.detail && !isDict) {
     if (opts.wrapDetail) {
       const det = el("details", "orig");
       det.appendChild(el("summary", null, "▶ 睇學校原文"));
@@ -347,17 +379,19 @@ function enrichmentHTML(card, item, opts) {
       card.appendChild(det);
     } else { const b = block("detail", "📋 內容／指示（學校原文）"); b.appendChild(el("div", null, item.detail)); card.appendChild(b); }
   }
-  if (item.points && item.points.length) { const b = block("points", "📌 要點"); const ul = el("ul"); item.points.forEach(p => ul.appendChild(el("li", null, p))); b.appendChild(ul); card.appendChild(b); }
-  if (item.focus_points && item.focus_points.length) { const b = block("focus", "🎯 重點注意"); const ul = el("ul"); item.focus_points.forEach(p => ul.appendChild(el("li", null, p))); b.appendChild(ul); card.appendChild(b); }
+  if (item.points && item.points.length && !isDict) { const b = block("points", "📌 要點"); const ul = el("ul"); item.points.forEach(p => ul.appendChild(el("li", null, p))); b.appendChild(ul); card.appendChild(b); }
+  if (item.focus_points && item.focus_points.length && !isDict) { const b = block("focus", "🎯 重點注意"); const ul = el("ul"); item.focus_points.forEach(p => ul.appendChild(el("li", null, p))); b.appendChild(ul); card.appendChild(b); }
   const wIdx = new Map(); (item.words || []).forEach((w, i) => wIdx.set(w, i));
   if (item.words && item.words.length) {
     const b = block("words", "📝 字詞表");
-    if (checkable) b.appendChild(el("div", "wlegend", "每個字詞跟住一個剔格：剔咗 ✓ 個字詞會變綠色 = 識咗"));
+    if (checkable) b.appendChild(el("div", "wlegend", "撳字詞 = 聽讀音（讀兩次）；跟住嘅剔格剔咗 ✓ 字詞會變綠色 = 識咗"));
     const wordUnit = (w) => {
       const unit = el("span", "wordunit");
       const s = el("span", "word", w.text);
       if (w.meaning) s.appendChild(el("span", "mean", w.meaning));
       if (w.syllables) s.appendChild(el("span", "syl", w.syllables));
+      s.title = "撳一下聽讀音（讀兩次）";
+      s.addEventListener("click", () => speakTap(w.text, langOf(item)));
       unit.appendChild(s);
       if (checkable) unit.appendChild(checkLabel(ck, "w" + wIdx.get(w) + "-" + hashStr(w.text), ""));
       return unit;
@@ -382,14 +416,23 @@ function enrichmentHTML(card, item, opts) {
   }
   if (item.sentences && item.sentences.length) {
     const b = block("sent", "🗣 讀默句子");
-    const ol = el("ol"); item.sentences.forEach(s => ol.appendChild(el("li", null, s))); b.appendChild(ol);
-    const btn = el("button", "speak", "🔊 讀默句子");
-    const prog = el("span", "prog");
-    btn.addEventListener("click", () => speakSeq(item.sentences, langOf(item), btn, prog));
-    b.appendChild(btn); b.appendChild(prog);
+    if (checkable) b.appendChild(el("div", "wlegend", "每句有自己嘅 🔊 掣（只讀嗰句，讀兩次）同剔格，識咗就剔"));
+    const ol = el("ol");
+    item.sentences.forEach((s, i) => {
+      const li = el("li");
+      const row = el("div", "sentrow");
+      row.appendChild(el("span", "senttext", s));
+      const sb = el("button", "speak1", "🔊");
+      sb.addEventListener("click", () => speakSingle(s, langOf(item), sb));
+      row.appendChild(sb);
+      if (checkable) row.appendChild(checkLabel(ck, "s" + i + "-" + hashStr(s), ""));
+      li.appendChild(row);
+      ol.appendChild(li);
+    });
+    b.appendChild(ol);
     card.appendChild(b);
   }
-  if (item.hints && item.hints.length) { const b = block("hints", "💡 點樣幫佢做（AI 輔助）"); const ul = el("ul"); item.hints.forEach((h, i) => { const li = el("li", null, h); if (opts.hintsCheck) li.appendChild(checkLabel(ck, "h" + i + "-" + hashStr(h), "✅識咗")); ul.appendChild(li); }); b.appendChild(ul); card.appendChild(b); }
+  if (item.hints && item.hints.length && !isDict) { const b = block("hints", "💡 點樣幫佢做（AI 輔助）"); const ul = el("ul"); item.hints.forEach((h, i) => { const li = el("li", null, h); if (opts.hintsCheck) li.appendChild(checkLabel(ck, "h" + i + "-" + hashStr(h), "✅識咗")); ul.appendChild(li); }); b.appendChild(ul); card.appendChild(b); }
   if (item.practice && item.practice.length) {
     const b = block("practice", "✏️ 練習題（AI 生成）");
     const groups = {};
