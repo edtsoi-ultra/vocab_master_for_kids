@@ -1,7 +1,7 @@
 {
   "service": "daughter-school-detail",
   "student": "蔡諾琳 2A",
-  "updated": "2026-10-23T10:06:02.995714+00:00",
+  "updated": "2026-10-23T11:57:17.200699+00:00",
   "homework": [
     {
       "key": "HUM_VIDEO_1",
@@ -107,7 +107,7 @@
       ],
       "source_tier": "scope_guess",
       "flag": "⚠️ 基礎範圍練習（待補充課文／默書紙圖片以生成精準字表練習）",
-      "source": "範圍：課文第3至7課（日誌記錄）"
+      "source": "範圍：課文第3至7課。目錄核實（2026-10-23）：一冊第3課《心中的鈴鐺》、第4課《小老虎的成長紀錄》、第5課《很大很大的爸爸》、第6課《鞋》＋二冊第7課（編號跨冊連續，課名待二冊目錄確認）"
     },
     {
       "key": "ENG_DICT_3",
@@ -133,7 +133,7 @@
       ],
       "source_tier": "scope_guess",
       "flag": "⚠️ 基礎範圍練習（待上傳 Unit 3 生字表／默書紙圖片以生成精準字表）",
-      "source": "範圍：Textbook 2A Unit 3（日誌記錄）"
+      "source": "範圍：Textbook 2A Unit 3 ‘My school’（目錄核實 2026-10-23）：生字範疇 places at school + floors (ordinal numbers)；文法 where 問位置 / on / in；Phonics f (first), v (van)。確實生字表待 Unit 3 課文頁或 Picture Dictionary (p.82)"
     },
     {
       "key": "ASSESS_1",
