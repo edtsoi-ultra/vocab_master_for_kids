@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🐷 蔡諾琳 2A 學校專頁</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, "PingFang HK", "Noto Sans TC", sans-serif;
+    background: linear-gradient(160deg, #0F172A 0%, #1E293B 100%);
+    color: #F8FAFC; min-height: 100vh; padding: 18px 14px 40px;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; }
+  header { margin: 6px 2px 16px; }
+  header h1 { font-size: 24px; font-weight: 900; }
+  header .sub { color: #94A3B8; font-size: 13px; margin-top: 4px; }
+  h2 { font-size: 17px; margin: 22px 2px 10px; }
+  .card {
+    background: rgba(30,41,59,.92); border: 1px solid rgba(148,163,184,.28);
+    border-radius: 16px; padding: 14px 16px; margin-bottom: 12px;
+  }
+  .row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .chip {
+    display: inline-block; padding: 2px 10px; border-radius: 999px;
+    font-size: 12px; font-weight: 800; color: #fff;
+  }
+  .t-評估 { background:#F43F5E; } .t-默書 { background:#2563EB; }
+  .t-進評 { background:#9333EA; } .t-小測 { background:#0D9488; }
+  .t-測驗 { background:#CA8A04; } .t-其他 { background:#475569; }
+  .subj { font-weight: 800; font-size: 16px; }
+  .ttl { font-size: 16px; }
+  .when { margin-left: auto; text-align: right; }
+  .date { color: #CBD5E1; font-size: 13px; }
+  .cd { font-weight: 900; font-size: 14px; }
+  .cd-hot { color: #FB7185; } .cd-warm { color: #FBBF24; } .cd-ok { color: #34D399; }
+  .block { margin-top: 10px; border-radius: 10px; padding: 10px 12px; font-size: 14px; line-height: 1.55; }
+  .scope { background: rgba(15,23,42,.85); border: 1px solid rgba(148,163,184,.22); }
+  .scope .lab, .detail .lab, .hints .lab, .practice .lab {
+    display:block; font-size: 12px; font-weight: 800; letter-spacing: .06em; margin-bottom: 4px;
+  }
+  .scope .lab { color: #7DD3FC; }
+  .detail { background: rgba(15,23,42,.85); border: 1px solid rgba(148,163,184,.22); }
+  .detail .lab { color: #C4B5FD; }
+  .hints { background: rgba(245,158,11,.10); border: 1px solid rgba(245,158,11,.45); }
+  .hints .lab { color: #FBBF24; }
+  .hints li, .practice li { margin-left: 18px; }
+  .practice { background: rgba(16,185,129,.08); border: 1px solid rgba(16,185,129,.4); }
+  .practice .lab { color: #34D399; }
+  .practice details { margin-top: 4px; }
+  .practice summary { color: #6EE7B7; font-size: 13px; cursor: pointer; }
+  .practice .ans { color: #A7F3D0; }
+  .empty { color: #94A3B8; font-size: 14px; padding: 6px 2px; }
+  .notice .cd { font-size: 13px; }
+  footer { color: #64748B; font-size: 12px; margin-top: 24px; text-align: center; }
+  .err { color: #FB7185; font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🐷 <span id="student">蔡諾琳</span> 學校專頁</h1>
+    <div class="sub" id="updated">載入中…</div>
+  </header>
+  <div id="app"></div>
+  <footer>資料每日自動更新（06:30）＋ eClass 檢查後同步・練習題與功課提示會隨新項目自動加入</footer>
+</div>
+<script>
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+}
+function cdText(days) {
+  if (days <= 0) return "今日！";
+  if (days === 1) return "聽日";
+  return days + " 日後";
+}
+function cdClass(days) { return days <= 0 ? "cd-hot" : (days <= 3 ? "cd-warm" : "cd-ok"); }
+
+function block(cls, lab, build) {
+  const b = el("div", "block " + cls);
+  b.appendChild(el("span", "lab", lab));
+  build(b);
+  return b;
+}
+function addScope(parent, item) {
+  if (item.scope) parent.appendChild(block("scope", "📚 溫書範圍", b => b.appendChild(el("div", null, item.scope))));
+  if (item.detail) parent.appendChild(block("detail", "📋 內容", b => b.appendChild(el("div", null, item.detail))));
+  if (item.hints && item.hints.length) parent.appendChild(block("hints", "💡 提示・方向", b => {
+    const ul = el("ul");
+    item.hints.forEach(h => ul.appendChild(el("li", null, h)));
+    b.appendChild(ul);
+  }));
+  if (item.practice && item.practice.length) parent.appendChild(block("practice", "✏️ 練習題", b => {
+    const ol = el("ol");
+    item.practice.forEach(p => {
+      const li = el("li", null, p.q);
+      if (p.a) {
+        const det = el("details");
+        det.appendChild(el("summary", null, "睇答案"));
+        det.appendChild(el("div", "ans", p.a));
+        li.appendChild(det);
+      }
+      ol.appendChild(li);
+    });
+    b.appendChild(ol);
+  }));
+}
+
+fetch("daughter-detail.json?t=" + Date.now())
+  .then(r => r.json())
+  .then(d => {
+    document.getElementById("student").textContent = d.student || "蔡諾琳 2A";
+    document.getElementById("updated").textContent = "更新：" + (d.updated || "").replace("T", " ").slice(0, 16);
+    const app = document.getElementById("app");
+
+    app.appendChild(el("h2", null, "📅 考試・默書・評估"));
+    if (!d.upcoming || !d.upcoming.length) app.appendChild(el("div", "empty", "暫時冇已記錄嘅測驗或評估。"));
+    (d.upcoming || []).forEach(u => {
+      const c = el("div", "card");
+      const r = el("div", "row");
+      r.appendChild(el("span", "chip t-" + (u.type || "其他"), u.type || ""));
+      r.appendChild(el("span", "subj", u.subject || ""));
+      r.appendChild(el("span", "ttl", u.title || ""));
+      const w = el("div", "when");
+      w.appendChild(el("div", "date", u.date_display || u.date || ""));
+      w.appendChild(el("div", "cd " + cdClass(u.days_left), cdText(u.days_left)));
+      r.appendChild(w);
+      c.appendChild(r);
+      addScope(c, u);
+      app.appendChild(c);
+    });
+
+    app.appendChild(el("h2", null, "📝 未交功課"));
+    if (!d.homework || !d.homework.length) app.appendChild(el("div", "empty", "冇未交功課 🎉"));
+    (d.homework || []).forEach(hw => {
+      const c = el("div", "card");
+      const r = el("div", "row");
+      r.appendChild(el("span", "subj", hw.subject || ""));
+      r.appendChild(el("span", "ttl", hw.title || ""));
+      const w = el("div", "when");
+      w.appendChild(el("div", "date", "交：" + (hw.due_display || hw.due || "")));
+      w.appendChild(el("div", "cd " + cdClass(hw.days_left), cdText(hw.days_left)));
+      r.appendChild(w);
+      c.appendChild(r);
+      addScope(c, hw);
+      app.appendChild(c);
+    });
+
+    const items = (d.notices && d.notices.items) || [];
+    app.appendChild(el("h2", null, "📢 通告（未簽／處理中）"));
+    if (!items.length) app.appendChild(el("div", "empty", "冇待處理通告。"));
+    items.forEach(n => {
+      const c = el("div", "card notice");
+      const r = el("div", "row");
+      r.appendChild(el("span", "ttl", n.brief || n.title || ""));
+      const w = el("div", "when");
+      w.appendChild(el("div", "date", "限期：" + (n.deadline_display || n.deadline || "")));
+      w.appendChild(el("div", "cd " + cdClass(n.days_left), cdText(n.days_left)));
+      r.appendChild(w);
+      c.appendChild(r);
+      app.appendChild(c);
+    });
+  })
+  .catch(e => {
+    document.getElementById("updated").innerHTML = '<span class="err">載入失敗，請稍後再試。</span>';
+  });
+</script>
+</body>
+</html>
