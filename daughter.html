@@ -114,6 +114,8 @@ details.orig .origbody { margin-top: 6px; font-size: 14px; line-height: 1.7; col
 .qzlesson small { display: block; font-size: 12px; font-weight: 700; color: #BBF7D0; margin-top: 2px; }
 .qzlesson.off { border-color: #475569; background: #1E293B; color: #94A3B8; cursor: default; }
 .qzlesson.off small { color: #64748B; }
+.qzlesson.preview { border-color: #F59E0B; background: #451A03; color: #FDE68A; }
+.qzlesson.preview small { color: #FCD34D; }
 .subj-tag { display: inline-block; font-size: 11.5px; font-weight: 900; border-radius: 20px; padding: 2px 9px; margin-right: 7px; vertical-align: 2px; white-space: nowrap; }
 .tag-chi { background: #450A0A; color: #FCA5A5; border: 1px solid #EF4444; }
 .tag-eng { background: #172554; color: #93C5FD; border: 1px solid #3B82F6; }
@@ -608,9 +610,9 @@ function enrichmentHTML(card, item, opts) {
     const grid = el("div", "qzgrid");
     item.quiz.lessons.forEach(L => {
       const label = "第" + L.n + "課" + (L.title ? "《" + L.title + "》" : "");
-      if (L.status === "live") {
-        const qb = el("button", "qzlesson", "▶ " + label);
-        qb.appendChild(el("small", null, "簡易版／正常版・㩒入去玩"));
+      if (L.status === "live" || L.status === "preview") {
+        const qb = el("button", "qzlesson" + (L.status === "preview" ? " preview" : ""), "▶ " + label);
+        qb.appendChild(el("small", null, L.status === "preview" ? "👀 預覽版・㩒入去玩" : "簡易版／正常版・㩒入去玩"));
         qb.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(L.id, item.key); });
         grid.appendChild(qb);
       } else {
@@ -1038,7 +1040,85 @@ const QZ_L6 = {
     { type: "reveal", skill: "思考與理解", tag: "思考題・自我核對", q: "返到屋企脫鞋，你會諗起咩開心事？", answer: "可以想想今天在學校學了什麼、和誰玩過、吃了什麼好東西。詩人把一天的經歷叫做「見聞」，和家人分享，就是家的溫暖。", label: "思考題：一天的見聞" }
   ]}
 };
-const QZ_LESSONS = { chi_l3: QZ_L3, chi_l4: QZ_L4, chi_l5: QZ_L5, chi_l6: QZ_L6 };
+const QZ_L7 = {
+  easy: { label: "簡易版（預覽）", items: [
+    { type: "mc", skill: "課文內容", tag: "點選題 MC・預覽", q: "「鬍子好比一把尺子」，鬍子像咩？", opts: ["一面鏡子", "一把尺子", "一條繩子", "一支筆杆"], ans: 1, why: "預覽題（按默書範圍）：貓媽媽說鬍子好比一把尺子，用來量一量過唔過到個洞。", hint: "💡 鬍子用嚟「量」嘢。", label: "預覽：鬍子像尺子" },
+    { type: "mc", skill: "課文內容", tag: "點選題 MC・預覽", q: "鬍子俾刮掉，小花貓會點？", opts: ["撞得頭破血流", "跑步跑得快啲", "睇嘢清楚好多", "食嘢方便好多"], ans: 0, why: "預覽題：課文話鬍子被刮掉，就會碰得頭破血流。", hint: "💡 冇咗尺子量，入洞嗰陣會點？", label: "預覽：刮鬍子的後果" },
+    { type: "mc", skill: "課文內容", tag: "點選題 MC・預覽", q: "邊個話鬍子好比一把尺子？", opts: ["小花貓", "主人", "貓媽媽", "老鼠"], ans: 2, why: "預覽題：係貓媽媽耐心地同小花貓講嘅。", hint: "💡 邊個最錫小花貓，會教佢？", label: "預覽：誰說的" },
+    { type: "mc", skill: "詞語運用", tag: "點選題 MC・預覽", q: "小花貓對住咩嚟照自己個樣？", opts: ["池水", "窗門", "相片", "鏡子"], ans: 3, why: "預覽題（默書詞語：鏡子、難看、樣子）：小花貓照鏡子，覺得鬍子難看。", hint: "💡 喺浴室會見到，可以照到自己。", label: "預覽：照鏡子" },
+    { type: "mc", skill: "詞語運用", tag: "點選題 MC・預覽", q: "「乾乾淨淨」係形容咩？", opts: ["好清潔冇污糟", "好整齊冇亂嘢", "好安靜冇聲音", "好光亮冇暗影"], ans: 0, why: "預覽題：「乾乾淨淨」即係清潔得好好，冇污糟。", hint: "💡 同「污糟」相反。", label: "預覽：乾乾淨淨" },
+    { type: "match", skill: "詞語運用", tag: "配對 Matching・預覽", q: "詞語配意思：先㩒左邊詞語，再㩒右邊佢嘅意思。", pairs: [["難看", "唔好睇"], ["追捕", "追住嚟捉"], ["幫忙", "幫手做事"], ["辦法", "做事的方法"]], right: ["幫手做事", "做事的方法", "唔好睇", "追住嚟捉"], hint: "💡 「追捕」即係追住嚟捉。", label: "預覽：詞語配對" },
+    { type: "order", skill: "背默句子", tag: "句子重組 Order・預覽", q: "按背默句子排好：㩒詞語放入框。", parts: ["小花貓在一旁仰着腦袋", "碧綠的大眼睛", "一眨不眨地看着主人"], shuffled: ["一眨不眨地看着主人", "小花貓在一旁仰着腦袋", "碧綠的大眼睛"], label: "預覽：背默句重組" },
+    { type: "reveal", skill: "思考與理解", tag: "諗深一層・預覽", q: "點解小花貓以後唔再刮鬍子？", answer: "因為鬍子好比一把尺子，幫佢量一量自己過唔過到個洞。刮掉鬍子，就會碰得頭破血流，所以佢以後都唔再刮鬍子了。", label: "預覽：不再刮鬍子" }
+  ]},
+  normal: { label: "正常版（預覽）", items: [
+    { type: "mc", skill: "課文內容", tag: "點選題 MC・預覽", q: "鬍子點樣幫小花貓量嘢？", opts: ["量下自己有幾重", "量下過唔過到個洞", "量下老鼠跑幾快", "量下個洞有幾深"], ans: 1, why: "預覽題：課文話「你能不能從洞裏鑽過去，先要用尺子量一量」。", label: "預覽：鬍子量洞" },
+    { type: "mc", skill: "詞語運用", tag: "點選題 MC・預覽", q: "邊一句用「感到」最啱？", opts: ["我感到佢係好人。", "我感到聽日落雨。", "我感到有啲凍。", "我感到本書好睇。"], ans: 2, why: "預覽題：「感到」用嚟講身體同心情嘅感覺，例如感到凍、感到開心。", label: "預覽：感到" },
+    { type: "mc", skill: "詞語運用", tag: "點選題 MC・預覽", q: "「一眨不眨」係形容咩？", opts: ["行路行得好快", "眼睛望住唔郁", "講嘢好大聲响", "瞓覺瞓得好沉"], ans: 1, why: "預覽題：背默句「一眨不眨地看着主人」，形容眼睛望住一樣嘢，唔眨眼。", label: "預覽：一眨不眨" },
+    { type: "mc", skill: "課文內容", tag: "點選題 MC・預覽", q: "小花貓嘅眼睛係咩顏色？", opts: ["烏黑", "深啡", "碧綠", "淺藍"], ans: 2, why: "預覽題：背默句寫「碧綠的大眼睛」。", label: "預覽：眼睛顏色" },
+    { type: "order", skill: "課文內容", tag: "句子重組 Order・預覽", q: "按課文次序排好：㩒句子放入框。", parts: ["你的鬍子好比一把尺子", "先要用尺子量一量", "鬍子被你刮掉了", "會碰得頭破血流"], shuffled: ["鬍子被你刮掉了", "你的鬍子好比一把尺子", "會碰得頭破血流", "先要用尺子量一量"], label: "預覽：課文句重組" },
+    { type: "drag", skill: "詞語運用", tag: "拖放 Drag & Drop・預覽", q: "分類：把詞語拖入正確的籃。", chips: [{ ch: "追捕", cat: "act" }, { ch: "撞", cat: "act" }, { ch: "幫忙", cat: "act" }, { ch: "鏡子", cat: "thing" }, { ch: "浴室", cat: "thing" }], cats: [["act", "動作"], ["thing", "地方／東西"]], label: "預覽：詞語分類" },
+    { type: "reveal", skill: "思考與理解", tag: "思考題・預覽", q: "如果你係小花貓，你會點同主人講？", answer: "可以講：「主人，我以前覺得鬍子難看，想刮掉它。原來鬍子好像一把尺子，可以幫我量洞口，我以後都不刮鬍子了。」", label: "預覽：同主人講" }
+  ]}
+};
+const QZ_ENG = {
+  easy: { label: "簡易版（預覽）", items: [
+    { type: "mc", skill: "U3 詞彙", tag: "MC・Preview", q: "Where can we sing songs?", opts: ["In the music room.", "In the art room.", "In the tuck shop.", "In the sick room."], ans: 0, why: "Preview: We sing songs in the music room.（音樂室）", hint: "💡 Music = 音樂。", label: "Preview: music room" },
+    { type: "mc", skill: "U3 詞彙", tag: "MC・Preview", q: "Where can we draw pictures?", opts: ["In the music room.", "In the art room.", "In the office.", "In the corridor."], ans: 1, why: "Preview: We draw pictures in the art room.（美術室）", hint: "💡 Art = 美術。", label: "Preview: art room" },
+    { type: "mc", skill: "U1 介詞", tag: "MC・Preview", q: "It is ___ the cinema.（喺戲院後面）", opts: ["next to", "in front of", "behind", "on the left"], ans: 2, why: "Preview: behind = 後面。It is behind the cinema.", hint: "💡 後面 = behind。", label: "Preview: behind" },
+    { type: "mc", skill: "U2 現在進行式", tag: "MC・Preview", q: "Look! The girls ___ in the pool.", opts: ["swims", "are swimming", "swim yesterday", "is swimming"], ans: 1, why: "Preview: The girls are plural, and it is happening now: are swimming.", hint: "💡 Girls 係多過一個，要用 are。", label: "Preview: are swimming" },
+    { type: "mc", skill: "U2 規則", tag: "MC・Preview", q: "We ___ pick the flowers in the park.", opts: ["must", "can always", "must not", "are"], ans: 2, why: "Preview: We must not pick the flowers.（唔可以摘花）", hint: "💡 摘花係唔啱嘅，要用 must not。", label: "Preview: must not" },
+    { type: "mc", skill: "U4 所有格", tag: "MC・Preview", q: "This watch is ___.（Bob 嘅）", opts: ["Bobs", "Bob", "of Bob", "Bob's"], ans: 3, why: "Preview: Bob's watch — 's after a name shows the owner.", hint: "💡 人名後面加 's。", label: "Preview: Bob's" },
+    { type: "mc", skill: "U4 問句", tag: "MC・Preview", q: "___ you have hairbands?", opts: ["Does", "Do", "Is", "Are"], ans: 1, why: "Preview: Do you have hairbands? Yes, I do.", hint: "💡 You 配 Do。", label: "Preview: Do you" },
+    { type: "order", skill: "U1 問句", tag: "Order・Preview", q: "排好句子：㩒詞語放入框。", parts: ["Is ", "there ", "a post office?"], shuffled: ["a post office?", "Is ", "there "], label: "Preview: Is there" }
+  ]},
+  normal: { label: "正常版（預覽）", items: [
+    { type: "mc", skill: "U3 位置", tag: "MC・Preview", q: "___ is the library?", opts: ["What", "Where", "Who", "When"], ans: 1, why: "Preview: We ask about places with Where.", label: "Preview: Where" },
+    { type: "mc", skill: "U2 現在進行式", tag: "MC・Preview", q: "She is ___ a song now.", opts: ["singing", "sing a song", "sings songs", "sang a song"], ans: 0, why: "Preview: She is singing a song.（正在唱歌）", label: "Preview: is singing" },
+    { type: "mc", skill: "U3 序數詞", tag: "MC・Preview", q: "邊個係序數詞（講第幾）？", opts: ["five", "fiveth", "fifth", "fives"], ans: 2, why: "Preview: fifth = 第五。Dict 3 範圍有 fourth, fifth, sixth。", label: "Preview: fifth" },
+    { type: "mc", skill: "U4 問句", tag: "MC・Preview", q: "___ she have a ruler?", opts: ["Do", "Does", "Is", "Are"], ans: 1, why: "Preview: She → Does she have...? Yes, she does.", label: "Preview: Does she" },
+    { type: "mc", skill: "U2 規則", tag: "MC・Preview", q: "We ___ keep the classroom clean.", opts: ["must not", "never must", "not must", "must"], ans: 3, why: "Preview: We must keep clean.（要保持清潔）", label: "Preview: must keep" },
+    { type: "reveal", skill: "U3 運用", tag: "Think・Preview", q: "講一句英文：你喺學校邊度上堂？", answer: "Example: I have lessons in the classroom.（我喺課室上堂。）也可以用其他課室詞彙，例如 music room, art room。", label: "Preview: my classroom" }
+  ]}
+};
+const QZ_MATH = {
+  easy: { label: "簡易版（預覽）", items: [
+    { type: "mc", skill: "三位數", tag: "點選題 MC・預覽", q: "356 入面，「5」代表咩？", opts: ["5", "500", "50", "15"], ans: 2, why: "預覽題（重用評估練習題庫）：5 在十位，代表 5 個十，即 50。", hint: "💡 睇吓「5」企喺邊個位。", label: "預覽：5 的數值" },
+    { type: "mc", skill: "三位數", tag: "點選題 MC・預覽", q: "478 ○ 487，○ 係咩符號？", opts: [">", "<", "=", "+"], ans: 1, why: "預覽題（重用題庫）：478 比 487 細，所以係 <。", hint: "💡 百位一樣，比較十位。", label: "預覽：比較大小" },
+    { type: "mc", skill: "加法", tag: "點選題 MC・預覽", q: "246 + 358 = ?", opts: ["594", "604", "504", "614"], ans: 1, why: "預覽題（重用題庫）：246 + 358 = 604，記得進位。", hint: "💡 個位 6+8=14，寫 4 進 1。", label: "預覽：加法" },
+    { type: "mc", skill: "減法", tag: "點選題 MC・預覽", q: "502 − 267 = ?", opts: ["245", "225", "335", "235"], ans: 3, why: "預覽題（重用題庫）：502 − 267 = 235，要借位。", hint: "💡 個位唔夠減，向十位借。", label: "預覽：減法" },
+    { type: "mc", skill: "三位數", tag: "點選題 MC・預覽", q: "邊個數最大？", opts: ["809", "890", "908", "980"], ans: 3, why: "預覽題：先比百位，980 嘅百位係 9，同 908 一樣；再比十位，8 比 0 大。", hint: "💡 先睇百位，再睇十位。", label: "預覽：最大數" },
+    { type: "mc", skill: "角", tag: "點選題 MC・預覽", q: "邊種角比直角細？", opts: ["鈍角", "直角", "平角", "銳角"], ans: 3, why: "預覽題：銳角比直角細，鈍角比直角大。", hint: "💡 細過直角嗰種，個名有個「銳」字。", label: "預覽：銳角" },
+    { type: "mc", skill: "米", tag: "點選題 MC・預覽", q: "量課室嘅長度，用咩單位好？", opts: ["公斤", "米", "公升", "厘米"], ans: 1, why: "預覽題：課室長度以米為單位最合適。", hint: "💡 量長度，又要夠大嗰個單位。", label: "預覽：米" },
+    { type: "order", skill: "三位數", tag: "句子重組 Order・預覽", q: "由細到大排好啲數：㩒數字放入框。", parts: ["245", "452", "524", "542"], shuffled: ["524", "245", "542", "452"], label: "預覽：由細到大" }
+  ]},
+  normal: { label: "正常版（預覽）", items: [
+    { type: "mc", skill: "三位數", tag: "點選題 MC・預覽", q: "608 入面，「6」代表咩？", opts: ["600", "60", "6", "68"], ans: 0, why: "預覽題：6 在百位，代表 6 個百，即 600。", label: "預覽：6 的數值" },
+    { type: "mc", skill: "加減應用", tag: "點選題 MC・預覽", q: "姐姐有 365 張貼紙，送走 128 張，剩幾多？", opts: ["247 張", "237 張", "227 張", "493 張"], ans: 1, why: "預覽題：365 − 128 = 237。送走咗，要用減法。", label: "預覽：貼紙應用題" },
+    { type: "mc", skill: "角", tag: "點選題 MC・預覽", q: "直角係點樣嘅？", opts: ["尖尖細細嗰一種", "好似書角咁方正", "大過方角嗰一種", "圓圓地冇角嗰種"], ans: 1, why: "預覽題：直角好似書本、方枱嘅角咁方正。", label: "預覽：直角" },
+    { type: "mc", skill: "米", tag: "點選題 MC・預覽", q: "一支鉛筆長約 1 米，啱唔啱？", opts: ["啱，鉛筆有 1 米", "唔啱，鉛筆長好多", "啱，啱啱 1 米", "唔啱，鉛筆短好多"], ans: 3, why: "預覽題：1 米大約係課室門一半高度，鉛筆短好多。", label: "預覽：1 米有多長" },
+    { type: "mc", skill: "乘法", tag: "點選題 MC・預覽", q: "5 × 4 = ?", opts: ["24", "45", "20", "54"], ans: 2, why: "預覽題（重用題庫）：5 × 4 = 20，即 4 個 5。", label: "預覽：乘法" },
+    { type: "reveal", skill: "角", tag: "思考題・預覽", q: "點樣分銳角同鈍角？", answer: "用直角做標準去比：比直角細嘅係銳角，比直角大嘅係鈍角。可以用一本書嘅角嚟量一量。", label: "預覽：分銳角鈍角" }
+  ]}
+};
+const QZ_SCI = {
+  easy: { label: "簡易版（預覽）", items: [
+    { type: "drag", skill: "生物和非生物", tag: "拖放 Drag & Drop・預覽", q: "分類：拖入正確的籃。", chips: [{ ch: "小狗", cat: "living" }, { ch: "玫瑰花", cat: "living" }, { ch: "小鳥", cat: "living" }, { ch: "石頭", cat: "nonliving" }, { ch: "木椅", cat: "nonliving" }, { ch: "泥土", cat: "nonliving" }], cats: [["living", "生物"], ["nonliving", "非生物"]], hint: "💡 生物識生長，又要飲水食嘢。", label: "預覽：生物分類" },
+    { type: "mc", skill: "生物和非生物", tag: "點選題 MC・預覽", q: "邊樣係生物？", opts: ["膠樽", "小樹苗", "鐵釘", "紙張"], ans: 1, why: "預覽題：小樹苗識生長，係生物。", hint: "💡 識長大嗰樣。", label: "預覽：邊樣係生物" },
+    { type: "mc", skill: "動手種植物", tag: "點選題 MC・預覽", q: "植物生長需要咩？", opts: ["電視同玩具", "陽光同水", "書包同鉛筆", "雨傘同水樽"], ans: 1, why: "預覽題：植物要有陽光同水，先可以生長。", hint: "💡 種植物嗰陣，每日要俾佢兩樣嘢。", label: "預覽：植物需要" },
+    { type: "mc", skill: "觀察動物", tag: "點選題 MC・預覽", q: "想知雀仔食咩，要點觀察？", opts: ["睇佢個嘴嘅形狀", "睇佢飛得有幾高", "數佢有幾多羽毛", "聽佢叫得幾大聲"], ans: 0, why: "預覽題：雀仔個嘴嘅形狀，同佢食嘅嘢有關。", hint: "💡 食嘢用邊個部位？", label: "預覽：觀察雀仔" },
+    { type: "mc", skill: "動手種植物", tag: "點選題 MC・預覽", q: "種植物，先將種子放喺邊？", opts: ["水杯上面", "泥土入面", "書包入面", "窗台出面"], ans: 1, why: "預覽題：種子要放入泥土，先可以發芽生長。", hint: "💡 植物喺邊度生根？", label: "預覽：種子放哪" },
+    { type: "reveal", skill: "生物和非生物", tag: "諗深一層・預覽", q: "點樣分生物同非生物？", answer: "生物識生長，又需要食物同水，例如小狗、花草。非生物唔識生長，例如石頭、木椅。", label: "預覽：分生物" }
+  ]},
+  normal: { label: "正常版（預覽）", items: [
+    { type: "mc", skill: "生物和非生物", tag: "點選題 MC・預覽", q: "邊樣唔係生物嘅特徵？", opts: ["識得長大", "需要飲水", "唔識生長", "需要食物"], ans: 2, why: "預覽題：生物先識生長；唔識生長係非生物。", label: "預覽：生物特徵" },
+    { type: "mc", skill: "動手種植物", tag: "點選題 MC・預覽", q: "植物冇陽光會點？", opts: ["生得更加快", "生長得唔好", "開更多花朵", "變成動物嚟"], ans: 1, why: "預覽題：植物需要陽光生長，冇陽光會生長得唔好。", label: "預覽：冇陽光" },
+    { type: "mc", skill: "觀察動物", tag: "點選題 MC・預覽", q: "觀察螞蟻嗰陣，唔應該做咩？", opts: ["靜靜咁睇佢哋", "畫低佢哋個樣", "用手捉起佢哋", "記低佢哋去邊"], ans: 2, why: "預覽題：觀察動物要愛護佢哋，唔好用手捉，靜靜觀察就得。", label: "預覽：觀察螞蟻" },
+    { type: "order", skill: "動手種植物", tag: "句子重組 Order・預覽", q: "按種植物嘅步驟排好：㩒句子放入框。", parts: ["放種子入泥土", "淋水", "放喺有陽光嘅地方", "等佢發芽"], shuffled: ["淋水", "等佢發芽", "放種子入泥土", "放喺有陽光嘅地方"], label: "預覽：種植步驟" },
+    { type: "reveal", skill: "動手種植物", tag: "思考題・預覽", q: "點解種植物要淋水？", answer: "植物需要水先可以生長。冇水，植物會枯乾，慢慢死去。所以種植物要定時淋水。", label: "預覽：點解淋水" }
+  ]}
+};
+const QZ_LESSONS = { chi_l3: QZ_L3, chi_l4: QZ_L4, chi_l5: QZ_L5, chi_l6: QZ_L6, chi_l7: QZ_L7, eng_u14: QZ_ENG, math_a1: QZ_MATH, sci_a1: QZ_SCI };
 let QZ = QZ_LESSONS.chi_l3;
 let qzSetName = "easy", qzIdx = 0, qzBuilt = false, qzStreak = 0, qzLocked = false, qzPraiseIx = 0, qzEncIx = 0, qzBreakFor = -1;
 
