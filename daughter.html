@@ -625,6 +625,15 @@ function enrichmentHTML(card, item, opts) {
     b.appendChild(grid);
     card.appendChild(b);
   }
+  else if (item.quiz && item.quiz.sets) {
+    item.quiz.sets.forEach((qs) => {
+      const row = el("div", "wsrow");
+      const qb = el("button", "quizlaunch", "▶ 🎮 互動練習：" + qs.title + "（簡易版／正常版）");
+      qb.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(qs.id, item.key); });
+      row.appendChild(qb);
+      card.appendChild(row);
+    });
+  }
   else if (item.quiz) {
     const row = el("div", "wsrow");
     const qb = el("button", "quizlaunch", "▶ 🎮 互動練習：" + (item.quiz.title || "") + "（簡易版／正常版）");
@@ -1118,7 +1127,28 @@ const QZ_SCI = {
     { type: "reveal", skill: "動手種植物", tag: "思考題・預覽", q: "點解種植物要淋水？", answer: "植物需要水先可以生長。冇水，植物會枯乾，慢慢死去。所以種植物要定時淋水。", label: "預覽：點解淋水" }
   ]}
 };
-const QZ_LESSONS = { chi_l3: QZ_L3, chi_l4: QZ_L4, chi_l5: QZ_L5, chi_l6: QZ_L6, chi_l7: QZ_L7, eng_u14: QZ_ENG, math_a1: QZ_MATH, sci_a1: QZ_SCI };
+const QZ_ENGPAPER = {
+  easy: { label: "簡易版（歷屆卷風格）", items: [
+    { type: "mc", skill: "疑問詞", tag: "MC・歷屆卷 A 部", q: "___ do you go to school? By bus.", opts: ["How", "Who", "Which", "When"], ans: 0, why: "歷屆卷風格（A 部疑問詞填充）：答「By bus」係講方法，所以用 How。", hint: "💡 答案講點樣去，問方法用邊個？", label: "卷風格：How" },
+    { type: "mc", skill: "疑問詞", tag: "MC・歷屆卷 A 部", q: "___ time do you get up?", opts: ["What", "Where", "Who", "Why"], ans: 0, why: "歷屆卷風格：What time 問時間。", hint: "💡 問幾點，要配 time。", label: "卷風格：What time" },
+    { type: "mc", skill: "代名詞", tag: "MC・歷屆卷 D 部", q: "Miss Lee is my teacher. ___ is nice.", opts: ["She", "He", "It", "We"], ans: 0, why: "歷屆卷風格（D 部代名詞填充）：Miss Lee 係女老師，用 She。", hint: "💡 女士用邊個代名詞？", label: "卷風格：She" },
+    { type: "mc", skill: "所有格形容詞", tag: "MC・歷屆卷 D 部", q: "Tom is my brother. ___ bag is blue.", opts: ["His", "Her", "Its", "My"], ans: 0, why: "歷屆卷風格：Tom 係男仔，「佢嘅」書包用 His。", hint: "💡 男仔嘅嘢，用 His 定 Her？", label: "卷風格：His" },
+    { type: "mc", skill: "一般現在式", tag: "MC・歷屆卷 B 部", q: "Jenny ___ a piano lesson every Friday.", opts: ["has", "have", "having", "is have"], ans: 0, why: "歷屆卷風格（B 部動詞形式）：Jenny 一個人 + every Friday（習慣），用 has。", hint: "💡 一個人，have 要變身做 has。", label: "卷風格：has" },
+    { type: "mc", skill: "時間介詞", tag: "MC・歷屆卷 E 部", q: "I do my homework ___ the afternoon.", opts: ["in", "on", "at", "by"], ans: 0, why: "歷屆卷風格（E 部介詞填充）：in the afternoon（在下午）。", hint: "💡 morning / afternoon 前面用 in。", label: "卷風格：in the afternoon" },
+    { type: "mc", skill: "改錯", tag: "MC・歷屆卷 C 部", q: "邊一句先啱？", opts: ["Gary is watch TV just now.", "Gary is watching TV now.", "Gary watching TV now.", "Gary is watches TV now."], ans: 1, why: "歷屆卷風格（C 部改錯）：now 做緊嘅嘢，要用 is + watching。", hint: "💡 is 後面要加 -ing。", label: "卷風格：改錯 watching" },
+    { type: "order", skill: "疑問詞", tag: "Order・歷屆卷 A 部", q: "排好句子：㩒詞語放入框。", parts: ["What ", "time ", "do you ", "get up?"], shuffled: ["do you ", "What ", "get up?", "time "], label: "卷風格：What time 句" }
+  ]},
+  normal: { label: "正常版（歷屆卷風格）", items: [
+    { type: "mc", skill: "疑問詞", tag: "MC・歷屆卷 A 部", q: "___ many stars are there? Five.", opts: ["How", "What", "Which", "Who"], ans: 0, why: "歷屆卷風格：How many 問數量。", label: "卷風格：How many" },
+    { type: "mc", skill: "代名詞", tag: "MC・歷屆卷 D 部", q: "Ann and I are friends. ___ play together.", opts: ["We", "They", "You", "She"], ans: 0, why: "歷屆卷風格：Ann and I（包括自己）用 We。", label: "卷風格：We" },
+    { type: "mc", skill: "所有格形容詞", tag: "MC・歷屆卷 D 部", q: "The cat is cute. ___ name is Mimi.", opts: ["Its", "It", "He", "She"], ans: 0, why: "歷屆卷風格：動物嘅名字，「佢嘅」用 Its。", label: "卷風格：Its" },
+    { type: "mc", skill: "一般現在式", tag: "MC・歷屆卷 B 部", q: "Ben ___ to Cub Scouts every Monday.", opts: ["goes", "go", "going", "is go"], ans: 0, why: "歷屆卷風格：Ben 一個人，go 要變 goes。", label: "卷風格：goes" },
+    { type: "mc", skill: "改錯", tag: "MC・歷屆卷 C 部", q: "邊一句先啱？", opts: ["Macy do not live in Tai Po.", "Macy does not live in Tai Po.", "Macy does not lives in Tai Po.", "Macy do not lives in Tai Po."], ans: 1, why: "歷屆卷風格（改錯）：一個人（Macy）要用 does not，後面 live 唔加 s。", label: "卷風格：改錯 does not" },
+    { type: "mc", skill: "時間介詞", tag: "MC・歷屆卷 E 部", q: "We have football lessons ___ Saturdays.", opts: ["on", "in", "at", "by"], ans: 0, why: "歷屆卷風格：星期幾前面用 on（on Saturdays）。", label: "卷風格：on Saturdays" },
+    { type: "reveal", skill: "運用", tag: "Think・歷屆卷風格", q: "用英文答：What do you do on Sundays?", answer: "Example: I play football with my friends on Sundays.（用 I + 活動 + on Sundays 回答就得。）", label: "卷風格：答句" }
+  ]}
+};
+const QZ_LESSONS = { chi_l3: QZ_L3, chi_l4: QZ_L4, chi_l5: QZ_L5, chi_l6: QZ_L6, chi_l7: QZ_L7, eng_u14: QZ_ENG, eng_paper: QZ_ENGPAPER, math_a1: QZ_MATH, sci_a1: QZ_SCI };
 let QZ = QZ_LESSONS.chi_l3;
 let qzSetName = "easy", qzIdx = 0, qzBuilt = false, qzStreak = 0, qzLocked = false, qzPraiseIx = 0, qzEncIx = 0, qzBreakFor = -1;
 
