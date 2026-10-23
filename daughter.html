@@ -162,6 +162,17 @@ details.orig .origbody { margin-top: 6px; font-size: 14px; line-height: 1.7; col
 .qz-pick.done { border-color: #22C55E; background: #14532D; }
 .qz-pick.tried { border-color: #F97316; }
 .qz-summary { background: #422006; border: 2px solid #F59E0B; border-radius: 14px; padding: 18px; color: #FEF3C7; font-size: 16.5px; line-height: 1.75; }
+
+#qzStreak { color: #FB923C; font-size: 14.5px; font-weight: 900; }
+.qz-qrow { display: flex; gap: 8px; align-items: flex-start; }
+.qz-qrow .qz-q { flex: 1; margin-bottom: 0; }
+.qz-speak { flex: none; border: 2px solid #38BDF8; background: #082F49; border-radius: 50%; width: 44px; height: 44px; font-size: 19px; cursor: pointer; }
+.qz-break { text-align: center; }
+.qz-break-emoji { font-size: 62px; margin: 10px 0 4px; }
+.qz-break-text { color: #E2E8F0; font-size: 16.5px; line-height: 1.7; margin-bottom: 8px; }
+.qz-skills { margin-top: 10px; font-size: 15.5px; line-height: 1.7; }
+.qz-code { display: none; background: #0F172A; color: #A5F3FC; border: 1px dashed #38BDF8; border-radius: 10px; padding: 10px; font-size: 12px; word-break: break-all; margin-top: 10px; user-select: all; -webkit-user-select: all; }
+.qz-code-note { color: #FDE68A; font-size: 13.5px; margin-top: 8px; line-height: 1.6; }
 /* ===== Worksheet modal ===== */
 #wsModal { display: none; position: fixed; inset: 0; background: rgba(2,6,23,.88); z-index: 1000; overflow-y: auto; padding: 14px 8px 40px; overscroll-behavior: contain; }
 #wsSheet { background: #fff; color: #111; max-width: 820px; margin: 0 auto; border-radius: 6px; padding: 30px 34px 36px; font-family: "PingFang HK", "Microsoft JhengHei", serif; }
@@ -202,7 +213,7 @@ details.orig .origbody { margin-top: 6px; font-size: 14px; line-height: 1.7; col
 <div id="actionBanner"></div>
 <div id="quizBanner"><button id="quizOpenBtn">🧪 互動練習 Demo：第3課《心中的鈴鐺》<br>㩒入去玩 — 簡易版／正常版・一題一畫面・選擇、圖片、配對、拖放、重組、畫畫</button></div>
 <div id="app"></div>
-<div id="quizModal"><div class="qz-bar"><div class="qz-tabs"><button id="qzTabEasy" class="qz-tab on">簡易版</button><button id="qzTabNormal" class="qz-tab">正常版</button></div><span id="qzScore">⭐ 0 / 13</span><button class="ws-close" id="quizCloseBtn">✕ 關閉</button></div><div class="qz-wrap"><div id="qzStage"></div><div class="qz-nav"><button id="qzPrev" class="qz-btn alt">← 上一題</button><button id="qzPick" class="qz-btn alt">📋 揀題目</button><button id="qzNext" class="qz-btn">下一題 →</button></div><div id="qzPicker" class="qz-picker"></div></div></div>
+<div id="quizModal"><div class="qz-bar"><div class="qz-tabs"><button id="qzTabEasy" class="qz-tab on">簡易版</button><button id="qzTabNormal" class="qz-tab">正常版</button></div><span id="qzScore">⭐ 0 / 13</span><span id="qzStreak"></span><button class="ws-close" id="quizCloseBtn">✕ 關閉</button></div><div class="qz-wrap"><div id="qzStage"></div><div class="qz-nav"><button id="qzPrev" class="qz-btn alt">← 上一題</button><button id="qzPick" class="qz-btn alt">📋 揀題目</button><button id="qzNext" class="qz-btn">下一題 →</button></div><div id="qzPicker" class="qz-picker"></div></div></div>
 <div id="wsModal"><div class="ws-bar"><button class="ws-print" id="wsPrintBtn">🖨️ 列印 / 儲存 PDF</button><button class="ws-close" id="wsCloseBtn">✕ 關閉</button></div><div id="wsSheet"></div></div>
 <footer>資料來源：學校 eClass 通告及通告附頁、Google Classroom 功課指示、課本/默書紙拍攝內容。<br>「學校原文」為官方內容；「AI 輔助」提示同練習由 Muse 生成，練習答案只供家長核對。</footer>
 <script>
@@ -818,37 +829,44 @@ fetch("daughter-detail.json?t=" + Date.now())
   });
 </script>
 <script>
-/* ===== Interactive quiz player v2: 第3課《心中的鈴鐺》 (trial; content from curriculum_kb) ===== */
+/* ===== Interactive quiz player v2.1: 第3課《心中的鈴鐺》 (trial; content from curriculum_kb) ===== */
 const QZ_BELL_SVG = '<svg viewBox="0 0 200 190" xmlns="http://www.w3.org/2000/svg"><circle cx="170" cy="26" r="13" fill="#E2E8F0"/><circle cx="163" cy="22" r="11" fill="#0F172A" opacity="0.25"/><path d="M30 62 q-16 26 0 52" stroke="#38BDF8" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M170 62 q16 26 0 52" stroke="#38BDF8" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="100" cy="36" r="10" fill="#F59E0B"/><path d="M100 46 C 68 46 58 82 58 106 L 50 136 L 150 136 L 142 106 C 142 82 132 46 100 46 Z" fill="#FBBF24" stroke="#B45309" stroke-width="4"/><rect x="44" y="136" width="112" height="10" rx="5" fill="#B45309"/><circle cx="100" cy="160" r="11" fill="#92400E"/><text x="100" y="104" font-size="26" text-anchor="middle" fill="#92400E" font-weight="bold">叮噹</text></svg>';
+const QZ_PRAISE = ["好嘢！", "叻叻！", "做得好！", "勁呀！", "啱晒，犀利！"];
+const QZ_ENCOURAGE = ["差少少咋，再諗多步！", "唔緊要，慢慢嚟，再試下！", "好接近喇，再睇清楚啲！"];
 const QUIZ_SETS = {
   easy: { label: "簡易版", items: [
-    { type: "mc", tag: "點選題 MC", q: "小熊搖着（　）鐺上廁所。", opts: ["玲", "鈴", "伶", "齡"], ans: 1, why: "「鈴鐺」是金字部 — 鈴鐺是金屬做的。", hint: "💡 鈴鐺是金屬做的，想想哪個字有金字部。", label: "選擇：鈴鐺的「鈴」" },
-    { type: "mc", tag: "圖片題 Image", img: QZ_BELL_SVG, q: "圖入面係咩嚟㗎？小熊上廁所嗰陣搖住嘅係——", opts: ["雨傘", "鈴鐺", "水壺", "書包"], ans: 1, why: "課文第②段：小熊「便邊走邊搖着鈴鐺」。", hint: "💡 睇吓圖入面金色、會發出「叮噹」聲嘅係咩。", label: "圖片題：鈴鐺" },
-    { type: "mc", tag: "點選題 MC", q: "「小熊很害怕，所以＿＿。」", opts: ["媽媽回去睡覺了", "讓鈴聲陪他上廁所", "天黑了", "他第二天又想上廁所"], ans: 1, why: "課文第③段：小熊說「我很害怕，所以讓鈴聲陪我上廁所。」", hint: "💡 「所以」後面要接結果：害怕之後他做了甚麼？", label: "選擇：所以句式" },
-    { type: "mc", tag: "點選題 MC", q: "小熊放下鈴鐺，因為他不想＿＿媽媽。", opts: ["陪", "起身", "吵醒", "害怕"], ans: 2, why: "課文第⑤段：「這樣不會吵醒媽媽。」", hint: "💡 鈴聲好嘈，會令媽媽點樣？", label: "選擇：不想吵醒媽媽" },
-    { type: "match", tag: "配對 Matching", q: "形近字配詞語：先㩒左邊個字，再㩒右邊佢嘅詞語。", pairs: [["怕", "害怕"], ["拍", "拍手"], ["吵", "吵醒"], ["沙", "沙灘"]], right: ["沙灘", "害怕", "吵醒", "拍手"], hint: "💡 睇偏旁：怕是心字部，同心情有關。", label: "配對：形近字" },
-    { type: "drag", tag: "拖放 Drag & Drop", q: "上下結構分類：把字拖入正確的籃（或者㩒住個字，再㩒個籃）。", chips: [{ ch: "室", cat: "small" }, { ch: "熊", cat: "big" }, { ch: "露", cat: "small" }, { ch: "想", cat: "big" }, { ch: "客", cat: "small" }], cats: [["big", "上大下小"], ["small", "上小下大"]], hint: "💡 睇吓個字上半部同下半部邊個大啲。", label: "拖放：上下結構" },
-    { type: "draw", tag: "畫畫・寫字 Drawing", q: "跟住灰色嘅字，寫一個「鈴」字；或者畫出你心中的鈴鐺。", guide: "鈴", label: "描字：鈴" },
-    { type: "reveal", tag: "諗深一層・自我核對", q: "為甚麼小熊在第二天晚上，拿起鈴鐺後又把它放下？（先自己講出嚟，再睇答案）", answer: "因為他想到媽媽會被鈴聲吵醒。他體貼媽媽，所以放下鈴鐺，改在心中搖鈴鐺 — 這樣不會吵醒媽媽，自己也不會害怕。", label: "思考題：放下鈴鐺" }
+    { type: "mc", skill: "形近字辨析", tag: "點選題 MC", q: "小熊搖着（　）鐺上廁所。", opts: ["玲", "鈴", "伶", "齡"], ans: 1, why: "「鈴」有金字邊，因為鈴鐺是金屬做的。", hint: "💡 鈴鐺是金屬做的，想想哪個字有金字部。", label: "選擇：鈴鐺的「鈴」" },
+    { type: "mc", skill: "課文內容", tag: "圖片題 Image", img: QZ_BELL_SVG, q: "圖入面係咩嚟㗎？小熊上廁所嗰陣搖住嘅係——", opts: ["雨傘", "鈴鐺", "水壺", "書包"], ans: 1, why: "課文第②段：小熊「便邊走邊搖着鈴鐺」。", hint: "💡 睇吓圖入面金色、會發出「叮噹」聲嘅係咩。", label: "圖片題：鈴鐺" },
+    { type: "mc", skill: "因果句式", tag: "點選題 MC", q: "「小熊很害怕，所以＿＿。」", opts: ["媽媽回去睡覺了", "讓鈴聲陪他上廁所", "天黑了", "他第二天又想上廁所"], ans: 1, why: "課文第③段：小熊說「我很害怕，所以讓鈴聲陪我上廁所。」", hint: "💡 「所以」後面要接結果：害怕之後他做了甚麼？", label: "選擇：所以句式" },
+    { type: "mc", skill: "詞語運用", tag: "點選題 MC", q: "小熊放下鈴鐺，因為他不想＿＿媽媽。", opts: ["陪", "起身", "吵醒", "害怕"], ans: 2, why: "課文第⑤段：「這樣不會吵醒媽媽。」", hint: "💡 鈴聲好嘈，會令媽媽點樣？", label: "選擇：不想吵醒媽媽" },
+    { type: "match", skill: "形近字辨析", tag: "配對 Matching", q: "形近字配詞語：先㩒左邊個字，再㩒右邊佢嘅詞語。", pairs: [["怕", "害怕"], ["拍", "拍手"], ["吵", "吵醒"], ["沙", "沙灘"]], right: ["沙灘", "害怕", "吵醒", "拍手"], hint: "💡 睇偏旁：怕是心字部，同心情有關。", label: "配對：形近字" },
+    { type: "drag", skill: "上下結構", tag: "拖放 Drag & Drop", q: "上下結構分類：把字拖入正確的籃（或者㩒住個字，再㩒個籃）。", chips: [{ ch: "室", cat: "small" }, { ch: "熊", cat: "big" }, { ch: "露", cat: "small" }, { ch: "想", cat: "big" }, { ch: "客", cat: "small" }], cats: [["big", "上大下小"], ["small", "上小下大"]], hint: "💡 睇吓個字上半部同下半部邊個大啲。", label: "拖放：上下結構" },
+    { type: "draw", skill: "描字練習", tag: "畫畫・寫字 Drawing", q: "跟住灰色嘅字，寫一個「鈴」字；或者畫出你心中的鈴鐺。", guide: "鈴", label: "描字：鈴" },
+    { type: "reveal", skill: "思考與理解", tag: "諗深一層・自我核對", q: "為甚麼小熊在第二天晚上，拿起鈴鐺後又把它放下？（先自己講出嚟，再睇答案）", answer: "因為他想到媽媽會被鈴聲吵醒。他體貼媽媽，所以放下鈴鐺，改在心中搖鈴鐺 — 這樣不會吵醒媽媽，自己也不會害怕。", label: "思考題：放下鈴鐺" }
   ]},
   normal: { label: "正常版", items: [
-    { type: "mc", tag: "點選題 MC", q: "「在心中搖鈴鐺」其實是指甚麼？", opts: ["把鈴鐺放進心中", "想像鈴聲安慰自己，給自己勇氣", "在心中數綿羊", "真的聽到鈴聲"], ans: 1, why: "小熊想像有鈴聲陪着自己，令自己不再害怕 — 是給自己勇氣的方法。", label: "選擇：心中的鈴鐺" },
-    { type: "mc", tag: "點選題 MC", q: "小熊第三晚為甚麼連心中的鈴鐺都不用搖？", opts: ["因為鈴鐺壞了", "因為媽媽收起了鈴鐺", "因為他已經不再害怕", "因為他不想上廁所"], ans: 2, why: "課文第⑥段：第三晚小熊起身上廁所，「不用在心中搖鈴鐺了」 — 他已經克服了害怕。", label: "選擇：第三晚" },
-    { type: "order", tag: "句子重組 Order", q: "用「……所以……」把句子排好：㩒詞語放入句子框。", parts: ["美美用功溫習", "所以", "取得好成績"], shuffled: ["所以", "取得好成績", "美美用功溫習"], label: "重組：美美溫習" },
-    { type: "order", tag: "句子重組 Order", q: "用「……所以……」把句子排好：㩒詞語放入句子框。", parts: ["下雨了", "所以", "我們留在家中看書"], shuffled: ["我們留在家中看書", "下雨了", "所以"], label: "重組：下雨了" },
-    { type: "drag", tag: "拖放 Drag & Drop", q: "上下結構大分類：把十二個字拖入正確的籃。", chips: [{ ch: "第", cat: "small" }, { ch: "想", cat: "big" }, { ch: "分", cat: "equal" }, { ch: "室", cat: "small" }, { ch: "熊", cat: "big" }, { ch: "去", cat: "equal" }, { ch: "露", cat: "small" }, { ch: "書", cat: "big" }, { ch: "皇", cat: "equal" }, { ch: "客", cat: "small" }, { ch: "堡", cat: "big" }, { ch: "忠", cat: "equal" }], cats: [["equal", "上下相等"], ["small", "上小下大"], ["big", "上大下小"]], label: "拖放：上下結構大分類" },
-    { type: "match", tag: "配對 Matching", q: "形近字配詞語（進階）：先㩒左邊個字，再㩒右邊佢嘅詞語。", pairs: [["怕", "害怕"], ["拍", "拍手"], ["吵", "吵醒"], ["沙", "沙灘"], ["陪", "陪伴"], ["部", "部分"]], right: ["部分", "沙灘", "陪伴", "害怕", "拍手", "吵醒"], label: "配對：形近字進階" },
-    { type: "reveal", tag: "思考題・自我核對", q: "媽媽對小熊搖鈴鐺的做法有甚麼反應？從課文哪一句看得出來？（先自己講，再睇答案）", answer: "媽媽說：「非常好，你不用害怕呀。」— 她支持和安慰小熊，沒有責備他。", label: "思考題：媽媽的反應" }
+    { type: "mc", skill: "思考與理解", tag: "點選題 MC", q: "「在心中搖鈴鐺」其實是指甚麼？", opts: ["把鈴鐺放進心中", "想像鈴聲安慰自己，給自己勇氣", "在心中數綿羊", "真的聽到鈴聲"], ans: 1, why: "小熊想像有鈴聲陪着自己，令自己不再害怕 — 是給自己勇氣的方法。", label: "選擇：心中的鈴鐺" },
+    { type: "mc", skill: "課文內容", tag: "點選題 MC", q: "小熊第三晚為甚麼連心中的鈴鐺都不用搖？", opts: ["因為鈴鐺壞了", "因為媽媽收起了鈴鐺", "因為他已經不再害怕", "因為他不想上廁所"], ans: 2, why: "課文第⑥段：第三晚小熊起身上廁所，「不用在心中搖鈴鐺了」 — 他已經克服了害怕。", label: "選擇：第三晚" },
+    { type: "order", skill: "因果句式", tag: "句子重組 Order", q: "用「……所以……」把句子排好：㩒詞語放入句子框。", parts: ["美美用功溫習", "所以", "取得好成績"], shuffled: ["所以", "取得好成績", "美美用功溫習"], label: "重組：美美溫習" },
+    { type: "order", skill: "因果句式", tag: "句子重組 Order", q: "用「……所以……」把句子排好：㩒詞語放入句子框。", parts: ["下雨了", "所以", "我們留在家中看書"], shuffled: ["我們留在家中看書", "下雨了", "所以"], label: "重組：下雨了" },
+    { type: "drag", skill: "上下結構", tag: "拖放 Drag & Drop", q: "上下結構大分類：把十二個字拖入正確的籃。", chips: [{ ch: "第", cat: "small" }, { ch: "想", cat: "big" }, { ch: "分", cat: "equal" }, { ch: "室", cat: "small" }, { ch: "熊", cat: "big" }, { ch: "去", cat: "equal" }, { ch: "露", cat: "small" }, { ch: "書", cat: "big" }, { ch: "皇", cat: "equal" }, { ch: "客", cat: "small" }, { ch: "堡", cat: "big" }, { ch: "忠", cat: "equal" }], cats: [["equal", "上下相等"], ["small", "上小下大"], ["big", "上大下小"]], label: "拖放：上下結構大分類" },
+    { type: "match", skill: "形近字辨析", tag: "配對 Matching", q: "形近字配詞語（進階）：先㩒左邊個字，再㩒右邊佢嘅詞語。", pairs: [["怕", "害怕"], ["拍", "拍手"], ["吵", "吵醒"], ["沙", "沙灘"], ["陪", "陪伴"], ["部", "部分"]], right: ["部分", "沙灘", "陪伴", "害怕", "拍手", "吵醒"], label: "配對：形近字進階" },
+    { type: "reveal", skill: "思考與理解", tag: "思考題・自我核對", q: "媽媽對小熊搖鈴鐺的做法有甚麼反應？從課文哪一句看得出來？（先自己講，再睇答案）", answer: "媽媽說：「非常好，你不用害怕呀。」— 她支持和安慰小熊，沒有責備他。", label: "思考題：媽媽的反應" }
   ]}
 };
-let qzSetName = "easy", qzIdx = 0, qzBuilt = false;
+let qzSetName = "easy", qzIdx = 0, qzBuilt = false, qzStreak = 0, qzLocked = false, qzPraiseIx = 0, qzEncIx = 0, qzBreakFor = -1;
 
 function qzItems() { return QUIZ_SETS[qzSetName].items; }
 function qzMax(item) { return item.type === "mc" || item.type === "order" ? 1 : item.type === "match" ? item.pairs.length : item.type === "drag" ? item.chips.length : 0; }
 function qzEarned(item) { return item._earned || 0; }
 function qzComplete(item) { const m = qzMax(item); return m > 0 && qzEarned(item) >= m; }
 function qzTotals() { let e = 0, t = 0; qzItems().forEach(it => { e += qzEarned(it); t += qzMax(it); }); return [e, t]; }
-function qzScoreUpd() { const t = qzTotals(); document.getElementById("qzScore").textContent = "⭐ " + t[0] + " / " + t[1]; }
+function qzScoreUpd() {
+  const t = qzTotals();
+  document.getElementById("qzScore").textContent = "⭐ " + t[0] + " / " + t[1];
+  const st = document.getElementById("qzStreak");
+  if (st) st.textContent = qzStreak >= 2 ? "🔥 連續啱 ×" + qzStreak : "";
+}
 function qzEl(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
 function qzWrong(item, sub) {
   const key = item.label + (sub ? "：" + sub : "");
@@ -857,15 +875,40 @@ function qzWrong(item, sub) {
   if (!item._wrongKeys) item._wrongKeys = {};
   if (!item._wrongKeys[key]) { item._wrongKeys[key] = true; S._wrong.push(key); }
 }
-function qzGain(item, sub) { item._earned = qzEarned(item) + 1; qzScoreUpd(); if (qzComplete(item)) qzMaybeAdvance(); }
+function qzEncourage() { const s = QZ_ENCOURAGE[qzEncIx % QZ_ENCOURAGE.length]; qzEncIx++; return s; }
+function qzSpeak(text) {
+  try {
+    if (!("speechSynthesis" in window)) return;
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text.replace(/[💡🔊・（）「」＿\s]+/g, " "));
+    u.lang = "zh-HK"; u.rate = 0.92;
+    speechSynthesis.speak(u);
+  } catch (e) {}
+}
+function qzGain(item, sub) {
+  item._earned = qzEarned(item) + 1;
+  qzScoreUpd();
+  if (qzComplete(item)) {
+    qzLocked = true;
+    if (!item._wrongKeys || !Object.keys(item._wrongKeys).length) qzStreak++; else qzStreak = 0;
+    qzScoreUpd();
+    qzMaybeAdvance();
+  }
+}
 function qzMaybeAdvance() {
   const idx = qzIdx;
-  setTimeout(() => { if (qzIdx === idx && idx < qzItems().length) qzGo(idx + 1); }, 1150);
+  setTimeout(() => {
+    if (qzIdx !== idx) return;
+    const nxt = idx + 1;
+    if (nxt < qzItems().length && nxt % 4 === 0) { qzBreakFor = nxt; qzRender(); }
+    else if (nxt <= qzItems().length) qzGo(nxt);
+  }, 1150);
 }
-
 function qzGo(i) {
   const items = qzItems();
   qzIdx = Math.max(0, Math.min(i, items.length));
+  qzLocked = false;
+  if (qzBreakFor !== qzIdx) qzBreakFor = -1;
   document.getElementById("qzPicker").classList.remove("open");
   qzRender();
 }
@@ -873,14 +916,26 @@ function qzRender() {
   const stage = document.getElementById("qzStage");
   stage.innerHTML = "";
   const items = qzItems();
-  document.getElementById("qzPrev").disabled = qzIdx === 0;
-  document.getElementById("qzNext").textContent = qzIdx >= items.length ? "🏁 已到成績頁" : "下一題 →";
+  const prev = document.getElementById("qzPrev"), next = document.getElementById("qzNext");
+  if (qzBreakFor === qzIdx && qzIdx > 0 && qzIdx < items.length) {
+    prev.disabled = true; next.disabled = true;
+    stage.appendChild(qzBreakCard());
+    return;
+  }
+  prev.disabled = qzIdx === 0; next.disabled = false;
+  next.textContent = qzIdx >= items.length ? "🏁 已到成績頁" : "下一題 →";
   if (qzIdx >= items.length) { stage.appendChild(qzFinishCard()); return; }
   const item = items[qzIdx];
   const card = qzEl("div", "qz-card qz-enter");
   card.appendChild(qzEl("span", "qz-tag", item.tag + " ・ 第 " + (qzIdx + 1) + " / " + items.length + " 題"));
   if (item.img) { const im = qzEl("div", "qz-img"); im.innerHTML = item.img; card.appendChild(im); }
-  card.appendChild(qzEl("div", "qz-q", item.q));
+  const qrow = qzEl("div", "qz-qrow");
+  qrow.appendChild(qzEl("div", "qz-q", item.q));
+  const spk = qzEl("button", "qz-speak", "🔊");
+  spk.title = "讀出題目";
+  spk.addEventListener("click", () => qzSpeak(item.q));
+  qrow.appendChild(spk);
+  card.appendChild(qrow);
   if (item.hint && qzSetName === "easy") card.appendChild(qzEl("div", "qz-hint", item.hint));
   const fb = qzEl("div", "qz-fb");
   ({ mc: qzRenderMC, match: qzRenderMatch, drag: qzRenderDrag, order: qzRenderOrder, draw: qzRenderDraw, reveal: qzRenderReveal })[item.type](item, card, fb);
@@ -888,20 +943,30 @@ function qzRender() {
   stage.appendChild(card);
   qzScoreUpd();
 }
-
+function qzBreakCard() {
+  const card = qzEl("div", "qz-card qz-enter qz-break");
+  card.appendChild(qzEl("div", "qz-break-emoji", "🔔"));
+  card.appendChild(qzEl("div", "qz-q", "休息一陣・小知識"));
+  card.appendChild(qzEl("div", "qz-break-text", "鈴鐺入面有一粒小珠，搖嘅時候小珠撞到鈴身，就會發出「叮噹叮噹」嘅聲音！飲啖水，伸個懶腰先。"));
+  const row = qzEl("div", "qz-row");
+  const b = qzEl("button", "qz-btn", "休息完，繼續！→");
+  b.addEventListener("click", () => { qzBreakFor = -1; qzRender(); });
+  row.appendChild(b); card.appendChild(row);
+  return card;
+}
 function qzRenderMC(item, card, fb) {
   const opts = qzEl("div", "qz-opts");
   item.opts.forEach((o, i) => {
     const b = qzEl("button", "qz-opt", o);
     if (item._done && i === item.ans) b.classList.add("right");
     b.addEventListener("click", () => {
-      if (item._done) return;
-      if (i === item.ans) { item._done = true; b.classList.add("right"); fb.className = "qz-fb ok"; fb.textContent = "✅ 啱！" + item.why; qzGain(item); }
-      else { b.classList.add("wrong"); fb.className = "qz-fb no"; fb.textContent = "❌ 唔係呢個，再諗諗！"; qzWrong(item); setTimeout(() => b.classList.remove("wrong"), 900); }
+      if (item._done || qzLocked) return;
+      if (i === item.ans) { item._done = true; b.classList.add("right"); fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + item.why; qzGain(item); }
+      else { b.classList.add("wrong"); fb.className = "qz-fb no"; fb.textContent = "💪 " + qzEncourage(); qzWrong(item); setTimeout(() => b.classList.remove("wrong"), 900); }
     });
     opts.appendChild(b);
   });
-  if (item._done) { fb.className = "qz-fb ok"; fb.textContent = "✅ 啱！" + item.why; }
+  if (item._done) { fb.className = "qz-fb ok"; fb.textContent = "✅ " + item.why; }
   card.appendChild(opts);
 }
 function qzRenderMatch(item, card, fb) {
@@ -923,13 +988,13 @@ function qzRenderMatch(item, card, fb) {
     const b = qzEl("button", "qz-chip", w);
     if (Object.keys(item._matched).some(k => item._matched[k] === w)) b.classList.add("done");
     b.addEventListener("click", () => {
-      if (b.classList.contains("done") || !selChar) return;
+      if (b.classList.contains("done") || !selChar || qzLocked) return;
       const pair = item.pairs.find(p => p[0] === selChar);
       if (pair && pair[1] === w) {
         item._matched[selChar] = w; b.classList.add("done"); selBtn.classList.add("done"); selBtn.classList.remove("sel");
-        fb.className = "qz-fb ok"; fb.textContent = "✅ " + selChar + " → " + w + "，配對成功！";
+        fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + selChar + " → " + w + "，配對成功！";
         const c = selChar; selChar = null; selBtn = null; qzGain(item, c);
-      } else { fb.className = "qz-fb no"; fb.textContent = "❌ 「" + selChar + "」唔係配「" + w + "」，再試！"; qzWrong(item, selChar); }
+      } else { fb.className = "qz-fb no"; fb.textContent = "💪 " + qzEncourage() + "「" + selChar + "」唔係配「" + w + "」。"; qzWrong(item, selChar); }
     });
     colR.appendChild(b);
   });
@@ -946,12 +1011,12 @@ function qzRenderDrag(item, card, fb) {
     if (basket.dataset.cat === chip.dataset.cat) {
       item._placed[id] = basket.dataset.cat;
       basket.appendChild(chip); chip.classList.add("done"); chip.classList.remove("sel");
-      fb.className = "qz-fb ok"; fb.textContent = "✅ 「" + id + "」放啱咗！";
+      fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + "「" + id + "」放啱咗！";
       if (selChip === chip) selChip = null;
       qzGain(item, id);
     } else {
       chip.classList.add("wrongin"); fb.className = "qz-fb no";
-      fb.textContent = "❌ 「" + id + "」唔屬於呢一組，再諗諗佢上下邊部分大啲！";
+      fb.textContent = "💪 " + qzEncourage() + "「" + id + "」上下邊部分大啲，再諗諗！";
       qzWrong(item, id);
       setTimeout(() => { chip.classList.remove("wrongin"); if (chip.parentElement !== tray) tray.appendChild(chip); }, 950);
     }
@@ -960,7 +1025,7 @@ function qzRenderDrag(item, card, fb) {
   item.cats.forEach(cfg => {
     const bk = qzEl("div", "qz-basket"); bk.dataset.cat = cfg[0];
     bk.appendChild(qzEl("h4", null, cfg[1]));
-    bk.addEventListener("click", () => { if (selChip && selChip.parentElement === tray) placeChip(selChip, bk); });
+    bk.addEventListener("click", () => { if (selChip && selChip.parentElement === tray && !qzLocked) placeChip(selChip, bk); });
     baskets.appendChild(bk); basketEls[cfg[0]] = bk;
   });
   item.chips.forEach(d => {
@@ -969,7 +1034,7 @@ function qzRenderDrag(item, card, fb) {
     if (item._placed[d.ch]) { basketEls[d.cat].appendChild(chip); chip.classList.add("done"); }
     else tray.appendChild(chip);
     chip.addEventListener("pointerdown", ev => {
-      if (chip.classList.contains("done")) return;
+      if (chip.classList.contains("done") || qzLocked) return;
       ev.preventDefault();
       const startX = ev.clientX, startY = ev.clientY; let moved = false;
       const r = chip.getBoundingClientRect();
@@ -1004,7 +1069,7 @@ function qzRenderOrder(item, card, fb) {
   function mkChip(txt) {
     const c = qzEl("div", "qz-chip", txt);
     c.addEventListener("click", () => {
-      if (item._done) return;
+      if (item._done || qzLocked) return;
       if (c.parentElement === tray) { line.appendChild(c); placed.push(txt); }
       else { tray.appendChild(c); const ix = placed.indexOf(txt); if (ix >= 0) placed.splice(ix, 1); }
       fb.textContent = "";
@@ -1015,12 +1080,12 @@ function qzRenderOrder(item, card, fb) {
   const row = qzEl("div", "qz-row");
   const chk = qzEl("button", "qz-btn", "✔️ 檢查");
   chk.addEventListener("click", () => {
-    if (item._done) return;
+    if (item._done || qzLocked) return;
     if (placed.length < item.parts.length) { fb.className = "qz-fb no"; fb.textContent = "仲未排完呀，把所有詞語放上句子框先！"; return; }
     if (JSON.stringify(placed) === JSON.stringify(item.parts)) {
-      item._done = true; fb.className = "qz-fb ok"; fb.textContent = "✅ 啱晒：「" + item.parts.join("") + "。」";
+      item._done = true; fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + "「" + item.parts.join("") + "。」";
       line.querySelectorAll(".qz-chip").forEach(c => c.classList.add("done")); qzGain(item);
-    } else { fb.className = "qz-fb no"; fb.textContent = "❌ 次序唔啱，再諗諗邊句是原因、邊句是結果。㩒句子框的詞語可以放回下面。"; qzWrong(item); }
+    } else { fb.className = "qz-fb no"; fb.textContent = "💪 " + qzEncourage() + "邊句是原因、邊句是結果？㩒句子框的詞語可以放回下面。"; qzWrong(item); }
   });
   row.appendChild(chk);
   if (item._done) { item.parts.forEach(t => { const c = qzEl("div", "qz-chip done", t); line.appendChild(c); }); fb.className = "qz-fb ok"; fb.textContent = "✅ 已完成"; }
@@ -1041,7 +1106,7 @@ function qzRenderDraw(item, card, fb) {
   cv.addEventListener("pointerdown", e => { e.preventDefault(); drawing = true; lastPt = ptOf(e); cv.setPointerCapture(e.pointerId); });
   cv.addEventListener("pointermove", e => { if (!drawing) return; const p = ptOf(e); ctx.beginPath(); ctx.moveTo(lastPt.x, lastPt.y); ctx.lineTo(p.x, p.y); ctx.stroke(); lastPt = p; });
   ["pointerup", "pointercancel"].forEach(t => cv.addEventListener(t, () => { drawing = false; }));
-  fb.className = "qz-fb"; fb.textContent = "自由練習，唔計分 — 畫完㩒「下一題」繼續。";
+  fb.className = "qz-fb"; fb.textContent = "自由練習，唔計分 — 畫完㩒「下一題」繼續。隨時可以㩒右上角 ✕ 停低，進度已經存好。";
 }
 function qzRenderReveal(item, card, fb) {
   const row = qzEl("div", "qz-row");
@@ -1050,26 +1115,113 @@ function qzRenderReveal(item, card, fb) {
   b.addEventListener("click", () => { ans.style.display = ans.style.display === "block" ? "none" : "block"; });
   row.appendChild(b); card.appendChild(row); card.appendChild(ans);
 }
+function qzSkillSummary(cardEl) {
+  const bySkill = {};
+  qzItems().forEach(it => {
+    const s = it.skill || "其他";
+    bySkill[s] = bySkill[s] || { wrong: false, done: 0, total: 0 };
+    if (it._wrongKeys && Object.keys(it._wrongKeys).length) bySkill[s].wrong = true;
+    if (qzMax(it) > 0) { bySkill[s].total++; if (qzComplete(it)) bySkill[s].done++; }
+  });
+  const wrap = qzEl("div", "qz-skills");
+  wrap.appendChild(qzEl("div", null, "今次練咗嘅本事："));
+  Object.keys(bySkill).forEach(s => {
+    const v = bySkill[s];
+    const icon = v.wrong ? "✗ 要再練" : (v.total === 0 || v.done === v.total) ? "✓ 掌握" : "… 練緊";
+    wrap.appendChild(qzEl("div", null, "・" + s + "：" + icon));
+  });
+  cardEl.appendChild(wrap);
+}
 function qzFinishCard() {
   const S = QUIZ_SETS[qzSetName], t = qzTotals();
   const card = qzEl("div", "qz-summary qz-enter");
-  card.appendChild(qzEl("div", null, "🏁 " + S.label + "完成！⭐ 成績：" + t[0] + " / " + t[1]));
+  card.appendChild(qzEl("div", null, "🏁 " + S.label + "完成！你儲咗 " + t[0] + " 粒星 ⭐（成績 " + t[0] + " / " + t[1] + "）"));
   const wrong = S._wrong || [];
   try { localStorage.setItem("quizDemoL3-" + qzSetName, JSON.stringify({ score: t[0], total: t[1], wrong: wrong, at: new Date().toISOString() })); } catch (e) {}
+  qzSkillSummary(card);
   if (wrong.length) {
-    card.appendChild(qzEl("div", null, "第一次答錯過（之後改啱都好叻）："));
+    card.appendChild(qzEl("div", null, "首次答錯（之後改啱都好叻）— 呢啲係「要再練」清單："));
     wrong.forEach(w => card.appendChild(qzEl("div", null, "・" + w)));
-    card.appendChild(qzEl("div", null, "（錯題存喺呢部裝置；正式版會傳返俾家長同 Muse 入錯題庫。）"));
   } else card.appendChild(qzEl("div", null, "🎉 全部第一次就答啱，勁！"));
   const row = qzEl("div", "qz-row");
-  const again = qzEl("button", "qz-btn", "🔄 重新開始呢一版");
-  again.addEventListener("click", () => { qzResetSet(qzSetName); qzGo(0); });
-  row.appendChild(again); card.appendChild(row);
+  if (wrong.length && qzSetName !== "retry") {
+    const rb = qzEl("button", "qz-btn", "🔁 再練錯題（" + qzWrongItemCount() + " 題）");
+    rb.addEventListener("click", qzStartRetry);
+    row.appendChild(rb);
+  }
+  if (qzSetName === "retry") {
+    const back = qzEl("button", "qz-btn", "↩️ 返去" + (QUIZ_SETS[S._from] ? QUIZ_SETS[S._from].label : "簡易版"));
+    back.addEventListener("click", () => qzSwitchSet(S._from || "easy"));
+    row.appendChild(back);
+  }
+  const again = qzEl("button", "qz-btn alt", "🔄 重新開始呢一版");
+  again.addEventListener("click", () => { const from = S._from; qzResetSet(qzSetName); if (qzSetName === "retry") qzSwitchSet(from || "easy"); else qzGo(0); });
+  row.appendChild(again);
+  card.appendChild(row);
+  if (qzSetName !== "retry") {
+    const row2 = qzEl("div", "qz-row");
+    const exp = qzEl("button", "qz-btn alt", "📤 進度碼（存進度）");
+    const imp = qzEl("button", "qz-btn alt", "📥 輸入進度碼");
+    const codeBox = qzEl("div", "qz-code");
+    exp.addEventListener("click", () => { codeBox.textContent = qzExportCode(); codeBox.style.display = "block"; });
+    imp.addEventListener("click", () => {
+      const c = window.prompt("貼上進度碼：");
+      if (c && qzImportCode(c)) { alert("✅ 進度已恢復！"); qzGo(0); }
+      else if (c) alert("⚠️ 進度碼唔啱，冇改到任何嘢。");
+    });
+    row2.appendChild(exp); row2.appendChild(imp);
+    card.appendChild(row2); card.appendChild(codeBox);
+    card.appendChild(qzEl("div", "qz-code-note", "進度碼：抄低或者影低呢串碼，換裝置／清咗瀏覽資料之後，㩒「輸入進度碼」就可以恢復星星同錯題記錄。"));
+  }
   return card;
+}
+function qzWrongItemCount() {
+  return QUIZ_SETS[qzSetName].items.filter(it => it._wrongKeys && Object.keys(it._wrongKeys).length).length;
+}
+function qzStartRetry() {
+  const from = qzSetName, src = QUIZ_SETS[from];
+  const clones = src.items.filter(it => it._wrongKeys && Object.keys(it._wrongKeys).length)
+    .map(it => { const c = Object.assign({}, it); c._earned = 0; c._done = false; c._matched = {}; c._placed = {}; c._wrongKeys = {}; return c; });
+  if (!clones.length) return;
+  QUIZ_SETS.retry = { label: "錯題再練", items: clones, _wrong: [], _from: from };
+  qzSetName = "retry";
+  document.getElementById("qzTabEasy").classList.remove("on");
+  document.getElementById("qzTabNormal").classList.remove("on");
+  qzGo(0);
 }
 function qzResetSet(name) {
   const S = QUIZ_SETS[name]; S._wrong = [];
   S.items.forEach(it => { it._earned = 0; it._done = false; it._matched = {}; it._placed = {}; it._wrongKeys = {}; });
+}
+function qzExportCode() {
+  function pack(name) {
+    const S = QUIZ_SETS[name];
+    return S.items.map(it => ({ e: it._earned || 0, d: it._done ? 1 : 0, w: it._wrongKeys ? Object.keys(it._wrongKeys) : [], m: it._matched ? Object.keys(it._matched) : null, p: it._placed || null }));
+  }
+  const data = { v: 1, easy: pack("easy"), normal: pack("normal") };
+  return "QZ1-" + btoa(unescape(encodeURIComponent(JSON.stringify(data)))).replace(/=+$/, "");
+}
+function qzImportCode(code) {
+  try {
+    code = String(code).trim();
+    if (code.indexOf("QZ1-") !== 0) return false;
+    const data = JSON.parse(decodeURIComponent(escape(atob(code.slice(4)))));
+    if (!data || data.v !== 1) return false;
+    ["easy", "normal"].forEach(name => {
+      const arr = data[name], S = QUIZ_SETS[name];
+      if (!Array.isArray(arr) || arr.length !== S.items.length) return;
+      S._wrong = [];
+      arr.forEach((rec, i) => {
+        const it = S.items[i];
+        it._earned = rec.e || 0; it._done = !!rec.d;
+        it._wrongKeys = {}; (rec.w || []).forEach(k => { it._wrongKeys[k] = true; S._wrong.push(k); });
+        it._matched = {}; if (rec.m) rec.m.forEach(ch => { const pr = (it.pairs || []).find(p => p[0] === ch); if (pr) it._matched[ch] = pr[1]; });
+        it._placed = rec.p || {};
+      });
+    });
+    qzScoreUpd();
+    return true;
+  } catch (e) { return false; }
 }
 function qzBuildPicker() {
   const pk = document.getElementById("qzPicker");
@@ -1097,6 +1249,7 @@ document.getElementById("quizOpenBtn").addEventListener("click", () => {
 document.getElementById("quizCloseBtn").addEventListener("click", () => {
   document.getElementById("quizModal").style.display = "none";
   document.body.style.overflow = "";
+  if (window.speechSynthesis) try { speechSynthesis.cancel(); } catch (e) {}
 });
 document.getElementById("qzPrev").addEventListener("click", () => qzGo(qzIdx - 1));
 document.getElementById("qzNext").addEventListener("click", () => qzGo(qzIdx + 1));
