@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>🐷 蔡諾琳 2A 學校專頁</title>
 <style>
 * { margin:0; padding:0; box-sizing:border-box;}
@@ -63,6 +66,7 @@ background: #2563EB; color: #fff; font-size: 14px; font-weight: 800;
 border: none; cursor: pointer;
 }
 .speak:active { background: #1D4ED8;}
+.prog { margin-left: 10px; font-size: 13.5px; font-weight: 800; color: #FBBF24; }
 .hints { background: rgba(245,158,11,.10); border: 1px solid rgba(245,158,11,.45);}
 .hints.lab { color: #FBBF24;}
 .practice { background: rgba(16,185,129,.08); border: 1px solid rgba(16,185,129,.4);}
@@ -106,27 +110,38 @@ b.appendChild(el("span", "lab", lab));
 return b;
 }
 let speakingBtn = null;
-function speakSeq(texts, lang, btn) {
-if (!("speechSynthesis" in window)) { btn.textContent = "此瀏覽器不支援語音"; return;}
-if (speakingBtn === btn) { speechSynthesis.cancel(); speakingBtn = null; btn.textContent = btn.dataset.label; return;}
+function speakSeq(texts, lang, btn, prog) {
+if (!("speechSynthesis" in window)) { btn.textContent = "此瀏覽器不支援語音"; return; }
+if (speakingBtn === btn) { speechSynthesis.cancel(); speakingBtn = null; btn.textContent = btn.dataset.label; if (prog) prog.textContent = ""; return; }
 speechSynthesis.cancel();
 if (speakingBtn) speakingBtn.textContent = speakingBtn.dataset.label;
 speakingBtn = btn;
 btn.dataset.label = btn.textContent;
 btn.textContent = "⏹ 停止讀默";
 let i = 0;
-function next() {
-if (speakingBtn!== btn || i >= texts.length) {
-if (speakingBtn === btn) { speakingBtn = null; btn.textContent = btn.dataset.label;}
-return;
+function alive() { return speakingBtn === btn; }
+function finish() {
+if (!alive()) return;
+speakingBtn = null;
+btn.textContent = btn.dataset.label;
+if (prog) prog.textContent = "✅ 讀默完成";
 }
-const u = new SpeechSynthesisUtterance(texts[i]);
-u.lang = lang; u.rate = 0.8;
-u.onend = () => { i++; setTimeout(next, 2500);};
-u.onerror = () => { i++; setTimeout(next, 2500);};
+function say(text, cb) {
+const u = new SpeechSynthesisUtterance(text);
+u.lang = lang; u.rate = 0.78;
+u.onend = cb; u.onerror = cb;
 speechSynthesis.speak(u);
 }
-next();
+function playItem() {
+if (!alive()) return;
+if (i >= texts.length) { finish(); return; }
+if (prog) prog.textContent = "🔊 讀默中：第 " + (i + 1) + " / " + texts.length + " 題";
+say(texts[i], () => setTimeout(() => {
+if (!alive()) return;
+say(texts[i], () => setTimeout(() => { i++; playItem(); }, 6000));
+}, 2000));
+}
+playItem();
 }
 function langOf(item) { return item.subject === "英文"? "en-GB": "zh-HK";}
 
@@ -165,8 +180,9 @@ if (w.syllables) s.appendChild(el("span", "syl", w.syllables));
 b.appendChild(s);
 });
 const btn = el("button", "speak", "🔊 讀默字詞");
-btn.addEventListener("click", () => speakSeq(item.words.map(w => w.text), langOf(item), btn));
-b.appendChild(el("br")); b.appendChild(btn);
+const prog = el("span", "prog");
+btn.addEventListener("click", () => speakSeq(item.words.map(w => w.text), langOf(item), btn, prog));
+b.appendChild(el("br")); b.appendChild(btn); b.appendChild(prog);
 parent.appendChild(b);
 }
 if (item.sentences && item.sentences.length) {
@@ -174,8 +190,9 @@ const b = block("sent", "🗣 讀默句子");
 const ol = el("ol"); item.sentences.forEach(s => ol.appendChild(el("li", null, s)));
 b.appendChild(ol);
 const btn = el("button", "speak", "🔊 讀默句子");
-btn.addEventListener("click", () => speakSeq(item.sentences, langOf(item), btn));
-b.appendChild(btn);
+const prog = el("span", "prog");
+btn.addEventListener("click", () => speakSeq(item.sentences, langOf(item), btn, prog));
+b.appendChild(btn); b.appendChild(prog);
 parent.appendChild(b);
 }
 if (item.hints && item.hints.length) {
