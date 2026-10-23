@@ -1,7 +1,7 @@
 {
   "service": "daughter-school-detail",
   "student": "琳琳 2A",
-  "updated": "2026-10-23T23:42:59.057663+00:00",
+  "updated": "2026-10-23T23:52:21.330527+00:00",
   "homework": [
     {
       "key": "HUM_VIDEO_1",
@@ -19,15 +19,29 @@
         "交期：工作紙寫 31/10（六）或前上載（Classroom 顯示截止 11/1），按早嘅 31/10 交最穩陣，拍完即日交。"
       ],
       "practice": [
-        "揀一位好朋友，諗一件你哋成日一齊做嘅事",
-        "諗一個幫朋友嘅例子：例如朋友唔開心，你會點做？",
-        "照工作紙範本寫好成份講稿（開頭＋朋友＋一齊做嘅事＋點樣相處＋結尾）",
-        "讀出嚟計時：要喺 1 分鐘之內，唔可以超過 1 分 15 秒",
-        "對住鏡頭練習 3 次：望住鏡頭、保持笑容、加少少自然手勢",
-        "準備一樣輔助工具：朋友嘅相，或者你畫嘅一幅畫",
-        "正式拍片：一次過拍晒，唔可以剪接，唔可以加特別效果",
         {
-          "text": "請家長幫手將影片上載去 Google Classroom 繳交盒（10月31日或之前）",
+          "q": "揀一位好朋友，諗一件你哋成日一齊做嘅事"
+        },
+        {
+          "q": "諗一個幫朋友嘅例子：例如朋友唔開心，你會點做？"
+        },
+        {
+          "q": "照工作紙範本寫好成份講稿（開頭＋朋友＋一齊做嘅事＋點樣相處＋結尾）"
+        },
+        {
+          "q": "讀出嚟計時：要喺 1 分鐘之內，唔可以超過 1 分 15 秒"
+        },
+        {
+          "q": "對住鏡頭練習 3 次：望住鏡頭、保持笑容、加少少自然手勢"
+        },
+        {
+          "q": "準備一樣輔助工具：朋友嘅相，或者你畫嘅一幅畫"
+        },
+        {
+          "q": "正式拍片：一次過拍晒，唔可以剪接，唔可以加特別效果"
+        },
+        {
+          "q": "請家長幫手將影片上載去 Google Classroom 繳交盒（10月31日或之前）",
           "guide": true
         }
       ],
@@ -35,7 +49,40 @@
         "範例講稿（家長參考，約 50–60 秒；朋友名係範例，琳琳要換返自己真正嘅好朋友）：「鄧老師，你好。我是 2A 班的琳琳。今天的主題是介紹我的一位好朋友，以及如何和朋友正確地相處。我的好朋友是欣欣。我們經常一起畫畫和玩遊戲。當朋友遇到困難時，我會耐心聆聽，又會同佢分享玩具。如果我做錯了事，我會說對不起。我們要尊重和愛護朋友。鄧老師，這是我的分享，多謝！」",
         "相處之道詞語庫（幫琳琳揀嚟填講稿）：耐心聆聽、分享玩具、幫助對方、尊重朋友、做錯事說對不起、一起解決問題。"
       ],
-      "source": "Google Classroom 功課指示"
+      "source": "Google Classroom 功課指示",
+      "practice_en": [
+        {
+          "q": "Pick one good friend, and think of one thing you often do together"
+        },
+        {
+          "q": "Think of one example of helping a friend (e.g. when your friend is sad, what would you do?)"
+        },
+        {
+          "q": "Write the full script using the worksheet template (opening + friend + activity together + how to get along + ending)"
+        },
+        {
+          "q": "Read it aloud and time it: within 1 minute, never over 1 minute 15 seconds"
+        },
+        {
+          "q": "Practise 3 times facing the camera: look at the camera, smile, use a few natural hand gestures"
+        },
+        {
+          "q": "Prepare one prop: a photo of your friend, or a drawing you made"
+        },
+        {
+          "q": "Film it in one take: no editing, no special effects"
+        },
+        {
+          "q": "Parent: please upload the video to the Google Classroom turn-in box (on or before 31 Oct)",
+          "guide": true
+        }
+      ],
+      "hints_en": [
+        "Write the script first, then film: fill in the worksheet's opening/ending template and practise until it fits within 1 minute.",
+        "Hard limit 1:15 — anything over is not marked; film in one take on the phone, no editing or special effects.",
+        "Camera presence scores marks: eye contact with the lens, facial expressions and natural gestures; one prop used well (a friend's photo or a drawing) can add marks.",
+        "Deadline: the worksheet says upload on or before Sat 31 Oct (Classroom shows 1 Nov) — safest to submit on 31 Oct, right after filming."
+      ]
     }
   ],
   "upcoming": [
