@@ -48,6 +48,8 @@ h2.sec { font-size: 16.5px; font-weight: 900; margin: 20px 0 10px; }
 .speak1 { background: #2563EB; color: #fff; border: none; border-radius: 8px; padding: 5px 10px; font-size: 13px; font-weight: 800; cursor: pointer; flex: 0 0 auto; }
 .speak1:active { background: #1D4ED8; }
 .words .word { cursor: pointer; }
+.wordunit .speak1 { padding: 4px 8px; font-size: 12px; }
+.recite .senttext.covered { filter: blur(7px); -webkit-filter: blur(7px); }
 .words .word .mean { color: #FDE68A; font-weight: 700; margin-left: 7px; font-size: 13px; }
 .words .word .syl { color: #93C5FD; font-weight: 600; margin-left: 7px; font-size: 12.5px; }
 .words, .sent { background: rgba(30,58,138,.30); }
@@ -258,6 +260,7 @@ function hasContent(item) {
   return !!((item.practice && item.practice.length) || (item.words && item.words.length) ||
     (item.hints && item.hints.length) || item.detail ||
     (item.points && item.points.length) || (item.sentences && item.sentences.length) ||
+    (item.recite_sentences && item.recite_sentences.length) ||
     (item.focus_points && item.focus_points.length) || item.answer_key);
 }
 function attachBody(c, item, opts) {
@@ -384,7 +387,7 @@ function enrichmentHTML(card, item, opts) {
   const wIdx = new Map(); (item.words || []).forEach((w, i) => wIdx.set(w, i));
   if (item.words && item.words.length) {
     const b = block("words", "📝 字詞表");
-    if (checkable) b.appendChild(el("div", "wlegend", "撳字詞 = 聽讀音（讀兩次）；跟住嘅剔格剔咗 ✓ 字詞會變綠色 = 識咗"));
+    if (checkable) b.appendChild(el("div", "wlegend", "每組：字詞 + 🔊（只讀嗰個，讀兩次）+ 剔格（剔咗 ✓ 變綠色 = 識咗）"));
     const wordUnit = (w) => {
       const unit = el("span", "wordunit");
       const s = el("span", "word", w.text);
@@ -393,6 +396,9 @@ function enrichmentHTML(card, item, opts) {
       s.title = "撳一下聽讀音（讀兩次）";
       s.addEventListener("click", () => speakTap(w.text, langOf(item)));
       unit.appendChild(s);
+      const wb = el("button", "speak1", "🔊");
+      wb.addEventListener("click", () => speakSingle(w.text, langOf(item), wb));
+      unit.appendChild(wb);
       if (checkable) unit.appendChild(checkLabel(ck, "w" + wIdx.get(w) + "-" + hashStr(w.text), ""));
       return unit;
     };
@@ -426,6 +432,28 @@ function enrichmentHTML(card, item, opts) {
       sb.addEventListener("click", () => speakSingle(s, langOf(item), sb));
       row.appendChild(sb);
       if (checkable) row.appendChild(checkLabel(ck, "s" + i + "-" + hashStr(s), ""));
+      li.appendChild(row);
+      ol.appendChild(li);
+    });
+    b.appendChild(ol);
+    card.appendChild(b);
+  }
+  if (item.recite_sentences && item.recite_sentences.length) {
+    const b = block("sent recite", "🎒 背默（遮住先，背完先好開嚟對）");
+    if (checkable) b.appendChild(el("div", "wlegend", "背默段落預設遮住：背完撳 👁 開嚟對；🔊 只讀嗰段兩次；識背就剔 ✓"));
+    const ol = el("ol");
+    item.recite_sentences.forEach((s, i) => {
+      const li = el("li");
+      const row = el("div", "sentrow");
+      const txt = el("span", "senttext covered", s);
+      row.appendChild(txt);
+      const rb = el("button", "speak1", "👁");
+      rb.addEventListener("click", () => { const covered = txt.classList.toggle("covered"); rb.textContent = covered ? "👁" : "🙈"; });
+      row.appendChild(rb);
+      const sb = el("button", "speak1", "🔊");
+      sb.addEventListener("click", () => speakSingle(s, langOf(item), sb));
+      row.appendChild(sb);
+      if (checkable) row.appendChild(checkLabel(ck, "r" + i + "-" + hashStr(s), ""));
       li.appendChild(row);
       ol.appendChild(li);
     });
