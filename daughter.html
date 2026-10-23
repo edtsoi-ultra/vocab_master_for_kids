@@ -92,7 +92,7 @@ footer { color: #64748B; font-size: 11.5px; margin-top: 22px; text-align: center
 .cardfoot { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
 .cardfoot .tier { margin-top: 0; }
 .cardfoot .pcount { color: #94A3B8; font-size: 12.5px; font-weight: 700; }
-.toggle { margin-left: auto; background: #2563EB; color: #fff; border: none; border-radius: 9px; padding: 7px 13px; font-size: 13px; font-weight: 800; cursor: pointer; }
+.toggle { margin-left: auto; background: #2563EB; color: #fff; border: none; border-radius: 10px; padding: 10px 16px; font-size: 14px; font-weight: 800; cursor: pointer; min-height: 42px; }
 .toggle:active { background: #1D4ED8; }
 details.orig { margin-top: 12px; background: rgba(2,6,23,.55); border-radius: 10px; padding: 10px 12px; }
 details.orig summary { cursor: pointer; font-weight: 900; font-size: 13.5px; color: #E9D5FF; }
@@ -103,6 +103,8 @@ details.orig .origbody { margin-top: 6px; font-size: 14px; line-height: 1.7; col
 .lchk input { width: 24px; height: 24px; min-width: 24px; accent-color: #22C55E; cursor: pointer; margin: 0; }
 .progbar { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
 .progcnt { color: #86EFAC; font-size: 13px; font-weight: 800; }
+.pbar { flex: 1 1 100%; height: 10px; background: #0F172A; border: 1px solid #334155; border-radius: 6px; overflow: hidden; margin-top: 2px; }
+.pfill { height: 100%; background: linear-gradient(90deg, #16A34A, #4ADE80); width: 0%; transition: width .4s ease; }
 .cardfoot .progcnt { color: #86EFAC; }
 .resetbtn { background: none; border: none; color: #94A3B8; font-size: 12.5px; font-weight: 700; cursor: pointer; text-decoration: underline; padding: 6px 2px; }
 /* ===== Interactive quiz player v2.2 (trial) ===== */
@@ -299,6 +301,11 @@ function refreshProgCounts() {
     const s = totals[elm.getAttribute("data-prog-for")];
     if (s && s.t > 0) { elm.textContent = "✅ 已識 " + s.d + "/" + s.t; elm.style.display = ""; }
     else { elm.textContent = ""; elm.style.display = "none"; }
+  });
+  document.querySelectorAll("[data-pbar-for]").forEach(elm => {
+    const s = totals[elm.getAttribute("data-pbar-for")];
+    if (s && s.t > 0) { elm.style.display = ""; elm.firstChild.style.width = Math.round(100 * s.d / s.t) + "%"; }
+    else elm.style.display = "none";
   });
   document.querySelectorAll("[data-prog-wrap]").forEach(elm => {
     const s = totals[elm.getAttribute("data-prog-wrap")];
@@ -702,6 +709,11 @@ function makeCollapsible(c, item, opts) {
   ps.setAttribute("data-prog-for", ck);
   ps.style.display = "none";
   foot.appendChild(ps);
+  const pbar = el("div", "pbar");
+  pbar.setAttribute("data-pbar-for", ck);
+  pbar.style.display = "none";
+  pbar.appendChild(el("div", "pfill"));
+  foot.appendChild(pbar);
   const btn = el("button", "toggle", c._expandLabel);
   btn.addEventListener("click", (e) => { e.stopPropagation(); toggleCard(c); });
   foot.appendChild(btn);
