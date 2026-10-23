@@ -1,9 +1,10 @@
 {
   "service": "daughter-school-detail",
   "student": "蔡諾琳 2A",
-  "updated": "2026-10-23T00:31:22.298240+00:00",
+  "updated": "2026-10-23T01:01:23.966499+00:00",
   "homework": [
     {
+      "key": "HUM_VIDEO_1",
       "subject": "人文",
       "title": "人文視訊一",
       "due": "2026-11-01",
@@ -14,6 +15,7 @@
   ],
   "upcoming": [
     {
+      "key": "MATH_FA_20261022",
       "type": "小測",
       "subject": "數學",
       "title": "數學 FA",
@@ -22,6 +24,7 @@
       "days_left": 0
     },
     {
+      "key": "ENG_DICT_2",
       "type": "默書",
       "subject": "英文",
       "title": "英文默書",
@@ -30,6 +33,7 @@
       "days_left": 0
     },
     {
+      "key": "CHI_DICT_20261028",
       "type": "默書",
       "subject": "中文",
       "title": "中文默書",
@@ -38,43 +42,169 @@
       "days_left": 5
     },
     {
+      "key": "CHI_PROGRESS_1",
       "type": "進評",
       "subject": "中文",
       "title": "中文進評",
       "date": "2026-11-05",
       "scope": "課文第3至7課",
       "date_display": "11月5日 (四)",
-      "days_left": 13
+      "days_left": 13,
+      "practice": [
+        {
+          "q": "溫習任務：朗讀課文第3至7課，每課一次；唔識讀嘅字圈起，請家長記低，之後集中練讀。"
+        },
+        {
+          "q": "【標點】為句子加上正確標點：我哋今日去公園玩（　）",
+          "a": "。 （句號）"
+        },
+        {
+          "q": "【量詞】填上合適量詞：一（　）書、一（　）小鳥、一（　）魚",
+          "a": "本、隻、條"
+        },
+        {
+          "q": "【造句】用「一邊……一邊……」作一句。",
+          "a": "參考答案：妹妹一邊唱歌，一邊跳舞。"
+        }
+      ],
+      "source_tier": "scope_guess",
+      "flag": "⚠️ 基礎範圍練習（待補充課文／默書紙圖片以生成精準字表練習）",
+      "source": "範圍：課文第3至7課（日誌記錄）"
     },
     {
+      "key": "ENG_DICT_3",
       "type": "默書",
       "subject": "英文",
       "title": "英文默書 Dict 3",
       "date": "2026-11-06",
       "scope": "Unit 3",
       "date_display": "11月6日 (五)",
-      "days_left": 14
+      "days_left": 14,
+      "practice": [
+        {
+          "q": "溫習任務：朗讀 Unit 3 課文一次，唔識讀嘅生字圈起；再將生字表自默一次，串錯嘅字抄寫 3 次。"
+        },
+        {
+          "q": "【Spelling】邊個串法啱？rabit / rabbit",
+          "a": "rabbit（雙子音 bb）"
+        },
+        {
+          "q": "【Spelling】邊個串法啱？cak / cake",
+          "a": "cake（尾音 magic e）"
+        }
+      ],
+      "source_tier": "scope_guess",
+      "flag": "⚠️ 基礎範圍練習（待上傳 Unit 3 生字表／默書紙圖片以生成精準字表）",
+      "source": "範圍：Textbook 2A Unit 3（日誌記錄）"
     },
     {
+      "key": "ASSESS_1",
       "type": "評估",
       "subject": "全科",
       "title": "評估一 (中英數常人文)",
       "date": "2026-11-19",
       "scope": "中:課文一冊1-3·二冊7,單元一/二/五,進評一二 | 英:U1-4(TB·WB·A),FA1-2,寫作1-3 | 數:2上A第1-11課,進評1-2 | 人文:第1-5課,單元一/二 | 科學:第1-3課 ※各科含已有知識",
       "date_display": "11月19日 (四)",
-      "days_left": 27
+      "days_left": 27,
+      "practice": [
+        {
+          "subject": "數學",
+          "q": "356 入面，「5」代表咩數值？",
+          "a": "50（5 在十位，代表 5 個十）"
+        },
+        {
+          "subject": "數學",
+          "q": "比較大小：478 ○ 487（填 >、< 或 =）",
+          "a": "<"
+        },
+        {
+          "subject": "數學",
+          "q": "寫出 814 每個數字嘅數值（記得：一位數字佔一位）。",
+          "a": "8 = 800（百位）、1 = 10（十位）、4 = 4（個位）"
+        },
+        {
+          "subject": "數學",
+          "q": "246 + 358 = ?",
+          "a": "604"
+        },
+        {
+          "subject": "數學",
+          "q": "502 − 267 = ?",
+          "a": "235"
+        },
+        {
+          "subject": "數學",
+          "q": "5 × 4 = ?　3 × 7 = ?",
+          "a": "20；21"
+        },
+        {
+          "subject": "數學",
+          "q": "而家係 3:45，再過 30 分鐘係幾點？",
+          "a": "4:15"
+        },
+        {
+          "subject": "數學",
+          "q": "一本書 $28，俾 $50，找回幾多錢？",
+          "a": "$22"
+        },
+        {
+          "subject": "數學",
+          "q": "一條繩長 1 米，剪走 35 厘米，仲剩幾長？",
+          "a": "65 厘米"
+        },
+        {
+          "subject": "英文",
+          "q": "Fill in a preposition (in / on / under): The book is ___ the bag.",
+          "a": "in"
+        },
+        {
+          "subject": "英文",
+          "q": "Choose: She has ___ apple. (a / an)",
+          "a": "an"
+        },
+        {
+          "subject": "中文",
+          "q": "【標點】為句子加上正確標點：你食咗飯未（　）",
+          "a": "？ （問號）"
+        },
+        {
+          "subject": "中文",
+          "q": "溫習任務：重讀中文課文（一冊第1至3課、二冊第7課）各一次，唔識嘅字圈起。"
+        },
+        {
+          "subject": "人文",
+          "q": "溫習任務：重讀人文課本第1至5課，講一次每課嘅主題俾家長聽。"
+        },
+        {
+          "subject": "科學",
+          "q": "溫習任務：重讀科學課本第1至3課，講出每課一個重點。"
+        }
+      ],
+      "source_tier": "scope_guess",
+      "flag": "⚠️ 數學按課程範圍生成計算練習；中英人文科學為基礎練習（待補充課本內容以精準化）",
+      "source": "評估一範圍（eClass 通告 2627-125）"
     }
   ],
   "notices": {
     "new_count": 1,
     "items": [
       {
+        "key": "NOTICE_STAR_MIRACLE",
         "code": "eClass",
         "title": "Star Miracle頒獎禮通告",
         "brief": "Star Miracle頒獎禮（回條未簽）",
         "deadline": "2026-10-26",
         "deadline_display": "10月26日 (一)",
-        "days_left": 3
+        "days_left": 3,
+        "detail": "Star Miracle 頒獎禮通告：頒獎禮於 10月23日（星期五）舉行。",
+        "points": [
+          "頒獎禮：10月23日（五）08:10 開始",
+          "07:55 到校集合",
+          "請帶環保袋",
+          "回條死線：10月26日（一）"
+        ],
+        "source_tier": "verified_capture",
+        "source": "eClass 通告原文（2026-10-22 檢查記錄）"
       }
     ]
   }
