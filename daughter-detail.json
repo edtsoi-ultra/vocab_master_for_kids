@@ -1,7 +1,7 @@
 {
   "service": "daughter-school-detail",
   "student": "琳琳 2A",
-  "updated": "2026-10-23T23:14:19.217462+00:00",
+  "updated": "2026-10-23T23:23:36.392126+00:00",
   "homework": [
     {
       "key": "HUM_VIDEO_1",
@@ -414,8 +414,16 @@
       "source_tier": "scope_guess",
       "source": "評估一範圍（eClass 通告 2627-125）",
       "quiz": {
-        "id": "eng_u14",
-        "title": "英文評估預覽（U1-U4）"
+        "sets": [
+          {
+            "id": "eng_u14",
+            "title": "英文評估預覽（U1-U4）"
+          },
+          {
+            "id": "eng_paper",
+            "title": "歷屆卷風格預覽"
+          }
+        ]
       }
     },
     {
