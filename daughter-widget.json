@@ -1,7 +1,7 @@
 {
   "service": "daughter-school",
   "student": "蔡諾琳 2A",
-  "updated": "2026-10-23T15:38:33.823149+00:00",
+  "updated": "2026-10-23T16:30:49.456158+00:00",
   "homework": [
     {
       "key": "HUM_VIDEO_1",
@@ -10,19 +10,10 @@
       "due": "2026-10-31",
       "status": "pending",
       "due_display": "10月31日 (六)",
-      "days_left": 8
+      "days_left": 7
     }
   ],
   "upcoming": [
-    {
-      "key": "MATH_FA_20261022",
-      "type": "小測",
-      "subject": "數學",
-      "title": "數學 FA",
-      "date": "2026-10-22",
-      "date_display": "10月22日 (四)",
-      "days_left": -1
-    },
     {
       "key": "ENG_DICT_2",
       "type": "默書",
@@ -30,7 +21,7 @@
       "title": "英文默書",
       "date": "2026-10-23",
       "date_display": "10月23日 (五)",
-      "days_left": 0
+      "days_left": -1
     },
     {
       "key": "CHI_DICT_20261028",
@@ -39,7 +30,7 @@
       "title": "中文默書",
       "date": "2026-10-28",
       "date_display": "10月28日 (三)",
-      "days_left": 5
+      "days_left": 4
     },
     {
       "key": "CHI_PROGRESS_1",
@@ -49,6 +40,16 @@
       "date": "2026-11-05",
       "scope": "課文第3至7課",
       "date_display": "11月5日 (四)",
+      "days_left": 12
+    },
+    {
+      "key": "ENG_DICT_3",
+      "type": "默書",
+      "subject": "英文",
+      "title": "英文默書 Dict 3",
+      "date": "2026-11-06",
+      "scope": "Unit 3",
+      "date_display": "11月6日 (五)",
       "days_left": 13
     }
   ],
@@ -64,7 +65,7 @@
         "brief": "Star Miracle頒獎禮（回條未簽）",
         "deadline": "2026-10-26",
         "deadline_display": "10月26日 (一)",
-        "days_left": 3
+        "days_left": 2
       }
     ]
   }
