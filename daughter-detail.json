@@ -1,7 +1,7 @@
 {
   "service": "daughter-school-detail",
   "student": "琳琳 2A",
-  "updated": "2026-10-23T19:12:26.259662+00:00",
+  "updated": "2026-10-23T19:30:42.180686+00:00",
   "homework": [
     {
       "key": "HUM_VIDEO_1",
@@ -188,8 +188,9 @@
           },
           {
             "n": 7,
-            "status": "awaiting",
-            "note": "等課文入庫"
+            "status": "preview",
+            "note": "預覽版（按默書範圍）",
+            "id": "chi_l7"
           }
         ]
       }
@@ -369,8 +370,9 @@
           },
           {
             "n": 7,
-            "status": "awaiting",
-            "note": "等課文入庫"
+            "status": "preview",
+            "note": "預覽版（按默書範圍）",
+            "id": "chi_l7"
           }
         ]
       }
@@ -393,7 +395,11 @@
         }
       ],
       "source_tier": "scope_guess",
-      "source": "評估一範圍（eClass 通告 2627-125）"
+      "source": "評估一範圍（eClass 通告 2627-125）",
+      "quiz": {
+        "id": "eng_u14",
+        "title": "英文評估預覽（U1-U4）"
+      }
     },
     {
       "key": "ASSESS_1_MATH",
@@ -480,7 +486,11 @@
       ],
       "source_tier": "scope_guess",
       "flag": "⚠️ 數學按課程範圍生成計算練習",
-      "source": "評估一範圍（eClass 通告 2627-125）"
+      "source": "評估一範圍（eClass 通告 2627-125）",
+      "quiz": {
+        "id": "math_a1",
+        "title": "數學評估預覽"
+      }
     },
     {
       "key": "ASSESS_1_HUM",
@@ -514,7 +524,11 @@
         }
       ],
       "source_tier": "scope_guess",
-      "source": "評估一範圍（eClass 通告 2627-125）"
+      "source": "評估一範圍（eClass 通告 2627-125）",
+      "quiz": {
+        "id": "sci_a1",
+        "title": "科學評估預覽"
+      }
     }
   ],
   "notices": {
