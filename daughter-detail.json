@@ -1,7 +1,7 @@
 {
   "service": "daughter-school-detail",
   "student": "蔡諾琳 2A",
-  "updated": "2026-10-23T11:57:17.200699+00:00",
+  "updated": "2026-10-23T12:01:10.458928+00:00",
   "homework": [
     {
       "key": "HUM_VIDEO_1",
@@ -48,36 +48,94 @@
       "date": "2026-10-28",
       "date_display": "10月28日 (三)",
       "days_left": 5,
+      "detail": "第三次默書（10月28日，星期三）範圍 — 詞語：二上二冊第七課及已有知識（12 個）；讀默課文：第七課 P.5 第五、六段；背默課文：第七課 P.4 第二段；考考你：寫出五個形容人物性格的詞語（不能重覆甲、乙部字詞）。",
       "practice": [
         {
-          "q": "溫習任務：按默書紙範圍，每課朗讀三次；唔識讀／唔識寫嘅字圈起，寫錯嘅字抄寫 5 次。"
+          "q": "默書任務：12 個詞語自默一次，錯字每個抄寫 5 次。",
+          "lesson": "第7課"
         },
         {
-          "q": "溫習任務：自默默書紙範圍一次，錯嘅字每個抄寫 5 次；第二次自默要全對。"
+          "q": "讀默練習：朗讀 P.5 第五、六段三次，留意「鬍子、鑽、量一量、頭破血流」。",
+          "lesson": "第7課"
         },
         {
-          "q": "【標點】為句子加上正確標點：佢哋喺操場踢足球（　）",
-          "a": "。 （句號）"
+          "q": "背默練習：先抄一次「小花貓在一旁仰着腦袋，碧綠的大眼睛，一眨不眨地看着主人。」再遮住默寫一次。",
+          "lesson": "第7課"
         },
         {
-          "q": "【標點】為句子加上正確標點：你要唔要一齊返屋企（　）",
-          "a": "？ （問號）"
+          "q": "【考考你】寫出五個形容人物性格的詞語。",
+          "a": "參考（範圍紙例子）：善良的、頑皮的、細心的、勇敢的、聰明的、活潑的、開朗的",
+          "lesson": "第7課"
         },
         {
-          "q": "【量詞】填上合適量詞：一（　）花、一（　）魚、一（　）小狗",
-          "a": "朵、條、隻"
-        },
-        {
-          "q": "【造句】用「一邊……一邊……」作一句。",
-          "a": "參考答案：爸爸一邊飲茶，一邊睇報紙。"
-        },
-        {
-          "q": "溫習任務：請家長隨機讀出默書紙範圍嘅句子俾佢默寫（聽寫練習），錯字即場抄寫 5 次。"
+          "q": "【易錯字】「乾乾淨淨」的「淨」點寫？「鏡子」的「鏡」係咩部首？",
+          "a": "淨：冫+爭；鏡：金字旁（釒）",
+          "lesson": "第7課"
         }
       ],
-      "source_tier": "scope_guess",
-      "flag": "⚠️ 基礎範圍練習（待補充課本／默書紙圖片以生成精準字表練習）",
-      "source": "2026-10-28 中文默書（範圍待老師公佈；課本範圍以默書紙／課文為準）"
+      "words": [
+        {
+          "text": "難看",
+          "lesson": "第7課"
+        },
+        {
+          "text": "追捕",
+          "lesson": "第7課"
+        },
+        {
+          "text": "感到",
+          "lesson": "第7課"
+        },
+        {
+          "text": "覺得",
+          "lesson": "第7課"
+        },
+        {
+          "text": "鏡子",
+          "lesson": "第7課"
+        },
+        {
+          "text": "被",
+          "lesson": "第7課"
+        },
+        {
+          "text": "辦法",
+          "lesson": "第7課"
+        },
+        {
+          "text": "撞",
+          "lesson": "第7課"
+        },
+        {
+          "text": "幫忙",
+          "lesson": "第7課"
+        },
+        {
+          "text": "樣子",
+          "lesson": "第7課"
+        },
+        {
+          "text": "乾乾淨淨",
+          "lesson": "第7課"
+        },
+        {
+          "text": "浴室",
+          "lesson": "第7課"
+        }
+      ],
+      "sentences": [
+        "貓媽媽耐心地說：「你的鬍子好比一把尺子。你能不能從洞裏鑽過去，先要用尺子量一量。鬍子被你刮掉了，你當然會碰得頭破血流了。」從那以後，小花貓再也不刮鬍子了。",
+        "小花貓在一旁仰着腦袋，碧綠的大眼睛，一眨不眨地看着主人。"
+      ],
+      "focus_points": [
+        "詞語 12 個：難看、追捕、感到、覺得、鏡子、被、辦法、撞、幫忙、樣子、乾乾淨淨、浴室",
+        "讀默：第七課 P.5 第五、六段（貓媽媽講鬍子嗰段）",
+        "背默：第七課 P.4 第二段（小花貓看着主人）— 要背到識默",
+        "考考你：五個形容人物性格的詞語，唔可以重覆上面啲詞語",
+        "易錯字：鏡（金字旁）、撞、幫、淨"
+      ],
+      "source_tier": "verified_capture",
+      "source": "學校默書範圍紙（二年級 第一次學習階段 第三次默書範圍）— Eddie 相片 2026-10-23"
     },
     {
       "key": "CHI_PROGRESS_1",
@@ -118,22 +176,140 @@
       "scope": "Unit 3",
       "date_display": "11月6日 (五)",
       "days_left": 14,
+      "detail": "Dictation 3（11月6日）Unit 3 My School — Part A Vocabulary 30%（16 個）、Part B Sentences 60%（10 句）、Part C Learn by Heart 10%、Part D Fun Dictation（未見過，唔使準備內容，靠語感）。",
       "practice": [
         {
-          "q": "溫習任務：朗讀 Unit 3 課文一次，唔識讀嘅生字圈起；再將生字表自默一次，串錯嘅字抄寫 3 次。"
+          "q": "默書任務：Part A 16 個生字自默一次，錯嘅每個抄寫 3 次。",
+          "lesson": "Unit 3"
         },
         {
-          "q": "【Spelling】邊個串法啱？rabit / rabbit",
-          "a": "rabbit（雙子音 bb）"
+          "q": "【Spelling】邊個串法啱？fifth / fiveth",
+          "a": "fifth（five 去 e 再加 th，ve 變 f）",
+          "lesson": "Unit 3"
         },
         {
-          "q": "【Spelling】邊個串法啱？cak / cake",
-          "a": "cake（尾音 magic e）"
+          "q": "【默寫句子】The tuck shop is on the ground floor.",
+          "a": "The tuck shop is on the ground floor.",
+          "lesson": "Unit 3"
+        },
+        {
+          "q": "【默寫句子】We can have recess on the second floor.",
+          "a": "We can have recess on the second floor.",
+          "lesson": "Unit 3"
+        },
+        {
+          "q": "【默寫句子】The playground is my favourite place at school.",
+          "a": "The playground is my favourite place at school.（favourite 英式串法，有 u）",
+          "lesson": "Unit 3"
+        },
+        {
+          "q": "【背誦】Part C Learn by Heart：Today is sunny. Let's go to the garden. The flowers are beautiful. What a wonderful day!",
+          "lesson": "Unit 3"
         }
       ],
-      "source_tier": "scope_guess",
-      "flag": "⚠️ 基礎範圍練習（待上傳 Unit 3 生字表／默書紙圖片以生成精準字表）",
-      "source": "範圍：Textbook 2A Unit 3 ‘My school’（目錄核實 2026-10-23）：生字範疇 places at school + floors (ordinal numbers)；文法 where 問位置 / on / in；Phonics f (first), v (van)。確實生字表待 Unit 3 課文頁或 Picture Dictionary (p.82)"
+      "words": [
+        {
+          "text": "a music room",
+          "meaning": "音樂室",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "sing songs",
+          "meaning": "唱歌",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "an art room",
+          "meaning": "美術室",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "draw pictures",
+          "meaning": "畫畫",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "an office",
+          "meaning": "校務處",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "a classroom",
+          "meaning": "課室",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "have lessons",
+          "meaning": "上課",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "play games",
+          "meaning": "玩遊戲",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "a tuck shop",
+          "meaning": "小食部",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "a computer room",
+          "meaning": "電腦室",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "toilets",
+          "meaning": "洗手間",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "a sick room",
+          "meaning": "醫療室",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "a corridor",
+          "meaning": "走廊",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "fourth",
+          "meaning": "第四",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "fifth",
+          "meaning": "第五",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "sixth",
+          "meaning": "第六",
+          "lesson": "Unit 3"
+        }
+      ],
+      "sentences": [
+        "We can read books in the library.",
+        "The tuck shop is on the ground floor.",
+        "The school hall is on the first floor.",
+        "We can have recess on the second floor.",
+        "We can see our school cat in the garden.",
+        "The staffroom is on the third floor.",
+        "The playground is my favourite place at school.",
+        "Megan can buy some healthy snacks.",
+        "I can watch a play in the school hall.",
+        "Fred can play ball games with his friends.",
+        "Today is sunny. Let's go to the garden. The flowers are beautiful. What a wonderful day!"
+      ],
+      "focus_points": [
+        "Part A 生字 16 個（學校地方 + fourth/fifth/sixth）",
+        "Part B 句子 10 句：重點係 in the library / on the ___ floor 句式",
+        "Part C Learn by Heart：Today is sunny…（要背）",
+        "易錯：fifth（唔係 fiveth）、sixth 結尾 th、staffroom 一個字、favourite 英式串法"
+      ],
+      "source_tier": "verified_capture",
+      "source": "學校 Dictation 3 範圍紙 ‘2A Unit 3 My School’ (P.5) — Eddie 相片 2026-10-23"
     },
     {
       "key": "ASSESS_1",
