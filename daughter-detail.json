@@ -1,7 +1,7 @@
 {
   "service": "daughter-school-detail",
   "student": "蔡諾琳 2A",
-  "updated": "2026-10-23T05:40:46.032751+00:00",
+  "updated": "2026-10-23T06:04:19.146412+00:00",
   "homework": [
     {
       "key": "HUM_VIDEO_1",
@@ -29,7 +29,7 @@
       "title": "數學 FA",
       "date": "2026-10-22",
       "date_display": "10月22日 (四)",
-      "days_left": 0
+      "days_left": -1
     },
     {
       "key": "ENG_DICT_2",
