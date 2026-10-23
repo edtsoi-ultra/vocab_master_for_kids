@@ -62,8 +62,9 @@ details.ans .agroup { font-weight: 900; color: #6EE7B7; margin-top: 5px; }
 .empty { color: #94A3B8; font-size: 14px; padding: 8px 2px; }
 footer { color: #64748B; font-size: 11.5px; margin-top: 22px; text-align: center; line-height: 1.7; }
 /* ===== Phase C: nav / banner / accordion ===== */
-#topnav { position: sticky; top: 0; z-index: 100; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 8px 12px; margin: 10px -12px 12px; background: rgba(11,15,25,.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid rgba(148,163,184,.28); }
-.navbtn { background: #334155; color: #E2E8F0; border: 2px solid transparent; border-radius: 999px; padding: 6px 12px; font-size: 13px; font-weight: 800; cursor: pointer; }
+#topnav { position: sticky; top: 0; z-index: 100; display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 6px; align-items: center; padding: 7px 12px; margin: 10px -12px 12px; background: rgba(11,15,25,.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid rgba(148,163,184,.28); scrollbar-width: none; }
+#topnav::-webkit-scrollbar { display: none; }
+.navbtn { background: #334155; color: #E2E8F0; border: 2px solid transparent; border-radius: 999px; padding: 5px 10px; font-size: 12.5px; font-weight: 800; cursor: pointer; white-space: nowrap; flex: 0 0 auto; }
 .navbtn.on { background: #0EA5E9; color: #fff; border-color: #BAE6FD; }
 .navbtn.collapseall { margin-left: auto; background: #475569; color: #E2E8F0; }
 #actionBanner { display: none; background: linear-gradient(90deg, #7F1D1D, #991B1B); border: 1.5px solid #FCA5A5; color: #FEE2E2; border-radius: 10px; padding: 8px 12px; margin-bottom: 12px; font-size: 13.5px; font-weight: 800; line-height: 1.6; }
@@ -80,6 +81,14 @@ footer { color: #64748B; font-size: 11.5px; margin-top: 22px; text-align: center
 details.orig { margin-top: 12px; background: rgba(2,6,23,.55); border-radius: 10px; padding: 10px 12px; }
 details.orig summary { cursor: pointer; font-weight: 900; font-size: 13.5px; color: #E9D5FF; }
 details.orig .origbody { margin-top: 6px; font-size: 14px; line-height: 1.7; color: #E2E8F0; white-space: pre-wrap; }
+/* ===== Phase C.1: 進度 checkbox / 無內容提示 ===== */
+.nocontent { color: #94A3B8; font-size: 12.5px; font-weight: 700; margin-top: 10px; }
+.lchk { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 800; color: #86EFAC; cursor: pointer; margin: 2px 0 2px 8px; vertical-align: middle; }
+.lchk input { width: 24px; height: 24px; min-width: 24px; accent-color: #22C55E; cursor: pointer; margin: 0; }
+.progbar { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+.progcnt { color: #86EFAC; font-size: 13px; font-weight: 800; }
+.cardfoot .progcnt { color: #86EFAC; }
+.resetbtn { background: none; border: none; color: #94A3B8; font-size: 12.5px; font-weight: 700; cursor: pointer; text-decoration: underline; padding: 6px 2px; }
 /* ===== Worksheet modal ===== */
 #wsModal { display: none; position: fixed; inset: 0; background: rgba(2,6,23,.85); z-index: 50; overflow-y: auto; padding: 14px 8px 40px; }
 #wsSheet { background: #fff; color: #111; max-width: 820px; margin: 0 auto; border-radius: 6px; padding: 30px 34px 36px; font-family: "PingFang HK", "Microsoft JhengHei", serif; }
@@ -106,6 +115,7 @@ details.orig .origbody { margin-top: 6px; font-size: 14px; line-height: 1.7; col
   body > header, body > .sub, #topnav, #actionBanner, #app, footer { display: none !important; }
   #wsModal { position: static; overflow: visible; background: #fff; padding: 0; }
   .ws-bar { display: none !important; }
+  .lchk, .progbar { display: none !important; }
   #wsSheet { max-width: none; border-radius: 0; padding: 6mm 4mm; }
 }
 </style>
@@ -113,7 +123,7 @@ details.orig .origbody { margin-top: 6px; font-size: 14px; line-height: 1.7; col
 <body>
 <header><h1>🐷 蔡諾琳學校專頁</h1><span class="badge">2A</span></header>
 <div class="sub" id="upd">載入中…</div>
-<nav id="topnav"><button class="navbtn on" data-filter="all">全部總覽</button><button class="navbtn" data-filter="exam">⏰ 測驗默書 <span id="cntExam"></span></button><button class="navbtn" data-filter="hw">📝 功課 <span id="cntHw"></span></button><button class="navbtn" data-filter="notice">📢 通告 <span id="cntNotice"></span></button><button class="navbtn collapseall" id="collapseAll">↕️ 全部收起</button></nav>
+<nav id="topnav"><button class="navbtn on" data-filter="all">全部</button><button class="navbtn" data-filter="exam">⏰ 測驗 <span id="cntExam"></span></button><button class="navbtn" data-filter="hw">📝 功課 <span id="cntHw"></span></button><button class="navbtn" data-filter="notice">📢 通告 <span id="cntNotice"></span></button><button class="navbtn collapseall" id="collapseAll">↕️</button></nav>
 <div id="actionBanner"></div>
 <div id="app"></div>
 <div id="wsModal"><div class="ws-bar"><button class="ws-print" id="wsPrintBtn">🖨️ 列印 / 儲存 PDF</button><button class="ws-close" id="wsCloseBtn">✕ 關閉</button></div><div id="wsSheet"></div></div>
@@ -140,6 +150,100 @@ function tierBadge(item, compactGuess) {
   if (item.source_tier === "curriculum_kb") return el("span", "tier kb", "📚 按課本內容生成");
   return el("span", "tier guess", compactGuess ? "⚠️ 待傳相片" : "⚠️ 基礎範圍練習");
 }
+/* ---------- 日期重算（前端，香港時間；唔信後端靜態 days_left） ---------- */
+function hkTodayStr() {
+  const parts = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Hong_Kong", year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(new Date());
+  const o = {};
+  parts.forEach(p => { o[p.type] = p.value; });
+  return o.year + "-" + o.month + "-" + o.day;
+}
+function dayNumOf(y, m, d) { return Date.UTC(y, m - 1, d) / 86400000; }
+function parseItemDay(item) {
+  const isoFields = [item.date, item.due, item.deadline];
+  for (const v of isoFields) {
+    if (v && /^\d{4}-\d{2}-\d{2}/.test(v)) { const a = v.slice(0, 10).split("-"); return dayNumOf(+a[0], +a[1], +a[2]); }
+  }
+  const t = hkTodayStr().split("-");
+  const todayDn = dayNumOf(+t[0], +t[1], +t[2]);
+  const texts = [item.date_display, item.due_display, item.deadline_display, item.date, item.due, item.deadline];
+  for (const v of texts) {
+    if (!v) continue;
+    const m = /(\d{1,2})月(\d{1,2})日/.exec(v);
+    if (m) {
+      let dn = dayNumOf(+t[0], +m[1], +m[2]);
+      if (todayDn - dn > 60) dn = dayNumOf(+t[0] + 1, +m[1], +m[2]);
+      return dn;
+    }
+  }
+  return null;
+}
+function fixDaysLeft(item) {
+  const dn = parseItemDay(item);
+  if (dn != null) { const t = hkTodayStr().split("-"); item.days_left = Math.round(dn - dayNumOf(+t[0], +t[1], +t[2])); }
+}
+/* ---------- 學習進度（localStorage） ---------- */
+const PROG_LSK = "daughter-progress-v1";
+let PROG = {};
+try { PROG = JSON.parse(localStorage.getItem(PROG_LSK) || "{}") || {}; } catch (e) { PROG = {}; }
+function saveProg() { try { localStorage.setItem(PROG_LSK, JSON.stringify(PROG)); } catch (e) {} }
+function hashStr(s) { let h = 5381; s = s || ""; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0; return h.toString(36); }
+function ckFor(sec, item) { return item.key || (sec + "|" + (item.title || "") + "|" + (item.date || item.due || item.deadline || "")); }
+function checkLabel(cardKey, itemId, labelText) {
+  const lab = el("label", "lchk");
+  const cb = document.createElement("input");
+  cb.type = "checkbox";
+  cb.className = "lcb";
+  cb.dataset.card = cardKey;
+  cb.dataset.item = itemId;
+  cb.checked = !!PROG[cardKey + "::" + itemId];
+  cb.addEventListener("change", () => {
+    const k = cardKey + "::" + itemId;
+    if (cb.checked) PROG[k] = 1; else delete PROG[k];
+    saveProg();
+    refreshProgCounts();
+  });
+  lab.appendChild(cb);
+  lab.appendChild(document.createTextNode(labelText || "✅識咗"));
+  return lab;
+}
+function refreshProgCounts() {
+  const totals = {};
+  document.querySelectorAll("input.lcb").forEach(cb => {
+    const k = cb.dataset.card;
+    if (!totals[k]) totals[k] = { t: 0, d: 0 };
+    totals[k].t++;
+    if (cb.checked) totals[k].d++;
+  });
+  document.querySelectorAll("[data-prog-for]").forEach(elm => {
+    const s = totals[elm.getAttribute("data-prog-for")];
+    if (s && s.t > 0) { elm.textContent = "✅ 已識 " + s.d + "/" + s.t; elm.style.display = ""; }
+    else { elm.textContent = ""; elm.style.display = "none"; }
+  });
+  document.querySelectorAll("[data-prog-wrap]").forEach(elm => {
+    const s = totals[elm.getAttribute("data-prog-wrap")];
+    elm.style.display = (s && s.t > 0) ? "" : "none";
+  });
+}
+function resetProg(cardKey) {
+  Object.keys(PROG).forEach(k => { if (k.indexOf(cardKey + "::") === 0) delete PROG[k]; });
+  saveProg();
+  document.querySelectorAll("input.lcb").forEach(cb => { if (cb.dataset.card === cardKey) cb.checked = false; });
+  refreshProgCounts();
+}
+function hasContent(item) {
+  return !!((item.practice && item.practice.length) || (item.words && item.words.length) ||
+    (item.hints && item.hints.length) || item.detail ||
+    (item.points && item.points.length) || (item.sentences && item.sentences.length) ||
+    (item.focus_points && item.focus_points.length) || item.answer_key);
+}
+function attachBody(c, item, opts) {
+  if (!hasContent(item)) {
+    c.appendChild(el("div", "nocontent", "⏳ 待補充範圍或相片"));
+    return null;
+  }
+  return makeCollapsible(c, item, opts);
+}
+
 /* ---------- 讀默 ---------- */
 let speakingBtn = null;
 function speakSeq(texts, lang, btn, prog) {
@@ -208,6 +312,8 @@ function buildTabs(card, item) {
 function block(cls, title) { const b = el("div", "blk " + cls); b.appendChild(el("h4", null, title)); return b; }
 function enrichmentHTML(card, item, opts) {
   opts = opts || {};
+  const ck = opts.cardKey || "";
+  const checkable = !!opts.checkable;
   const isGuess = item.source_tier === "scope_guess";
   if (opts.showTier && !isGuess) { const tb = tierBadge(item); if (tb) card.appendChild(tb); }
   if (isGuess) card.appendChild(el("div", "flag", "⚠️ 基礎範圍練習 — 待傳課本/默書紙相片以生成精準字表"));
@@ -226,6 +332,7 @@ function enrichmentHTML(card, item, opts) {
   }
   if (item.points && item.points.length) { const b = block("points", "📌 要點"); const ul = el("ul"); item.points.forEach(p => ul.appendChild(el("li", null, p))); b.appendChild(ul); card.appendChild(b); }
   if (item.focus_points && item.focus_points.length) { const b = block("focus", "🎯 重點注意"); const ul = el("ul"); item.focus_points.forEach(p => ul.appendChild(el("li", null, p))); b.appendChild(ul); card.appendChild(b); }
+  const wIdx = new Map(); (item.words || []).forEach((w, i) => wIdx.set(w, i));
   if (item.words && item.words.length) {
     const b = block("words", "📝 字詞表");
     if (mode === "lesson") {
@@ -239,6 +346,7 @@ function enrichmentHTML(card, item, opts) {
           if (w.meaning) s.appendChild(el("span", "mean", w.meaning));
           if (w.syllables) s.appendChild(el("span", "syl", w.syllables));
           wrap.appendChild(s);
+          if (checkable) wrap.appendChild(checkLabel(ck, "w" + wIdx.get(w) + "-" + hashStr(w.text), "✅識咗"));
         });
         b.appendChild(wrap);
       });
@@ -248,6 +356,7 @@ function enrichmentHTML(card, item, opts) {
         if (w.meaning) s.appendChild(el("span", "mean", w.meaning));
         if (w.syllables) s.appendChild(el("span", "syl", w.syllables));
         b.appendChild(s);
+        if (checkable) b.appendChild(checkLabel(ck, "w" + wIdx.get(w) + "-" + hashStr(w.text), "✅識咗"));
       });
     }
     const btn = el("button", "speak", "🔊 讀默字詞");
@@ -265,7 +374,7 @@ function enrichmentHTML(card, item, opts) {
     b.appendChild(btn); b.appendChild(prog);
     card.appendChild(b);
   }
-  if (item.hints && item.hints.length) { const b = block("hints", "💡 點樣幫佢做（AI 輔助）"); const ul = el("ul"); item.hints.forEach(h => ul.appendChild(el("li", null, h))); b.appendChild(ul); card.appendChild(b); }
+  if (item.hints && item.hints.length) { const b = block("hints", "💡 點樣幫佢做（AI 輔助）"); const ul = el("ul"); item.hints.forEach((h, i) => { const li = el("li", null, h); if (opts.hintsCheck) li.appendChild(checkLabel(ck, "h" + i + "-" + hashStr(h), "✅識咗")); ul.appendChild(li); }); b.appendChild(ul); card.appendChild(b); }
   if (item.practice && item.practice.length) {
     const b = block("practice", "✏️ 練習題（AI 生成）");
     const groups = {};
@@ -273,12 +382,13 @@ function enrichmentHTML(card, item, opts) {
     const ans = el("details", "ans");
     ans.appendChild(el("summary", null, "🔑 家長核對答案"));
     const abody = el("div", "abody");
+    let pIdx = 0;
     Object.keys(groups).forEach(g => {
       const wrap = el("div");
       if (mode) wrap.setAttribute("data-g", g);
       if (g) wrap.appendChild(el("h5", null, (mode === "lesson" ? "📖 " : "📚 ") + g));
       const ol = el("ol");
-      groups[g].forEach(p => { const li = el("li"); htmlAware(li, p.q); ol.appendChild(li); });
+      groups[g].forEach(p => { const li = el("li"); htmlAware(li, p.q); if (checkable) li.appendChild(checkLabel(ck, "p" + (pIdx++) + "-" + hashStr(p.q), "✅識咗")); ol.appendChild(li); });
       wrap.appendChild(ol);
       b.appendChild(wrap);
       const awrap = el("div");
@@ -307,6 +417,11 @@ function enrichmentHTML(card, item, opts) {
     b2.addEventListener("click", () => downloadWord(item));
     row.appendChild(b1); row.appendChild(b2);
     card.appendChild(row);
+  }
+  if (checkable && !(item.practice && item.practice.length) && !(item.words && item.words.length) && !(item.hints && item.hints.length) && item.detail) {
+    const b = block("hints", "✅ 進度");
+    b.appendChild(checkLabel(ck, "task", "✅ 完成／學識咗"));
+    card.appendChild(b);
   }
   if (card._applyTab && card._defaultTab) card._applyTab(card._defaultTab);
 }
@@ -385,7 +500,7 @@ function cardShell(cls, ttlText, dueText, dueCls) {
   return c;
 }
 function expandCard(c) { c.classList.add("open"); if (c._toggleBtn) c._toggleBtn.textContent = "收起 ▲"; }
-function collapseCard(c) { c.classList.remove("open"); if (c._toggleBtn) c._toggleBtn.textContent = "📖 展開溫習 ▼"; }
+function collapseCard(c) { c.classList.remove("open"); if (c._toggleBtn) c._toggleBtn.textContent = c._expandLabel || "📖 展開溫習 ▼"; }
 function toggleCard(c) { if (c.classList.contains("open")) collapseCard(c); else expandCard(c); }
 function collapseAllCards() { document.querySelectorAll(".card.open").forEach(collapseCard); }
 function openCardById(id) {
@@ -395,19 +510,36 @@ function openCardById(id) {
   expandCard(c);
   setTimeout(() => c.scrollIntoView({ behavior: "smooth", block: "start" }), 40);
 }
-function makeCollapsible(c, item) {
+function makeCollapsible(c, item, opts) {
+  opts = opts || {};
+  const ck = ckFor(opts.sec || "", item);
+  c._expandLabel = opts.expandLabel || "📖 展開溫習 ▼";
   const foot = el("div", "cardfoot");
   const tag = tierBadge(item, true); if (tag) foot.appendChild(tag);
   const pc = (item.practice && item.practice.length) || 0;
   if (pc) foot.appendChild(el("span", "pcount", "✏️ " + pc + " 題練習"));
   const wc = (item.words && item.words.length) || 0;
   if (wc) foot.appendChild(el("span", "pcount", "📝 " + wc + " 字詞"));
-  const btn = el("button", "toggle", "📖 展開溫習 ▼");
+  const ps = el("span", "pcount progcnt");
+  ps.setAttribute("data-prog-for", ck);
+  ps.style.display = "none";
+  foot.appendChild(ps);
+  const btn = el("button", "toggle", c._expandLabel);
   btn.addEventListener("click", (e) => { e.stopPropagation(); toggleCard(c); });
   foot.appendChild(btn);
   c._toggleBtn = btn;
   c.appendChild(foot);
   const body = el("div", "cardbody");
+  const bar = el("div", "progbar");
+  bar.setAttribute("data-prog-wrap", ck);
+  bar.style.display = "none";
+  const cnt = el("span", "progcnt");
+  cnt.setAttribute("data-prog-for", ck);
+  bar.appendChild(cnt);
+  const rb = el("button", "resetbtn", "↺ 重置進度");
+  rb.addEventListener("click", () => resetProg(ck));
+  bar.appendChild(rb);
+  body.appendChild(bar);
   c.appendChild(body);
   const top = c.querySelector(".top");
   if (top) { top.style.cursor = "pointer"; top.addEventListener("click", () => toggleCard(c)); }
@@ -418,20 +550,20 @@ function upcomingCard(item) {
   c.id = "card-" + (cardSeq++); item._cid = c.id;
   c.appendChild(el("div", "meta", "📅 " + (item.date_display || item.date || "")));
   if (item.scope) { const s = el("div", "scope"); s.appendChild(el("b", null, "範圍：")); s.appendChild(document.createTextNode(item.scope)); c.appendChild(s); }
-  const body = makeCollapsible(c, item);
-  enrichmentHTML(body, item, {});
+  const body = attachBody(c, item, { sec: "exam" });
+  if (body) enrichmentHTML(body, item, { checkable: true, cardKey: ckFor("exam", item) });
   return c;
 }
 function homeworkCard(item) {
   const c = cardShell("hw", (item.subject || "") + "：" + item.title, dueLabel(item), dueClass(item));
   c.id = "card-" + (cardSeq++); item._cid = c.id;
   c.appendChild(el("div", "meta", "📅 截止：" + (item.due_display || item.due || "")));
-  const body = makeCollapsible(c, item);
-  enrichmentHTML(body, item, {});
+  const body = attachBody(c, item, { sec: "hw", expandLabel: "📋 睇指示 / 提示 ▼" });
+  if (body) enrichmentHTML(body, item, { checkable: true, hintsCheck: true, cardKey: ckFor("hw", item) });
   return c;
 }
 function noticeCard(item) {
-  const c = cardShell("notice", "📣 " + item.title, item.days_left != null && item.days_left >= 0 ? dueLabel({ due: item.deadline, days_left: item.days_left }) : "", dueClass(item));
+  const c = cardShell("notice", "📣 " + item.title, item.days_left != null ? dueLabel(item) : "", dueClass(item));
   c.id = "card-" + (cardSeq++); item._cid = c.id;
   const meta = el("div", "meta", "✍️ 未簽署" + (item.deadline_display ? "｜回條死線：" + item.deadline_display : ""));
   c.appendChild(meta);
@@ -481,6 +613,9 @@ function byDue(a, b) {
 fetch("daughter-detail.json?t=" + Date.now())
   .then(r => r.json())
   .then(d => {
+    (d.upcoming || []).forEach(fixDaysLeft);
+    (d.homework || []).forEach(fixDaysLeft);
+    ((d.notices && d.notices.items) || []).forEach(fixDaysLeft);
     const upd = new Date(d.updated);
     document.getElementById("upd").textContent = "最後更新：" + upd.toLocaleString("zh-HK", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" }) + "｜撳 Widget 隨時返嚟呢頁";
     const examWrap = sectionWrap("exam", "⏰ 測驗・默書・評估");
@@ -492,13 +627,14 @@ fetch("daughter-detail.json?t=" + Date.now())
     if (hws.length) hws.forEach(h => hwWrap.appendChild(homeworkCard(h)));
     else hwWrap.appendChild(el("div", "empty", "✅ 功課全部交齊"));
     const ntWrap = sectionWrap("notice", "📣 未簽通告");
-    const nts = (d.notices && d.notices.items) || [];
+    const nts = [...((d.notices && d.notices.items) || [])].sort(byDue);
     if (nts.length) nts.forEach(n => ntWrap.appendChild(noticeCard(n)));
     else ntWrap.appendChild(el("div", "empty", "✅ 冇未簽通告"));
     document.getElementById("cntExam").textContent = "(" + ups.length + ")";
     document.getElementById("cntHw").textContent = "(" + hws.length + ")";
     document.getElementById("cntNotice").textContent = "(" + nts.length + ")";
     buildBanner({ upcoming: ups, homework: hws, notices: d.notices });
+    refreshProgCounts();
   })
   .catch(e => {
     document.getElementById("upd").textContent = "⚠️ 資料載入失敗，請稍後再開";
