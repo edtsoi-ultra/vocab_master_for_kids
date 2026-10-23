@@ -1,7 +1,7 @@
 {
   "service": "daughter-school-detail",
   "student": "蔡諾琳 2A",
-  "updated": "2026-10-23T12:30:11.376041+00:00",
+  "updated": "2026-10-23T12:40:39.195659+00:00",
   "homework": [
     {
       "key": "HUM_VIDEO_1",
@@ -124,7 +124,9 @@
         }
       ],
       "sentences": [
-        "貓媽媽耐心地說：「你的鬍子好比一把尺子。你能不能從洞裏鑽過去，先要用尺子量一量。鬍子被你刮掉了，你當然會碰得頭破血流了。」從那以後，小花貓再也不刮鬍子了。",
+        "貓媽媽耐心地說：「你的鬍子好比一把尺子。你能不能從洞裏鑽過去，先要用尺子量一量。鬍子被你刮掉了，你當然會碰得頭破血流了。」從那以後，小花貓再也不刮鬍子了。"
+      ],
+      "recite_sentences": [
         "小花貓在一旁仰着腦袋，碧綠的大眼睛，一眨不眨地看着主人。"
       ],
       "focus_points": [
@@ -299,7 +301,9 @@
         "The playground is my favourite place at school.",
         "Megan can buy some healthy snacks.",
         "I can watch a play in the school hall.",
-        "Fred can play ball games with his friends.",
+        "Fred can play ball games with his friends."
+      ],
+      "recite_sentences": [
         "Today is sunny. Let's go to the garden. The flowers are beautiful. What a wonderful day!"
       ],
       "focus_points": [
