@@ -33,7 +33,14 @@ h2.sec { font-size: 16.5px; font-weight: 900; margin: 20px 0 10px; }
 .detail { background: rgba(2,6,23,.55); color: #E2E8F0; white-space: pre-wrap; }
 .points { background: rgba(88,28,135,.35); color: #F3E8FF; }
 .focus { background: rgba(120,53,15,.45); color: #FDE68A; }
-.words .word { display: inline-block; background: #1E3A8A; color: #fff; border-radius: 8px; padding: 5px 10px; margin: 0 6px 7px 0; font-weight: 800; font-size: 15px; }
+.words .word { display: inline-block; background: #1E3A8A; color: #fff; border-radius: 8px; padding: 5px 10px; margin: 0; font-weight: 800; font-size: 15px; }
+.wordunit { display: inline-flex; align-items: center; gap: 5px; margin: 0 10px 8px 0; vertical-align: middle; white-space: nowrap; }
+.wordunit .lchk { margin: 0; flex: 0 0 auto; }
+.wordunit.known .word { background: #14532D; }
+.wordunit.known .word::after { content: " ✓"; color: #86EFAC; }
+.wlegend { font-size: 12px; color: #93C5FD; font-weight: 700; margin-bottom: 7px; }
+.scope .sline { display: block; margin-left: 3em; }
+.practice li.known, .hints li.known { opacity: .55; }
 .words .word .mean { color: #FDE68A; font-weight: 700; margin-left: 7px; font-size: 13px; }
 .words .word .syl { color: #93C5FD; font-weight: 600; margin-left: 7px; font-size: 12.5px; }
 .words, .sent { background: rgba(30,58,138,.30); }
@@ -90,7 +97,7 @@ details.orig .origbody { margin-top: 6px; font-size: 14px; line-height: 1.7; col
 .cardfoot .progcnt { color: #86EFAC; }
 .resetbtn { background: none; border: none; color: #94A3B8; font-size: 12.5px; font-weight: 700; cursor: pointer; text-decoration: underline; padding: 6px 2px; }
 /* ===== Worksheet modal ===== */
-#wsModal { display: none; position: fixed; inset: 0; background: rgba(2,6,23,.85); z-index: 50; overflow-y: auto; padding: 14px 8px 40px; }
+#wsModal { display: none; position: fixed; inset: 0; background: rgba(2,6,23,.88); z-index: 1000; overflow-y: auto; padding: 14px 8px 40px; overscroll-behavior: contain; }
 #wsSheet { background: #fff; color: #111; max-width: 820px; margin: 0 auto; border-radius: 6px; padding: 30px 34px 36px; font-family: "PingFang HK", "Microsoft JhengHei", serif; }
 #wsSheet h1 { font-size: 21px; text-align: center; margin-bottom: 4px; }
 #wsSheet .wsmeta { display: flex; justify-content: space-between; border-bottom: 2.5px solid #111; padding-bottom: 8px; margin-bottom: 14px; font-size: 14.5px; }
@@ -100,7 +107,9 @@ details.orig .origbody { margin-top: 6px; font-size: 14px; line-height: 1.7; col
 .ws-work { border: 1.5px solid #666; height: 74px; margin: 6px 0 4px 22px; border-radius: 3px; }
 .ws-lines { margin: 4px 0 2px 22px; }
 .ws-line { border-bottom: 1.5px solid #999; height: 26px; }
-.ws-wordrow { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; font-size: 16px; }
+.ws-wordrow { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; font-size: 16px; flex-wrap: wrap; }
+.ws-cellgroup { margin-right: 16px; white-space: nowrap; }
+.ws-wline { display: inline-block; border-bottom: 1.5px solid #999; width: 230px; height: 26px; }
 .ws-word { font-weight: 800; min-width: 130px; }
 .ws-cell { display: inline-block; width: 36px; height: 36px; border: 1.5px solid #333; margin-right: 5px; vertical-align: middle; background-image: linear-gradient(to right, transparent 49%, #C9C9C9 49%, #C9C9C9 51%, transparent 51%), linear-gradient(to bottom, transparent 49%, #C9C9C9 49%, #C9C9C9 51%, transparent 51%); }
 .ws-answers { page-break-before: always; margin-top: 26px; }
@@ -203,7 +212,7 @@ function checkLabel(cardKey, itemId, labelText) {
     refreshProgCounts();
   });
   lab.appendChild(cb);
-  lab.appendChild(document.createTextNode(labelText || "✅識咗"));
+  if (labelText !== "") lab.appendChild(document.createTextNode(labelText || "✅識咗"));
   return lab;
 }
 function refreshProgCounts() {
@@ -222,6 +231,14 @@ function refreshProgCounts() {
   document.querySelectorAll("[data-prog-wrap]").forEach(elm => {
     const s = totals[elm.getAttribute("data-prog-wrap")];
     elm.style.display = (s && s.t > 0) ? "" : "none";
+  });
+  document.querySelectorAll(".wordunit").forEach(u => {
+    const cb = u.querySelector("input.lcb");
+    if (cb) u.classList.toggle("known", cb.checked);
+  });
+  document.querySelectorAll(".practice li, .hints li").forEach(li => {
+    const cb = li.querySelector("input.lcb");
+    if (cb) li.classList.toggle("known", cb.checked);
   });
 }
 function resetProg(cardKey) {
@@ -335,29 +352,27 @@ function enrichmentHTML(card, item, opts) {
   const wIdx = new Map(); (item.words || []).forEach((w, i) => wIdx.set(w, i));
   if (item.words && item.words.length) {
     const b = block("words", "📝 字詞表");
+    if (checkable) b.appendChild(el("div", "wlegend", "每個字詞跟住一個剔格：剔咗 ✓ 個字詞會變綠色 = 識咗"));
+    const wordUnit = (w) => {
+      const unit = el("span", "wordunit");
+      const s = el("span", "word", w.text);
+      if (w.meaning) s.appendChild(el("span", "mean", w.meaning));
+      if (w.syllables) s.appendChild(el("span", "syl", w.syllables));
+      unit.appendChild(s);
+      if (checkable) unit.appendChild(checkLabel(ck, "w" + wIdx.get(w) + "-" + hashStr(w.text), ""));
+      return unit;
+    };
     if (mode === "lesson") {
       const byLesson = {};
       item.words.forEach(w => { const g = w.lesson || ""; (byLesson[g] = byLesson[g] || []).push(w); });
       Object.keys(byLesson).forEach(g => {
         const wrap = el("div"); wrap.setAttribute("data-g", g);
         if (g) wrap.appendChild(el("h4", null, "📖 " + g));
-        byLesson[g].forEach(w => {
-          const s = el("span", "word", w.text);
-          if (w.meaning) s.appendChild(el("span", "mean", w.meaning));
-          if (w.syllables) s.appendChild(el("span", "syl", w.syllables));
-          wrap.appendChild(s);
-          if (checkable) wrap.appendChild(checkLabel(ck, "w" + wIdx.get(w) + "-" + hashStr(w.text), "✅識咗"));
-        });
+        byLesson[g].forEach(w => wrap.appendChild(wordUnit(w)));
         b.appendChild(wrap);
       });
     } else {
-      item.words.forEach(w => {
-        const s = el("span", "word", w.text);
-        if (w.meaning) s.appendChild(el("span", "mean", w.meaning));
-        if (w.syllables) s.appendChild(el("span", "syl", w.syllables));
-        b.appendChild(s);
-        if (checkable) b.appendChild(checkLabel(ck, "w" + wIdx.get(w) + "-" + hashStr(w.text), "✅識咗"));
-      });
+      item.words.forEach(w => b.appendChild(wordUnit(w)));
     }
     const btn = el("button", "speak", "🔊 讀默字詞");
     const prog = el("span", "prog");
@@ -447,7 +462,15 @@ function buildSheet(item) {
   if (item.words && item.words.length) {
     h += "<h3>一、字詞練寫（先讀一次，再喺格仔度寫）</h3>";
     item.words.forEach(w => {
-      h += '<div class="ws-wordrow"><span class="ws-word">' + esc(w.text) + (w.meaning ? ' <span style="font-weight:400;font-size:13px;color:#555">(' + esc(w.meaning) + ")</span>" : "") + '</span><span><span class="ws-cell"></span><span class="ws-cell"></span><span class="ws-cell"></span></span></div>';
+      const t = w.text || "";
+      let practiceArea;
+      if (/[㐀-鿿]/.test(t)) {
+        const chars = [...t.replace(/\s/g, "")];
+        practiceArea = chars.map(() => '<span class="ws-cellgroup">' + '<span class="ws-cell"></span><span class="ws-cell"></span>' + "</span>").join("");
+      } else {
+        practiceArea = '<span class="ws-wline"></span><span class="ws-wline"></span>';
+      }
+      h += '<div class="ws-wordrow"><span class="ws-word">' + esc(t) + (w.meaning ? ' <span style="font-weight:400;font-size:13px;color:#555">(' + esc(w.meaning) + ")</span>" : "") + "</span>" + practiceArea + "</div>";
     });
   }
   const qs = (item.practice || []).filter(p => !isTaskQ(p));
@@ -469,14 +492,28 @@ function buildSheet(item) {
   }
   return h;
 }
+let wsScrollY = 0;
 function openWorksheet(item) {
   document.getElementById("wsSheet").innerHTML = buildSheet(item);
   const m = document.getElementById("wsModal");
   m.style.display = "block";
   m.scrollTop = 0;
+  wsScrollY = window.scrollY || 0;
+  document.body.style.overflow = "hidden";
+  document.body.style.position = "fixed";
+  document.body.style.top = (-wsScrollY) + "px";
+  document.body.style.width = "100%";
+}
+function closeWorksheet() {
+  document.getElementById("wsModal").style.display = "none";
+  document.body.style.overflow = "";
+  document.body.style.position = "";
+  document.body.style.top = "";
+  document.body.style.width = "";
+  window.scrollTo(0, wsScrollY);
 }
 function downloadWord(item) {
-  const css = "body{font-family:'PingFang HK','Microsoft JhengHei',serif;color:#111}h1{font-size:20px;text-align:center}.wsmeta{font-size:14px;border-bottom:2px solid #111;padding-bottom:8px}h3{font-size:15px}.wsq{font-size:14.5px;margin-bottom:10px}.ws-line{border-bottom:1px solid #999;height:24px}.ws-work{border:1.5px solid #666;height:70px}.ws-wordrow{font-size:15px;margin-bottom:8px}.ws-word{font-weight:bold}.ws-cell{display:inline-block;width:34px;height:34px;border:1.5px solid #333}.ws-answers{page-break-before:always}";
+  const css = "body{font-family:'PingFang HK','Microsoft JhengHei',serif;color:#111}h1{font-size:20px;text-align:center}.wsmeta{font-size:14px;border-bottom:2px solid #111;padding-bottom:8px}h3{font-size:15px}.wsq{font-size:14.5px;margin-bottom:10px}.ws-line{border-bottom:1px solid #999;height:24px}.ws-work{border:1.5px solid #666;height:70px}.ws-wordrow{font-size:15px;margin-bottom:8px}.ws-word{font-weight:bold}.ws-cell{display:inline-block;width:34px;height:34px;border:1.5px solid #333}.ws-cellgroup{margin-right:16px}.ws-wline{display:inline-block;border-bottom:1px solid #999;width:230px;height:24px}.ws-answers{page-break-before:always}";
   const html = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word'><head><meta charset='utf-8'><style>" + css + "</style></head><body>" + buildSheet(item) + "</body></html>";
   const blob = new Blob(["\ufeff" + html], { type: "application/msword" });
   const a = document.createElement("a");
@@ -486,8 +523,8 @@ function downloadWord(item) {
   setTimeout(() => URL.revokeObjectURL(a.href), 4000);
 }
 document.getElementById("wsPrintBtn").addEventListener("click", () => window.print());
-document.getElementById("wsCloseBtn").addEventListener("click", () => { document.getElementById("wsModal").style.display = "none"; });
-document.getElementById("wsModal").addEventListener("click", (e) => { if (e.target.id === "wsModal") e.target.style.display = "none"; });
+document.getElementById("wsCloseBtn").addEventListener("click", closeWorksheet);
+document.getElementById("wsModal").addEventListener("click", (e) => { if (e.target.id === "wsModal") closeWorksheet(); });
 
 /* ---------- 卡片 ---------- */
 let cardSeq = 0;
@@ -549,7 +586,17 @@ function upcomingCard(item) {
   const c = cardShell("exam", (item.type ? item.type + "｜" : "") + (item.subject || "") + "：" + item.title, dueLabel(item), dueClass(item));
   c.id = "card-" + (cardSeq++); item._cid = c.id;
   c.appendChild(el("div", "meta", "📅 " + (item.date_display || item.date || "")));
-  if (item.scope) { const s = el("div", "scope"); s.appendChild(el("b", null, "範圍：")); s.appendChild(document.createTextNode(item.scope)); c.appendChild(s); }
+  if (item.scope) {
+    const s = el("div", "scope");
+    s.appendChild(el("b", null, "範圍："));
+    const segs = item.scope.split(/[｜|丨]/).map(x => x.trim()).filter(Boolean);
+    if (segs.length <= 1) {
+      s.appendChild(document.createTextNode((segs[0] || "").trim()));
+    } else {
+      segs.forEach(seg => s.appendChild(el("span", "sline", seg)));
+    }
+    c.appendChild(s);
+  }
   const body = attachBody(c, item, { sec: "exam" });
   if (body) enrichmentHTML(body, item, { checkable: true, cardKey: ckFor("exam", item) });
   return c;
