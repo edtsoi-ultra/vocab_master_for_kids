@@ -1,0 +1,81 @@
+{
+  "service": "daughter-school-detail",
+  "student": "蔡諾琳 2A",
+  "updated": "2026-10-23T00:31:22.298240+00:00",
+  "homework": [
+    {
+      "subject": "人文",
+      "title": "人文視訊一",
+      "due": "2026-11-01",
+      "status": "pending",
+      "due_display": "11月1日 (日)",
+      "days_left": 9
+    }
+  ],
+  "upcoming": [
+    {
+      "type": "小測",
+      "subject": "數學",
+      "title": "數學 FA",
+      "date": "2026-10-22",
+      "date_display": "10月22日 (四)",
+      "days_left": 0
+    },
+    {
+      "type": "默書",
+      "subject": "英文",
+      "title": "英文默書",
+      "date": "2026-10-23",
+      "date_display": "10月23日 (五)",
+      "days_left": 0
+    },
+    {
+      "type": "默書",
+      "subject": "中文",
+      "title": "中文默書",
+      "date": "2026-10-28",
+      "date_display": "10月28日 (三)",
+      "days_left": 5
+    },
+    {
+      "type": "進評",
+      "subject": "中文",
+      "title": "中文進評",
+      "date": "2026-11-05",
+      "scope": "課文第3至7課",
+      "date_display": "11月5日 (四)",
+      "days_left": 13
+    },
+    {
+      "type": "默書",
+      "subject": "英文",
+      "title": "英文默書 Dict 3",
+      "date": "2026-11-06",
+      "scope": "Unit 3",
+      "date_display": "11月6日 (五)",
+      "days_left": 14
+    },
+    {
+      "type": "評估",
+      "subject": "全科",
+      "title": "評估一 (中英數常人文)",
+      "date": "2026-11-19",
+      "scope": "中:課文一冊1-3·二冊7,單元一/二/五,進評一二 | 英:U1-4(TB·WB·A),FA1-2,寫作1-3 | 數:2上A第1-11課,進評1-2 | 人文:第1-5課,單元一/二 | 科學:第1-3課 ※各科含已有知識",
+      "date_display": "11月19日 (四)",
+      "days_left": 27
+    }
+  ],
+  "notices": {
+    "new_count": 1,
+    "items": [
+      {
+        "code": "eClass",
+        "title": "Star Miracle頒獎禮通告",
+        "brief": "Star Miracle頒獎禮（回條未簽）",
+        "deadline": "2026-10-26",
+        "deadline_display": "10月26日 (一)",
+        "days_left": 3
+      }
+    ]
+  }
+}
