@@ -137,6 +137,32 @@ body.kid .flag, body.kid details.ptools, body.kid details.ans, body.kid .tier { 
 body.kid .qzlesson { font-size: 17px; min-height: 64px; }
 body.kid .word { font-size: 19px; }
 body.kid .toggle { min-height: 48px; font-size: 16.5px; }
+#upd { display: inline; }
+body.kid #forceReload, body.kid .donedrawer { display: none !important; }
+body.parent .lchk, body.parent .progbar, body.parent .cardfoot .toggle, body.parent .cardfoot .progcnt, body.parent .cardfoot .pbar { display: none !important; }
+body.parent .cardbody { display: block; }
+body.parent .blk.practice, body.parent .quizlaunch, body.parent details.ans, body.parent details.ptools, body.parent .flag { display: none !important; }
+.objblock { display: none; }
+body.parent .objblock { display: block; background: #422006; border: 1.5px solid #F59E0B; border-radius: 12px; padding: 10px 14px; margin-top: 12px; }
+.objblock h4 { color: #FCD34D; margin: 0 0 6px; font-size: 14.5px; }
+.objblock ul { margin: 0; padding-left: 20px; color: #FDE68A; line-height: 1.65; }
+.teview { display: none; }
+body.parent .teview.on { display: block; background: #1E293B; border: 1.5px solid #475569; border-radius: 12px; padding: 10px 14px; margin-top: 12px; }
+.teview h4 { margin: 0 0 6px; font-size: 14.5px; color: #E2E8F0; }
+.teview ol { margin: 0; padding-left: 22px; line-height: 1.7; color: #E2E8F0; }
+.teview .tea { color: #F87171; font-weight: 800; margin: 2px 0 8px; }
+.parentbar { display: none; }
+body.parent .parentbar { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.statline { color: #FCD34D !important; }
+body.kid .statline { display: none; }
+.kidface { display: none; }
+body.kid .kidface { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.kidbtn { background: #14532D; border: 2px solid #22C55E; color: #BBF7D0; border-radius: 12px; padding: 12px 14px; font-size: 15.5px; font-weight: 900; cursor: pointer; min-height: 52px; }
+.kidbtn.alt { background: #172554; border-color: #38BDF8; color: #BAE6FD; }
+.assessfolder { border: 2px dashed #7C3AED; border-radius: 14px; padding: 10px; margin-top: 14px; }
+.afhead { width: 100%; background: #2E1065; color: #DDD6FE; border: none; border-radius: 10px; padding: 14px; font-size: 15.5px; font-weight: 900; cursor: pointer; min-height: 52px; }
+.af-body { display: none; }
+.assessfolder.open .af-body { display: block; }
 .typechip { display: inline-block; font-size: 11.5px; font-weight: 900; border-radius: 6px; padding: 2px 8px; margin-right: 7px; vertical-align: 2px; white-space: nowrap; }
 .tc-dict { background: #FFD600; color: #090D16; }
 .tc-prog { background: #00E5FF; color: #090D16; }
@@ -244,8 +270,8 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 </head>
 <body>
 <header><h1>🐷 琳琳學校專頁</h1><span class="badge">2A</span><span class="modesw"><button id="modeParent" class="modebtn on">👨‍👩‍👧 家長</button><button id="modeKid" class="modebtn">👧 琳琳溫書</button></span></header>
-<div class="sub" id="upd">載入中…</div><button id="forceReload" class="forcebtn">🔄 強制刷新新版</button>
-<nav id="topnav"><button class="navbtn on" data-filter="all">全部</button><button class="navbtn" data-filter="exam">⏰ 測驗 <span id="cntExam"></span></button><button class="navbtn" data-filter="hw">📝 功課 <span id="cntHw"></span></button><button class="navbtn" data-filter="notice">📢 通告 <span id="cntNotice"></span></button><button class="navbtn collapseall" id="collapseAll">↕️</button></nav>
+<div class="sub" id="upd">載入中…</div><button id="forceReload" class="forcebtn">🔄 刷新</button>
+<nav id="topnav"><button class="navbtn on" data-filter="all">全部</button><button class="navbtn" data-filter="exam">⏰ 測驗 <span id="cntExam"></span></button><button class="navbtn" data-filter="hw">📝 功課 <span id="cntHw"></span></button><button class="navbtn" data-filter="notice">📢 通告 <span id="cntNotice"></span></button><button class="navbtn collapseall" id="collapseAll">⏬ 展開</button></nav>
 <div id="actionBanner"></div>
 <div id="app"></div>
 <div id="quizModal"><div class="qz-bar"><div class="qz-tabs"><button id="qzTabEasy" class="qz-tab on">簡易版</button><button id="qzTabNormal" class="qz-tab">正常版</button></div><span id="qzScore">⭐ 0 / 13</span><span id="qzStreak"></span><button class="ws-close" id="quizCloseBtn">✕ 關閉</button></div><div class="qz-wrap"><div id="qzStage"></div></div><div class="qz-footer"><button id="qzPrev" class="qz-btn alt">← 上一題</button><div id="qzDots"></div><button id="qzNext" class="qz-btn">下一題 →</button></div></div>
@@ -478,8 +504,8 @@ function enrichmentHTML(card, item, opts) {
   const isGuess = item.source_tier === "scope_guess";
   const isDict = /默書/.test(item.type || "") || /默書|Dict/.test(item.title || "");
   if (opts.showTier && !isGuess) { const tb = tierBadge(item); if (tb) card.appendChild(tb); }
-  if (isGuess && !(item.days_left != null && item.days_left < 0)) { const fl = el("div", "flag"); fl.appendChild(el("span", "flag-t", "⚠️ 未上傳相片")); fl.appendChild(el("span", "flag-s", "請家長上傳課本／默書紙相片，以生成精準字表。")); card.appendChild(fl); }
-  else if (item.flag) card.appendChild(el("div", "flag", item.flag));
+  if (item.flag && !(item.days_left != null && item.days_left < 0)) card.appendChild(el("div", "flag", item.flag));
+  else if (isGuess && !(item.days_left != null && item.days_left < 0)) { const fl = el("div", "flag"); fl.appendChild(el("span", "flag-t", "⚠️ 未上傳相片")); fl.appendChild(el("span", "flag-s", "請家長上傳課本／默書紙相片，以生成精準字表。")); card.appendChild(fl); }
   const tabs = buildTabs(card, item);
   if (tabs) card.appendChild(tabs);
   const mode = card._tabMode;
@@ -487,7 +513,7 @@ function enrichmentHTML(card, item, opts) {
   if (item.detail && !isDict) {
     if (opts.wrapDetail) {
       const det = el("details", "orig");
-      det.appendChild(el("summary", null, "▶ 睇學校原文"));
+      det.appendChild(el("summary", null, "睇學校原文"));
       det.appendChild(el("div", "origbody", item.detail));
       card.appendChild(det);
     } else { const b = block("detail", "📋 內容／指示（學校原文）"); b.appendChild(el("div", null, item.detail)); card.appendChild(b); }
@@ -584,7 +610,7 @@ function enrichmentHTML(card, item, opts) {
       if (mode) wrap.setAttribute("data-g", g);
       if (g) wrap.appendChild(el("h5", null, (mode === "lesson" ? "📖 " : "📚 ") + g));
       const ol = el("ol");
-      groups[g].forEach(p => { const li = el("li"); htmlAware(li, p.q); const pid = "p" + (pIdx++) + "-" + hashStr(p.q); if (checkable && !p.guide && !/請家長/.test(p.q || "")) li.appendChild(checkLabel(ck, pid, "✅識咗")); ol.appendChild(li); });
+      groups[g].forEach(p => { const li = el("li"); htmlAware(li, p.q); const pid = "p" + (pIdx++) + "-" + hashStr(p.q); if (checkable && !p.guide && !isTaskQ(p)) li.appendChild(checkLabel(ck, pid, "✅識咗")); ol.appendChild(li); });
       wrap.appendChild(ol);
       b.appendChild(wrap);
       const awrap = el("div");
@@ -596,6 +622,10 @@ function enrichmentHTML(card, item, opts) {
     ans.appendChild(abody);
     card.appendChild(b);
     card.appendChild(ans);
+    const tasks = item.practice.filter(p => p.guide || isTaskQ(p));
+    if (tasks.length) { const ob = block("objblock", "🎯 溫習目標"); const ul = el("ul"); tasks.forEach(p => ul.appendChild(el("li", null, p.q))); ob.appendChild(ul); card.appendChild(ob); }
+    const reals = item.practice.filter(p => !(p.guide || isTaskQ(p)));
+    if (reals.length) { const tv = el("div", "teview"); tv.appendChild(el("h4", null, "📋 題目與答案（教師版）")); const ol2 = el("ol"); reals.forEach(p => { const li = el("li"); htmlAware(li, p.q); if (p.a) li.appendChild(el("div", "tea", "✅ " + p.a)); ol2.appendChild(li); }); tv.appendChild(ol2); card.appendChild(tv); card._teview = tv; }
   }
   if (item.answer_key) {
     const d = el("details", "ans");
@@ -649,12 +679,29 @@ function enrichmentHTML(card, item, opts) {
     b1.addEventListener("click", () => openWorksheet(item));
     const b2 = el("button", "wsbtn doc", "📄 下載 Word");
     b2.addEventListener("click", () => downloadWord(item));
+    card._wsB1 = b1; card._wsB2 = b2;
     row.appendChild(b1); row.appendChild(b2);
     if (card._pendingAns) { det.appendChild(card._pendingAns); card._pendingAns = null; }
     det.appendChild(row);
     card.appendChild(det);
   }
   if (card._pendingAns) { card.appendChild(card._pendingAns); card._pendingAns = null; }
+  if (card._teview || card._wsB1) {
+    const pb = el("div", "parentbar");
+    if (card._teview) { const qa = el("button", "wsbtn", "📋 題目與答案 ▼"); qa.addEventListener("click", () => { const on = card._teview.classList.toggle("on"); qa.textContent = on ? "📋 題目與答案 ▲" : "📋 題目與答案 ▼"; }); pb.appendChild(qa); }
+    if (card._wsB1) { const pb1 = el("button", "wsbtn", "🖨️ 印工作紙"); pb1.addEventListener("click", () => card._wsB1.click()); pb.appendChild(pb1); }
+    if (card._wsB2) { const pb2 = el("button", "wsbtn doc", "📄 下載 Word"); pb2.addEventListener("click", () => card._wsB2.click()); pb.appendChild(pb2); }
+    card.appendChild(pb);
+  }
+  const cardElF = card.closest ? card.closest(".card") : null;
+  if (cardElF && cardElF.querySelector(".cardfoot")) {
+    const kf = el("div", "kidface");
+    if (item.quiz && item.quiz.lessons) item.quiz.lessons.filter(L => L.status === "live" || L.status === "preview").forEach(L => { const b = el("button", "kidbtn", "🎮 第" + L.n + "課闖關 ▶"); b.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(L.id, item.key); }); kf.appendChild(b); });
+    else if (item.quiz && item.quiz.sets) item.quiz.sets.forEach(qs => { const b = el("button", "kidbtn", "🎮 " + qs.title + " ▶"); b.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(qs.id, item.key); }); kf.appendChild(b); });
+    else if (item.quiz && item.quiz.id) { const b = el("button", "kidbtn", "🎮 互動練習 ▶"); b.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(item.quiz.id, item.key); }); kf.appendChild(b); }
+    if (item.words && item.words.length) { const b = el("button", "kidbtn alt", "🔊 聽讀默 / 認字 ▼"); b.addEventListener("click", (e) => { e.stopPropagation(); expandCard(cardElF); cardElF.scrollIntoView({ behavior: "smooth", block: "start" }); }); kf.appendChild(b); }
+    if (kf.children.length) { const fe = cardElF.querySelector(".cardfoot"); cardElF.insertBefore(kf, fe.nextSibling); }
+  }
   if (checkable && !(item.practice && item.practice.length) && !(item.words && item.words.length) && !(item.hints && item.hints.length) && item.detail) {
     const b = block("hints", "✅ 進度");
     b.appendChild(checkLabel(ck, "task", "✅ 完成／學識咗"));
@@ -775,10 +822,37 @@ function cardShell(cls, ttlText, dueText, dueCls, subj, typeText) {
   c.appendChild(top);
   return c;
 }
-function expandCard(c) { c.classList.add("open"); if (c._toggleBtn) c._toggleBtn.textContent = "收起 ▲"; }
-function collapseCard(c) { c.classList.remove("open"); if (c._toggleBtn) c._toggleBtn.textContent = c._expandLabel || "▶️ 開始溫習"; }
+function expandCard(c) { c.classList.add("open"); if (c._toggleBtn) c._toggleBtn.textContent = "收起 ▲"; updateToggleBtn(); }
+function collapseCard(c) { c.classList.remove("open"); if (c._toggleBtn) c._toggleBtn.textContent = c._expandLabel || "▶️ 開始溫習"; updateToggleBtn(); }
 function toggleCard(c) { if (c.classList.contains("open")) collapseCard(c); else expandCard(c); }
 function collapseAllCards() { document.querySelectorAll(".card.open").forEach(collapseCard); }
+function visibleCards() { return [...document.querySelectorAll(".card")].filter(c => { const w = c.closest(".secwrap"); return !w || w.style.display !== "none"; }); }
+function anyOpen() { return visibleCards().some(c => c.classList.contains("open")); }
+function updateToggleBtn() { const b = document.getElementById("collapseAll"); if (b) b.textContent = anyOpen() ? "⏫ 收起" : "⏬ 展開"; }
+function toggleAllCards() { const open = anyOpen(); visibleCards().forEach(c => open ? collapseCard(c) : expandCard(c)); updateToggleBtn(); }
+let _lastData = null;
+function applyAssessFolder(mode) {
+  const wrap = document.querySelector('.secwrap[data-sec="exam"]');
+  if (!wrap || !_lastData) return;
+  let folder = wrap.querySelector(".assessfolder");
+  if (mode === "kid") {
+    const far = (_lastData.upcoming || []).filter(u => u.days_left != null && u.days_left > 20 && u._cid);
+    if (!far.length) return;
+    if (!folder) {
+      folder = el("div", "assessfolder");
+      const fh = el("button", "afhead", "🗓️ 下個月大考預習（評估一 · " + far.length + "科） ▼");
+      const fb = el("div", "af-body");
+      fh.addEventListener("click", () => { const on = folder.classList.toggle("open"); fh.textContent = "🗓️ 下個月大考預習（評估一 · " + far.length + "科）" + (on ? " ▲" : " ▼"); });
+      folder.appendChild(fh); folder.appendChild(fb);
+      wrap.appendChild(folder);
+    }
+    const fb = folder.querySelector(".af-body");
+    far.forEach(u => { const c = document.getElementById(u._cid); if (c) fb.appendChild(c); });
+  } else if (folder) {
+    (_lastData.upcoming || []).forEach(u => { const c = u._cid && document.getElementById(u._cid); if (c && c.parentElement !== wrap) wrap.insertBefore(c, folder); });
+    folder.remove();
+  }
+}
 function openCardById(id) {
   const c = document.getElementById(id);
   if (!c) return;
@@ -792,8 +866,13 @@ function makeCollapsible(c, item, opts) {
   c._expandLabel = opts.expandLabel || "▶️ 開始溫習";
   const foot = el("div", "cardfoot");
   const tag = (item.days_left != null && item.days_left < 0) ? null : tierBadge(item, true); if (tag) foot.appendChild(tag);
-  const pc = (item.practice && item.practice.length) || 0;
+  const allP = item.practice || [];
+  const taskN = allP.filter(p => p && (p.guide || isTaskQ(p))).length;
+  const pc = allP.length - taskN;
   if (pc) foot.appendChild(el("span", "pcount", "✏️ " + pc + " 題練習"));
+  if (taskN) foot.appendChild(el("span", "pcount", "🎯 " + taskN + " 項溫習目標"));
+  const slText = item.flag ? item.flag : (item.quiz ? "✅ 題庫已齊" : (item.source_tier === "verified_capture" ? "✅ 資料已核實" : ""));
+  if (slText) foot.appendChild(el("span", "pcount statline", slText));
   const wc = (item.words && item.words.length) || 0;
   if (wc) foot.appendChild(el("span", "pcount", "📝 " + wc + " 字詞"));
   const ps = el("span", "pcount progcnt");
@@ -882,20 +961,24 @@ function setFilter(f) {
   curFilter = f;
   document.querySelectorAll("#topnav .navbtn[data-filter]").forEach(b => b.classList.toggle("on", b.dataset.filter === f));
   document.querySelectorAll(".secwrap").forEach(w => { w.style.display = (f === "all" || w.dataset.sec === f) ? "" : "none"; });
+  updateToggleBtn();
 }
 document.querySelectorAll("#topnav .navbtn[data-filter]").forEach(b => b.addEventListener("click", () => setFilter(b.dataset.filter)));
 const MODE_LSK = "daughter-mode";
 function setMode(m) {
   document.body.classList.toggle("kid", m === "kid");
+  document.body.classList.toggle("parent", m !== "kid");
+  applyAssessFolder(m);
+  updateToggleBtn();
   document.getElementById("modeParent").classList.toggle("on", m !== "kid");
   document.getElementById("modeKid").classList.toggle("on", m === "kid");
   try { localStorage.setItem(MODE_LSK, m); } catch (e) {}
 }
 document.getElementById("modeParent").addEventListener("click", () => setMode("parent"));
 document.getElementById("modeKid").addEventListener("click", () => setMode("kid"));
-try { if (localStorage.getItem(MODE_LSK) === "kid") setMode("kid"); } catch (e) {}
+try { setMode(localStorage.getItem(MODE_LSK) === "kid" ? "kid" : "parent"); } catch (e) { document.body.classList.add("parent"); }
 document.getElementById("forceReload").addEventListener("click", () => { location.replace(location.pathname + "?v=" + Date.now()); });
-document.getElementById("collapseAll").addEventListener("click", collapseAllCards);
+document.getElementById("collapseAll").addEventListener("click", toggleAllCards);
 function remainText(dl) { return dl === 0 ? "今日到期！" : dl === 1 ? "聽日到期" : "仲有 " + dl + " 日"; }
 function buildBanner(d) {
   const banner = document.getElementById("actionBanner");
@@ -955,6 +1038,9 @@ fetch("daughter-detail.json?t=" + Date.now())
     document.getElementById("cntNotice").textContent = "(" + nts.length + ")";
     buildBanner({ upcoming: ups, homework: hws, notices: d.notices });
     refreshProgCounts();
+    _lastData = d;
+    applyAssessFolder(document.body.classList.contains("kid") ? "kid" : "parent");
+    updateToggleBtn();
   })
   .catch(e => {
     document.getElementById("upd").textContent = "⚠️ 資料載入失敗，請稍後再開";
