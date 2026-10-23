@@ -105,45 +105,55 @@ details.orig .origbody { margin-top: 6px; font-size: 14px; line-height: 1.7; col
 .progcnt { color: #86EFAC; font-size: 13px; font-weight: 800; }
 .cardfoot .progcnt { color: #86EFAC; }
 .resetbtn { background: none; border: none; color: #94A3B8; font-size: 12.5px; font-weight: 700; cursor: pointer; text-decoration: underline; padding: 6px 2px; }
-/* ===== Interactive quiz player v2 (trial) ===== */
+/* ===== Interactive quiz player v2.2 (trial) ===== */
 #quizBanner { max-width: 860px; margin: 10px auto 0; padding: 0 4px; }
 #quizOpenBtn { width: 100%; border: 2px dashed #F59E0B; background: #422006; color: #FDE68A; border-radius: 12px; padding: 13px 12px; font-size: 15.5px; font-weight: 900; cursor: pointer; line-height: 1.45; }
-#quizModal { display: none; position: fixed; inset: 0; background: rgba(2,6,23,.95); z-index: 1100; overflow-y: auto; padding: 12px 10px 40px; overscroll-behavior: contain; }
-.qz-bar { max-width: 720px; margin: 0 auto 10px; display: flex; gap: 8px; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+#quizModal { display: none; position: fixed; inset: 0; background: rgba(2,6,23,.97); z-index: 1100; flex-direction: column; overscroll-behavior: contain; }
+.qz-bar { width: 100%; max-width: 720px; margin: 0 auto; padding: 10px; display: flex; gap: 8px; justify-content: space-between; align-items: center; flex-wrap: wrap; flex: none; }
 .qz-tabs { display: flex; gap: 6px; }
 .qz-tab { border: 2px solid #64748B; background: #0F172A; color: #CBD5E1; border-radius: 20px; padding: 7px 15px; font-size: 14.5px; font-weight: 900; cursor: pointer; }
 .qz-tab.on { border-color: #F59E0B; background: #451A03; color: #FDE68A; }
 #qzScore { color: #FDE68A; font-size: 16px; font-weight: 900; }
-.qz-wrap { max-width: 720px; margin: 0 auto; }
-#qzStage { min-height: 430px; }
+#qzStreak { color: #FB923C; font-size: 14.5px; font-weight: 900; }
+.qz-wrap { flex: 1; overflow-y: auto; width: 100%; max-width: 720px; margin: 0 auto; padding: 2px 10px 18px; width: 100%; }
+#qzStage { min-height: 380px; }
+.qz-footer { flex: none; width: 100%; max-width: 720px; margin: 0 auto; display: flex; align-items: center; gap: 8px; padding: 9px 10px calc(9px + env(safe-area-inset-bottom)); background: #0B1220; border-top: 1.5px solid #334155; }
+.qz-footer .qz-btn { flex: none; padding: 10px 13px; font-size: 14px; }
+#qzDots { flex: 1; display: flex; gap: 5px; flex-wrap: wrap; justify-content: center; }
+.qz-dot { width: 28px; height: 28px; border-radius: 9px; border: 2px solid #64748B; background: #1E293B; color: #F1F5F9; font-size: 12.5px; font-weight: 900; cursor: pointer; padding: 0; line-height: 1; }
+.qz-dot.cur { border-color: #F59E0B; color: #FDE68A; box-shadow: 0 0 0 2px rgba(245,158,11,.4); }
+.qz-dot.done { border-color: #22C55E; background: #14532D; }
+.qz-dot.tried { border-color: #F97316; }
 .qz-card { background: #1E293B; border: 1.5px solid #475569; border-radius: 14px; padding: 16px; }
 .qz-enter { animation: qzSlide .35s ease; }
 @keyframes qzSlide { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
 .qz-tag { display: inline-block; background: #7C2D12; color: #FED7AA; font-size: 12px; font-weight: 800; border-radius: 20px; padding: 2px 10px; margin-bottom: 8px; }
-.qz-q { color: #F1F5F9; font-size: 18.5px; font-weight: 800; line-height: 1.6; margin-bottom: 10px; }
-.qz-hint { color: #FCD34D; font-size: 14.5px; margin-bottom: 10px; }
+.qz-qrow { display: flex; gap: 8px; align-items: flex-start; }
+.qz-q { color: #F1F5F9; font-size: 18.5px; font-weight: 800; line-height: 1.6; flex: 1; }
+.qz-speak { flex: none; border: 2px solid #38BDF8; background: #082F49; border-radius: 50%; width: 44px; height: 44px; font-size: 19px; cursor: pointer; }
+.qz-hint { color: #FCD34D; font-size: 14.5px; margin: 8px 0 10px; }
 .qz-img { text-align: center; margin: 4px 0 12px; }
 .qz-img svg { max-width: 300px; width: 80%; height: auto; }
-.qz-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.qz-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 10px; }
 .qz-opt { background: #0F172A; color: #F1F5F9; border: 2px solid #64748B; border-radius: 11px; padding: 13px 8px; font-size: 18px; font-weight: 800; cursor: pointer; min-height: 54px; }
 .qz-opt.right { border-color: #22C55E; background: #14532D; }
 .qz-opt.wrong { border-color: #F97316; background: #431407; }
 .qz-fb { margin-top: 10px; font-size: 15px; font-weight: 800; min-height: 22px; }
 .qz-fb.ok { color: #4ADE80; } .qz-fb.no { color: #FB923C; }
-.qz-pairs { display: flex; gap: 14px; flex-wrap: wrap; }
+.qz-pairs { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 10px; }
 .qz-col { flex: 1; min-width: 130px; display: flex; flex-direction: column; gap: 8px; }
 .qz-chip { background: #0F172A; color: #F1F5F9; border: 2px solid #64748B; border-radius: 11px; padding: 11px 8px; font-size: 18px; font-weight: 800; cursor: pointer; text-align: center; user-select: none; -webkit-user-select: none; touch-action: none; }
 .qz-chip.sel { border-color: #F59E0B; background: #451A03; }
 .qz-chip.done { border-color: #22C55E; background: #14532D; opacity: .75; pointer-events: none; }
 .qz-chip.dragging { opacity: .92; box-shadow: 0 8px 22px rgba(0,0,0,.5); }
-.qz-tray { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.qz-tray { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 12px; }
 .qz-baskets { display: flex; gap: 10px; flex-wrap: wrap; }
 .qz-basket { flex: 1; min-width: 140px; min-height: 96px; border: 2px dashed #64748B; border-radius: 12px; padding: 9px; }
 .qz-basket.over { border-color: #F59E0B; background: rgba(245,158,11,.12); }
 .qz-basket h4 { color: #FDE68A; font-size: 15px; margin: 0 0 8px; text-align: center; }
 .qz-basket .qz-chip { margin-bottom: 7px; padding: 8px 4px; font-size: 16.5px; }
 .qz-basket .qz-chip.wrongin { border-color: #F97316; background: #431407; }
-.qz-orderline { min-height: 58px; border: 2px dashed #64748B; border-radius: 12px; padding: 8px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 12px; }
+.qz-orderline { min-height: 58px; border: 2px dashed #64748B; border-radius: 12px; padding: 8px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 10px 0 12px; }
 .qz-orderline .qz-chip { border-color: #38BDF8; }
 .qz-drawbox { position: relative; width: 264px; height: 264px; margin: 4px auto; }
 .qz-guide { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 190px; color: rgba(148,163,184,.28); background: #0F172A; border: 2px solid #475569; border-radius: 10px; pointer-events: none; font-family: "PingFang HK", serif; }
@@ -153,26 +163,11 @@ details.orig .origbody { margin-top: 6px; font-size: 14px; line-height: 1.7; col
 .qz-btn.alt { background: #475569; }
 .qz-btn:disabled { opacity: .38; cursor: default; }
 .qz-answer { display: none; background: #14532D; color: #DCFCE7; border-radius: 10px; padding: 11px 13px; font-size: 15.5px; line-height: 1.65; margin-top: 10px; }
-.qz-nav { display: flex; gap: 8px; justify-content: space-between; margin-top: 12px; }
-.qz-picker { display: none; background: #0F172A; border: 1.5px solid #475569; border-radius: 12px; padding: 12px; margin-top: 10px; }
-.qz-picker.open { display: block; }
-.qz-pickgrid { display: flex; gap: 8px; flex-wrap: wrap; }
-.qz-pick { width: 46px; height: 46px; border-radius: 10px; border: 2px solid #64748B; background: #1E293B; color: #F1F5F9; font-size: 16px; font-weight: 900; cursor: pointer; }
-.qz-pick.cur { border-color: #F59E0B; color: #FDE68A; }
-.qz-pick.done { border-color: #22C55E; background: #14532D; }
-.qz-pick.tried { border-color: #F97316; }
-.qz-summary { background: #422006; border: 2px solid #F59E0B; border-radius: 14px; padding: 18px; color: #FEF3C7; font-size: 16.5px; line-height: 1.75; }
-
-#qzStreak { color: #FB923C; font-size: 14.5px; font-weight: 900; }
-.qz-qrow { display: flex; gap: 8px; align-items: flex-start; }
-.qz-qrow .qz-q { flex: 1; margin-bottom: 0; }
-.qz-speak { flex: none; border: 2px solid #38BDF8; background: #082F49; border-radius: 50%; width: 44px; height: 44px; font-size: 19px; cursor: pointer; }
 .qz-break { text-align: center; }
 .qz-break-emoji { font-size: 62px; margin: 10px 0 4px; }
 .qz-break-text { color: #E2E8F0; font-size: 16.5px; line-height: 1.7; margin-bottom: 8px; }
 .qz-skills { margin-top: 10px; font-size: 15.5px; line-height: 1.7; }
-.qz-code { display: none; background: #0F172A; color: #A5F3FC; border: 1px dashed #38BDF8; border-radius: 10px; padding: 10px; font-size: 13.5px; font-family: ui-monospace, Menlo, monospace; letter-spacing: .4px; word-break: break-all; margin-top: 10px; user-select: all; -webkit-user-select: all; }
-.qz-code-note { color: #FDE68A; font-size: 13.5px; margin-top: 8px; line-height: 1.6; }
+.qz-summary { background: #422006; border: 2px solid #F59E0B; border-radius: 14px; padding: 18px; color: #FEF3C7; font-size: 16.5px; line-height: 1.75; }
 /* ===== Worksheet modal ===== */
 #wsModal { display: none; position: fixed; inset: 0; background: rgba(2,6,23,.88); z-index: 1000; overflow-y: auto; padding: 14px 8px 40px; overscroll-behavior: contain; }
 #wsSheet { background: #fff; color: #111; max-width: 820px; margin: 0 auto; border-radius: 6px; padding: 30px 34px 36px; font-family: "PingFang HK", "Microsoft JhengHei", serif; }
@@ -213,7 +208,7 @@ details.orig .origbody { margin-top: 6px; font-size: 14px; line-height: 1.7; col
 <div id="actionBanner"></div>
 <div id="quizBanner"><button id="quizOpenBtn">🧪 互動練習 Demo：第3課《心中的鈴鐺》<br>㩒入去玩 — 簡易版／正常版・一題一畫面・選擇、圖片、配對、拖放、重組、畫畫</button></div>
 <div id="app"></div>
-<div id="quizModal"><div class="qz-bar"><div class="qz-tabs"><button id="qzTabEasy" class="qz-tab on">簡易版</button><button id="qzTabNormal" class="qz-tab">正常版</button></div><span id="qzScore">⭐ 0 / 13</span><span id="qzStreak"></span><button class="ws-close" id="quizCloseBtn">✕ 關閉</button></div><div class="qz-wrap"><div id="qzStage"></div><div class="qz-nav"><button id="qzPrev" class="qz-btn alt">← 上一題</button><button id="qzPick" class="qz-btn alt">📋 揀題目</button><button id="qzNext" class="qz-btn">下一題 →</button></div><div id="qzPicker" class="qz-picker"></div></div></div>
+<div id="quizModal"><div class="qz-bar"><div class="qz-tabs"><button id="qzTabEasy" class="qz-tab on">簡易版</button><button id="qzTabNormal" class="qz-tab">正常版</button></div><span id="qzScore">⭐ 0 / 13</span><span id="qzStreak"></span><button class="ws-close" id="quizCloseBtn">✕ 關閉</button></div><div class="qz-wrap"><div id="qzStage"></div></div><div class="qz-footer"><button id="qzPrev" class="qz-btn alt">← 上一題</button><div id="qzDots"></div><button id="qzNext" class="qz-btn">下一題 →</button></div></div>
 <div id="wsModal"><div class="ws-bar"><button class="ws-print" id="wsPrintBtn">🖨️ 列印 / 儲存 PDF</button><button class="ws-close" id="wsCloseBtn">✕ 關閉</button></div><div id="wsSheet"></div></div>
 <footer>資料來源：學校 eClass 通告及通告附頁、Google Classroom 功課指示、課本/默書紙拍攝內容。<br>「學校原文」為官方內容；「AI 輔助」提示同練習由 Muse 生成，練習答案只供家長核對。</footer>
 <script>
@@ -829,7 +824,7 @@ fetch("daughter-detail.json?t=" + Date.now())
   });
 </script>
 <script>
-/* ===== Interactive quiz player v2.1: 第3課《心中的鈴鐺》 (trial; content from curriculum_kb) ===== */
+/* ===== Interactive quiz player v2.2: 第3課《心中的鈴鐺》 (trial; content from curriculum_kb) ===== */
 const QZ_BELL_SVG = '<svg viewBox="0 0 200 190" xmlns="http://www.w3.org/2000/svg"><circle cx="170" cy="26" r="13" fill="#E2E8F0"/><circle cx="163" cy="22" r="11" fill="#0F172A" opacity="0.25"/><path d="M30 62 q-16 26 0 52" stroke="#38BDF8" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M170 62 q16 26 0 52" stroke="#38BDF8" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="100" cy="36" r="10" fill="#F59E0B"/><path d="M100 46 C 68 46 58 82 58 106 L 50 136 L 150 136 L 142 106 C 142 82 132 46 100 46 Z" fill="#FBBF24" stroke="#B45309" stroke-width="4"/><rect x="44" y="136" width="112" height="10" rx="5" fill="#B45309"/><circle cx="100" cy="160" r="11" fill="#92400E"/><text x="100" y="104" font-size="26" text-anchor="middle" fill="#92400E" font-weight="bold">叮噹</text></svg>';
 const QZ_PRAISE = ["好嘢！", "叻叻！", "做得好！", "勁呀！", "啱晒，犀利！"];
 const QZ_ENCOURAGE = ["差少少咋，再諗多步！", "唔緊要，慢慢嚟，再試下！", "好接近喇，再睇清楚啲！"];
@@ -866,6 +861,7 @@ function qzScoreUpd() {
   document.getElementById("qzScore").textContent = "⭐ " + qzStars() + " / " + t[1];
   const st = document.getElementById("qzStreak");
   if (st) st.textContent = qzStreak >= 2 ? "🔥 連續啱 ×" + qzStreak : "";
+  qzRenderDots();
 }
 function qzEl(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
 function qzWrong(item, sub) {
@@ -874,6 +870,7 @@ function qzWrong(item, sub) {
   S._wrong = S._wrong || [];
   if (!item._wrongKeys) item._wrongKeys = {};
   if (!item._wrongKeys[key]) { item._wrongKeys[key] = true; S._wrong.push(key); }
+  qzSaveProgress();
 }
 function qzEncourage() { const s = QZ_ENCOURAGE[qzEncIx % QZ_ENCOURAGE.length]; qzEncIx++; return s; }
 function qzSpeak(text) {
@@ -892,6 +889,7 @@ function qzGain(item, sub) {
   const starOk = sub ? !wk[item.label + "：" + sub] : !Object.keys(wk).length;
   if (starOk) item._stars = (item._stars || 0) + 1;
   qzScoreUpd();
+  qzSaveProgress();
   if (qzComplete(item)) {
     if (item._orig) item._orig._retried = true;
     qzLocked = true;
@@ -914,7 +912,6 @@ function qzGo(i) {
   qzIdx = Math.max(0, Math.min(i, items.length));
   qzLocked = false;
   if (qzBreakFor !== qzIdx) qzBreakFor = -1;
-  document.getElementById("qzPicker").classList.remove("open");
   qzRender();
 }
 function qzRender() {
@@ -925,11 +922,12 @@ function qzRender() {
   if (qzBreakFor === qzIdx && qzIdx > 0 && qzIdx < items.length) {
     prev.disabled = true; next.disabled = true;
     stage.appendChild(qzBreakCard());
+    qzRenderDots();
     return;
   }
   prev.disabled = qzIdx === 0; next.disabled = false;
   next.textContent = qzIdx >= items.length ? "🏁 已到成績頁" : "下一題 →";
-  if (qzIdx >= items.length) { stage.appendChild(qzFinishCard()); return; }
+  if (qzIdx >= items.length) { stage.appendChild(qzFinishCard()); qzRenderDots(); return; }
   const item = items[qzIdx];
   const card = qzEl("div", "qz-card qz-enter");
   card.appendChild(qzEl("span", "qz-tag", item.tag + " ・ 第 " + (qzIdx + 1) + " / " + items.length + " 題"));
@@ -947,6 +945,7 @@ function qzRender() {
   card.appendChild(fb);
   stage.appendChild(card);
   qzScoreUpd();
+  qzRenderDots();
 }
 function qzBreakCard() {
   const card = qzEl("div", "qz-card qz-enter qz-break");
@@ -1178,27 +1177,6 @@ function qzFinishCard() {
   again.addEventListener("click", () => { const from = S._from; qzResetSet(qzSetName); if (qzSetName === "retry") qzSwitchSet(from || "easy"); else qzGo(0); });
   row.appendChild(again);
   card.appendChild(row);
-  if (qzSetName !== "retry") {
-    const row2 = qzEl("div", "qz-row");
-    const exp = qzEl("button", "qz-btn alt", "📤 進度碼（存進度）");
-    const cpy = qzEl("button", "qz-btn alt", "📋 複製進度碼");
-    cpy.addEventListener("click", () => {
-      const code = qzExportCode();
-      codeBox.textContent = code; codeBox.style.display = "block";
-      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code).then(() => alert("📋 已複製進度碼，貼去邊度都得。"), () => {});
-    });
-    const imp = qzEl("button", "qz-btn alt", "📥 輸入進度碼");
-    const codeBox = qzEl("div", "qz-code");
-    exp.addEventListener("click", () => { codeBox.textContent = qzExportCode(); codeBox.style.display = "block"; });
-    imp.addEventListener("click", () => {
-      const c = window.prompt("貼上進度碼：");
-      if (c && qzImportCode(c)) { alert("✅ 進度已恢復！"); qzGo(0); }
-      else if (c) alert("⚠️ 呢個碼唔啱，請再對一次 — 冇改到任何嘢。");
-    });
-    row2.appendChild(exp); row2.appendChild(cpy); row2.appendChild(imp);
-    card.appendChild(row2); card.appendChild(codeBox);
-    card.appendChild(qzEl("div", "qz-code-note", "進度碼：抄低或者影低呢串碼，換裝置／清咗瀏覽資料之後，㩒「輸入進度碼」就可以恢復星星同錯題記錄。"));
-  }
   return card;
 }
 function qzWrongItemCount() {
@@ -1219,7 +1197,7 @@ function qzResetSet(name) {
   const S = QUIZ_SETS[name]; S._wrong = [];
   S.items.forEach(it => { it._earned = 0; it._done = false; it._stars = 0; it._retried = false; it._matched = {}; it._placed = {}; it._wrongKeys = {}; });
 }
-function qzExportCode() {
+function qzPackState() {
   function pack(name) {
     const S = QUIZ_SETS[name];
     return S.items.map(it => {
@@ -1235,14 +1213,19 @@ function qzExportCode() {
       return rec;
     });
   }
-  const data = { v: 1, easy: pack("easy"), normal: pack("normal") };
-  return "QZ1-" + btoa(unescape(encodeURIComponent(JSON.stringify(data)))).replace(/=+$/, "");
+  return { v: 1, easy: pack("easy"), normal: pack("normal") };
 }
-function qzImportCode(code) {
+function qzSaveProgress() {
+  try { localStorage.setItem("quizDemoL3-progress", JSON.stringify(qzPackState())); } catch (e) {}
+}
+function qzRestoreProgress() {
   try {
-    code = String(code).trim();
-    if (code.indexOf("QZ1-") !== 0) return false;
-    const data = JSON.parse(decodeURIComponent(escape(atob(code.slice(4)))));
+    const raw = localStorage.getItem("quizDemoL3-progress");
+    if (raw) qzApplyState(JSON.parse(raw));
+  } catch (e) {}
+}
+function qzApplyState(data) {
+  try {
     if (!data || data.v !== 1) return false;
     ["easy", "normal"].forEach(name => {
       const arr = data[name], S = QUIZ_SETS[name];
@@ -1260,27 +1243,26 @@ function qzImportCode(code) {
     return true;
   } catch (e) { return false; }
 }
-function qzBuildPicker() {
-  const pk = document.getElementById("qzPicker");
-  pk.innerHTML = "";
-  const grid = qzEl("div", "qz-pickgrid");
+function qzRenderDots() {
+  const box = document.getElementById("qzDots");
+  if (!box) return;
+  box.innerHTML = "";
   qzItems().forEach((it, i) => {
-    const b = qzEl("button", "qz-pick", String(i + 1));
+    const b = qzEl("button", "qz-dot", String(i + 1));
     if (i === qzIdx) b.classList.add("cur");
     if (qzComplete(it)) b.classList.add("done");
     else if (it._wrongKeys && Object.keys(it._wrongKeys).length) b.classList.add("tried");
     b.addEventListener("click", () => qzGo(i));
-    grid.appendChild(b);
+    box.appendChild(b);
   });
-  const fin = qzEl("button", "qz-pick", "🏁");
+  const fin = qzEl("button", "qz-dot", "🏁");
   if (qzIdx >= qzItems().length) fin.classList.add("cur");
   fin.addEventListener("click", () => qzGo(qzItems().length));
-  grid.appendChild(fin);
-  pk.appendChild(grid);
+  box.appendChild(fin);
 }
 document.getElementById("quizOpenBtn").addEventListener("click", () => {
-  if (!qzBuilt) { qzBuilt = true; qzGo(0); }
-  document.getElementById("quizModal").style.display = "block";
+  if (!qzBuilt) { qzBuilt = true; qzRestoreProgress(); qzGo(0); }
+  document.getElementById("quizModal").style.display = "flex";
   document.body.style.overflow = "hidden";
 });
 document.getElementById("quizCloseBtn").addEventListener("click", () => {
@@ -1290,11 +1272,6 @@ document.getElementById("quizCloseBtn").addEventListener("click", () => {
 });
 document.getElementById("qzPrev").addEventListener("click", () => qzGo(qzIdx - 1));
 document.getElementById("qzNext").addEventListener("click", () => qzGo(qzIdx + 1));
-document.getElementById("qzPick").addEventListener("click", () => {
-  const pk = document.getElementById("qzPicker");
-  pk.classList.toggle("open");
-  if (pk.classList.contains("open")) qzBuildPicker();
-});
 document.getElementById("qzTabEasy").addEventListener("click", () => qzSwitchSet("easy"));
 document.getElementById("qzTabNormal").addEventListener("click", () => qzSwitchSet("normal"));
 function qzSwitchSet(name) {
