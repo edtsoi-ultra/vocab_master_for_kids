@@ -1,9 +1,10 @@
 {
   "service": "daughter-school",
   "student": "蔡諾琳 2A",
-  "updated": "2026-10-23T00:31:18.738557+00:00",
+  "updated": "2026-10-23T01:01:20.607033+00:00",
   "homework": [
     {
+      "key": "HUM_VIDEO_1",
       "subject": "人文",
       "title": "人文視訊一",
       "due": "2026-11-01",
@@ -14,6 +15,7 @@
   ],
   "upcoming": [
     {
+      "key": "MATH_FA_20261022",
       "type": "小測",
       "subject": "數學",
       "title": "數學 FA",
@@ -22,6 +24,7 @@
       "days_left": 0
     },
     {
+      "key": "ENG_DICT_2",
       "type": "默書",
       "subject": "英文",
       "title": "英文默書",
@@ -30,6 +33,7 @@
       "days_left": 0
     },
     {
+      "key": "CHI_DICT_20261028",
       "type": "默書",
       "subject": "中文",
       "title": "中文默書",
@@ -38,6 +42,7 @@
       "days_left": 5
     },
     {
+      "key": "CHI_PROGRESS_1",
       "type": "進評",
       "subject": "中文",
       "title": "中文進評",
@@ -53,6 +58,7 @@
     "latest_date": "2026-10-26",
     "items": [
       {
+        "key": "NOTICE_STAR_MIRACLE",
         "code": "eClass",
         "title": "Star Miracle頒獎禮通告",
         "brief": "Star Miracle頒獎禮（回條未簽）",
