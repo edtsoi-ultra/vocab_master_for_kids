@@ -143,6 +143,7 @@ body.kid .toggle { min-height: 48px; font-size: 16.5px; }
 .scopepill { display: inline-block; background: #334155; border: 1px solid #64748B; color: #E2E8F0; border-radius: 14px; padding: 1px 9px; margin: 2px 3px 2px 0; font-size: 12.5px; font-weight: 800; }
 details.donedrawer { margin-top: 12px; border: 1.5px dashed #475569; border-radius: 12px; padding: 10px 12px; }
 details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900; color: #A7F3D0; padding: 6px 2px; }
+.forcebtn { display: inline-block; margin: 2px 0 4px 10px; background: #1E293B; border: 1.5px solid #38BDF8; color: #7DD3FC; border-radius: 16px; padding: 5px 12px; font-size: 12.5px; font-weight: 800; cursor: pointer; min-height: 34px; vertical-align: middle; }
 #quizModal { display: none; position: fixed; inset: 0; background: rgba(2,6,23,.97); z-index: 1100; flex-direction: column; overscroll-behavior: contain; }
 .qz-bar { width: 100%; max-width: 720px; margin: 0 auto; padding: 10px; display: flex; gap: 8px; justify-content: space-between; align-items: center; flex-wrap: wrap; flex: none; }
 .qz-tabs { display: flex; gap: 6px; }
@@ -241,7 +242,7 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 </head>
 <body>
 <header><h1>🐷 琳琳學校專頁</h1><span class="badge">2A</span><span class="modesw"><button id="modeParent" class="modebtn on">👨‍👩‍👧 家長</button><button id="modeKid" class="modebtn">👧 琳琳溫書</button></span></header>
-<div class="sub" id="upd">載入中…</div>
+<div class="sub" id="upd">載入中…</div><button id="forceReload" class="forcebtn">🔄 強制刷新新版</button>
 <nav id="topnav"><button class="navbtn on" data-filter="all">全部</button><button class="navbtn" data-filter="exam">⏰ 測驗 <span id="cntExam"></span></button><button class="navbtn" data-filter="hw">📝 功課 <span id="cntHw"></span></button><button class="navbtn" data-filter="notice">📢 通告 <span id="cntNotice"></span></button><button class="navbtn collapseall" id="collapseAll">↕️</button></nav>
 <div id="actionBanner"></div>
 <div id="app"></div>
@@ -610,7 +611,7 @@ function enrichmentHTML(card, item, opts) {
       if (L.status === "live") {
         const qb = el("button", "qzlesson", "▶ " + label);
         qb.appendChild(el("small", null, "簡易版／正常版・㩒入去玩"));
-        qb.addEventListener("click", () => { if (window.qzOpen) window.qzOpen(L.id, item.key); });
+        qb.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(L.id, item.key); });
         grid.appendChild(qb);
       } else {
         const qb = el("button", "qzlesson off", label);
@@ -625,7 +626,7 @@ function enrichmentHTML(card, item, opts) {
   else if (item.quiz) {
     const row = el("div", "wsrow");
     const qb = el("button", "quizlaunch", "▶ 🎮 互動練習：" + (item.quiz.title || "") + "（簡易版／正常版）");
-    qb.addEventListener("click", () => { if (window.qzOpen) window.qzOpen(item.quiz.id, item.key); });
+    qb.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(item.quiz.id, item.key); });
     row.appendChild(qb);
     card.appendChild(row);
   }
@@ -881,6 +882,7 @@ function setMode(m) {
 document.getElementById("modeParent").addEventListener("click", () => setMode("parent"));
 document.getElementById("modeKid").addEventListener("click", () => setMode("kid"));
 try { if (localStorage.getItem(MODE_LSK) === "kid") setMode("kid"); } catch (e) {}
+document.getElementById("forceReload").addEventListener("click", () => { location.replace(location.pathname + "?v=" + Date.now()); });
 document.getElementById("collapseAll").addEventListener("click", collapseAllCards);
 function remainText(dl) { return dl === 0 ? "今日到期！" : dl === 1 ? "聽日到期" : "仲有 " + dl + " 日"; }
 function buildBanner(d) {
