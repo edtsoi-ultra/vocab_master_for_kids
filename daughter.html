@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-HK">
+<html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,285 +8,387 @@
 <meta http-equiv="Expires" content="0">
 <title>🐷 蔡諾琳 2A 學校專頁</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box;}
-body {
-font-family: -apple-system, "PingFang HK", "Noto Sans TC", sans-serif;
-background: linear-gradient(160deg, #0F172A 0%, #1E293B 100%);
-color: #F8FAFC; min-height: 100vh; padding: 18px 14px 40px;
-}
-.wrap { max-width: 640px; margin: 0 auto;}
-header { margin: 6px 2px 16px;}
-header h1 { font-size: 24px; font-weight: 900;}
-header.sub { color: #94A3B8; font-size: 13px; margin-top: 4px;}
-h2 { font-size: 17px; margin: 22px 2px 10px;}
-.card {
-background: rgba(30,41,59,.92); border: 1px solid rgba(148,163,184,.28);
-border-radius: 16px; padding: 14px 16px; margin-bottom: 12px;
-}
-.row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap;}
-.chip {
-display: inline-block; padding: 2px 10px; border-radius: 999px;
-font-size: 12px; font-weight: 800; color: #fff;
-}
-.t-評估 { background:#F43F5E;}.t-默書 { background:#2563EB;}
-.t-進評 { background:#9333EA;}.t-小測 { background:#0D9488;}
-.t-測驗 { background:#CA8A04;}.t-其他 { background:#475569;}
-.subj { font-weight: 800; font-size: 16px;}
-.ttl { font-size: 16px;}
-.when { margin-left: auto; text-align: right;}
-.date { color: #CBD5E1; font-size: 13px;}
-.cd { font-weight: 900; font-size: 14px;}
-.cd-hot { color: #FB7185;}.cd-warm { color: #FBBF24;}.cd-ok { color: #34D399;}
-.tier { margin-top: 8px; font-size: 12.5px; font-weight: 700;}
-.tier-verified { color: #34D399;}.tier-kb { color: #7DD3FC;}.tier-guess { color: #FBBF24;}
-.block { margin-top: 10px; border-radius: 10px; padding: 10px 12px; font-size: 14px; line-height: 1.55;}
-.block.lab { display:block; font-size: 12px; font-weight: 800; letter-spacing:.06em; margin-bottom: 4px;}
-.scope { background: rgba(15,23,42,.85); border: 1px solid rgba(148,163,184,.22);}
-.scope.lab { color: #7DD3FC;}
-.detail { background: rgba(15,23,42,.85); border: 1px solid rgba(196,181,253,.35);}
-.detail.lab { color: #C4B5FD;}
-.points { background: rgba(15,23,42,.85); border: 1px solid rgba(148,163,184,.22);}
-.points.lab { color: #F0ABFC;}
-.points li,.hints li { margin-left: 18px;}
-.focus { background: rgba(244,63,94,.08); border: 1px solid rgba(244,63,94,.4);}
-.focus.lab { color: #FB7185;}
-.focus li { margin-left: 18px;}
-.words { background: rgba(37,99,235,.10); border: 1px solid rgba(59,130,246,.45);}
-.words.lab { color: #93C5FD;}
-.word { display: inline-block; background: rgba(15,23,42,.7); border: 1px solid rgba(147,197,253,.4);
-border-radius: 8px; padding: 3px 9px; margin: 2px 3px 2px 0; font-size: 15px;}
-.word.mean { color: #93C5FD; font-size: 12.5px; margin-left: 5px;}
-.word.syl { color: #64748B; font-size: 11.5px; margin-left: 4px;}
-.sent { background: rgba(37,99,235,.06); border: 1px solid rgba(59,130,246,.3);}
-.sent.lab { color: #93C5FD;}
-.sent li { margin-left: 18px;}
-.speak {
-display: inline-block; margin-top: 8px; padding: 7px 14px; border-radius: 999px;
-background: #2563EB; color: #fff; font-size: 14px; font-weight: 800;
-border: none; cursor: pointer;
-}
-.speak:active { background: #1D4ED8;}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, "PingFang HK", "Microsoft JhengHei", sans-serif; background: linear-gradient(180deg, #0B0F19, #151C2C); color: #F8FAFC; min-height: 100vh; padding: 14px 12px 40px; }
+header { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; }
+h1 { font-size: 21px; font-weight: 900; }
+.badge { background: #334155; color: #00E5FF; font-weight: 800; font-size: 12px; padding: 2px 8px; border-radius: 5px; }
+.sub { color: #94A3B8; font-size: 12.5px; margin-bottom: 14px; }
+h2.sec { font-size: 16.5px; font-weight: 900; margin: 20px 0 10px; }
+.card { background: rgba(30,41,59,.88); border-radius: 14px; padding: 14px 14px 12px; margin-bottom: 12px; border-left: 6px solid #64748B; }
+.card.hw { border-left-color: #FFD600; }
+.card.exam { border-left-color: #00E5FF; }
+.card.notice { border-left-color: #E082FF; }
+.card .top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.card .ttl { font-size: 16px; font-weight: 800; line-height: 1.35; }
+.card .due { font-size: 13px; font-weight: 800; white-space: nowrap; }
+.due.soon { color: #FF3B5C; } .due.warn { color: #FFB300; } .due.ok { color: #E2E8F0; }
+.card .meta { color: #CBD5E1; font-size: 13px; margin-top: 3px; }
+.scope { background: rgba(2,6,23,.55); border-radius: 9px; padding: 9px 11px; margin-top: 10px; font-size: 13.5px; line-height: 1.65; color: #E2E8F0; }
+.scope b { color: #7DD3FC; }
+.blk { margin-top: 12px; border-radius: 10px; padding: 10px 12px; font-size: 14px; line-height: 1.7; }
+.blk h4 { font-size: 13px; font-weight: 900; margin-bottom: 5px; letter-spacing: .5px; }
+.blk ul, .blk ol { margin-left: 20px; }
+.detail { background: rgba(2,6,23,.55); color: #E2E8F0; white-space: pre-wrap; }
+.points { background: rgba(88,28,135,.35); color: #F3E8FF; }
+.focus { background: rgba(120,53,15,.45); color: #FDE68A; }
+.words .word { display: inline-block; background: #1E3A8A; color: #fff; border-radius: 8px; padding: 5px 10px; margin: 0 6px 7px 0; font-weight: 800; font-size: 15px; }
+.words .word .mean { color: #FDE68A; font-weight: 700; margin-left: 7px; font-size: 13px; }
+.words .word .syl { color: #93C5FD; font-weight: 600; margin-left: 7px; font-size: 12.5px; }
+.words, .sent { background: rgba(30,58,138,.30); }
+.hints { background: rgba(20,83,45,.38); color: #DCFCE7; }
+.practice { background: rgba(6,78,59,.42); color: #ECFDF5; }
+.practice h5 { font-size: 13.5px; font-weight: 900; color: #6EE7B7; margin: 8px 0 3px; }
+.practice h5:first-of-type { margin-top: 2px; }
+details.ans { margin-top: 10px; background: rgba(2,6,23,.6); border-radius: 9px; padding: 8px 12px; }
+details.ans summary { cursor: pointer; font-weight: 900; font-size: 13.5px; color: #FBBF24; }
+details.ans .abody { margin-top: 6px; font-size: 13.5px; line-height: 1.7; color: #FDE68A; }
+details.ans .agroup { font-weight: 900; color: #6EE7B7; margin-top: 5px; }
+.speak { background: #2563EB; color: #fff; border: none; border-radius: 9px; padding: 8px 14px; font-size: 14px; font-weight: 800; margin-top: 8px; cursor: pointer; }
+.speak:active { background: #1D4ED8; }
 .prog { margin-left: 10px; font-size: 13.5px; font-weight: 800; color: #FBBF24; }
-.hints { background: rgba(245,158,11,.10); border: 1px solid rgba(245,158,11,.45);}
-.hints.lab { color: #FBBF24;}
-.practice { background: rgba(16,185,129,.08); border: 1px solid rgba(16,185,129,.4);}
-.practice.lab { color: #34D399;}
-.practice.psub { font-weight: 800; margin: 6px 0 2px; color: #A7F3D0;}
-.practice li { margin-left: 18px;}
-details.key { margin-top: 8px;}
-details.key summary { color: #FBBF24; font-size: 13.5px; font-weight: 800; cursor: pointer;}
-details.key.ans { color: #FDE68A; margin-top: 4px;}
-details.key li { margin-left: 18px;}
-.empty { color: #94A3B8; font-size: 14px; padding: 6px 2px;}
-footer { color: #64748B; font-size: 12px; margin-top: 24px; text-align: center;}
-.err { color: #FB7185; font-size: 14px;}
+.tier { display: inline-block; font-size: 11.5px; font-weight: 800; border-radius: 6px; padding: 2px 8px; margin-top: 8px; }
+.tier.verified { background: #14532D; color: #86EFAC; }
+.tier.kb { background: #1E3A8A; color: #BFDBFE; }
+.tier.guess { background: #713F12; color: #FDE68A; }
+.flag { margin-top: 7px; font-size: 12.5px; font-weight: 700; color: #FCD34D; }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.tab { background: #334155; color: #E2E8F0; border: 2px solid transparent; border-radius: 999px; padding: 5px 13px; font-size: 13px; font-weight: 800; cursor: pointer; }
+.tab.on { background: #0EA5E9; color: #fff; border-color: #BAE6FD; }
+.wsrow { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.wsbtn { background: #7C3AED; color: #fff; border: none; border-radius: 9px; padding: 9px 14px; font-size: 13.5px; font-weight: 800; cursor: pointer; }
+.wsbtn.doc { background: #0F766E; }
+.empty { color: #94A3B8; font-size: 14px; padding: 8px 2px; }
+footer { color: #64748B; font-size: 11.5px; margin-top: 22px; text-align: center; line-height: 1.7; }
+/* ===== Worksheet modal ===== */
+#wsModal { display: none; position: fixed; inset: 0; background: rgba(2,6,23,.85); z-index: 50; overflow-y: auto; padding: 14px 8px 40px; }
+#wsSheet { background: #fff; color: #111; max-width: 820px; margin: 0 auto; border-radius: 6px; padding: 30px 34px 36px; font-family: "PingFang HK", "Microsoft JhengHei", serif; }
+#wsSheet h1 { font-size: 21px; text-align: center; margin-bottom: 4px; }
+#wsSheet .wsmeta { display: flex; justify-content: space-between; border-bottom: 2.5px solid #111; padding-bottom: 8px; margin-bottom: 14px; font-size: 14.5px; }
+#wsSheet h3 { font-size: 16px; margin: 16px 0 8px; border-left: 5px solid #111; padding-left: 8px; }
+#wsSheet .wsq { margin-bottom: 13px; font-size: 15.5px; line-height: 1.6; }
+#wsSheet .wsq .qn { font-weight: 900; }
+.ws-work { border: 1.5px solid #666; height: 74px; margin: 6px 0 4px 22px; border-radius: 3px; }
+.ws-lines { margin: 4px 0 2px 22px; }
+.ws-line { border-bottom: 1.5px solid #999; height: 26px; }
+.ws-wordrow { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; font-size: 16px; }
+.ws-word { font-weight: 800; min-width: 130px; }
+.ws-cell { display: inline-block; width: 36px; height: 36px; border: 1.5px solid #333; margin-right: 5px; vertical-align: middle; background-image: linear-gradient(to right, transparent 49%, #C9C9C9 49%, #C9C9C9 51%, transparent 51%), linear-gradient(to bottom, transparent 49%, #C9C9C9 49%, #C9C9C9 51%, transparent 51%); }
+.ws-answers { page-break-before: always; margin-top: 26px; }
+.ws-answers h3 { border-left-color: #B45309; }
+.ws-answers .wsq { font-size: 14px; margin-bottom: 7px; }
+.ws-bar { max-width: 820px; margin: 0 auto 10px; display: flex; gap: 8px; justify-content: flex-end; }
+.ws-bar button { border: none; border-radius: 9px; padding: 9px 16px; font-size: 14px; font-weight: 800; cursor: pointer; }
+.ws-print { background: #2563EB; color: #fff; }
+.ws-close { background: #475569; color: #fff; }
+@media print {
+  body { background: #fff !important; padding: 0; }
+  body > header, body > .sub, #app, footer { display: none !important; }
+  #wsModal { position: static; overflow: visible; background: #fff; padding: 0; }
+  .ws-bar { display: none !important; }
+  #wsSheet { max-width: none; border-radius: 0; padding: 6mm 4mm; }
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-<header>
-<h1>🐷 <span id="student">蔡諾琳</span> 學校專頁</h1>
-<div class="sub" id="updated">載入中…</div>
-</header>
+<header><h1>🐷 蔡諾琳學校專頁</h1><span class="badge">2A</span></header>
+<div class="sub" id="upd">載入中…</div>
 <div id="app"></div>
-<footer>資料每日自動更新（06:30）＋ eClass／Classroom 檢查後同步・學校原文與 AI 輔助（提示／練習）分開標示</footer>
-</div>
+<div id="wsModal"><div class="ws-bar"><button class="ws-print" id="wsPrintBtn">🖨️ 列印 / 儲存 PDF</button><button class="ws-close" id="wsCloseBtn">✕ 關閉</button></div><div id="wsSheet"></div></div>
+<footer>資料來源：學校 eClass 通告及通告附頁、Google Classroom 功課指示、課本/默書紙拍攝內容。<br>「學校原文」為官方內容；「AI 輔助」提示同練習由 Muse 生成，練習答案只供家長核對。</footer>
 <script>
-function el(tag, cls, text) {
-const e = document.createElement(tag);
-if (cls) e.className = cls;
-if (text!= null) e.textContent = text;
-return e;
+const $app = document.getElementById("app");
+const ITEMS = {};
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+function htmlAware(parent, content) { if (content && content.indexOf("<") >= 0) { const s = el("span"); s.innerHTML = content; parent.appendChild(s); } else parent.appendChild(document.createTextNode(content || "")); }
+function dueLabel(item) {
+  const dl = item.days_left;
+  if (item.due || item.date || item.deadline) {
+    if (dl === 0) return "今日";
+    if (dl === 1) return "聽日";
+    if (dl > 1) return dl + " 日後";
+    if (dl === -0) return "今日";
+    return "已過期";
+  }
+  return "";
 }
-function cdText(days) {
-if (days <= 0) return "今日！";
-if (days === 1) return "聽日";
-return days + " 日後";
+function dueClass(item) { const dl = item.days_left; if (dl == null) return "ok"; if (dl <= 1) return "soon"; if (dl <= 3) return "warn"; return "ok"; }
+function langOf(item) { return (item.subject === "英文" || item.subject === "English") ? "en-GB" : "zh-HK"; }
+function tierBadge(item) {
+  if (!item.source_tier) return null;
+  if (item.source_tier === "verified_capture") return el("span", "tier verified", "✅ 已核實內容");
+  if (item.source_tier === "curriculum_kb") return el("span", "tier kb", "📚 按課本內容生成");
+  return el("span", "tier guess", "⚠️ 基礎範圍練習");
 }
-function cdClass(days) { return days <= 0? "cd-hot": (days <= 3? "cd-warm": "cd-ok");}
-function block(cls, lab) {
-const b = el("div", "block " + cls);
-b.appendChild(el("span", "lab", lab));
-return b;
-}
+/* ---------- 讀默 ---------- */
 let speakingBtn = null;
 function speakSeq(texts, lang, btn, prog) {
-if (!("speechSynthesis" in window)) { btn.textContent = "此瀏覽器不支援語音"; return; }
-if (speakingBtn === btn) { speechSynthesis.cancel(); speakingBtn = null; btn.textContent = btn.dataset.label; if (prog) prog.textContent = ""; return; }
-speechSynthesis.cancel();
-if (speakingBtn) speakingBtn.textContent = speakingBtn.dataset.label;
-speakingBtn = btn;
-btn.dataset.label = btn.textContent;
-btn.textContent = "⏹ 停止讀默";
-let i = 0;
-function alive() { return speakingBtn === btn; }
-function finish() {
-if (!alive()) return;
-speakingBtn = null;
-btn.textContent = btn.dataset.label;
-if (prog) prog.textContent = "✅ 讀默完成";
+  if (!("speechSynthesis" in window)) { btn.textContent = "此瀏覽器不支援語音"; return; }
+  if (speakingBtn === btn) { speechSynthesis.cancel(); speakingBtn = null; btn.textContent = btn.dataset.label; if (prog) prog.textContent = ""; return; }
+  speechSynthesis.cancel();
+  if (speakingBtn) speakingBtn.textContent = speakingBtn.dataset.label;
+  speakingBtn = btn;
+  btn.dataset.label = btn.textContent;
+  btn.textContent = "⏹ 停止讀默";
+  let i = 0;
+  function alive() { return speakingBtn === btn; }
+  function finish() { if (!alive()) return; speakingBtn = null; btn.textContent = btn.dataset.label; if (prog) prog.textContent = "✅ 讀默完成"; }
+  function say(text, cb) { const u = new SpeechSynthesisUtterance(text); u.lang = lang; u.rate = 0.78; u.onend = cb; u.onerror = cb; speechSynthesis.speak(u); }
+  function playItem() {
+    if (!alive()) return;
+    if (i >= texts.length) { finish(); return; }
+    if (prog) prog.textContent = "🔊 讀默中：第 " + (i + 1) + " / " + texts.length + " 題";
+    say(texts[i], () => setTimeout(() => { if (!alive()) return; say(texts[i], () => setTimeout(() => { i++; playItem(); }, 6000)); }, 2000));
+  }
+  playItem();
 }
-function say(text, cb) {
-const u = new SpeechSynthesisUtterance(text);
-u.lang = lang; u.rate = 0.78;
-u.onend = cb; u.onerror = cb;
-speechSynthesis.speak(u);
-}
-function playItem() {
-if (!alive()) return;
-if (i >= texts.length) { finish(); return; }
-if (prog) prog.textContent = "🔊 讀默中：第 " + (i + 1) + " / " + texts.length + " 題";
-say(texts[i], () => setTimeout(() => {
-if (!alive()) return;
-say(texts[i], () => setTimeout(() => { i++; playItem(); }, 6000));
-}, 2000));
-}
-playItem();
-}
-function langOf(item) { return item.subject === "英文"? "en-GB": "zh-HK";}
 
-function addEnrichment(parent, item) {
-if (item.source_tier) {
-const map = {
-verified_capture: ["tier-verified", "✅ 已核實內容（學校原文／上傳圖片）"],
-curriculum_kb: ["tier-kb", "📚 按已存課本內容生成"],
-scope_guess: ["tier-guess", item.flag || "⚠️ 基礎範圍練習（待補充課本／默書紙圖片以生成精準字表）"]
-};
-const m = map[item.source_tier];
-if (m) parent.appendChild(el("div", "tier " + m[0], m[1]));
+/* ---------- 分頁 (tabs) ---------- */
+function groupOf(p, mode) { return mode === "lesson" ? (p.lesson || "") : (p.subject || ""); }
+function buildTabs(card, item) {
+  const practice = item.practice || [];
+  const words = item.words || [];
+  const lessons = [...new Set([...words, ...practice].map(p => p.lesson).filter(Boolean))].sort();
+  let mode = null, groups = [];
+  if (lessons.length) { mode = "lesson"; groups = lessons; }
+  else {
+    const subs = [...new Set(practice.map(p => p.subject).filter(Boolean))];
+    if (subs.length >= 2) { mode = "subject"; groups = subs; }
+  }
+  if (!mode) return null;
+  const untagged = mode === "lesson"
+    ? (words.some(w => !w.lesson) || practice.some(p => !p.lesson))
+    : practice.some(p => !p.subject);
+  const bar = el("div", "tabs");
+  const labels = ["全部", ...(untagged ? ["綜合"] : []), ...groups];
+  labels.forEach((lab, idx) => {
+    let cnt = 0;
+    if (lab === "全部") cnt = words.length + practice.length;
+    else if (lab === "綜合") cnt = [...words, ...practice].filter(p => !groupOf(p, mode)).length;
+    else cnt = [...words, ...practice].filter(p => groupOf(p, mode) === lab).length;
+    const b = el("button", "tab" + (idx === 0 ? " on" : ""), lab + (cnt ? " (" + cnt + ")" : ""));
+    b.addEventListener("click", () => {
+      bar.querySelectorAll(".tab").forEach(t => t.classList.remove("on"));
+      b.classList.add("on");
+      card.querySelectorAll("[data-g]").forEach(elm => {
+        const g = elm.getAttribute("data-g");
+        elm.style.display = (lab === "全部" || g === lab || (lab === "綜合" && g === "")) ? "" : "none";
+      });
+    });
+    bar.appendChild(b);
+  });
+  card._tabMode = mode;
+  return bar;
 }
-if (item.scope) {
-const b = block("scope", "📚 溫書範圍"); b.appendChild(el("div", null, item.scope)); parent.appendChild(b);
+
+/* ---------- Enrichment 區塊 ---------- */
+function block(cls, title) { const b = el("div", "blk " + cls); b.appendChild(el("h4", null, title)); return b; }
+function enrichmentHTML(card, item) {
+  const tb = tierBadge(item); if (tb) card.appendChild(tb);
+  if (item.flag) card.appendChild(el("div", "flag", item.flag));
+  const tabs = buildTabs(card, item);
+  if (tabs) card.appendChild(tabs);
+  const mode = card._tabMode;
+  const gAttr = (g) => mode ? (g || "") : null;
+  if (item.detail) { const b = block("detail", "📋 內容／指示（學校原文）"); b.appendChild(el("div", null, item.detail)); card.appendChild(b); }
+  if (item.points && item.points.length) { const b = block("points", "📌 要點"); const ul = el("ul"); item.points.forEach(p => ul.appendChild(el("li", null, p))); b.appendChild(ul); card.appendChild(b); }
+  if (item.focus_points && item.focus_points.length) { const b = block("focus", "🎯 重點注意"); const ul = el("ul"); item.focus_points.forEach(p => ul.appendChild(el("li", null, p))); b.appendChild(ul); card.appendChild(b); }
+  if (item.words && item.words.length) {
+    const b = block("words", "📝 字詞表");
+    if (mode === "lesson") {
+      const byLesson = {};
+      item.words.forEach(w => { const g = w.lesson || ""; (byLesson[g] = byLesson[g] || []).push(w); });
+      Object.keys(byLesson).forEach(g => {
+        const wrap = el("div"); wrap.setAttribute("data-g", g);
+        if (g) wrap.appendChild(el("h4", null, "📖 " + g));
+        byLesson[g].forEach(w => {
+          const s = el("span", "word", w.text);
+          if (w.meaning) s.appendChild(el("span", "mean", w.meaning));
+          if (w.syllables) s.appendChild(el("span", "syl", w.syllables));
+          wrap.appendChild(s);
+        });
+        b.appendChild(wrap);
+      });
+    } else {
+      item.words.forEach(w => {
+        const s = el("span", "word", w.text);
+        if (w.meaning) s.appendChild(el("span", "mean", w.meaning));
+        if (w.syllables) s.appendChild(el("span", "syl", w.syllables));
+        b.appendChild(s);
+      });
+    }
+    const btn = el("button", "speak", "🔊 讀默字詞");
+    const prog = el("span", "prog");
+    btn.addEventListener("click", () => speakSeq(item.words.map(w => w.text), langOf(item), btn, prog));
+    b.appendChild(el("br")); b.appendChild(btn); b.appendChild(prog);
+    card.appendChild(b);
+  }
+  if (item.sentences && item.sentences.length) {
+    const b = block("sent", "🗣 讀默句子");
+    const ol = el("ol"); item.sentences.forEach(s => ol.appendChild(el("li", null, s))); b.appendChild(ol);
+    const btn = el("button", "speak", "🔊 讀默句子");
+    const prog = el("span", "prog");
+    btn.addEventListener("click", () => speakSeq(item.sentences, langOf(item), btn, prog));
+    b.appendChild(btn); b.appendChild(prog);
+    card.appendChild(b);
+  }
+  if (item.hints && item.hints.length) { const b = block("hints", "💡 點樣幫佢做（AI 輔助）"); const ul = el("ul"); item.hints.forEach(h => ul.appendChild(el("li", null, h))); b.appendChild(ul); card.appendChild(b); }
+  if (item.practice && item.practice.length) {
+    const b = block("practice", "✏️ 練習題（AI 生成）");
+    const groups = {};
+    item.practice.forEach(p => { const g = mode ? groupOf(p, mode) : (p.subject || ""); (groups[g] = groups[g] || []).push(p); });
+    const ans = el("details", "ans");
+    ans.appendChild(el("summary", null, "🔑 家長核對答案"));
+    const abody = el("div", "abody");
+    Object.keys(groups).forEach(g => {
+      const wrap = el("div");
+      if (mode) wrap.setAttribute("data-g", g);
+      if (g) wrap.appendChild(el("h5", null, (mode === "lesson" ? "📖 " : "📚 ") + g));
+      const ol = el("ol");
+      groups[g].forEach(p => { const li = el("li"); htmlAware(li, p.q); ol.appendChild(li); });
+      wrap.appendChild(ol);
+      b.appendChild(wrap);
+      const awrap = el("div");
+      if (mode) awrap.setAttribute("data-g", g);
+      if (g) awrap.appendChild(el("div", "agroup", g));
+      groups[g].forEach((p, i) => { const d = el("div", null, (i + 1) + ". " + (p.a || "")); awrap.appendChild(d); });
+      abody.appendChild(awrap);
+    });
+    ans.appendChild(abody);
+    card.appendChild(b);
+    card.appendChild(ans);
+  }
+  if (item.answer_key) {
+    const d = el("details", "ans");
+    d.appendChild(el("summary", null, "🔑 家長核對（問功課紀錄）"));
+    const body = el("div", "abody", item.answer_key);
+    body.style.whiteSpace = "pre-wrap";
+    d.appendChild(body);
+    card.appendChild(d);
+  }
+  if ((item.practice && item.practice.length) || (item.words && item.words.length)) {
+    const row = el("div", "wsrow");
+    const b1 = el("button", "wsbtn", "🖨️ 工作紙預覽 / 列印");
+    b1.addEventListener("click", () => openWorksheet(item));
+    const b2 = el("button", "wsbtn doc", "📄 下載 Word");
+    b2.addEventListener("click", () => downloadWord(item));
+    row.appendChild(b1); row.appendChild(b2);
+    card.appendChild(row);
+  }
 }
-if (item.detail) {
-const b = block("detail", "📋 內容／指示（學校原文）"); b.appendChild(el("div", null, item.detail)); parent.appendChild(b);
+/* ---------- 工作紙 ---------- */
+function isTaskQ(p) { const t = (p.q || "") + (p.a || ""); return /家長|朗讀|讀出|背誦|重讀課文/.test(t); }
+function esc(s) { return (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
+function qExtra(p) {
+  const q = p.q || "";
+  if (q.indexOf("<") >= 0) return "";
+  if (/=\s*\?\s*$/.test(q) || q.indexOf("直式") >= 0) return '<div class="ws-work"><br><br><br></div>';
+  if (q.indexOf("______") >= 0 || q.indexOf("（　）") >= 0 || q.indexOf("（ ）") >= 0 || q.indexOf("( )") >= 0) return "";
+  const a = p.a || "";
+  const n = a.length > 28 ? 3 : (a.length > 10 ? 2 : 1);
+  let s = '<div class="ws-lines">';
+  for (let i = 0; i < n; i++) s += '<div class="ws-line"></div>';
+  return s + "</div>";
 }
-if (item.points && item.points.length) {
-const b = block("points", "📌 要點");
-const ul = el("ul"); item.points.forEach(p => ul.appendChild(el("li", null, p)));
-b.appendChild(ul); parent.appendChild(b);
+function buildSheet(item) {
+  const title = (item.subject ? item.subject + "：" : "") + (item.title || "練習");
+  let h = "<h1>" + esc(title) + " 工作紙</h1>";
+  h += '<div class="wsmeta"><span>姓名：____________</span><span>日期：____________</span><span>成績：________</span></div>';
+  if (item.scope) h += '<div style="font-size:13.5px;color:#444;margin-bottom:6px">範圍：' + esc(item.scope) + "</div>";
+  if (item.words && item.words.length) {
+    h += "<h3>一、字詞練寫（先讀一次，再喺格仔度寫）</h3>";
+    item.words.forEach(w => {
+      h += '<div class="ws-wordrow"><span class="ws-word">' + esc(w.text) + (w.meaning ? ' <span style="font-weight:400;font-size:13px;color:#555">(' + esc(w.meaning) + ")</span>" : "") + '</span><span><span class="ws-cell"></span><span class="ws-cell"></span><span class="ws-cell"></span></span></div>';
+    });
+  }
+  const qs = (item.practice || []).filter(p => !isTaskQ(p));
+  const multiSub = [...new Set(qs.map(p => p.subject).filter(Boolean))].length >= 2;
+  if (qs.length) {
+    h += "<h3>" + (item.words && item.words.length ? "二" : "一") + "、練習題</h3>";
+    let curG = null;
+    qs.forEach((p, i) => {
+      const g = p.subject || p.lesson || "";
+      if (multiSub && g && g !== curG) { curG = g; h += '<div style="font-weight:900;margin:10px 0 4px">📚 ' + esc(g) + "</div>"; }
+      const qhtml = (p.q || "").indexOf("<") >= 0 ? p.q : esc(p.q);
+      h += '<div class="wsq"><span class="qn">' + (i + 1) + ".</span> " + qhtml + qExtra(p) + "</div>";
+    });
+    h += '<div class="ws-answers"><h3>🔑 家長核對答案（列印時自動另開一頁）</h3>';
+    qs.forEach((p, i) => {
+      h += '<div class="wsq">' + (i + 1) + ". " + (multiSub && p.subject ? "[" + esc(p.subject) + "] " : "") + esc(p.a || "") + "</div>";
+    });
+    h += "</div>";
+  }
+  return h;
 }
-if (item.focus_points && item.focus_points.length) {
-const b = block("focus", "🎯 重點注意");
-const ul = el("ul"); item.focus_points.forEach(p => ul.appendChild(el("li", null, p)));
-b.appendChild(ul); parent.appendChild(b);
+function openWorksheet(item) {
+  document.getElementById("wsSheet").innerHTML = buildSheet(item);
+  const m = document.getElementById("wsModal");
+  m.style.display = "block";
+  m.scrollTop = 0;
 }
-if (item.words && item.words.length) {
-const b = block("words", "🔤 字詞表");
-item.words.forEach(w => {
-const s = el("span", "word", w.text);
-if (w.meaning) s.appendChild(el("span", "mean", w.meaning));
-if (w.syllables) s.appendChild(el("span", "syl", w.syllables));
-b.appendChild(s);
-});
-const btn = el("button", "speak", "🔊 讀默字詞");
-const prog = el("span", "prog");
-btn.addEventListener("click", () => speakSeq(item.words.map(w => w.text), langOf(item), btn, prog));
-b.appendChild(el("br")); b.appendChild(btn); b.appendChild(prog);
-parent.appendChild(b);
+function downloadWord(item) {
+  const css = "body{font-family:'PingFang HK','Microsoft JhengHei',serif;color:#111}h1{font-size:20px;text-align:center}.wsmeta{font-size:14px;border-bottom:2px solid #111;padding-bottom:8px}h3{font-size:15px}.wsq{font-size:14.5px;margin-bottom:10px}.ws-line{border-bottom:1px solid #999;height:24px}.ws-work{border:1.5px solid #666;height:70px}.ws-wordrow{font-size:15px;margin-bottom:8px}.ws-word{font-weight:bold}.ws-cell{display:inline-block;width:34px;height:34px;border:1.5px solid #333}.ws-answers{page-break-before:always}";
+  const html = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word'><head><meta charset='utf-8'><style>" + css + "</style></head><body>" + buildSheet(item) + "</body></html>";
+  const blob = new Blob(["\ufeff" + html], { type: "application/msword" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = ((item.title || "工作紙") + "_工作紙.doc");
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
 }
-if (item.sentences && item.sentences.length) {
-const b = block("sent", "🗣 讀默句子");
-const ol = el("ol"); item.sentences.forEach(s => ol.appendChild(el("li", null, s)));
-b.appendChild(ol);
-const btn = el("button", "speak", "🔊 讀默句子");
-const prog = el("span", "prog");
-btn.addEventListener("click", () => speakSeq(item.sentences, langOf(item), btn, prog));
-b.appendChild(btn); b.appendChild(prog);
-parent.appendChild(b);
+document.getElementById("wsPrintBtn").addEventListener("click", () => window.print());
+document.getElementById("wsCloseBtn").addEventListener("click", () => { document.getElementById("wsModal").style.display = "none"; });
+document.getElementById("wsModal").addEventListener("click", (e) => { if (e.target.id === "wsModal") e.target.style.display = "none"; });
+
+/* ---------- 卡片 ---------- */
+function cardShell(cls, ttlText, dueText, dueCls) {
+  const c = el("div", "card " + cls);
+  const top = el("div", "top");
+  top.appendChild(el("div", "ttl", ttlText));
+  if (dueText) top.appendChild(el("div", "due " + dueCls, dueText));
+  c.appendChild(top);
+  return c;
 }
-if (item.hints && item.hints.length) {
-const b = block("hints", "💡 提示・方向（AI 輔助）");
-const ul = el("ul"); item.hints.forEach(h => ul.appendChild(el("li", null, h)));
-b.appendChild(ul); parent.appendChild(b);
+function upcomingCard(item) {
+  const c = cardShell("exam", (item.type ? item.type + "｜" : "") + (item.subject || "") + "：" + item.title, dueLabel(item), dueClass(item));
+  c.appendChild(el("div", "meta", "📅 " + (item.date_display || item.date || "")));
+  if (item.scope) { const s = el("div", "scope"); s.appendChild(el("b", null, "範圍：")); s.appendChild(document.createTextNode(item.scope)); c.appendChild(s); }
+  enrichmentHTML(c, item);
+  return c;
 }
-if (item.practice && item.practice.length) {
-const b = block("practice", "✏️ 練習題（AI 按範圍生成）");
-let curSubj = null, list = null;
-item.practice.forEach(p => {
-if (p.subject && p.subject!== curSubj) {
-curSubj = p.subject;
-b.appendChild(el("div", "psub", ""));
-list = el("ol"); b.appendChild(list);
+function homeworkCard(item) {
+  const c = cardShell("hw", (item.subject || "") + "：" + item.title, dueLabel(item), dueClass(item));
+  c.appendChild(el("div", "meta", "📅 截止：" + (item.due_display || item.due || "")));
+  enrichmentHTML(c, item);
+  return c;
 }
-if (!list) { list = el("ol"); b.appendChild(list);}
-list.appendChild(el("li", null, p.q));
-});
-const det = el("details", "key");
-det.appendChild(el("summary", null, "🔑 家長核對答案"));
-const al = el("ol");
-item.practice.forEach(p => { if (p.a) al.appendChild(el("li", "ans", p.a));});
-det.appendChild(al);
-b.appendChild(det);
-parent.appendChild(b);
+function noticeCard(item) {
+  const c = cardShell("notice", "📣 " + item.title, item.days_left != null && item.days_left >= 0 ? dueLabel({ due: item.deadline, days_left: item.days_left }) : "", dueClass(item));
+  const meta = el("div", "meta", "✍️ 未簽署" + (item.deadline_display ? "｜回條死線：" + item.deadline_display : ""));
+  c.appendChild(meta);
+  enrichmentHTML(c, item);
+  return c;
 }
-if (item.answer_key) {
-const det = el("details", "key");
-det.appendChild(el("summary", null, "🔑 家長核對（問功課紀錄）"));
-det.appendChild(el("div", "ans", item.answer_key));
-parent.appendChild(det);
-}
-}
+function section(title) { $app.appendChild(el("h2", "sec", title)); }
 
 fetch("daughter-detail.json?t=" + Date.now())
-.then(r => r.json())
-.then(d => {
-document.getElementById("student").textContent = d.student || "蔡諾琳 2A";
-document.getElementById("updated").textContent = "更新：" + (d.updated || "").replace("T", " ").slice(0, 16);
-const app = document.getElementById("app");
-
-app.appendChild(el("h2", null, "📅 考試・默書・評估"));
-if (!d.upcoming ||!d.upcoming.length) app.appendChild(el("div", "empty", "暫時冇已記錄嘅測驗或評估。"));
-(d.upcoming || []).forEach(u => {
-const c = el("div", "card");
-const r = el("div", "row");
-r.appendChild(el("span", "chip t-" + (u.type || "其他"), u.type || ""));
-r.appendChild(el("span", "subj", u.subject || ""));
-r.appendChild(el("span", "ttl", u.title || ""));
-const w = el("div", "when");
-w.appendChild(el("div", "date", u.date_display || u.date || ""));
-w.appendChild(el("div", "cd " + cdClass(u.days_left), cdText(u.days_left)));
-r.appendChild(w);
-c.appendChild(r);
-addEnrichment(c, u);
-app.appendChild(c);
-});
-
-app.appendChild(el("h2", null, "📝 未交功課"));
-if (!d.homework ||!d.homework.length) app.appendChild(el("div", "empty", "冇未交功課 🎉"));
-(d.homework || []).forEach(hw => {
-const c = el("div", "card");
-const r = el("div", "row");
-r.appendChild(el("span", "subj", hw.subject || ""));
-r.appendChild(el("span", "ttl", hw.title || ""));
-const w = el("div", "when");
-w.appendChild(el("div", "date", "交：" + (hw.due_display || hw.due || "")));
-w.appendChild(el("div", "cd " + cdClass(hw.days_left), cdText(hw.days_left)));
-r.appendChild(w);
-c.appendChild(r);
-addEnrichment(c, hw);
-app.appendChild(c);
-});
-
-const items = (d.notices && d.notices.items) || [];
-app.appendChild(el("h2", null, "📢 通告（未簽／處理中）"));
-if (!items.length) app.appendChild(el("div", "empty", "冇待處理通告。"));
-items.forEach(n => {
-const c = el("div", "card notice");
-const r = el("div", "row");
-r.appendChild(el("span", "ttl", n.brief || n.title || ""));
-const w = el("div", "when");
-w.appendChild(el("div", "date", "限期：" + (n.deadline_display || n.deadline || "")));
-w.appendChild(el("div", "cd " + cdClass(n.days_left), cdText(n.days_left)));
-r.appendChild(w);
-c.appendChild(r);
-addEnrichment(c, n);
-app.appendChild(c);
-});
-})
-.catch(e => {
-document.getElementById("updated").innerHTML = '<span class="err">載入失敗，請稍後再試。</span>';
-});
+  .then(r => r.json())
+  .then(d => {
+    const upd = new Date(d.updated);
+    document.getElementById("upd").textContent = "最後更新：" + upd.toLocaleString("zh-HK", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" }) + "｜撳 Widget 隨時返嚟呢頁";
+    section("⏰ 測驗・默書・評估");
+    if (d.upcoming && d.upcoming.length) d.upcoming.forEach(u => $app.appendChild(upcomingCard(u)));
+    else $app.appendChild(el("div", "empty", "暫時冇測驗／默書／評估"));
+    section("📚 未交功課");
+    if (d.homework && d.homework.length) d.homework.forEach(h => $app.appendChild(homeworkCard(h)));
+    else $app.appendChild(el("div", "empty", "✅ 功課全部交齊"));
+    section("📣 未簽通告");
+    if (d.notices && d.notices.items && d.notices.items.length) d.notices.items.forEach(n => $app.appendChild(noticeCard(n)));
+    else $app.appendChild(el("div", "empty", "✅ 冇未簽通告"));
+  })
+  .catch(e => {
+    document.getElementById("upd").textContent = "⚠️ 資料載入失敗，請稍後再開";
+  });
 </script>
 </body>
 </html>
