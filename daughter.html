@@ -106,8 +106,7 @@ details.orig .origbody { margin-top: 6px; font-size: 14px; line-height: 1.7; col
 .cardfoot .progcnt { color: #86EFAC; }
 .resetbtn { background: none; border: none; color: #94A3B8; font-size: 12.5px; font-weight: 700; cursor: pointer; text-decoration: underline; padding: 6px 2px; }
 /* ===== Interactive quiz player v2.2 (trial) ===== */
-#quizBanner { max-width: 860px; margin: 10px auto 0; padding: 0 4px; }
-#quizOpenBtn { width: 100%; border: 2px dashed #F59E0B; background: #422006; color: #FDE68A; border-radius: 12px; padding: 13px 12px; font-size: 15.5px; font-weight: 900; cursor: pointer; line-height: 1.45; }
+.quizlaunch { width: 100%; border: 2px dashed #F59E0B; background: #422006; color: #FDE68A; border-radius: 12px; padding: 13px 12px; font-size: 15.5px; font-weight: 900; cursor: pointer; line-height: 1.45; }
 #quizModal { display: none; position: fixed; inset: 0; background: rgba(2,6,23,.97); z-index: 1100; flex-direction: column; overscroll-behavior: contain; }
 .qz-bar { width: 100%; max-width: 720px; margin: 0 auto; padding: 10px; display: flex; gap: 8px; justify-content: space-between; align-items: center; flex-wrap: wrap; flex: none; }
 .qz-tabs { display: flex; gap: 6px; }
@@ -206,7 +205,6 @@ details.orig .origbody { margin-top: 6px; font-size: 14px; line-height: 1.7; col
 <div class="sub" id="upd">載入中…</div>
 <nav id="topnav"><button class="navbtn on" data-filter="all">全部</button><button class="navbtn" data-filter="exam">⏰ 測驗 <span id="cntExam"></span></button><button class="navbtn" data-filter="hw">📝 功課 <span id="cntHw"></span></button><button class="navbtn" data-filter="notice">📢 通告 <span id="cntNotice"></span></button><button class="navbtn collapseall" id="collapseAll">↕️</button></nav>
 <div id="actionBanner"></div>
-<div id="quizBanner"><button id="quizOpenBtn">🎮 互動練習：第3課《心中的鈴鐺》<br>㩒入去玩 — 簡易版／正常版・一題一畫面・選擇、圖片、配對、拖放、重組、畫畫</button></div>
 <div id="app"></div>
 <div id="quizModal"><div class="qz-bar"><div class="qz-tabs"><button id="qzTabEasy" class="qz-tab on">簡易版</button><button id="qzTabNormal" class="qz-tab">正常版</button></div><span id="qzScore">⭐ 0 / 13</span><span id="qzStreak"></span><button class="ws-close" id="quizCloseBtn">✕ 關閉</button></div><div class="qz-wrap"><div id="qzStage"></div></div><div class="qz-footer"><button id="qzPrev" class="qz-btn alt">← 上一題</button><div id="qzDots"></div><button id="qzNext" class="qz-btn">下一題 →</button></div></div>
 <div id="wsModal"><div class="ws-bar"><button class="ws-print" id="wsPrintBtn">🖨️ 列印 / 儲存 PDF</button><button class="ws-close" id="wsCloseBtn">✕ 關閉</button></div><div id="wsSheet"></div></div>
@@ -559,6 +557,13 @@ function enrichmentHTML(card, item, opts) {
     body.style.whiteSpace = "pre-wrap";
     d.appendChild(body);
     card.appendChild(d);
+  }
+  if (item.quiz) {
+    const row = el("div", "wsrow");
+    const qb = el("button", "quizlaunch", "🎮 互動練習：" + (item.quiz.title || "") + "（簡易版／正常版）");
+    qb.addEventListener("click", () => { if (window.qzOpen) window.qzOpen(item.quiz.id); });
+    row.appendChild(qb);
+    card.appendChild(row);
   }
   if ((item.practice && item.practice.length) || (item.words && item.words.length)) {
     const row = el("div", "wsrow");
@@ -1260,11 +1265,11 @@ function qzRenderDots() {
   fin.addEventListener("click", () => qzGo(qzItems().length));
   box.appendChild(fin);
 }
-document.getElementById("quizOpenBtn").addEventListener("click", () => {
+window.qzOpen = function (quizId) {
   if (!qzBuilt) { qzBuilt = true; qzRestoreProgress(); qzGo(0); }
   document.getElementById("quizModal").style.display = "flex";
   document.body.style.overflow = "hidden";
-});
+};
 document.getElementById("quizCloseBtn").addEventListener("click", () => {
   document.getElementById("quizModal").style.display = "none";
   document.body.style.overflow = "";
