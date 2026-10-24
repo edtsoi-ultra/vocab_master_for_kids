@@ -372,6 +372,12 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-finrev-exp { font-size: 15px; line-height: 1.55; color: #E2E8F0; }
 .qz-finrev-exp .qz-spk { margin-right: 6px; }
 .qz-finrev-ans { font-size: 15px; line-height: 1.55; color: #BBF7D0; font-weight: 700; }
+.qz-finrev-head { margin-bottom: 8px; }
+.qz-finrev-pair, .qz-finrev-ord { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+.qz-finrev-box { flex: 1 1 0; min-width: 0; border: 1.5px solid #64748B; background: #0F172A; color: #F1F5F9; border-radius: 10px; padding: 9px 10px; font-size: 17px; font-weight: 800; line-height: 1.45; text-align: center; overflow-wrap: break-word; }
+.qz-finrev-ord .qz-finrev-box { text-align: left; }
+.qz-finrev-arrow { flex: none; font-size: 18px; font-weight: 900; color: #FDE68A; }
+.qz-finrev-num { flex: none; width: 28px; height: 28px; border-radius: 50%; background: #334155; color: #FDE68A; font-size: 16px; font-weight: 900; display: inline-flex; align-items: center; justify-content: center; }
 </style>
 <script data-goatcounter="https://2a-study.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -7371,10 +7377,56 @@ function qzSkillSummary(cardEl) {
    No-why draw/match/order show ONLY the bank's correct result with the
    explanation left blank — never an invented explanation, and a wrongWhy
    (a wrong-answer note) is never presented as the explanation. */
+/* Review-fix (2026-10-24): finish-review correct results are kid-readable.
+   Match/drag: ONE pair per line, left box + arrow + right box (boxes and
+   position carry the meaning; colour only assists, never alone).
+   Drag mapping is derived strictly from the item's own chips/cats data,
+   grouped by basket in cats order. Order: numbered vertical list for ALL
+   no-why order items — bank check found a MIXED set (7 sentence-joining
+   items, e.g. 美美溫習/Is there, vs 5 sequence items, e.g. 故事次序,
+   種植步驟, 由細到大 where joining gives a run-on or "245452524542"),
+   and a numbered list reads correctly for both kinds, while a joined
+   sentence is wrong for the sequence kind. */
 function qzCorrectResult(item) {
   if (item.type === "draw") return qzEl("div", "qz-finrev-ans", "正確寫法／畫法：" + (item.guide || ""));
-  if (item.type === "match") return qzEl("div", "qz-finrev-ans", "正確配對：" + item.pairs.map(pr => pr[0] + "→" + pr[1]).join("， "));
-  if (item.type === "order") return qzEl("div", "qz-finrev-ans", "正確次序：「" + item.parts.join("") + "」");
+  if (item.type === "match") {
+    const box = qzEl("div", "qz-finrev-ans");
+    box.appendChild(qzEl("div", "qz-finrev-head", "正確配對："));
+    item.pairs.forEach(pr => {
+      const row = qzEl("div", "qz-finrev-pair");
+      row.appendChild(qzEl("span", "qz-finrev-box", pr[0]));
+      row.appendChild(qzEl("span", "qz-finrev-arrow", "→"));
+      row.appendChild(qzEl("span", "qz-finrev-box", pr[1]));
+      box.appendChild(row);
+    });
+    return box;
+  }
+  if (item.type === "drag") {
+    const catLabel = {}; (item.cats || []).forEach(c => { catLabel[c[0]] = c[1]; });
+    const box = qzEl("div", "qz-finrev-ans");
+    box.appendChild(qzEl("div", "qz-finrev-head", "正確分類："));
+    (item.cats || []).forEach(c => {
+      (item.chips || []).filter(ch => ch.cat === c[0]).forEach(ch => {
+        const row = qzEl("div", "qz-finrev-pair");
+        row.appendChild(qzEl("span", "qz-finrev-box", ch.ch));
+        row.appendChild(qzEl("span", "qz-finrev-arrow", "→"));
+        row.appendChild(qzEl("span", "qz-finrev-box", catLabel[c[0]] || c[0]));
+        box.appendChild(row);
+      });
+    });
+    return box;
+  }
+  if (item.type === "order") {
+    const box = qzEl("div", "qz-finrev-ans");
+    box.appendChild(qzEl("div", "qz-finrev-head", "正確次序："));
+    item.parts.forEach((p, i) => {
+      const row = qzEl("div", "qz-finrev-ord");
+      row.appendChild(qzEl("span", "qz-finrev-num", String(i + 1)));
+      row.appendChild(qzEl("span", "qz-finrev-box", String(p).trim()));
+      box.appendChild(row);
+    });
+    return box;
+  }
   if (item.type === "mc") return qzEl("div", "qz-finrev-ans", "正確答案：「" + item.opts[item.ans] + "」");
   if (item.type === "imgmc") { const d = qzDispOpts(item); return qzEl("div", "qz-finrev-ans", "正確答案係第 " + (d.dispAns + 1) + " 幅圖。"); }
   if (item.type === "fill") return qzEl("div", "qz-finrev-ans", "正確答案：「" + item.segs.map((t, i) => t + (i < item.ans.length ? item.ans[i] : "")).join("") + "」");
