@@ -351,12 +351,14 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 
 .qz-scratchbtn { flex: none; border: 2px solid #F59E0B; background: #451A03; color: #FDE68A; border-radius: 50%; width: 44px; height: 44px; font-size: 19px; cursor: pointer; margin-left: 6px; }
 .qz-scratchbtn.on { background: #F59E0B; color: #451A03; }
-#qzScratch { display: none; margin-top: 12px; }
-#qzScratchCv { width: 100%; aspect-ratio: 720 / 440; background: #0F172A; border: 2px solid #F59E0B; border-radius: 12px; touch-action: none; display: block; }
-.qz-scrow { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
-.qz-scbtn { border: 2px solid #F59E0B; background: #451A03; color: #FDE68A; border-radius: 999px; padding: 8px 14px; font-size: 15px; font-weight: 800; cursor: pointer; }
+#qzScratch { display: none; margin-top: 12px; position: relative; }
+#qzScratchCv { width: 100%; aspect-ratio: 720 / 440; background: #1E293B; border: 2px solid #F59E0B; border-radius: 12px; touch-action: none; display: block; }
+#qzScratchHint { position: absolute; top: 0; left: 0; width: 100%; aspect-ratio: 720 / 440; display: flex; align-items: center; justify-content: center; color: #94A3B8; font-size: 18px; font-weight: 800; pointer-events: none; }
+#qzScratchRing { position: absolute; border: 2px dashed #FDE68A; background: rgba(253,230,138,0.18); border-radius: 50%; pointer-events: none; display: none; z-index: 2; }
+.qz-scrow { display: flex; gap: 6px; margin-top: 8px; flex-wrap: nowrap; }
+.qz-scbtn { border: 2px solid #F59E0B; background: #451A03; color: #FDE68A; border-radius: 999px; padding: 10px 2px; font-size: 15px; font-weight: 800; cursor: pointer; flex: 1 1 0; min-width: 0; white-space: nowrap; }
 .qz-scbtn.on { background: #F59E0B; color: #451A03; }
-.qz-scbtn.warn { background: #B91C1C; border-color: #FCA5A5; color: #FEE2E2; }
+.qz-scbtn.warn { background: #B91C1C; border-color: #FCA5A5; color: #FEE2E2; flex: 2 1 0; }
 .qz-scbtn:disabled { opacity: .4; cursor: default; }
 </style>
 <script data-goatcounter="https://2a-study.goatcounter.com/count"
@@ -7442,7 +7444,7 @@ function qzRenderJump() {
   fin.addEventListener("click", () => qzGo(qzItems().length));
   grid.appendChild(fin);
 }
-/* ---- Scratch pad 草稿板：quiz 層通用，轉題保留，關閉／reset 即清，唔寫入進度儲存 ---- */
+/* ---- Scratch pad 草稿板：quiz 層通用，轉題保留，關閉／reset 即清，唔寫入進度儲存；擦膠 36px＋虛線範圍圈，空白畫布顯示提示字 ---- */
 let qzScStrokes = [];
 let qzScUndone = [];
 let qzScTool = "pen";
@@ -7453,13 +7455,15 @@ function qzScratchEl() {
   p = qzEl("div"); p.id = "qzScratch";
   const cv = document.createElement("canvas"); cv.id = "qzScratchCv"; cv.width = 720; cv.height = 440;
   p.appendChild(cv);
+  const hint = document.createElement("div"); hint.id = "qzScratchHint"; hint.textContent = "✏️ 喺呢度畫草稿"; p.appendChild(hint);
+  const ring = document.createElement("div"); ring.id = "qzScratchRing"; p.appendChild(ring);
   const row = qzEl("div", "qz-scrow");
   const pen = qzEl("button", "qz-scbtn on", "✏️ 筆");
   const ers = qzEl("button", "qz-scbtn", "🧹 擦膠");
   const und = qzEl("button", "qz-scbtn", "↩️ 復原");
   const red = qzEl("button", "qz-scbtn", "↪️ 重做");
   const clr = qzEl("button", "qz-scbtn", "🗑️ 清除");
-  pen.addEventListener("click", () => { qzScTool = "pen"; pen.classList.add("on"); ers.classList.remove("on"); });
+  pen.addEventListener("click", () => { qzScTool = "pen"; pen.classList.add("on"); ers.classList.remove("on"); ring.style.display = "none"; });
   ers.addEventListener("click", () => { qzScTool = "erase"; ers.classList.add("on"); pen.classList.remove("on"); });
   und.addEventListener("click", () => { if (!qzScStrokes.length) return; qzScUndone.push(qzScStrokes.pop()); p._paint(); p._btns(); });
   red.addEventListener("click", () => { if (!qzScUndone.length) return; qzScStrokes.push(qzScUndone.pop()); p._paint(); p._btns(); });
@@ -7470,13 +7474,13 @@ function qzScratchEl() {
   });
   [pen, ers, und, red, clr].forEach(b => row.appendChild(b));
   p.appendChild(row);
-  p._pen = pen; p._ers = ers; p._und = und; p._red = red; p._clr = clr; p._clearArm = null;
+  p._pen = pen; p._ers = ers; p._und = und; p._red = red; p._clr = clr; p._clearArm = null; p._ring = ring;
   p._btns = () => { und.disabled = qzScStrokes.length === 0; red.disabled = qzScUndone.length === 0; };
   const ctx = cv.getContext("2d");
   function seg(a, b, erase) {
     ctx.save();
     ctx.lineCap = "round"; ctx.lineJoin = "round";
-    if (erase) { ctx.globalCompositeOperation = "destination-out"; ctx.strokeStyle = "rgba(0,0,0,1)"; ctx.lineWidth = 20; }
+    if (erase) { ctx.globalCompositeOperation = "destination-out"; ctx.strokeStyle = "rgba(0,0,0,1)"; ctx.lineWidth = 36; }
     else { ctx.globalCompositeOperation = "source-over"; ctx.strokeStyle = "#FDE68A"; ctx.lineWidth = 4; }
     ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
     ctx.restore();
@@ -7484,18 +7488,22 @@ function qzScratchEl() {
   p._paint = () => {
     ctx.save(); ctx.globalCompositeOperation = "source-over"; ctx.clearRect(0, 0, cv.width, cv.height); ctx.restore();
     qzScStrokes.forEach(st => { for (let i = 1; i < st.pts.length; i++) seg(st.pts[i - 1], st.pts[i], st.e); });
+    p._hint();
   };
+  p._hint = () => { hint.style.display = (qzScStrokes.length === 0 && !drawing) ? "flex" : "none"; };
   let drawing = false, cur = null;
   function ptOf(e) { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * (cv.width / r.width), (e.clientY - r.top) * (cv.height / r.height)]; }
-  cv.addEventListener("pointerdown", e => { e.preventDefault(); drawing = true; cur = { e: qzScTool === "erase", pts: [ptOf(e)] }; try { cv.setPointerCapture(e.pointerId); } catch (err) {} });
-  cv.addEventListener("pointermove", e => { if (!drawing || !cur) return; const p2 = ptOf(e); const p1 = cur.pts[cur.pts.length - 1]; seg(p1, p2, cur.e); cur.pts.push(p2); });
-  ["pointerup", "pointercancel"].forEach(t => cv.addEventListener(t, () => { if (!drawing) return; drawing = false; if (cur && cur.pts.length) { qzScStrokes.push(cur); qzScUndone = []; p._btns(); } cur = null; }));
+  function ringAt(e) { const r = cv.getBoundingClientRect(); const pr = p.getBoundingClientRect(); const s = 36 * (r.width / cv.width); ring.style.width = s + "px"; ring.style.height = s + "px"; ring.style.left = (e.clientX - pr.left - s / 2) + "px"; ring.style.top = (e.clientY - pr.top - s / 2) + "px"; ring.style.display = "block"; }
+  cv.addEventListener("pointerdown", e => { e.preventDefault(); drawing = true; cur = { e: qzScTool === "erase", pts: [ptOf(e)] }; if (qzScTool === "erase") ringAt(e); p._hint(); try { cv.setPointerCapture(e.pointerId); } catch (err) {} });
+  cv.addEventListener("pointermove", e => { if (qzScTool === "erase") ringAt(e); else ring.style.display = "none"; if (!drawing || !cur) return; const p2 = ptOf(e); const p1 = cur.pts[cur.pts.length - 1]; seg(p1, p2, cur.e); cur.pts.push(p2); });
+  ["pointerup", "pointercancel"].forEach(t => cv.addEventListener(t, () => { if (!drawing) return; drawing = false; ring.style.display = "none"; if (cur && cur.pts.length > 1) { qzScStrokes.push(cur); qzScUndone = []; p._btns(); } cur = null; p._hint(); }));
+  cv.addEventListener("pointerleave", () => { ring.style.display = "none"; });
   (wrap || document.getElementById("quizModal")).appendChild(p);
   p._btns();
   return p;
 }
 function qzScratchOpen() { const p = document.getElementById("qzScratch"); return !!(p && p.style.display !== "none" && p.style.display !== ""); }
-function qzScratchToggle() { const p = qzScratchEl(); p.style.display = qzScratchOpen() ? "none" : "block"; }
+function qzScratchToggle() { const p = qzScratchEl(); const wasOpen = qzScratchOpen(); p.style.display = wasOpen ? "none" : "block"; if (!wasOpen && p._ring) p._ring.style.display = "none"; }
 function qzScratchClear() {
   qzScStrokes = []; qzScUndone = []; qzScTool = "pen";
   const p = document.getElementById("qzScratch");
@@ -7506,6 +7514,7 @@ function qzScratchClear() {
   if (p._ers) p._ers.classList.remove("on");
   if (p._paint) p._paint();
   if (p._btns) p._btns();
+  if (p._ring) p._ring.style.display = "none";
   p.style.display = "none";
 }
 window.qzOpen = function (id, itemKey) {
