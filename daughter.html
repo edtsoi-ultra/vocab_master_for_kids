@@ -287,6 +287,14 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .ws-close { background: #475569; color: #fff; width: 36px; height: 36px; border-radius: 50%; padding: 0; font-size: 15px; flex: 0 0 auto; }
 @media screen and (min-width: 900px) {
   body { max-width: 880px; margin: 0 auto; }
+  /* iPad / wide: quiz uses the space — wider card, bigger text + tap targets */
+  .qz-wrap { max-width: 980px; padding: 14px 28px 26px; }
+  .qz-bar { max-width: 980px; }
+  .qz-card { padding: 28px 32px; }
+  .qz-q { font-size: 26px; }
+  .qz-opt { font-size: 24px; min-height: 78px; padding: 18px 12px; }
+  .qz-fb { font-size: 20px; }
+  .qz-tab { font-size: 17px; padding: 10px 18px; }
 }
 @media (max-width: 380px) {
   header h1 { flex: 1 1 100%; }
