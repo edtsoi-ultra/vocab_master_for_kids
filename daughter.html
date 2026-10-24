@@ -827,7 +827,7 @@ const SUBJ_STYLE = [
 ];
 function subjOf(item) {
   const t = (item.subject || "") + " " + (item.title || "");
-  for (const r of SUBJ_STYLE) if (r[0].test(t)) return { key: r[1], label: LANG === "en" ? (r[4] || r[2]) : r[2], color: r[3] };
+  for (const r of SUBJ_STYLE) if (r[0].test(t)) return { key: r[1], label: (LANG === "en" && r[1] === "eng") ? (r[4] || r[2]) : r[2], color: r[3] };
   return null;
 }
 function cardShell(cls, ttlText, dueText, dueCls, subj, typeText) {
