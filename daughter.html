@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>🐷 琳琳學校專頁 2A</title>
+<title>🎒 2A 學習專頁</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, "PingFang HK", "Microsoft JhengHei", sans-serif; background: linear-gradient(180deg, #0B0F19, #151C2C); color: #F8FAFC; min-height: 100vh; padding: 14px 12px 40px; }
@@ -21,6 +21,9 @@ h2.sec { font-size: 16.5px; font-weight: 900; margin: 20px 0 10px; }
 .card.notice { border-left-color: #E082FF; }
 .card .top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
 .card .ttl { font-size: 16px; font-weight: 800; line-height: 1.35; }
+.top { cursor: pointer; }
+.chev { margin-left: 6px; color: #94A3B8; font-size: 12px; align-self: center; transition: transform .15s; flex: 0 0 auto; }
+.card.open .chev { transform: rotate(180deg); }
 .ttl-sub { font-size: 12.5px; font-weight: 700; color: #94A3B8; margin-top: 1px; }
 .card .due { font-size: 13px; font-weight: 800; white-space: nowrap; }
 .due.soon { color: #FF3B5C; } .due.warn { color: #FFB300; } .due.ok { color: #E2E8F0; }
@@ -109,6 +112,7 @@ details.orig .origbody { margin-top: 6px; font-size: 14px; line-height: 1.7; col
 .cardfoot .progcnt { color: #86EFAC; }
 .resetbtn { background: none; border: none; color: #94A3B8; font-size: 12.5px; font-weight: 700; cursor: pointer; text-decoration: underline; padding: 6px 2px; }
 /* ===== Interactive quiz player v2.2 (trial) ===== */
+.quizlaunch.prev { border-color: #F59E0B; background: #451A03; color: #FDE68A; }
 .quizlaunch { width: 100%; border: 2px solid #22C55E; background: #14532D; color: #F0FDF4; border-radius: 12px; padding: 14px 12px; font-size: 15.5px; font-weight: 900; cursor: pointer; line-height: 1.45; min-height: 52px; }
 .qzgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
 .qzlesson { border: 2px solid #22C55E; background: #14532D; color: #F0FDF4; border-radius: 12px; padding: 12px 10px; font-size: 15px; font-weight: 900; cursor: pointer; line-height: 1.4; min-height: 52px; text-align: left; }
@@ -156,6 +160,7 @@ body.parent .parentbar { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 1
 .statline { color: #FCD34D !important; }
 body.kid .statline { display: none; }
 .kidface { display: none; }
+body.kid .card[data-hasquiz="1"] .blk.practice { display: none; }
 body.kid .kidface { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
 .kidbtn { width: 100%; box-sizing: border-box; background: #14532D; border: 2px solid #22C55E; color: #BBF7D0; border-radius: 12px; padding: 12px 14px; font-size: 15.5px; font-weight: 900; cursor: pointer; min-height: 52px; }
 .kidbtn.alt { background: #172554; border-color: #38BDF8; color: #BAE6FD; }
@@ -171,7 +176,9 @@ body.kid .kidface { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; mar
 .scopepill { display: inline-block; background: #334155; border: 1px solid #64748B; color: #E2E8F0; border-radius: 14px; padding: 1px 9px; margin: 2px 3px 2px 0; font-size: 12.5px; font-weight: 800; }
 details.donedrawer { margin-top: 12px; border: 1.5px dashed #475569; border-radius: 12px; padding: 10px 12px; }
 details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900; color: #A7F3D0; padding: 6px 2px; }
-.forcebtn { display: inline-block; margin: 2px 0 4px 10px; background: #1E293B; border: 1.5px solid #38BDF8; color: #7DD3FC; border-radius: 16px; padding: 5px 12px; font-size: 12.5px; font-weight: 800; cursor: pointer; min-height: 34px; vertical-align: middle; }
+.iconbtn { width: 36px; height: 36px; border-radius: 50%; background: #1E293B; border: 1.5px solid #38BDF8; font-size: 15px; cursor: pointer; padding: 0; flex: 0 0 auto; }
+.updmini { font-size: 11px; color: #94A3B8; white-space: nowrap; align-self: center; margin-left: auto; }
+#collapseAll { flex: 0 0 auto; }
 #quizModal { display: none; position: fixed; inset: 0; background: rgba(2,6,23,.97); z-index: 1100; flex-direction: column; overscroll-behavior: contain; }
 .qz-bar { width: 100%; max-width: 720px; margin: 0 auto; padding: 10px; display: flex; gap: 8px; justify-content: space-between; align-items: center; flex-wrap: wrap; flex: none; }
 .qz-tabs { display: flex; gap: 6px; }
@@ -183,7 +190,7 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 #qzStage { min-height: 380px; }
 .qz-footer { flex: none; width: 100%; max-width: 720px; margin: 0 auto; display: flex; align-items: center; gap: 8px; padding: 9px 10px calc(9px + env(safe-area-inset-bottom)); background: #0B1220; border-top: 1.5px solid #334155; }
 .qz-footer .qz-btn { flex: none; padding: 10px 13px; font-size: 14px; }
-#qzDots { flex: 1; display: flex; gap: 5px; flex-wrap: wrap; justify-content: center; }
+#qzDots { flex: 1; display: flex; gap: 5px; flex-wrap: nowrap; overflow-x: auto; justify-content: center; padding: 2px 0; }
 .qz-dot { width: 28px; height: 28px; border-radius: 9px; border: 2px solid #64748B; background: #1E293B; color: #F1F5F9; font-size: 12.5px; font-weight: 900; cursor: pointer; padding: 0; line-height: 1; }
 .qz-dot.cur { border-color: #F59E0B; color: #FDE68A; box-shadow: 0 0 0 2px rgba(245,158,11,.4); }
 .qz-dot.done { border-color: #22C55E; background: #14532D; }
@@ -257,7 +264,7 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .ws-bar { max-width: 820px; margin: 0 auto 10px; display: flex; gap: 8px; justify-content: flex-end; }
 .ws-bar button { border: none; border-radius: 9px; padding: 9px 16px; font-size: 14px; font-weight: 800; cursor: pointer; }
 .ws-print { background: #2563EB; color: #fff; }
-.ws-close { background: #475569; color: #fff; }
+.ws-close { background: #475569; color: #fff; width: 36px; height: 36px; border-radius: 50%; padding: 0; font-size: 15px; flex: 0 0 auto; }
 @media print {
   body { background: #fff !important; padding: 0; }
   body > header, body > .sub, #topnav, #actionBanner, #app, footer { display: none !important; }
@@ -269,9 +276,8 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 </style>
 </head>
 <body>
-<header><h1>🐷 琳琳學校專頁</h1><span class="badge">2A</span><span class="modesw"><button id="modeParent" class="modebtn on">👨‍👩‍👧 家長</button><button id="modeKid" class="modebtn">👧 琳琳溫書</button></span><button id="langToggle" class="modebtn">EN</button></header>
-<div class="sub" id="upd">載入中…</div><button id="forceReload" class="forcebtn">🔄 刷新</button>
-<nav id="topnav"><button class="navbtn on" data-filter="all">全部</button><button class="navbtn" data-filter="exam">⏰ 測驗 <span id="cntExam"></span></button><button class="navbtn" data-filter="hw">📝 功課 <span id="cntHw"></span></button><button class="navbtn" data-filter="notice">📢 通告 <span id="cntNotice"></span></button><button class="navbtn collapseall" id="collapseAll">⏬ Expand</button></nav>
+<header><h1>🎒 2A 學習專頁</h1><span class="modesw"><button id="modeParent" class="modebtn on">👨‍👩‍👧 家長</button><button id="modeKid" class="modebtn">👧 溫書</button></span><button id="langToggle" class="modebtn">EN</button><button id="forceReload" class="iconbtn" aria-label="reload">🔄</button></header>
+<nav id="topnav"><button class="navbtn on" data-filter="all">全部</button><button class="navbtn" data-filter="exam">⏰ 測驗 <span id="cntExam"></span></button><button class="navbtn" data-filter="hw">📝 功課 <span id="cntHw"></span></button><button class="navbtn" data-filter="notice">📢 通告 <span id="cntNotice"></span></button><span id="upd" class="updmini">…</span><button class="navbtn collapseall" id="collapseAll">⏬ Expand</button></nav>
 <div id="actionBanner"></div>
 <div id="app"></div>
 <div id="quizModal"><div class="qz-bar"><div class="qz-tabs"><button id="qzTabEasy" class="qz-tab on">簡易版</button><button id="qzTabNormal" class="qz-tab">正常版</button></div><span id="qzScore">⭐ 0 / 13</span><span id="qzStreak"></span><button class="ws-close" id="quizCloseBtn">✕ 關閉</button></div><div class="qz-wrap"><div id="qzStage"></div></div><div class="qz-footer"><button id="qzPrev" class="qz-btn alt">← 上一題</button><div id="qzDots"></div><button id="qzNext" class="qz-btn">下一題 →</button></div></div>
@@ -280,8 +286,8 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 <script>
 const $app = document.getElementById("app");
 const STR = {
-  zh: { title: "🐷 琳琳學校專頁", modeParent: "👨‍👩‍👧 家長", modeKid: "👧 琳琳溫書", nav_all: "全部", nav_exam: "⏰ 測驗", nav_hw: "📝 功課", nav_notice: "📢 通告", easy: "簡易版", normal: "正常版", prev: "← 上一題", next: "下一題 →", close: "✕ 關閉", wsPrint: "🖨️ 列印 / 儲存 PDF", updated: "最後更新：", updSuffix: "｜撳 Widget 隨時返嚟呢頁", loadFail: "⚠️ 資料載入失敗，請稍後再開", secExam: "⏰ 測驗・默書・評估", secHw: "📚 未交功課", secNotice: "📣 未簽通告", emptyExam: "暫時冇測驗／默書／評估", emptyHw: "✅ 功課全部交齊", emptyNotice: "✅ 冇未簽通告", doneItems: "✅ 已完成項目", done: "已完成", today: "今日！", tmr: "聽日！", duePrefix: "📅 截止：", unsigned: "✍️ 未簽署", replyBy: "｜回條死線：", scope: "範圍：", startRevise: "▶️ 開始溫習", closeUp: "收起 ▲", hwOpen: "📋 睇指示 / 提示 ▼", origText: "睇學校原文", blkDetail: "📋 內容／指示（學校原文）", blkPoints: "📌 要點", blkFocus: "🎯 重點注意", blkWords: "📝 字詞表", wordsLegend: "每組：字詞 + 🔊（只讀嗰個，讀兩次）+ 剔格（剔咗 ✓ 變綠色 = 識咗）", speakWords: "🔊 讀默字詞", blkSent: "🗣 讀默句子", sentLegend: "每句有自己嘅 🔊 掣（只讀嗰句，讀兩次）同剔格，識咗就剔", blkRecite: "🎒 背默（遮住先，背完先好開嚟對）", reciteLegend: "背默段落預設遮住：背完撳 👁 開嚟對；🔊 只讀嗰段兩次；識背就剔 ✓", blkHints: "💡 點樣幫佢做（AI 輔助）", blkPractice: "✏️ 練習題（AI 生成）", ansCheck: "🔑 家長核對答案", ansKey: "🔑 家長核對（問功課紀錄）", blkQuiz: "🎮 互動練習", qzPreview: "👀 預覽版・㩒入去玩", qzSets: "簡易版／正常版・㩒入去玩", qzAwait: "等課文入庫", qzSoon: "準備中", ptools: "🧰 家長工具／選項", wsPreview: "🖨️ 工作紙預覽 / 列印", wsWord: "📄 下載 Word", qaBtn: "📋 題目與答案", print: "🖨️ 印工作紙", teview: "📋 題目與答案（教師版）", objTitle: "🎯 溫習目標", kidQuiz: "🎮 互動練習 ▶", kidWords: "🔊 聽讀默 / 認字 ▼", folder: "🗓️ 下個月大考預習（評估一 · {n}科）", verified: "✅ 資料已核實", bankReady: "✅ 題庫已齊", stepsDone: "📋 完成步驟", learned: "✅ 已識", gotIt: "✅識咗", reset: "↺ 重置進度", flagT: "⚠️ 未上傳相片", flagS: "請家長上傳課本／默書紙相片，以生成精準字表。", tierVerified: "✅ 已核實內容", tierKb: "📚 按課本內容生成", tierGuessC: "⚠️ 待傳相片", tierGuess: "⚠️ 基礎範圍練習", expand: "⏬ 展開", collapse: "⏫ 收起", remainToday: "今日到期！", remainTmr: "聽日到期" },
-  en: { title: "🐷 Lin Lin's School Page", modeParent: "👨‍👩‍👧 Parents", modeKid: "👧 Study Mode", nav_all: "All", nav_exam: "⏰ Tests", nav_hw: "📝 Homework", nav_notice: "📢 Notices", easy: "Easy", normal: "Normal", prev: "← Prev", next: "Next →", close: "✕ Close", wsPrint: "🖨️ Print / Save PDF", updated: "Updated: ", updSuffix: " | Tap the widget to come back", loadFail: "⚠️ Could not load data, please reopen later", secExam: "⏰ Tests · Dictations · Assessments", secHw: "📚 Homework Due", secNotice: "📣 Notices to Sign", emptyExam: "No tests / dictations / assessments for now", emptyHw: "✅ All homework handed in", emptyNotice: "✅ No unsigned notices", doneItems: "✅ Completed items", done: "Done", today: "Today!", tmr: "Tomorrow!", duePrefix: "📅 Due: ", unsigned: "✍️ Unsigned", replyBy: " | Reply deadline: ", scope: "Scope: ", startRevise: "▶️ Start revising", closeUp: "Close ▲", hwOpen: "📋 Instructions / Tips ▼", origText: "School original text", blkDetail: "📋 Instructions (school original)", blkPoints: "📌 Key points", blkFocus: "🎯 Focus", blkWords: "📝 Word list", wordsLegend: "Each item: word + 🔊 (reads that word twice) + checkbox (✓ green = learned)", speakWords: "🔊 Play dictation words", blkSent: "🗣 Dictation sentences", sentLegend: "Each sentence has its own 🔊 button (reads twice) and a checkbox", blkRecite: "🎒 Recitation (covered — recite first, then peek)", reciteLegend: "Covered by default: recite, tap 👁 to check; 🔊 reads it twice; tick ✓ when you can recite it", blkHints: "💡 How to help (AI tips)", blkPractice: "✏️ Practice (AI-generated)", ansCheck: "🔑 Answers (parents)", ansKey: "🔑 Answer key (homework record)", blkQuiz: "🎮 Interactive practice", qzPreview: "👀 Preview · tap to play", qzSets: "Easy / Normal · tap to play", qzAwait: "Waiting for textbook", qzSoon: "Coming soon", ptools: "🧰 Parent tools", wsPreview: "🖨️ Worksheet preview / print", wsWord: "📄 Download Word", qaBtn: "📋 Questions & Answers", print: "🖨️ Print worksheet", teview: "📋 Questions & Answers (Teacher's Edition)", objTitle: "🎯 Study goals", kidQuiz: "🎮 Interactive practice ▶", kidWords: "🔊 Listen & learn words ▼", folder: "🗓️ Next month's big test (Assessment 1 · {n} subjects)", verified: "✅ Content verified", bankReady: "✅ Question bank ready", stepsDone: "📋 Steps done", learned: "✅ Learned", gotIt: "✅ Got it", reset: "↺ Reset progress", flagT: "⚠️ Photos not uploaded yet", flagS: "Please upload textbook / dictation sheet photos to generate an accurate word list.", tierVerified: "✅ Verified content", tierKb: "📚 Built from textbook", tierGuessC: "⚠️ Photos needed", tierGuess: "⚠️ Based on scope only", expand: "⏬ Expand", collapse: "⏫ Collapse", remainToday: "Due today!", remainTmr: "Due tomorrow" }
+  zh: { title: "🎒 2A 學習專頁", modeParent: "👨‍👩‍👧 家長", modeKid: "👧 溫書", nav_all: "全部", nav_exam: "⏰ 測驗", nav_hw: "📝 功課", nav_notice: "📢 通告", easy: "簡易版", normal: "正常版", prev: "← 上一題", next: "下一題 →", close: "✕", wsPrint: "🖨️ 列印 / 儲存 PDF", updated: "最後更新：", updSuffix: "", loadFail: "⚠️ 資料載入失敗，請稍後再開", secExam: "⏰ 測驗・默書・評估", secHw: "📚 未交功課", secNotice: "📣 未簽通告", emptyExam: "暫時冇測驗／默書／評估", emptyHw: "✅ 功課全部交齊", emptyNotice: "✅ 冇未簽通告", doneItems: "✅ 已完成項目", done: "已完成", today: "今日！", tmr: "聽日！", duePrefix: "📅 截止：", unsigned: "✍️ 未簽署", replyBy: "｜回條死線：", scope: "範圍：", startRevise: "▶️ 開始溫習", closeUp: "收起 ▲", hwOpen: "📋 睇指示 / 提示 ▼", origText: "睇學校原文", blkDetail: "📋 內容／指示（學校原文）", blkPoints: "📌 要點", blkFocus: "🎯 重點注意", blkWords: "📝 字詞表", wordsLegend: "每組：字詞 + 🔊（只讀嗰個，讀兩次）+ 剔格（剔咗 ✓ 變綠色 = 識咗）", speakWords: "🔊 讀默字詞", blkSent: "🗣 讀默句子", sentLegend: "每句有自己嘅 🔊 掣（只讀嗰句，讀兩次）同剔格，識咗就剔", blkRecite: "🎒 背默（遮住先，背完先好開嚟對）", reciteLegend: "背默段落預設遮住：背完撳 👁 開嚟對；🔊 只讀嗰段兩次；識背就剔 ✓", blkHints: "💡 點樣幫佢做（AI 輔助）", blkPractice: "✏️ 練習題（AI 生成）", ansCheck: "🔑 家長核對答案", ansKey: "🔑 家長核對（問功課紀錄）", blkQuiz: "🎮 互動練習", qzPreview: "👀 㩒入去玩", qzSets: "簡易版／正常版・㩒入去玩", qzAwait: "等課文入庫", qzSoon: "準備中", ptools: "🧰 家長工具／選項", wsPreview: "🖨️ 工作紙 / 列印", wsWord: "📄 下載 Word", qaBtn: "📋 題目與答案", print: "🖨️ 印工作紙", teview: "📋 題目與答案（教師版）", objTitle: "🎯 溫習目標", kidQuiz: "🎮 互動練習 ▶", kidWords: "🔊 聽讀默 / 認字 ▼", folder: "🗓️ 評估一預習（共{n}科）", inDays: " · {d} 日後", verified: "✅ 資料已核實", bankReady: "✅ 題庫已齊", stepsDone: "📋 完成步驟", learned: "✅ 已識", gotIt: "✅識咗", reset: "↺ 重置進度", flagT: "⚠️ 未上傳相片", flagS: "請家長上傳課本／默書紙相片，以生成精準字表。", tierVerified: "✅ 已核實內容", tierKb: "📚 按課本內容生成", tierGuessC: "⚠️ 待傳相片", tierGuess: "⚠️ 基礎範圍練習", expand: "⏬ 展開", collapse: "⏫ 收起", remainToday: "今日到期！", remainTmr: "聽日到期" },
+  en: { title: "🎒 2A Study Page", modeParent: "👨‍👩‍👧 Parents", modeKid: "👧 Study", nav_all: "All", nav_exam: "⏰ Tests", nav_hw: "📝 Homework", nav_notice: "📢 Notices", easy: "Easy", normal: "Normal", prev: "← Prev", next: "Next →", close: "✕", wsPrint: "🖨️ Print / Save PDF", updated: "Updated: ", updSuffix: "", loadFail: "⚠️ Could not load data, please reopen later", secExam: "⏰ Tests · Dictations · Assessments", secHw: "📚 Homework Due", secNotice: "📣 Notices to Sign", emptyExam: "No tests / dictations / assessments for now", emptyHw: "✅ All homework handed in", emptyNotice: "✅ No unsigned notices", doneItems: "✅ Completed items", done: "Done", today: "Today!", tmr: "Tomorrow!", duePrefix: "📅 Due: ", unsigned: "✍️ Unsigned", replyBy: " | Reply deadline: ", scope: "Scope: ", startRevise: "▶️ Start revising", closeUp: "Close ▲", hwOpen: "📋 Instructions / Tips ▼", origText: "School original text", blkDetail: "📋 Instructions (school original)", blkPoints: "📌 Key points", blkFocus: "🎯 Focus", blkWords: "📝 Word list", wordsLegend: "Each item: word + 🔊 (reads that word twice) + checkbox (✓ green = learned)", speakWords: "🔊 Play dictation words", blkSent: "🗣 Dictation sentences", sentLegend: "Each sentence has its own 🔊 button (reads twice) and a checkbox", blkRecite: "🎒 Recitation (covered — recite first, then peek)", reciteLegend: "Covered by default: recite, tap 👁 to check; 🔊 reads it twice; tick ✓ when you can recite it", blkHints: "💡 How to help (AI tips)", blkPractice: "✏️ Practice (AI-generated)", ansCheck: "🔑 Answers (parents)", ansKey: "🔑 Answer key (homework record)", blkQuiz: "🎮 Interactive practice", qzPreview: "👀 Tap to play", qzSets: "Easy / Normal · tap to play", qzAwait: "Waiting for textbook", qzSoon: "Coming soon", ptools: "🧰 Parent tools", wsPreview: "🖨️ Worksheet preview / print", wsWord: "📄 Download Word", qaBtn: "📋 Questions & Answers", print: "🖨️ Print worksheet", teview: "📋 Questions & Answers (Teacher's Edition)", objTitle: "🎯 Study goals", kidQuiz: "🎮 Interactive practice ▶", kidWords: "🔊 Listen & learn words ▼", folder: "🗓️ Assessment 1 prep ({n} subjects)", inDays: " · in {d} days", verified: "✅ Content verified", bankReady: "✅ Question bank ready", stepsDone: "📋 Steps done", learned: "✅ Learned", gotIt: "✅ Got it", reset: "↺ Reset progress", flagT: "⚠️ Photos not uploaded yet", flagS: "Please upload textbook / dictation sheet photos to generate an accurate word list.", tierVerified: "✅ Verified content", tierKb: "📚 Built from textbook", tierGuessC: "⚠️ Photos needed", tierGuess: "⚠️ Based on scope only", expand: "⏬ Expand", collapse: "⏫ Collapse", remainToday: "Due today!", remainTmr: "Due tomorrow" }
 };
 let LANG = "zh";
 try { LANG = localStorage.getItem("daughter-lang") === "en" ? "en" : "zh"; } catch (e) {}
@@ -291,7 +297,7 @@ function applyStaticI18n() {
   document.getElementById("modeParent").textContent = T("modeParent");
   document.getElementById("modeKid").textContent = T("modeKid");
   const lt = document.getElementById("langToggle"); if (lt) lt.textContent = LANG === "zh" ? "EN" : "中文";
-  document.querySelectorAll("#topnav .navbtn[data-filter]").forEach(b => { const cnt = b.querySelector("span"); b.textContent = T("nav_" + b.dataset.filter) + " "; if (cnt) b.appendChild(cnt); });
+  document.querySelectorAll("#topnav .navbtn[data-filter]").forEach(b => { const cnt = b.querySelector("span"); const f = b.dataset.filter; b.textContent = f === "all" ? T("nav_all") : ({ exam: "⏰", hw: "📝", notice: "📢" })[f] + " "; if (cnt) b.appendChild(cnt); });
   document.getElementById("qzTabEasy").textContent = T("easy");
   document.getElementById("qzTabNormal").textContent = T("normal");
   document.getElementById("qzPrev").textContent = T("prev");
@@ -379,6 +385,7 @@ function checkLabel(cardKey, itemId, labelText) {
 function refreshProgCounts() {
   const totals = {};
   document.querySelectorAll("input.lcb").forEach(cb => {
+    if (document.body.classList.contains("kid") && cb.closest(".blk.practice")) { const cd = cb.closest(".card"); if (cd && cd.dataset.hasquiz === "1") return; }
     const k = cb.dataset.card;
     if (!totals[k]) totals[k] = { t: 0, d: 0 };
     totals[k].t++;
@@ -525,7 +532,6 @@ function enrichmentHTML(card, item, opts) {
   const checkable = !!opts.checkable;
   const isGuess = item.source_tier === "scope_guess";
   const isDict = /默書/.test(item.type || "") || /默書|Dict/.test(item.title || "");
-  if (opts.showTier && !isGuess) { const tb = tierBadge(item); if (tb) card.appendChild(tb); }
   if (item.flag && !(item.days_left != null && item.days_left < 0)) card.appendChild(el("div", "flag", item.flag));
   else if (isGuess && !(item.days_left != null && item.days_left < 0)) { const fl = el("div", "flag"); fl.appendChild(el("span", "flag-t", T("flagT"))); fl.appendChild(el("span", "flag-s", T("flagS"))); card.appendChild(fl); }
   const tabs = buildTabs(card, item);
@@ -664,7 +670,7 @@ function enrichmentHTML(card, item, opts) {
       const label = "第" + L.n + "課" + (L.title ? "《" + L.title + "》" : "");
       if (L.status === "live" || L.status === "preview") {
         const qb = el("button", "qzlesson" + (L.status === "preview" ? " preview" : ""), "▶ " + label);
-        qb.appendChild(el("small", null, L.status === "preview" ? T("qzPreview") : T("qzSets")));
+        qb.appendChild(el("small", null, T("qzSets")));
         qb.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(L.id, item.key); });
         grid.appendChild(qb);
       } else {
@@ -680,7 +686,7 @@ function enrichmentHTML(card, item, opts) {
   else if (item.quiz && item.quiz.sets) {
     item.quiz.sets.forEach((qs) => {
       const row = el("div", "wsrow");
-      const qb = el("button", "quizlaunch", "▶ " + T("blkQuiz") + "：" + qs.title + "（" + T("easy") + "／" + T("normal") + "）");
+      const qb = el("button", "quizlaunch" + (qs.status === "preview" ? " prev" : ""), "▶ " + T("blkQuiz") + "：" + qs.title + "（" + T("easy") + "／" + T("normal") + "）");
       qb.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(qs.id, item.key); });
       row.appendChild(qb);
       card.appendChild(row);
@@ -688,7 +694,7 @@ function enrichmentHTML(card, item, opts) {
   }
   else if (item.quiz) {
     const row = el("div", "wsrow");
-    const qb = el("button", "quizlaunch", "▶ " + T("blkQuiz") + "：" + (item.quiz.title || "") + "（" + T("easy") + "／" + T("normal") + "）");
+    const qb = el("button", "quizlaunch" + (item.quiz.status === "preview" ? " prev" : ""), "▶ " + T("blkQuiz") + "：" + (item.quiz.title || "") + "（" + T("easy") + "／" + T("normal") + "）");
     qb.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(item.quiz.id, item.key); });
     row.appendChild(qb);
     card.appendChild(row);
@@ -841,6 +847,7 @@ function cardShell(cls, ttlText, dueText, dueCls, subj, typeText) {
   ttl.appendChild(document.createTextNode(ttlText));
   top.appendChild(ttl);
   if (dueText) top.appendChild(el("div", "due " + dueCls, dueText));
+  top.appendChild(el("span", "chev", "▼"));
   c.appendChild(top);
   return c;
 }
@@ -853,32 +860,35 @@ function anyOpen() { return visibleCards().some(c => c.classList.contains("open"
 function updateToggleBtn() { const b = document.getElementById("collapseAll"); if (b) b.textContent = anyOpen() ? T("collapse") : T("expand"); }
 function toggleAllCards() { const open = anyOpen(); visibleCards().forEach(c => open ? collapseCard(c) : expandCard(c)); updateToggleBtn(); }
 let _lastData = null;
-function applyAssessFolder(mode) {
+function applyAssessFolder() {
   const wrap = document.querySelector('.secwrap[data-sec="exam"]');
   if (!wrap || !_lastData) return;
+  const subs = (_lastData.upcoming || []).filter(u => u.key && u.key.indexOf("ASSESS_1") === 0 && u.days_left != null && u._cid);
   let folder = wrap.querySelector(".assessfolder");
-  if (mode === "kid") {
-    const far = (_lastData.upcoming || []).filter(u => u.days_left != null && u.days_left > 20 && u._cid);
-    if (!far.length) return;
-    if (!folder) {
-      folder = el("div", "assessfolder");
-      const fh = el("button", "afhead", T("folder").replace("{n}", far.length) + " ▼");
-      const fb = el("div", "af-body");
-      fh.addEventListener("click", () => { const on = folder.classList.toggle("open"); fh.textContent = T("folder").replace("{n}", far.length) + (on ? " ▲" : " ▼"); });
-      folder.appendChild(fh); folder.appendChild(fb);
-      wrap.appendChild(folder);
-    }
-    const fb = folder.querySelector(".af-body");
-    far.forEach(u => { const c = document.getElementById(u._cid); if (c) fb.appendChild(c); });
-  } else if (folder) {
-    (_lastData.upcoming || []).forEach(u => { const c = u._cid && document.getElementById(u._cid); if (c && c.parentElement !== wrap) wrap.insertBefore(c, folder); });
-    folder.remove();
+  if (!subs.length) return;
+  const minD = Math.min.apply(null, subs.map(u => u.days_left));
+  if (minD <= 7) { // assessment week: cards return to the main list
+    if (folder) { subs.forEach(u => { const c = document.getElementById(u._cid); if (c && c.parentElement !== wrap) wrap.insertBefore(c, folder); }); folder.remove(); }
+    return;
   }
+  if (!folder) {
+    folder = el("div", "assessfolder");
+    const fb = el("div", "af-body");
+    const fh = el("button", "afhead", "");
+    const label = () => T("folder").replace("{n}", subs.length) + T("inDays").replace("{d}", minD) + (folder.classList.contains("open") ? " ▲" : " ▼");
+    fh.addEventListener("click", () => { folder.classList.toggle("open"); fh.textContent = label(); });
+    folder.appendChild(fh); folder.appendChild(fb);
+    wrap.appendChild(folder);
+    folder._fb = fb; folder._label = label;
+    fh.textContent = label();
+  }
+  subs.forEach(u => { const c = document.getElementById(u._cid); if (c && c.parentNode !== folder._fb) folder._fb.appendChild(c); });
 }
 function openCardById(id) {
   const c = document.getElementById(id);
   if (!c) return;
   setFilter("all");
+  const fld = c.closest(".assessfolder"); if (fld) fld.classList.add("open");
   expandCard(c);
   setTimeout(() => c.scrollIntoView({ behavior: "smooth", block: "start" }), 40);
 }
@@ -887,16 +897,17 @@ function makeCollapsible(c, item, opts) {
   const ck = ckFor(opts.sec || "", item);
   c._expandLabel = opts.expandLabel || T("startRevise");
   const foot = el("div", "cardfoot");
-  const tag = (item.days_left != null && item.days_left < 0) ? null : tierBadge(item, true); if (tag) foot.appendChild(tag);
   const allP = item.practice || [];
   const taskN = allP.filter(p => p && (p.guide || isTaskQ(p))).length;
   const pc = allP.length - taskN;
-  if (pc) foot.appendChild(el("span", "pcount", LANG === "en" ? "✏️ " + pc + " practice Qs" : "✏️ " + pc + " 題練習"));
-  if (taskN) foot.appendChild(el("span", "pcount", LANG === "en" ? "🎯 " + taskN + " study goals" : "🎯 " + taskN + " 項溫習目標"));
-  const slText = item.flag ? item.flag : (item.quiz ? T("bankReady") : (item.source_tier === "verified_capture" ? T("verified") : ""));
+  if (pc) foot.appendChild(el("span", "pcount", "✏️ " + pc));
+  if (taskN) foot.appendChild(el("span", "pcount", "🎯 " + taskN));
+  const qn = item.quiz ? ((item.quiz.lessons || []).filter(l => l.status === "live" || l.status === "preview").length + (item.quiz.sets || []).length + (item.quiz.id ? 1 : 0)) : 0;
+  if (qn) { foot.appendChild(el("span", "pcount", "🎮 " + qn)); c.dataset.hasquiz = "1"; }
+  const slText = item.flag ? item.flag : (item.quiz ? T("bankReady") : (item.source_tier === "verified_capture" ? T("verified") : (item.source_tier === "scope_guess" ? T("flagT") : "")));
   if (slText) foot.appendChild(el("span", "pcount statline", slText));
   const wc = (item.words && item.words.length) || 0;
-  if (wc) foot.appendChild(el("span", "pcount", "📝 " + wc + " 字詞"));
+  if (wc) foot.appendChild(el("span", "pcount", "📖 " + wc));
   const ps = el("span", "pcount progcnt");
   ps.setAttribute("data-prog-for", ck); ps.dataset.progLabel = opts.sec === "hw" ? T("stepsDone") : T("learned");
   ps.style.display = "none";
@@ -906,10 +917,6 @@ function makeCollapsible(c, item, opts) {
   pbar.style.display = "none";
   pbar.appendChild(el("div", "pfill"));
   foot.appendChild(pbar);
-  const btn = el("button", "toggle", c._expandLabel);
-  btn.addEventListener("click", (e) => { e.stopPropagation(); toggleCard(c); });
-  foot.appendChild(btn);
-  c._toggleBtn = btn;
   c.appendChild(foot);
   const body = el("div", "cardbody");
   const bar = el("div", "progbar");
@@ -993,7 +1000,7 @@ const MODE_LSK = "daughter-mode";
 function setMode(m) {
   document.body.classList.toggle("kid", m === "kid");
   document.body.classList.toggle("parent", m !== "kid");
-  applyAssessFolder(m);
+  applyAssessFolder();
   document.querySelectorAll(".card").forEach(c => c.classList.toggle("open", m !== "kid"));
   updateToggleBtn();
   document.getElementById("modeParent").classList.toggle("on", m !== "kid");
@@ -1062,13 +1069,13 @@ fetch("daughter-detail.json?t=" + Date.now())
     const nts = [...((d.notices && d.notices.items) || [])].sort(byDue);
     if (nts.length) nts.forEach(n => ntWrap.appendChild(noticeCard(n)));
     else ntWrap.appendChild(el("div", "empty", T("emptyNotice")));
-    document.getElementById("cntExam").textContent = "(" + ups.length + ")";
-    document.getElementById("cntHw").textContent = "(" + hws.length + ")";
-    document.getElementById("cntNotice").textContent = "(" + nts.length + ")";
+    document.getElementById("cntExam").textContent = "" + ups.length;
+    document.getElementById("cntHw").textContent = "" + hws.length;
+    document.getElementById("cntNotice").textContent = "" + nts.length;
     buildBanner({ upcoming: ups, homework: hws, notices: d.notices });
     refreshProgCounts();
     _lastData = d;
-    applyAssessFolder(document.body.classList.contains("kid") ? "kid" : "parent");
+    applyAssessFolder();
     if (!document.body.classList.contains("kid")) document.querySelectorAll(".card").forEach(c => c.classList.add("open"));
     updateToggleBtn();
     const hk = (location.hash || "").replace(/^#/, "");
@@ -1168,28 +1175,28 @@ const QZ_L6 = {
   ]}
 };
 const QZ_L7 = {
-  easy: { label: "簡易版（預覽）", items: [
-    { type: "mc", skill: "課文內容", tag: "點選題 MC・預覽", q: "「鬍子好比一把尺子」，鬍子像咩？", opts: ["一面鏡子", "一把尺子", "一條繩子", "一支筆杆"], ans: 1, why: "預覽題（按默書範圍）：貓媽媽說鬍子好比一把尺子，用來量一量過唔過到個洞。", hint: "💡 鬍子用嚟「量」嘢。", label: "預覽：鬍子像尺子" },
-    { type: "mc", skill: "課文內容", tag: "點選題 MC・預覽", q: "鬍子俾刮掉，小花貓會點？", opts: ["撞得頭破血流", "跑步跑得快啲", "睇嘢清楚好多", "食嘢方便好多"], ans: 0, why: "預覽題：課文話鬍子被刮掉，就會碰得頭破血流。", hint: "💡 冇咗尺子量，入洞嗰陣會點？", label: "預覽：刮鬍子的後果" },
-    { type: "mc", skill: "課文內容", tag: "點選題 MC・預覽", q: "邊個話鬍子好比一把尺子？", opts: ["小花貓", "主人", "貓媽媽", "老鼠"], ans: 2, why: "預覽題：係貓媽媽耐心地同小花貓講嘅。", hint: "💡 邊個最錫小花貓，會教佢？", label: "預覽：誰說的" },
-    { type: "mc", skill: "詞語運用", tag: "點選題 MC・預覽", q: "小花貓對住咩嚟照自己個樣？", opts: ["池水", "窗門", "相片", "鏡子"], ans: 3, why: "預覽題（默書詞語：鏡子、難看、樣子）：小花貓照鏡子，覺得鬍子難看。", hint: "💡 喺浴室會見到，可以照到自己。", label: "預覽：照鏡子" },
-    { type: "mc", skill: "詞語運用", tag: "點選題 MC・預覽", q: "「乾乾淨淨」係形容咩？", opts: ["好清潔冇污糟", "好整齊冇亂嘢", "好安靜冇聲音", "好光亮冇暗影"], ans: 0, why: "預覽題：「乾乾淨淨」即係清潔得好好，冇污糟。", hint: "💡 同「污糟」相反。", label: "預覽：乾乾淨淨" },
-    { type: "match", skill: "詞語運用", tag: "配對 Matching・預覽", q: "詞語配意思：先㩒左邊詞語，再㩒右邊佢嘅意思。", pairs: [["難看", "唔好睇"], ["追捕", "追住嚟捉"], ["幫忙", "幫手做事"], ["辦法", "做事的方法"]], right: ["幫手做事", "做事的方法", "唔好睇", "追住嚟捉"], hint: "💡 「追捕」即係追住嚟捉。", label: "預覽：詞語配對" },
-    { type: "order", skill: "背默句子", tag: "句子重組 Order・預覽", q: "按背默句子排好：㩒詞語放入框。", parts: ["小花貓在一旁仰着腦袋", "碧綠的大眼睛", "一眨不眨地看着主人"], shuffled: ["一眨不眨地看着主人", "小花貓在一旁仰着腦袋", "碧綠的大眼睛"], label: "預覽：背默句重組" },
-    { type: "reveal", skill: "思考與理解", tag: "諗深一層・預覽", q: "點解小花貓以後唔再刮鬍子？", answer: "因為鬍子好比一把尺子，幫佢量一量自己過唔過到個洞。刮掉鬍子，就會碰得頭破血流，所以佢以後都唔再刮鬍子了。", label: "預覽：不再刮鬍子" }
+  easy: { label: "簡易版", items: [
+    { type: "mc", skill: "課文內容", tag: "點選題 MC", q: "「鬍子好比一把尺子」，鬍子像咩？", opts: ["一面鏡子", "一把尺子", "一條繩子", "一支筆杆"], ans: 1, why: "貓媽媽說鬍子好比一把尺子，用來量一量過唔過到個洞。", hint: "💡 鬍子用嚟「量」嘢。", label: "鬍子像尺子" },
+    { type: "mc", skill: "課文內容", tag: "點選題 MC", q: "鬍子俾刮掉，小花貓會點？", opts: ["撞得頭破血流", "跑步跑得快啲", "睇嘢清楚好多", "食嘢方便好多"], ans: 0, why: "課文話鬍子被刮掉，就會碰得頭破血流。", hint: "💡 冇咗尺子量，入洞嗰陣會點？", label: "刮鬍子的後果" },
+    { type: "mc", skill: "課文內容", tag: "點選題 MC", q: "邊個話鬍子好比一把尺子？", opts: ["小花貓", "主人", "貓媽媽", "老鼠"], ans: 2, why: "係貓媽媽耐心地同小花貓講嘅。", hint: "💡 邊個最錫小花貓，會教佢？", label: "誰說的" },
+    { type: "mc", skill: "詞語運用", tag: "點選題 MC", q: "小花貓對住咩嚟照自己個樣？", opts: ["池水", "窗門", "相片", "鏡子"], ans: 3, why: "（默書詞語：鏡子、難看、樣子）：小花貓照鏡子，覺得鬍子難看。", hint: "💡 喺浴室會見到，可以照到自己。", label: "照鏡子" },
+    { type: "mc", skill: "詞語運用", tag: "點選題 MC", q: "「乾乾淨淨」係形容咩？", opts: ["好清潔冇污糟", "好整齊冇亂嘢", "好安靜冇聲音", "好光亮冇暗影"], ans: 0, why: "「乾乾淨淨」即係清潔得好好，冇污糟。", hint: "💡 同「污糟」相反。", label: "乾乾淨淨" },
+    { type: "match", skill: "詞語運用", tag: "配對 Matching", q: "詞語配意思：先㩒左邊詞語，再㩒右邊佢嘅意思。", pairs: [["難看", "唔好睇"], ["追捕", "追住嚟捉"], ["幫忙", "幫手做事"], ["辦法", "做事的方法"]], right: ["幫手做事", "做事的方法", "唔好睇", "追住嚟捉"], hint: "💡 「追捕」即係追住嚟捉。", label: "詞語配對" },
+    { type: "order", skill: "背默句子", tag: "句子重組 Order", q: "按背默句子排好：㩒詞語放入框。", parts: ["小花貓在一旁仰着腦袋", "碧綠的大眼睛", "一眨不眨地看着主人"], shuffled: ["一眨不眨地看着主人", "小花貓在一旁仰着腦袋", "碧綠的大眼睛"], label: "背默句重組" },
+    { type: "reveal", skill: "思考與理解", tag: "諗深一層", q: "點解小花貓以後唔再刮鬍子？", answer: "因為鬍子好比一把尺子，幫佢量一量自己過唔過到個洞。刮掉鬍子，就會碰得頭破血流，所以佢以後都唔再刮鬍子了。", label: "不再刮鬍子" }
   ]},
-  normal: { label: "正常版（預覽）", items: [
-    { type: "mc", skill: "課文內容", tag: "點選題 MC・預覽", q: "鬍子點樣幫小花貓量嘢？", opts: ["量下自己有幾重", "量下過唔過到個洞", "量下老鼠跑幾快", "量下個洞有幾深"], ans: 1, why: "預覽題：課文話「你能不能從洞裏鑽過去，先要用尺子量一量」。", label: "預覽：鬍子量洞" },
-    { type: "mc", skill: "詞語運用", tag: "點選題 MC・預覽", q: "邊一句用「感到」最啱？", opts: ["我感到佢係好人。", "我感到聽日落雨。", "我感到有啲凍。", "我感到本書好睇。"], ans: 2, why: "預覽題：「感到」用嚟講身體同心情嘅感覺，例如感到凍、感到開心。", label: "預覽：感到" },
-    { type: "mc", skill: "詞語運用", tag: "點選題 MC・預覽", q: "「一眨不眨」係形容咩？", opts: ["行路行得好快", "眼睛望住唔郁", "講嘢好大聲响", "瞓覺瞓得好沉"], ans: 1, why: "預覽題：背默句「一眨不眨地看着主人」，形容眼睛望住一樣嘢，唔眨眼。", label: "預覽：一眨不眨" },
-    { type: "mc", skill: "課文內容", tag: "點選題 MC・預覽", q: "小花貓嘅眼睛係咩顏色？", opts: ["烏黑", "深啡", "碧綠", "淺藍"], ans: 2, why: "預覽題：背默句寫「碧綠的大眼睛」。", label: "預覽：眼睛顏色" },
-    { type: "order", skill: "課文內容", tag: "句子重組 Order・預覽", q: "按課文次序排好：㩒句子放入框。", parts: ["你的鬍子好比一把尺子", "先要用尺子量一量", "鬍子被你刮掉了", "會碰得頭破血流"], shuffled: ["鬍子被你刮掉了", "你的鬍子好比一把尺子", "會碰得頭破血流", "先要用尺子量一量"], label: "預覽：課文句重組" },
-    { type: "drag", skill: "詞語運用", tag: "拖放 Drag & Drop・預覽", q: "分類：把詞語拖入正確的籃。", chips: [{ ch: "追捕", cat: "act" }, { ch: "撞", cat: "act" }, { ch: "幫忙", cat: "act" }, { ch: "鏡子", cat: "thing" }, { ch: "浴室", cat: "thing" }], cats: [["act", "動作"], ["thing", "地方／東西"]], label: "預覽：詞語分類" },
-    { type: "reveal", skill: "思考與理解", tag: "思考題・預覽", q: "如果你係小花貓，你會點同主人講？", answer: "可以講：「主人，我以前覺得鬍子難看，想刮掉它。原來鬍子好像一把尺子，可以幫我量洞口，我以後都不刮鬍子了。」", label: "預覽：同主人講" }
+  normal: { label: "正常版", items: [
+    { type: "mc", skill: "課文內容", tag: "點選題 MC", q: "鬍子點樣幫小花貓量嘢？", opts: ["量下自己有幾重", "量下過唔過到個洞", "量下老鼠跑幾快", "量下個洞有幾深"], ans: 1, why: "課文話「你能不能從洞裏鑽過去，先要用尺子量一量」。", label: "鬍子量洞" },
+    { type: "mc", skill: "詞語運用", tag: "點選題 MC", q: "邊一句用「感到」最啱？", opts: ["我感到佢係好人。", "我感到聽日落雨。", "我感到有啲凍。", "我感到本書好睇。"], ans: 2, why: "「感到」用嚟講身體同心情嘅感覺，例如感到凍、感到開心。", label: "感到" },
+    { type: "mc", skill: "詞語運用", tag: "點選題 MC", q: "「一眨不眨」係形容咩？", opts: ["行路行得好快", "眼睛望住唔郁", "講嘢好大聲响", "瞓覺瞓得好沉"], ans: 1, why: "背默句「一眨不眨地看着主人」，形容眼睛望住一樣嘢，唔眨眼。", label: "一眨不眨" },
+    { type: "mc", skill: "課文內容", tag: "點選題 MC", q: "小花貓嘅眼睛係咩顏色？", opts: ["烏黑", "深啡", "碧綠", "淺藍"], ans: 2, why: "背默句寫「碧綠的大眼睛」。", label: "眼睛顏色" },
+    { type: "order", skill: "課文內容", tag: "句子重組 Order", q: "按課文次序排好：㩒句子放入框。", parts: ["你的鬍子好比一把尺子", "先要用尺子量一量", "鬍子被你刮掉了", "會碰得頭破血流"], shuffled: ["鬍子被你刮掉了", "你的鬍子好比一把尺子", "會碰得頭破血流", "先要用尺子量一量"], label: "課文句重組" },
+    { type: "drag", skill: "詞語運用", tag: "拖放 Drag & Drop", q: "分類：把詞語拖入正確的籃。", chips: [{ ch: "追捕", cat: "act" }, { ch: "撞", cat: "act" }, { ch: "幫忙", cat: "act" }, { ch: "鏡子", cat: "thing" }, { ch: "浴室", cat: "thing" }], cats: [["act", "動作"], ["thing", "地方／東西"]], label: "詞語分類" },
+    { type: "reveal", skill: "思考與理解", tag: "思考題", q: "如果你係小花貓，你會點同主人講？", answer: "可以講：「主人，我以前覺得鬍子難看，想刮掉它。原來鬍子好像一把尺子，可以幫我量洞口，我以後都不刮鬍子了。」", label: "同主人講" }
   ]}
 };
 const QZ_ENG = {
-  easy: { label: "簡易版（預覽）", items: [
+  easy: { label: "簡易版", items: [
     { type: "mc", skill: "U3 詞彙", tag: "MC・Preview", q: "Where can we sing songs?", opts: ["In the music room.", "In the art room.", "In the tuck shop.", "In the sick room."], ans: 0, why: "Preview: We sing songs in the music room.（音樂室）", hint: "💡 Music = 音樂。", label: "Preview: music room" },
     { type: "mc", skill: "U3 詞彙", tag: "MC・Preview", q: "Where can we draw pictures?", opts: ["In the music room.", "In the art room.", "In the office.", "In the corridor."], ans: 1, why: "Preview: We draw pictures in the art room.（美術室）", hint: "💡 Art = 美術。", label: "Preview: art room" },
     { type: "mc", skill: "U1 介詞", tag: "MC・Preview", q: "It is ___ the cinema.（喺戲院後面）", opts: ["next to", "in front of", "behind", "on the left"], ans: 2, why: "Preview: behind = 後面。It is behind the cinema.", hint: "💡 後面 = behind。", label: "Preview: behind" },
@@ -1199,7 +1206,7 @@ const QZ_ENG = {
     { type: "mc", skill: "U4 問句", tag: "MC・Preview", q: "___ you have hairbands?", opts: ["Does", "Do", "Is", "Are"], ans: 1, why: "Preview: Do you have hairbands? Yes, I do.", hint: "💡 You 配 Do。", label: "Preview: Do you" },
     { type: "order", skill: "U1 問句", tag: "Order・Preview", q: "排好句子：㩒詞語放入框。", parts: ["Is ", "there ", "a post office?"], shuffled: ["a post office?", "Is ", "there "], label: "Preview: Is there" }
   ]},
-  normal: { label: "正常版（預覽）", items: [
+  normal: { label: "正常版", items: [
     { type: "mc", skill: "U3 位置", tag: "MC・Preview", q: "___ is the library?", opts: ["What", "Where", "Who", "When"], ans: 1, why: "Preview: We ask about places with Where.", label: "Preview: Where" },
     { type: "mc", skill: "U2 現在進行式", tag: "MC・Preview", q: "She is ___ a song now.", opts: ["singing", "sing a song", "sings songs", "sang a song"], ans: 0, why: "Preview: She is singing a song.（正在唱歌）", label: "Preview: is singing" },
     { type: "mc", skill: "U3 序數詞", tag: "MC・Preview", q: "邊個係序數詞（講第幾）？", opts: ["five", "fiveth", "fifth", "fives"], ans: 2, why: "Preview: fifth = 第五。Dict 3 範圍有 fourth, fifth, sixth。", label: "Preview: fifth" },
@@ -1209,40 +1216,40 @@ const QZ_ENG = {
   ]}
 };
 const QZ_MATH = {
-  easy: { label: "簡易版（預覽）", items: [
-    { type: "mc", skill: "三位數", tag: "點選題 MC・預覽", q: "356 入面，「5」代表咩？", opts: ["5", "500", "50", "15"], ans: 2, why: "預覽題（重用評估練習題庫）：5 在十位，代表 5 個十，即 50。", hint: "💡 睇吓「5」企喺邊個位。", label: "預覽：5 的數值" },
-    { type: "mc", skill: "三位數", tag: "點選題 MC・預覽", q: "478 ○ 487，○ 係咩符號？", opts: [">", "<", "=", "+"], ans: 1, why: "預覽題（重用題庫）：478 比 487 細，所以係 <。", hint: "💡 百位一樣，比較十位。", label: "預覽：比較大小" },
-    { type: "mc", skill: "加法", tag: "點選題 MC・預覽", q: "246 + 358 = ?", opts: ["594", "604", "504", "614"], ans: 1, why: "預覽題（重用題庫）：246 + 358 = 604，記得進位。", hint: "💡 個位 6+8=14，寫 4 進 1。", label: "預覽：加法" },
-    { type: "mc", skill: "減法", tag: "點選題 MC・預覽", q: "502 − 267 = ?", opts: ["245", "225", "335", "235"], ans: 3, why: "預覽題（重用題庫）：502 − 267 = 235，要借位。", hint: "💡 個位唔夠減，向十位借。", label: "預覽：減法" },
-    { type: "mc", skill: "三位數", tag: "點選題 MC・預覽", q: "邊個數最大？", opts: ["809", "890", "908", "980"], ans: 3, why: "預覽題：先比百位，980 嘅百位係 9，同 908 一樣；再比十位，8 比 0 大。", hint: "💡 先睇百位，再睇十位。", label: "預覽：最大數" },
-    { type: "mc", skill: "角", tag: "點選題 MC・預覽", q: "邊種角比直角細？", opts: ["鈍角", "直角", "平角", "銳角"], ans: 3, why: "預覽題：銳角比直角細，鈍角比直角大。", hint: "💡 細過直角嗰種，個名有個「銳」字。", label: "預覽：銳角" },
-    { type: "mc", skill: "米", tag: "點選題 MC・預覽", q: "量課室嘅長度，用咩單位好？", opts: ["公斤", "米", "公升", "厘米"], ans: 1, why: "預覽題：課室長度以米為單位最合適。", hint: "💡 量長度，又要夠大嗰個單位。", label: "預覽：米" },
-    { type: "order", skill: "三位數", tag: "句子重組 Order・預覽", q: "由細到大排好啲數：㩒數字放入框。", parts: ["245", "452", "524", "542"], shuffled: ["524", "245", "542", "452"], label: "預覽：由細到大" }
+  easy: { label: "簡易版", items: [
+    { type: "mc", skill: "三位數", tag: "點選題 MC", q: "356 入面，「5」代表咩？", opts: ["5", "500", "50", "15"], ans: 2, why: "（重用評估練習題庫）：5 在十位，代表 5 個十，即 50。", hint: "💡 睇吓「5」企喺邊個位。", label: "5 的數值" },
+    { type: "mc", skill: "三位數", tag: "點選題 MC", q: "478 ○ 487，○ 係咩符號？", opts: [">", "<", "=", "+"], ans: 1, why: "（重用題庫）：478 比 487 細，所以係 <。", hint: "💡 百位一樣，比較十位。", label: "比較大小" },
+    { type: "mc", skill: "加法", tag: "點選題 MC", q: "246 + 358 = ?", opts: ["594", "604", "504", "614"], ans: 1, why: "（重用題庫）：246 + 358 = 604，記得進位。", hint: "💡 個位 6+8=14，寫 4 進 1。", label: "加法" },
+    { type: "mc", skill: "減法", tag: "點選題 MC", q: "502 − 267 = ?", opts: ["245", "225", "335", "235"], ans: 3, why: "（重用題庫）：502 − 267 = 235，要借位。", hint: "💡 個位唔夠減，向十位借。", label: "減法" },
+    { type: "mc", skill: "三位數", tag: "點選題 MC", q: "邊個數最大？", opts: ["809", "890", "908", "980"], ans: 3, why: "先比百位，980 嘅百位係 9，同 908 一樣；再比十位，8 比 0 大。", hint: "💡 先睇百位，再睇十位。", label: "最大數" },
+    { type: "mc", skill: "角", tag: "點選題 MC", q: "邊種角比直角細？", opts: ["鈍角", "直角", "平角", "銳角"], ans: 3, why: "銳角比直角細，鈍角比直角大。", hint: "💡 細過直角嗰種，個名有個「銳」字。", label: "銳角" },
+    { type: "mc", skill: "米", tag: "點選題 MC", q: "量課室嘅長度，用咩單位好？", opts: ["公斤", "米", "公升", "厘米"], ans: 1, why: "課室長度以米為單位最合適。", hint: "💡 量長度，又要夠大嗰個單位。", label: "米" },
+    { type: "order", skill: "三位數", tag: "句子重組 Order", q: "由細到大排好啲數：㩒數字放入框。", parts: ["245", "452", "524", "542"], shuffled: ["524", "245", "542", "452"], label: "由細到大" }
   ]},
-  normal: { label: "正常版（預覽）", items: [
-    { type: "mc", skill: "三位數", tag: "點選題 MC・預覽", q: "608 入面，「6」代表咩？", opts: ["600", "60", "6", "68"], ans: 0, why: "預覽題：6 在百位，代表 6 個百，即 600。", label: "預覽：6 的數值" },
-    { type: "mc", skill: "加減應用", tag: "點選題 MC・預覽", q: "姐姐有 365 張貼紙，送走 128 張，剩幾多？", opts: ["247 張", "237 張", "227 張", "493 張"], ans: 1, why: "預覽題：365 − 128 = 237。送走咗，要用減法。", label: "預覽：貼紙應用題" },
-    { type: "mc", skill: "角", tag: "點選題 MC・預覽", q: "直角係點樣嘅？", opts: ["尖尖細細嗰一種", "好似書角咁方正", "大過方角嗰一種", "圓圓地冇角嗰種"], ans: 1, why: "預覽題：直角好似書本、方枱嘅角咁方正。", label: "預覽：直角" },
-    { type: "mc", skill: "米", tag: "點選題 MC・預覽", q: "一支鉛筆長約 1 米，啱唔啱？", opts: ["啱，鉛筆有 1 米", "唔啱，鉛筆長好多", "啱，啱啱 1 米", "唔啱，鉛筆短好多"], ans: 3, why: "預覽題：1 米大約係課室門一半高度，鉛筆短好多。", label: "預覽：1 米有多長" },
-    { type: "mc", skill: "乘法", tag: "點選題 MC・預覽", q: "5 × 4 = ?", opts: ["24", "45", "20", "54"], ans: 2, why: "預覽題（重用題庫）：5 × 4 = 20，即 4 個 5。", label: "預覽：乘法" },
-    { type: "reveal", skill: "角", tag: "思考題・預覽", q: "點樣分銳角同鈍角？", answer: "用直角做標準去比：比直角細嘅係銳角，比直角大嘅係鈍角。可以用一本書嘅角嚟量一量。", label: "預覽：分銳角鈍角" }
+  normal: { label: "正常版", items: [
+    { type: "mc", skill: "三位數", tag: "點選題 MC", q: "608 入面，「6」代表咩？", opts: ["600", "60", "6", "68"], ans: 0, why: "6 在百位，代表 6 個百，即 600。", label: "6 的數值" },
+    { type: "mc", skill: "加減應用", tag: "點選題 MC", q: "姐姐有 365 張貼紙，送走 128 張，剩幾多？", opts: ["247 張", "237 張", "227 張", "493 張"], ans: 1, why: "365 − 128 = 237。送走咗，要用減法。", label: "貼紙應用題" },
+    { type: "mc", skill: "角", tag: "點選題 MC", q: "直角係點樣嘅？", opts: ["尖尖細細嗰一種", "好似書角咁方正", "大過方角嗰一種", "圓圓地冇角嗰種"], ans: 1, why: "直角好似書本、方枱嘅角咁方正。", label: "直角" },
+    { type: "mc", skill: "米", tag: "點選題 MC", q: "一支鉛筆長約 1 米，啱唔啱？", opts: ["啱，鉛筆有 1 米", "唔啱，鉛筆長好多", "啱，啱啱 1 米", "唔啱，鉛筆短好多"], ans: 3, why: "1 米大約係課室門一半高度，鉛筆短好多。", label: "1 米有多長" },
+    { type: "mc", skill: "乘法", tag: "點選題 MC", q: "5 × 4 = ?", opts: ["24", "45", "20", "54"], ans: 2, why: "（重用題庫）：5 × 4 = 20，即 4 個 5。", label: "乘法" },
+    { type: "reveal", skill: "角", tag: "思考題", q: "點樣分銳角同鈍角？", answer: "用直角做標準去比：比直角細嘅係銳角，比直角大嘅係鈍角。可以用一本書嘅角嚟量一量。", label: "分銳角鈍角" }
   ]}
 };
 const QZ_SCI = {
-  easy: { label: "簡易版（預覽）", items: [
-    { type: "drag", skill: "生物和非生物", tag: "拖放 Drag & Drop・預覽", q: "分類：拖入正確的籃。", chips: [{ ch: "小狗", cat: "living" }, { ch: "玫瑰花", cat: "living" }, { ch: "小鳥", cat: "living" }, { ch: "石頭", cat: "nonliving" }, { ch: "木椅", cat: "nonliving" }, { ch: "泥土", cat: "nonliving" }], cats: [["living", "生物"], ["nonliving", "非生物"]], hint: "💡 生物識生長，又要飲水食嘢。", label: "預覽：生物分類" },
-    { type: "mc", skill: "生物和非生物", tag: "點選題 MC・預覽", q: "邊樣係生物？", opts: ["膠樽", "小樹苗", "鐵釘", "紙張"], ans: 1, why: "預覽題：小樹苗識生長，係生物。", hint: "💡 識長大嗰樣。", label: "預覽：邊樣係生物" },
-    { type: "mc", skill: "動手種植物", tag: "點選題 MC・預覽", q: "植物生長需要咩？", opts: ["電視同玩具", "陽光同水", "書包同鉛筆", "雨傘同水樽"], ans: 1, why: "預覽題：植物要有陽光同水，先可以生長。", hint: "💡 種植物嗰陣，每日要俾佢兩樣嘢。", label: "預覽：植物需要" },
-    { type: "mc", skill: "觀察動物", tag: "點選題 MC・預覽", q: "想知雀仔食咩，要點觀察？", opts: ["睇佢個嘴嘅形狀", "睇佢飛得有幾高", "數佢有幾多羽毛", "聽佢叫得幾大聲"], ans: 0, why: "預覽題：雀仔個嘴嘅形狀，同佢食嘅嘢有關。", hint: "💡 食嘢用邊個部位？", label: "預覽：觀察雀仔" },
-    { type: "mc", skill: "動手種植物", tag: "點選題 MC・預覽", q: "種植物，先將種子放喺邊？", opts: ["水杯上面", "泥土入面", "書包入面", "窗台出面"], ans: 1, why: "預覽題：種子要放入泥土，先可以發芽生長。", hint: "💡 植物喺邊度生根？", label: "預覽：種子放哪" },
-    { type: "reveal", skill: "生物和非生物", tag: "諗深一層・預覽", q: "點樣分生物同非生物？", answer: "生物識生長，又需要食物同水，例如小狗、花草。非生物唔識生長，例如石頭、木椅。", label: "預覽：分生物" }
+  easy: { label: "簡易版", items: [
+    { type: "drag", skill: "生物和非生物", tag: "拖放 Drag & Drop", q: "分類：拖入正確的籃。", chips: [{ ch: "小狗", cat: "living" }, { ch: "玫瑰花", cat: "living" }, { ch: "小鳥", cat: "living" }, { ch: "石頭", cat: "nonliving" }, { ch: "木椅", cat: "nonliving" }, { ch: "泥土", cat: "nonliving" }], cats: [["living", "生物"], ["nonliving", "非生物"]], hint: "💡 生物識生長，又要飲水食嘢。", label: "生物分類" },
+    { type: "mc", skill: "生物和非生物", tag: "點選題 MC", q: "邊樣係生物？", opts: ["膠樽", "小樹苗", "鐵釘", "紙張"], ans: 1, why: "小樹苗識生長，係生物。", hint: "💡 識長大嗰樣。", label: "邊樣係生物" },
+    { type: "mc", skill: "動手種植物", tag: "點選題 MC", q: "植物生長需要咩？", opts: ["電視同玩具", "陽光同水", "書包同鉛筆", "雨傘同水樽"], ans: 1, why: "植物要有陽光同水，先可以生長。", hint: "💡 種植物嗰陣，每日要俾佢兩樣嘢。", label: "植物需要" },
+    { type: "mc", skill: "觀察動物", tag: "點選題 MC", q: "想知雀仔食咩，要點觀察？", opts: ["睇佢個嘴嘅形狀", "睇佢飛得有幾高", "數佢有幾多羽毛", "聽佢叫得幾大聲"], ans: 0, why: "雀仔個嘴嘅形狀，同佢食嘅嘢有關。", hint: "💡 食嘢用邊個部位？", label: "觀察雀仔" },
+    { type: "mc", skill: "動手種植物", tag: "點選題 MC", q: "種植物，先將種子放喺邊？", opts: ["水杯上面", "泥土入面", "書包入面", "窗台出面"], ans: 1, why: "種子要放入泥土，先可以發芽生長。", hint: "💡 植物喺邊度生根？", label: "種子放哪" },
+    { type: "reveal", skill: "生物和非生物", tag: "諗深一層", q: "點樣分生物同非生物？", answer: "生物識生長，又需要食物同水，例如小狗、花草。非生物唔識生長，例如石頭、木椅。", label: "分生物" }
   ]},
-  normal: { label: "正常版（預覽）", items: [
-    { type: "mc", skill: "生物和非生物", tag: "點選題 MC・預覽", q: "邊樣唔係生物嘅特徵？", opts: ["識得長大", "需要飲水", "唔識生長", "需要食物"], ans: 2, why: "預覽題：生物先識生長；唔識生長係非生物。", label: "預覽：生物特徵" },
-    { type: "mc", skill: "動手種植物", tag: "點選題 MC・預覽", q: "植物冇陽光會點？", opts: ["生得更加快", "生長得唔好", "開更多花朵", "變成動物嚟"], ans: 1, why: "預覽題：植物需要陽光生長，冇陽光會生長得唔好。", label: "預覽：冇陽光" },
-    { type: "mc", skill: "觀察動物", tag: "點選題 MC・預覽", q: "觀察螞蟻嗰陣，唔應該做咩？", opts: ["靜靜咁睇佢哋", "畫低佢哋個樣", "用手捉起佢哋", "記低佢哋去邊"], ans: 2, why: "預覽題：觀察動物要愛護佢哋，唔好用手捉，靜靜觀察就得。", label: "預覽：觀察螞蟻" },
-    { type: "order", skill: "動手種植物", tag: "句子重組 Order・預覽", q: "按種植物嘅步驟排好：㩒句子放入框。", parts: ["放種子入泥土", "淋水", "放喺有陽光嘅地方", "等佢發芽"], shuffled: ["淋水", "等佢發芽", "放種子入泥土", "放喺有陽光嘅地方"], label: "預覽：種植步驟" },
-    { type: "reveal", skill: "動手種植物", tag: "思考題・預覽", q: "點解種植物要淋水？", answer: "植物需要水先可以生長。冇水，植物會枯乾，慢慢死去。所以種植物要定時淋水。", label: "預覽：點解淋水" }
+  normal: { label: "正常版", items: [
+    { type: "mc", skill: "生物和非生物", tag: "點選題 MC", q: "邊樣唔係生物嘅特徵？", opts: ["識得長大", "需要飲水", "唔識生長", "需要食物"], ans: 2, why: "生物先識生長；唔識生長係非生物。", label: "生物特徵" },
+    { type: "mc", skill: "動手種植物", tag: "點選題 MC", q: "植物冇陽光會點？", opts: ["生得更加快", "生長得唔好", "開更多花朵", "變成動物嚟"], ans: 1, why: "植物需要陽光生長，冇陽光會生長得唔好。", label: "冇陽光" },
+    { type: "mc", skill: "觀察動物", tag: "點選題 MC", q: "觀察螞蟻嗰陣，唔應該做咩？", opts: ["靜靜咁睇佢哋", "畫低佢哋個樣", "用手捉起佢哋", "記低佢哋去邊"], ans: 2, why: "觀察動物要愛護佢哋，唔好用手捉，靜靜觀察就得。", label: "觀察螞蟻" },
+    { type: "order", skill: "動手種植物", tag: "句子重組 Order", q: "按種植物嘅步驟排好：㩒句子放入框。", parts: ["放種子入泥土", "淋水", "放喺有陽光嘅地方", "等佢發芽"], shuffled: ["淋水", "等佢發芽", "放種子入泥土", "放喺有陽光嘅地方"], label: "種植步驟" },
+    { type: "reveal", skill: "動手種植物", tag: "思考題", q: "點解種植物要淋水？", answer: "植物需要水先可以生長。冇水，植物會枯乾，慢慢死去。所以種植物要定時淋水。", label: "點解淋水" }
   ]}
 };
 const QZ_ENGPAPER = {
