@@ -209,14 +209,26 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-dot.tried { border-color: #F97316; }
 .qz-card { background: #1E293B; border: 1.5px solid #475569; border-radius: 14px; padding: 16px; }
 .qz-review { background: #0F172A; border: 1.5px solid #F59E0B; border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; }
-.qz-review h4, .qz-cardreview h4 { margin: 0 0 8px; font-size: 16px; color: #FDE68A; }
-.qz-review ul, .qz-cardreview ul { margin: 0; padding-left: 20px; }
-.qz-review li, .qz-cardreview li { margin-bottom: 5px; font-size: 15px; line-height: 1.55; color: #E2E8F0; }
-.qz-cardreview { background: #0F172A; border: 1.5px solid #F59E0B; border-radius: 12px; padding: 14px 16px; margin-top: 10px; }
-.qzlesson.review { border-color: #F59E0B; background: #451A03; color: #FDE68A; }
-.qzreviewbtn { border: 1.5px solid #F59E0B; background: #451A03; color: #FDE68A; border-radius: 10px; padding: 8px 12px; font-size: 14px; font-weight: 800; cursor: pointer; margin-left: 8px; }
+.qz-review h4 { margin: 0 0 8px; font-size: 16px; color: #FDE68A; }
+.qz-review ul { margin: 0; padding-left: 20px; }
+.qz-review li { margin-bottom: 5px; font-size: 15px; line-height: 1.55; color: #E2E8F0; }
 .qz-fb .qz-revealbtn { margin-top: 10px; }
-.qz-spk { margin-left: 8px; border: 1.5px solid #38BDF8; background: #0C4A6E; color: #E0F2FE; border-radius: 8px; padding: 2px 8px; font-size: 15px; cursor: pointer; }
+.qz-spk { margin-right: 8px; border: 1.5px solid #38BDF8; background: #0C4A6E; color: #E0F2FE; border-radius: 8px; padding: 2px 8px; font-size: 15px; cursor: pointer; }
+.qz-reviewbtn { flex: none; border: 2px solid #F59E0B; background: #451A03; color: #FDE68A; border-radius: 50%; width: 44px; height: 44px; font-size: 19px; cursor: pointer; margin-left: 6px; }
+.qz-reviewbtn.on { background: #F59E0B; color: #451A03; }
+.qz-revtabs { display: flex; gap: 8px; margin-bottom: 10px; }
+.qz-revtab { border: 1.5px solid #F59E0B; background: transparent; color: #FDE68A; border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 800; cursor: pointer; }
+.qz-revtab.on { background: #F59E0B; color: #451A03; }
+.qz-revtxt { white-space: pre-wrap; font-size: 16px; line-height: 1.8; color: #F1F5F9; }
+.qz-gap { width: 6px; background: #F59E0B; border-radius: 3px; align-self: stretch; }
+.qz-ghost { position: fixed; z-index: 9999; opacity: .85; pointer-events: none; box-shadow: 0 8px 24px rgba(0,0,0,.45); }
+.qz-chip.dragsrc { opacity: .35; }
+.qz-imggrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+.qz-imgbtn { position: relative; border: 3px solid #64748B; border-radius: 14px; overflow: hidden; padding: 0; cursor: pointer; background: #0F172A; }
+.qz-imgbtn img, .qz-imgbtn .qz-img svg { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.qz-imgbtn.right { border-color: #22C55E; box-shadow: 0 0 0 3px #22C55E; }
+.qz-imgbtn.wrong { border-color: #EF4444; }
+.qz-imgnum { position: absolute; top: 8px; left: 8px; background: rgba(9,13,22,.88); color: #fff; border-radius: 50%; width: 30px; height: 30px; line-height: 30px; font-size: 17px; font-weight: 800; z-index: 2; }
 .qz-enter { animation: qzSlide .35s ease; }
 @keyframes qzSlide { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
 .qz-tag { display: inline-block; background: #7C2D12; color: #FED7AA; font-size: 12px; font-weight: 800; border-radius: 20px; padding: 2px 10px; margin-bottom: 8px; }
@@ -232,7 +244,9 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-opt.wrong { border-color: #F97316; background: #431407; }
 .qz-fb { margin-top: 10px; font-size: 15px; font-weight: 800; min-height: 22px; }
 .qz-fb.ok { color: #4ADE80; } .qz-fb.no { color: #FB923C; }
-.qz-pairs { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 10px; }
+.qz-pairs { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 10px; position: relative; }
+.qz-lines { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.qz-pairs .qz-chip { position: relative; z-index: 1; }
 .qz-col { flex: 1; min-width: 130px; display: flex; flex-direction: column; gap: 8px; }
 .qz-chip { background: #0F172A; color: #F1F5F9; border: 2px solid #64748B; border-radius: 11px; padding: 11px 8px; font-size: 18px; font-weight: 800; cursor: pointer; text-align: center; user-select: none; -webkit-user-select: none; touch-action: none; }
 .qz-chip.sel { border-color: #F59E0B; background: #451A03; }
@@ -337,14 +351,14 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 <nav id="topnav"><button class="navbtn on" data-filter="all">全部</button><button class="navbtn" data-filter="exam">⏰ 測驗 <span id="cntExam"></span></button><button class="navbtn" data-filter="hw">📝 功課 <span id="cntHw"></span></button><button class="navbtn" data-filter="notice">📢 通告 <span id="cntNotice"></span></button><span id="upd" class="updmini">…</span><button class="navbtn collapseall" id="collapseAll">⏬ Expand</button></nav>
 <div id="actionBanner"></div>
 <div id="app"></div>
-<div id="quizModal"><div class="qz-bar"><div class="qz-tabs"><button id="qzTabTextbook" class="qz-tab on">課文版</button><button id="qzTabApply" class="qz-tab">應用版</button><button id="qzTabChallenge" class="qz-tab">挑戰版</button><button id="qzReviewBtn" class="qz-tab">📖 重點</button></div><span id="qzScore">⭐ 0 / 13</span><span id="qzStreak"></span><button class="ws-close" id="quizCloseBtn">✕ 關閉</button></div><div class="qz-wrap"><div id="qzReview" class="qz-review" style="display:none"></div><div id="qzStage"></div></div><div class="qz-footer"><button id="qzPrev" class="qz-btn alt">← 上一題</button><div id="qzDots"></div><button id="qzNext" class="qz-btn">下一題 →</button></div></div>
+<div id="quizModal"><div class="qz-bar"><div class="qz-tabs"><button id="qzTabTextbook" class="qz-tab on">課文題</button><button id="qzTabApply" class="qz-tab">應用題一</button><button id="qzTabChallenge" class="qz-tab">應用題二</button></div><span id="qzScore">⭐ 0 / 13</span><span id="qzStreak"></span><button class="ws-close" id="quizCloseBtn">✕ 關閉</button></div><div class="qz-wrap"><div id="qzReview" class="qz-review" style="display:none"></div><div id="qzStage"></div></div><div class="qz-footer"><button id="qzPrev" class="qz-btn alt">← 上一題</button><div id="qzDots"></div><button id="qzNext" class="qz-btn">下一題 →</button></div></div>
 <div id="wsModal"><div class="ws-bar"><button class="ws-print" id="wsPrintBtn">🖨️ 列印 / 儲存 PDF</button><button class="ws-close" id="wsCloseBtn">✕ 關閉</button></div><div id="wsSheet"></div></div>
 <footer>資料來源：學校 eClass 通告及通告附頁、Google Classroom 功課指示、課本/默書紙拍攝內容。<br>「學校原文」為官方內容；「AI 輔助」提示同練習由 Muse 生成，練習答案只供家長核對。</footer>
 <script>
 const $app = document.getElementById("app");
 const STR = {
-  zh: { title: "🎒 2A 學習專頁", modeParent: "👨‍👩‍👧 家長", modeKid: "👧 溫書", nav_all: "全部", nav_exam: "⏰ 測驗", nav_hw: "📝 功課", nav_notice: "📢 通告", easy: "簡易版", normal: "正常版", textbook: "課文版", apply: "應用版", challenge: "挑戰版", reviewBtn: "📖 重點", prev: "← 上一題", next: "下一題 →", close: "✕", wsPrint: "🖨️ 列印 / 儲存 PDF", updated: "最後更新：", updSuffix: "", loadFail: "⚠️ 資料載入失敗，請稍後再開", secExam: "⏰ 測驗・默書・評估", secHw: "📚 功課", secNotice: "📢 通告", emptyExam: "暫時冇測驗／默書／評估", emptyHw: "暫時冇功課", emptyNotice: "暫時冇新通告", doneItems: "✅ 已完成項目", done: "已完成", today: "今日！", tmr: "聽日！", duePrefix: "📅 截止：", unsigned: "✍️ 設有回條", replyBy: "｜回條死線：", scope: "範圍：", startRevise: "▶️ 開始溫習", closeUp: "收起 ▲", hwOpen: "📋 睇指示 / 提示 ▼", origText: "睇學校原文", blkDetail: "📋 內容／指示（學校原文）", blkPoints: "📌 要點", blkFocus: "🎯 重點注意", blkWords: "📝 字詞表", wordsLegend: "每組：字詞 + 🔊（只讀嗰個，讀兩次）", speakWords: "🔊 讀默字詞", blkSent: "🗣 讀默句子", sentLegend: "每句有自己嘅 🔊 掣（只讀嗰句，讀兩次）", blkRecite: "🎒 背默（遮住先，背完先好開嚟對）", reciteLegend: "背默段落預設遮住：背完撳 👁 開嚟對；🔊 只讀嗰段兩次", blkHints: "💡 點樣幫佢做（AI 輔助）", blkPractice: "✏️ 練習題（AI 生成）", ansCheck: "🔑 家長核對答案", ansKey: "🔑 家長核對（問功課紀錄）", blkQuiz: "🎮 互動練習", qzPreview: "👀 㩒入去玩", qzSets: "課文版／應用版／挑戰版・㩒入去玩", qzAwait: "等課文入庫", qzSoon: "準備中", ptools: "🧰 家長工具／選項", wsPreview: "🖨️ 工作紙 / 列印", wsWord: "📄 下載 Word", qaBtn: "📋 題目與答案", print: "🖨️ 印工作紙", teview: "📋 題目與答案（教師版）", objTitle: "🎯 溫習目標", kidQuiz: "🎮 互動練習 ▶", kidWords: "🔊 聽讀默 / 認字 ▼", folder: "🗓️ 評估一預習（共{n}科）", inDays: " · {d} 日後", verified: "✅ 資料已核實", bankReady: "✅ 題庫已齊", stepsDone: "📋 完成步驟", learned: "✅ 已識", gotIt: "✅識咗", reset: "↺ 重置進度", flagT: "⚠️ 未上傳相片", flagS: "請家長上傳課本／默書紙相片，以生成精準字表。", tierVerified: "✅ 已核實內容", tierKb: "📚 按課本內容生成", tierGuessC: "⚠️ 待傳相片", tierGuess: "⚠️ 基礎範圍練習", expand: "⏬ 展開", qzJump: "🔍 跳去邊一題？", qzJumpClose: "✕", pickTitle: "📝 揀練習工作紙", pickLesson: "① 揀課", pickSet: "② 揀份（可多選）", pickAll: "三份全選", pickPrint: "🖨️ 列印工作紙", pickWord: "📄 下載 Word", setNames: "練習一（基礎）|練習二（應用）|練習三（進階）", wsFor: "工作紙", ansHead: "🔑 家長核對答案（列印時自動另開一頁）", collapse: "⏫ 收起", remainToday: "今日到期！", remainTmr: "聽日到期" },
-  en: { title: "🎒 2A Study Page", modeParent: "👨‍👩‍👧 Parents", modeKid: "👧 Study", nav_all: "All", nav_exam: "⏰ Tests", nav_hw: "📝 Homework", nav_notice: "📢 Notices", easy: "Easy", normal: "Normal", textbook: "Textbook", apply: "Apply", challenge: "Challenge", reviewBtn: "📖 Key points", prev: "← Prev", next: "Next →", close: "✕", wsPrint: "🖨️ Print / Save PDF", updated: "Updated: ", updSuffix: "", loadFail: "⚠️ Could not load data, please reopen later", secExam: "⏰ Tests · Dictations · Assessments", secHw: "📚 Homework", secNotice: "📢 Notices", emptyExam: "No tests / dictations / assessments for now", emptyHw: "No homework right now", emptyNotice: "No new notices", doneItems: "✅ Completed items", done: "Done", today: "Today!", tmr: "Tomorrow!", duePrefix: "📅 Due: ", unsigned: "✍️ Reply slip", replyBy: " | Reply deadline: ", scope: "Scope: ", startRevise: "▶️ Start revising", closeUp: "Close ▲", hwOpen: "📋 Instructions / Tips ▼", origText: "School original text", blkDetail: "📋 Instructions (school original)", blkPoints: "📌 Key points", blkFocus: "🎯 Focus", blkWords: "📝 Word list", wordsLegend: "Each item: word + 🔊 (reads that word twice)", speakWords: "🔊 Play dictation words", blkSent: "🗣 Dictation sentences", sentLegend: "Each sentence has its own 🔊 button (reads twice)", blkRecite: "🎒 Recitation (covered — recite first, then peek)", reciteLegend: "Covered by default: recite, tap 👁 to check; 🔊 reads it twice", blkHints: "💡 How to help (AI tips)", blkPractice: "✏️ Practice (AI-generated)", ansCheck: "🔑 Answers (parents)", ansKey: "🔑 Answer key (homework record)", blkQuiz: "🎮 Interactive practice", qzPreview: "👀 Tap to play", qzSets: "Textbook / Apply / Challenge · tap to play", qzAwait: "Waiting for textbook", qzSoon: "Coming soon", ptools: "🧰 Parent tools", wsPreview: "🖨️ Worksheet preview / print", wsWord: "📄 Download Word", qaBtn: "📋 Questions & Answers", print: "🖨️ Print worksheet", teview: "📋 Questions & Answers (Teacher's Edition)", objTitle: "🎯 Study goals", kidQuiz: "🎮 Interactive practice ▶", kidWords: "🔊 Listen & learn words ▼", folder: "🗓️ Assessment 1 prep ({n} subjects)", inDays: " · in {d} days", verified: "✅ Content verified", bankReady: "✅ Question bank ready", stepsDone: "📋 Steps done", learned: "✅ Learned", gotIt: "✅ Got it", reset: "↺ Reset progress", flagT: "⚠️ Photos not uploaded yet", flagS: "Please upload textbook / dictation sheet photos to generate an accurate word list.", tierVerified: "✅ Verified content", tierKb: "📚 Built from textbook", tierGuessC: "⚠️ Photos needed", tierGuess: "⚠️ Based on scope only", expand: "⏬ Expand", qzJump: "🔍 Jump to question", qzJumpClose: "✕", pickTitle: "📝 Choose a worksheet", pickLesson: "1. Lesson", pickSet: "2. Sets (tap to toggle)", pickAll: "All 3 sets", pickPrint: "🖨️ Print worksheet", pickWord: "📄 Download Word", setNames: "Set 1 (Basics)|Set 2 (Practice)|Set 3 (Challenge)", wsFor: "Worksheet", ansHead: "🔑 Answer key (prints on a separate page)", collapse: "⏫ Collapse", remainToday: "Due today!", remainTmr: "Due tomorrow" }
+  zh: { title: "🎒 2A 學習專頁", modeParent: "👨‍👩‍👧 家長", modeKid: "👧 溫書", nav_all: "全部", nav_exam: "⏰ 測驗", nav_hw: "📝 功課", nav_notice: "📢 通告", easy: "簡易版", normal: "正常版", textbook: "課文題", apply: "應用題一", challenge: "應用題二", reviewBtn: "📖 重點", prev: "← 上一題", next: "下一題 →", close: "✕", wsPrint: "🖨️ 列印 / 儲存 PDF", updated: "最後更新：", updSuffix: "", loadFail: "⚠️ 資料載入失敗，請稍後再開", secExam: "⏰ 測驗・默書・評估", secHw: "📚 功課", secNotice: "📢 通告", emptyExam: "暫時冇測驗／默書／評估", emptyHw: "暫時冇功課", emptyNotice: "暫時冇新通告", doneItems: "✅ 已完成項目", done: "已完成", today: "今日！", tmr: "聽日！", duePrefix: "📅 截止：", unsigned: "✍️ 設有回條", replyBy: "｜回條死線：", scope: "範圍：", startRevise: "▶️ 開始溫習", closeUp: "收起 ▲", hwOpen: "📋 睇指示 / 提示 ▼", origText: "睇學校原文", blkDetail: "📋 內容／指示（學校原文）", blkPoints: "📌 要點", blkFocus: "🎯 重點注意", blkWords: "📝 字詞表", wordsLegend: "每組：字詞 + 🔊（只讀嗰個，讀兩次）", speakWords: "🔊 讀默字詞", blkSent: "🗣 讀默句子", sentLegend: "每句有自己嘅 🔊 掣（只讀嗰句，讀兩次）", blkRecite: "🎒 背默（遮住先，背完先好開嚟對）", reciteLegend: "背默段落預設遮住：背完撳 👁 開嚟對；🔊 只讀嗰段兩次", blkHints: "💡 點樣幫佢做（AI 輔助）", blkPractice: "✏️ 練習題（AI 生成）", ansCheck: "🔑 家長核對答案", ansKey: "🔑 家長核對（問功課紀錄）", blkQuiz: "🎮 互動練習", qzPreview: "👀 㩒入去玩", qzSets: "課文題／應用題一／應用題二・㩒入去玩", qzAwait: "等課文入庫", qzSoon: "準備中", ptools: "🧰 家長工具／選項", wsPreview: "🖨️ 工作紙 / 列印", wsWord: "📄 下載 Word", qaBtn: "📋 題目與答案", print: "🖨️ 印工作紙", teview: "📋 題目與答案（教師版）", objTitle: "🎯 溫習目標", kidQuiz: "🎮 互動練習 ▶", kidWords: "🔊 聽讀默 / 認字 ▼", folder: "🗓️ 評估一預習（共{n}科）", inDays: " · {d} 日後", verified: "✅ 資料已核實", bankReady: "✅ 題庫已齊", stepsDone: "📋 完成步驟", learned: "✅ 已識", gotIt: "✅識咗", reset: "↺ 重置進度", flagT: "⚠️ 未上傳相片", flagS: "請家長上傳課本／默書紙相片，以生成精準字表。", tierVerified: "✅ 已核實內容", tierKb: "📚 按課本內容生成", tierGuessC: "⚠️ 待傳相片", tierGuess: "⚠️ 基礎範圍練習", expand: "⏬ 展開", qzJump: "🔍 跳去邊一題？", qzJumpClose: "✕", pickTitle: "📝 揀練習工作紙", pickLesson: "① 揀課", pickSet: "② 揀份（可多選）", pickAll: "三份全選", pickPrint: "🖨️ 列印工作紙", pickWord: "📄 下載 Word", setNames: "練習一（基礎）|練習二（應用）|練習三（進階）", wsFor: "工作紙", ansHead: "🔑 家長核對答案（列印時自動另開一頁）", collapse: "⏫ 收起", remainToday: "今日到期！", remainTmr: "聽日到期" },
+  en: { title: "🎒 2A Study Page", modeParent: "👨‍👩‍👧 Parents", modeKid: "👧 Study", nav_all: "All", nav_exam: "⏰ Tests", nav_hw: "📝 Homework", nav_notice: "📢 Notices", easy: "Easy", normal: "Normal", textbook: "Textbook", apply: "Practice 1", challenge: "Practice 2", reviewBtn: "📖 Key points", prev: "← Prev", next: "Next →", close: "✕", wsPrint: "🖨️ Print / Save PDF", updated: "Updated: ", updSuffix: "", loadFail: "⚠️ Could not load data, please reopen later", secExam: "⏰ Tests · Dictations · Assessments", secHw: "📚 Homework", secNotice: "📢 Notices", emptyExam: "No tests / dictations / assessments for now", emptyHw: "No homework right now", emptyNotice: "No new notices", doneItems: "✅ Completed items", done: "Done", today: "Today!", tmr: "Tomorrow!", duePrefix: "📅 Due: ", unsigned: "✍️ Reply slip", replyBy: " | Reply deadline: ", scope: "Scope: ", startRevise: "▶️ Start revising", closeUp: "Close ▲", hwOpen: "📋 Instructions / Tips ▼", origText: "School original text", blkDetail: "📋 Instructions (school original)", blkPoints: "📌 Key points", blkFocus: "🎯 Focus", blkWords: "📝 Word list", wordsLegend: "Each item: word + 🔊 (reads that word twice)", speakWords: "🔊 Play dictation words", blkSent: "🗣 Dictation sentences", sentLegend: "Each sentence has its own 🔊 button (reads twice)", blkRecite: "🎒 Recitation (covered — recite first, then peek)", reciteLegend: "Covered by default: recite, tap 👁 to check; 🔊 reads it twice", blkHints: "💡 How to help (AI tips)", blkPractice: "✏️ Practice (AI-generated)", ansCheck: "🔑 Answers (parents)", ansKey: "🔑 Answer key (homework record)", blkQuiz: "🎮 Interactive practice", qzPreview: "👀 Tap to play", qzSets: "Textbook / Practice 1 / Practice 2 · tap to play", qzAwait: "Waiting for textbook", qzSoon: "Coming soon", ptools: "🧰 Parent tools", wsPreview: "🖨️ Worksheet preview / print", wsWord: "📄 Download Word", qaBtn: "📋 Questions & Answers", print: "🖨️ Print worksheet", teview: "📋 Questions & Answers (Teacher's Edition)", objTitle: "🎯 Study goals", kidQuiz: "🎮 Interactive practice ▶", kidWords: "🔊 Listen & learn words ▼", folder: "🗓️ Assessment 1 prep ({n} subjects)", inDays: " · in {d} days", verified: "✅ Content verified", bankReady: "✅ Question bank ready", stepsDone: "📋 Steps done", learned: "✅ Learned", gotIt: "✅ Got it", reset: "↺ Reset progress", flagT: "⚠️ Photos not uploaded yet", flagS: "Please upload textbook / dictation sheet photos to generate an accurate word list.", tierVerified: "✅ Verified content", tierKb: "📚 Built from textbook", tierGuessC: "⚠️ Photos needed", tierGuess: "⚠️ Based on scope only", expand: "⏬ Expand", qzJump: "🔍 Jump to question", qzJumpClose: "✕", pickTitle: "📝 Choose a worksheet", pickLesson: "1. Lesson", pickSet: "2. Sets (tap to toggle)", pickAll: "All 3 sets", pickPrint: "🖨️ Print worksheet", pickWord: "📄 Download Word", setNames: "Set 1 (Basics)|Set 2 (Practice)|Set 3 (Challenge)", wsFor: "Worksheet", ansHead: "🔑 Answer key (prints on a separate page)", collapse: "⏫ Collapse", remainToday: "Due today!", remainTmr: "Due tomorrow" }
 };
 let LANG = "zh";
 try { LANG = localStorage.getItem("school2a-lang") === "en" ? "en" : "zh"; } catch (e) {}
@@ -358,7 +372,6 @@ function applyStaticI18n() {
   document.getElementById("qzTabTextbook").textContent = T("textbook");
   document.getElementById("qzTabApply").textContent = T("apply");
   document.getElementById("qzTabChallenge").textContent = T("challenge");
-  document.getElementById("qzReviewBtn").textContent = T("reviewBtn");
   document.getElementById("qzPrev").textContent = T("prev");
   document.getElementById("qzNext").textContent = T("next");
   document.getElementById("quizCloseBtn").textContent = T("close");
@@ -732,7 +745,7 @@ function enrichmentHTML(card, item, opts) {
         qb.appendChild(el("small", null, T("qzSets")));
         qb.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(L.id, item.key); });
         grid.appendChild(qb);
-        if (window.qzHasReview && window.qzHasReview(L.id)) { const rb2 = el("button", "qzlesson review", "📖 重點回顧"); rb2.addEventListener("click", (e) => { e.stopPropagation(); window.qzCardReview(L.id, b); }); grid.appendChild(rb2); }
+       
       } else {
         const qb = el("button", "qzlesson off", label);
         qb.appendChild(el("small", null, L.status === "awaiting" ? (L.note || T("qzAwait")) : T("qzSoon")));
@@ -749,7 +762,7 @@ function enrichmentHTML(card, item, opts) {
       const qb = el("button", "quizlaunch" + (qs.status === "preview" ? " prev" : ""), "▶ " + T("blkQuiz") + "：" + qs.title + "（" + T("textbook") + "／" + T("apply") + "／" + T("challenge") + "）");
       qb.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(qs.id, item.key); });
       row.appendChild(qb);
-      if (window.qzHasReview && window.qzHasReview(qs.id)) { const rb2 = el("button", "qzreviewbtn", "📖 重點"); rb2.addEventListener("click", (e) => { e.stopPropagation(); window.qzCardReview(qs.id, card); }); row.appendChild(rb2); }
+     
       card.appendChild(row);
     });
   }
@@ -758,7 +771,7 @@ function enrichmentHTML(card, item, opts) {
     const qb = el("button", "quizlaunch" + (item.quiz.status === "preview" ? " prev" : ""), "▶ " + T("blkQuiz") + "：" + (item.quiz.title || "") + "（" + T("textbook") + "／" + T("apply") + "／" + T("challenge") + "）");
     qb.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(item.quiz.id, item.key); });
     row.appendChild(qb);
-    if (window.qzHasReview && window.qzHasReview(item.quiz.id)) { const rb2 = el("button", "qzreviewbtn", "📖 重點"); rb2.addEventListener("click", (e) => { e.stopPropagation(); window.qzCardReview(item.quiz.id, card); }); row.appendChild(rb2); }
+   
     card.appendChild(row);
   }
   if ((item.practice && item.practice.length) || (item.words && item.words.length)) {
@@ -787,7 +800,7 @@ function enrichmentHTML(card, item, opts) {
   const cardElF = card.closest ? card.closest(".card") : null;
   if (cardElF && cardElF.querySelector(".cardfoot")) {
     const kf = el("div", "kidface");
-    if (item.quiz && item.quiz.lessons) item.quiz.lessons.filter(L => L.status === "live" || L.status === "preview").forEach(L => { const b = el("button", "kidbtn", LANG === "en" ? "🎮 Lesson " + L.n + (L.title ? ": " + L.title : "") + " ▶" : "🎮 第" + L.n + "課" + (L.title ? "《" + L.title + "》" : "") + " ▶"); b.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(L.id, item.key); }); kf.appendChild(b); if (window.qzHasReview && window.qzHasReview(L.id)) { const rb2 = el("button", "kidbtn", "📖 重點"); rb2.addEventListener("click", (e) => { e.stopPropagation(); window.qzCardReview(L.id, kf); }); kf.appendChild(rb2); } });
+    if (item.quiz && item.quiz.lessons) item.quiz.lessons.filter(L => L.status === "live" || L.status === "preview").forEach(L => { const b = el("button", "kidbtn", LANG === "en" ? "🎮 Lesson " + L.n + (L.title ? ": " + L.title : "") + " ▶" : "🎮 第" + L.n + "課" + (L.title ? "《" + L.title + "》" : "") + " ▶"); b.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(L.id, item.key); }); kf.appendChild(b); });
     else if (item.quiz && item.quiz.sets) item.quiz.sets.forEach(qs => { const b = el("button", "kidbtn", "🎮 " + qs.title + " ▶"); b.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(qs.id, item.key); }); kf.appendChild(b); });
     else if (item.quiz && item.quiz.id) { const b = el("button", "kidbtn", T("kidQuiz")); b.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(item.quiz.id, item.key); }); kf.appendChild(b); }
     if (item.words && item.words.length) { const b = el("button", "kidbtn alt", T("kidWords")); b.dataset.act = "words"; b.addEventListener("click", (e) => { e.stopPropagation(); expandCard(cardElF); const sb = cardElF.querySelector('[data-act="speakwords"]'); setTimeout(() => { if (sb) sb.scrollIntoView({ behavior: "smooth", block: "center" }); else cardElF.scrollIntoView({ behavior: "smooth", block: "start" }); }, 60); }); kf.appendChild(b); }
@@ -1669,7 +1682,7 @@ const QZ_L3 = {
     ]
   },
   "apply": {
-    "label": "應用版",
+    "label": "應用題一",
     "items": [
       {
         "type": "mc",
@@ -1811,7 +1824,7 @@ const QZ_L3 = {
     ]
   },
   "challenge": {
-    "label": "挑戰版",
+    "label": "應用題二",
     "items": [
       {
         "type": "mc",
@@ -2241,7 +2254,7 @@ const QZ_L4 = {
     ]
   },
   "apply": {
-    "label": "應用版",
+    "label": "應用題一",
     "items": [
       {
         "type": "mc",
@@ -2395,7 +2408,7 @@ const QZ_L4 = {
     ]
   },
   "challenge": {
-    "label": "挑戰版",
+    "label": "應用題二",
     "items": [
       {
         "type": "mc",
@@ -2871,7 +2884,7 @@ const QZ_L5 = {
     ]
   },
   "apply": {
-    "label": "應用版",
+    "label": "應用題一",
     "items": [
       {
         "type": "mc",
@@ -2990,7 +3003,7 @@ const QZ_L5 = {
     ]
   },
   "challenge": {
-    "label": "挑戰版",
+    "label": "應用題二",
     "items": [
       {
         "type": "mc",
@@ -3491,7 +3504,7 @@ const QZ_L6 = {
     ]
   },
   "apply": {
-    "label": "應用版",
+    "label": "應用題一",
     "items": [
       {
         "type": "mc",
@@ -3645,7 +3658,7 @@ const QZ_L6 = {
     ]
   },
   "challenge": {
-    "label": "挑戰版",
+    "label": "應用題二",
     "items": [
       {
         "type": "mc",
@@ -3770,6 +3783,18 @@ const QZ_L7 = {
   "easy": {
     "label": "簡易版",
     "items": [
+      {
+        "type": "imgmc",
+        "skill": "詞語意思",
+        "label": "圖片選擇：幫忙",
+        "tag": "圖片選擇題",
+        "q": "哪一幅圖的小朋友正在幫忙？",
+        "imgs": ["images/imgmc_ball.webp", "images/imgmc_noodle.webp", "images/imgmc_help.webp", "images/imgmc_sleep.webp"],
+        "ans": 2,
+        "why": "第三幅圖嘅小朋友幫婆婆拎袋，呢個就係「幫忙」啦！",
+        "wrongWhy": "睇清楚啲，邊幅圖嘅小朋友係幫緊人手？",
+        "hint": "幫忙即係幫人手做嘢，唔係自己一個玩或者食嘢。"
+      },
       {
         "type": "mc",
         "skill": "課文內容",
@@ -4097,7 +4122,7 @@ const QZ_L7 = {
     ]
   },
   "apply": {
-    "label": "應用版",
+    "label": "應用題一",
     "items": [
       {
         "type": "mc",
@@ -4239,7 +4264,7 @@ const QZ_L7 = {
     ]
   },
   "challenge": {
-    "label": "挑戰版",
+    "label": "應用題二",
     "items": [
       {
         "type": "mc",
@@ -4657,7 +4682,7 @@ const QZ_ENG = {
     ]
   },
   "apply": {
-    "label": "應用版",
+    "label": "應用題一",
     "items": [
       {
         "type": "mc",
@@ -4799,7 +4824,7 @@ const QZ_ENG = {
     ]
   },
   "challenge": {
-    "label": "挑戰版",
+    "label": "應用題二",
     "items": [
       {
         "type": "mc",
@@ -5262,7 +5287,7 @@ const QZ_MATH = {
     ]
   },
   "apply": {
-    "label": "應用版",
+    "label": "應用題一",
     "items": [
       {
         "type": "mc",
@@ -5408,7 +5433,7 @@ const QZ_MATH = {
     ]
   },
   "challenge": {
-    "label": "挑戰版",
+    "label": "應用題二",
     "items": [
       {
         "type": "mc",
@@ -5804,7 +5829,7 @@ const QZ_SCI = {
     ]
   },
   "apply": {
-    "label": "應用版",
+    "label": "應用題一",
     "items": [
       {
         "type": "mc",
@@ -5950,7 +5975,7 @@ const QZ_SCI = {
     ]
   },
   "challenge": {
-    "label": "挑戰版",
+    "label": "應用題二",
     "items": [
       {
         "type": "mc",
@@ -6386,7 +6411,7 @@ const QZ_ENGPAPER = {
     ]
   },
   "apply": {
-    "label": "應用版",
+    "label": "應用題一",
     "items": [
       {
         "type": "mc",
@@ -6505,7 +6530,7 @@ const QZ_ENGPAPER = {
     ]
   },
   "challenge": {
-    "label": "挑戰版",
+    "label": "應用題二",
     "items": [
       {
         "type": "mc",
@@ -6691,11 +6716,11 @@ function qzWrong(item, sub) {
 // 答錯階梯：wc=1 鼓勵+解釋；wc=2 再加提示；wc>=3 再加圖片＋「睇正確答案」掣（學生自己揀，唔自動揭曉）
 function qzWrongFb(item, fb, wc, baseText, doReveal) {
   fb.className = "qz-fb no";
-  if (wc === 2 && item.hint && !item._hintShown) { item._hintShown = true; fb.textContent = item.hint + " 再試下！" + qzWrongNote(item); const sb = qzSpeakBtn(item.hint); if (sb) fb.appendChild(sb); return; }
+  if (wc === 2 && item.hint && !item._hintShown) { item._hintShown = true; fb.textContent = item.hint + " 再試下！" + qzWrongNote(item); const sb = qzSpeakBtn(item.hint); if (sb) fb.insertBefore(sb, fb.firstChild); return; }
   fb.textContent = baseText + qzWrongNote(item);
   if (wc >= 3) qzShowWrongImg(fb, item);
   const sb = qzSpeakBtn(item.wrongWhy || "");
-  if (sb) fb.appendChild(sb);
+  if (sb) fb.insertBefore(sb, fb.firstChild);
   if (wc >= 3) {
     const rb = qzEl("button", "qz-btn qz-revealbtn", "👀 睇正確答案");
     rb.addEventListener("click", doReveal);
@@ -6706,17 +6731,17 @@ function qzReveal(item, fb, answerText) {
   item._done = true; item._revealed = true;
   fb.className = "qz-fb ok";
   fb.textContent = "✅ " + answerText + (item.why ? " " + item.why : "");
-  const spk = item.type === "mc" ? (answerText + " " + (item.why || "")) : (item.why || answerText);
+  const spk = (item.type === "mc" || item.type === "imgmc") ? (answerText + " " + (item.why || "")) : (item.why || answerText);
   const sb = qzSpeakBtn(spk);
-  if (sb) fb.appendChild(sb);
+  if (sb) fb.insertBefore(sb, fb.firstChild);
 }
 function qzEncourage() { const s = QZ_ENCOURAGE[qzEncIx % QZ_ENCOURAGE.length]; qzEncIx++; return s; }
-const QZ_WRONG_IMGS = ['<svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72"><polygon points="36,6 44,26 66,27 49,41 55,63 36,50 17,63 23,41 6,27 28,26" fill="#FFD600" stroke="#B45309" stroke-width="2"/><circle cx="30" cy="34" r="2.5" fill="#090D16"/><circle cx="42" cy="34" r="2.5" fill="#090D16"/><path d="M30 42 Q36 47 42 42" stroke="#090D16" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>', '<svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72"><polygon points="14,22 10,6 28,12" fill="#FF8C42"/><polygon points="58,22 62,6 44,12" fill="#FF8C42"/><circle cx="36" cy="40" r="26" fill="#FFB347" stroke="#B45309" stroke-width="2"/><circle cx="27" cy="36" r="2.5" fill="#090D16"/><circle cx="45" cy="36" r="2.5" fill="#090D16"/><path d="M30 46 Q36 51 42 46" stroke="#090D16" stroke-width="2.5" fill="none" stroke-linecap="round"/><line x1="12" y1="42" x2="24" y2="44" stroke="#090D16" stroke-width="1.5"/><line x1="48" y1="44" x2="60" y2="42" stroke="#090D16" stroke-width="1.5"/></svg>', '<svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72"><path d="M10 52 A26 26 0 0 1 62 52" stroke="#FF2E54" stroke-width="7" fill="none"/><path d="M17 52 A19 19 0 0 1 55 52" stroke="#FFD600" stroke-width="7" fill="none"/><path d="M24 52 A12 12 0 0 1 48 52" stroke="#00E5FF" stroke-width="7" fill="none"/><ellipse cx="16" cy="54" rx="10" ry="7" fill="#E2E8F0"/><ellipse cx="56" cy="54" rx="10" ry="7" fill="#E2E8F0"/></svg>'];
 function qzShowWrongImg(fb, item) {
+  // 圖片只可以係有意思嘅題目專屬圖（item.wrongImg）；冇就唔出圖，唔再用星星等純裝飾圖。
   const old = fb.querySelector(".qz-wrongimg"); if (old) old.remove();
+  if (!item || !item.wrongImg) return;
   const d = qzEl("div", "qz-wrongimg");
-  if (item && item.wrongImg) { d.innerHTML = item.wrongImg.trim().startsWith("<") ? item.wrongImg : '<img src="' + item.wrongImg + '" alt="">'; }
-  else d.innerHTML = QZ_WRONG_IMGS[Math.floor(Math.random() * QZ_WRONG_IMGS.length)];
+  d.innerHTML = item.wrongImg.trim().startsWith("<") ? item.wrongImg : '<img src="' + item.wrongImg + '" alt="">';
   fb.appendChild(d);
 }
 function qzWrongNote(item) { return item.wrongWhy ? " " + item.wrongWhy : ""; }  // 答錯解釋：有專屬 wrongWhy 就出，否則只出鼓勵句（已符合「爭少少」底線）
@@ -6796,9 +6821,15 @@ function qzRender() {
   spk.title = "讀出題目";
   spk.addEventListener("click", () => qzSpeak(item.q));
   qrow.appendChild(spk);
+  const rvb = qzEl("button", "qz-reviewbtn", "📖");
+  rvb.title = "睇重點";
+  const _rvp = document.getElementById("qzReview");
+  if (_rvp && _rvp.style.display !== "none" && _rvp.style.display !== "") rvb.classList.add("on");
+  rvb.addEventListener("click", qzToggleReview);
+  qrow.appendChild(rvb);
   card.appendChild(qrow);
   const fb = qzEl("div", "qz-fb");
-  ({ mc: qzRenderMC, match: qzRenderMatch, drag: qzRenderDrag, order: qzRenderOrder, draw: qzRenderDraw, reveal: qzRenderReveal })[item.type](item, card, fb);
+  ({ mc: qzRenderMC, imgmc: qzRenderImgMC, match: qzRenderMatch, drag: qzRenderDrag, order: qzRenderOrder, draw: qzRenderDraw, reveal: qzRenderReveal })[item.type](item, card, fb);
   card.appendChild(fb);
   stage.appendChild(card);
   qzScoreUpd();
@@ -6822,26 +6853,109 @@ function qzRenderMC(item, card, fb) {
     if (item._done && i === item.ans) b.classList.add("right");
     b.addEventListener("click", () => {
       if (item._done || qzLocked) return;
-      if (i === item.ans) { item._done = true; b.classList.add("right"); fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + item.why; const sb = qzSpeakBtn(item.why || ""); if (sb) fb.appendChild(sb); qzGain(item); }
+      if (i === item.ans) { item._done = true; b.classList.add("right"); fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + item.why; const sb = qzSpeakBtn(item.why || ""); if (sb) fb.insertBefore(sb, fb.firstChild); qzGain(item); }
       else { b.classList.add("wrong"); const wc = qzWrong(item); qzWrongFb(item, fb, wc, "💪 " + qzEncourage(), () => { opts.children[item.ans].classList.add("right"); qzReveal(item, fb, "正確答案：「" + item.opts[item.ans] + "」"); }); setTimeout(() => b.classList.remove("wrong"), 900); }
     });
     opts.appendChild(b);
   });
-  if (item._done) { fb.className = "qz-fb ok"; fb.textContent = "✅ " + item.why; const sb = qzSpeakBtn(item.why || ""); if (sb) fb.appendChild(sb); }
+  if (item._done) { fb.className = "qz-fb ok"; fb.textContent = "✅ " + item.why; const sb = qzSpeakBtn(item.why || ""); if (sb) fb.insertBefore(sb, fb.firstChild); }
   card.appendChild(opts);
+}
+function qzRenderImgMC(item, card, fb) {
+  const grid = qzEl("div", "qz-imggrid");
+  item.imgs.forEach((src, i) => {
+    const b = qzEl("button", "qz-imgbtn");
+    if (src.trim().startsWith("<")) { const d = qzEl("div", "qz-img"); d.innerHTML = src; b.appendChild(d); }
+    else { const im = qzEl("img", "qz-img"); im.src = src; im.alt = "選項 " + (i + 1); b.appendChild(im); }
+    b.appendChild(qzEl("span", "qz-imgnum", String(i + 1)));
+    if (item._done && i === item.ans) b.classList.add("right");
+    b.addEventListener("click", () => {
+      if (item._done || qzLocked) return;
+      if (i === item.ans) { item._done = true; b.classList.add("right"); fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + item.why; const sb = qzSpeakBtn(item.why || ""); if (sb) fb.insertBefore(sb, fb.firstChild); qzGain(item); }
+      else { b.classList.add("wrong"); const wc = qzWrong(item); qzWrongFb(item, fb, wc, "💪 " + qzEncourage(), () => { grid.children[item.ans].classList.add("right"); qzReveal(item, fb, "正確答案係第 " + (item.ans + 1) + " 幅圖。"); }); setTimeout(() => b.classList.remove("wrong"), 900); }
+    });
+    grid.appendChild(b);
+  });
+  if (item._done) { fb.className = "qz-fb ok"; fb.textContent = "✅ " + item.why; const sb = qzSpeakBtn(item.why || ""); if (sb) fb.insertBefore(sb, fb.firstChild); }
+  card.appendChild(grid);
 }
 function qzRenderMatch(item, card, fb) {
   item._matched = item._matched || {};
   const pairs = qzEl("div", "qz-pairs");
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("class", "qz-lines");
+  pairs.appendChild(svg);
   const colL = qzEl("div", "qz-col"), colR = qzEl("div", "qz-col");
   let selChar = null, selBtn = null;
+  function ctr(el) { const r = el.getBoundingClientRect(), pr = pairs.getBoundingClientRect(); return { x: r.left - pr.left + r.width / 2, y: r.top - pr.top + r.height / 2 }; }
+  function drawLines() {
+    if (!document.contains(pairs)) return;
+    svg.innerHTML = "";
+    const pr = pairs.getBoundingClientRect();
+    svg.setAttribute("width", pr.width); svg.setAttribute("height", pr.height);
+    svg.setAttribute("viewBox", "0 0 " + pr.width + " " + pr.height);
+    Object.keys(item._matched).forEach(k => {
+      const lb = [...colL.children].find(b => b.textContent === k);
+      const rb = [...colR.children].find(b => b.textContent === item._matched[k]);
+      if (!lb || !rb) return;
+      const a = ctr(lb), b2 = ctr(rb);
+      const ln = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      ln.setAttribute("x1", a.x); ln.setAttribute("y1", a.y); ln.setAttribute("x2", b2.x); ln.setAttribute("y2", b2.y);
+      ln.setAttribute("stroke", "#22C55E"); ln.setAttribute("stroke-width", "3"); ln.setAttribute("stroke-linecap", "round"); ln.setAttribute("opacity", ".85");
+      svg.appendChild(ln);
+    });
+  }
+  function tryPair(leftChar, rightWord, leftBtn, rightBtn) {
+    const pair = item.pairs.find(p => p[0] === leftChar);
+    if (pair && pair[1] === rightWord) {
+      item._matched[leftChar] = rightWord; rightBtn.classList.add("done"); leftBtn.classList.add("done"); leftBtn.classList.remove("sel");
+      fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + leftChar + " → " + rightWord + "，配對成功！";
+      drawLines();
+      const c = leftChar; selChar = null; selBtn = null; qzGain(item, c);
+    } else { const wc = qzWrong(item, leftChar); const _sc = leftChar; qzWrongFb(item, fb, wc, "💪 " + qzEncourage() + "「" + _sc + "」唔係配「" + rightWord + "」。", () => { item._matched = {}; item.pairs.forEach(pr => { item._matched[pr[0]] = pr[1]; }); colL.querySelectorAll(".qz-chip").forEach(c => c.classList.add("done")); colR.querySelectorAll(".qz-chip").forEach(c => c.classList.add("done")); drawLines(); selChar = null; selBtn = null; qzReveal(item, fb, "正確配對：" + item.pairs.map(pr => pr[0] + "→" + pr[1]).join("， ")); }); }
+  }
   item.pairs.forEach(pr => {
     const b = qzEl("button", "qz-chip", pr[0]);
     if (item._matched[pr[0]]) b.classList.add("done");
     b.addEventListener("click", () => {
+      if (b._dragged) { b._dragged = false; return; }
       if (b.classList.contains("done")) return;
       if (selBtn) selBtn.classList.remove("sel");
       selChar = pr[0]; selBtn = b; b.classList.add("sel");
+    });
+    b.addEventListener("pointerdown", (ev) => {
+      if (b.classList.contains("done") || qzLocked) return;
+      const startX = ev.clientX, startY = ev.clientY;
+      let dragging = false, tmp = null;
+      function onMove(e) {
+        if (!dragging && Math.hypot(e.clientX - startX, e.clientY - startY) < 10) return;
+        if (!dragging) {
+          dragging = true;
+          const a = ctr(b);
+          tmp = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          tmp.setAttribute("x1", a.x); tmp.setAttribute("y1", a.y); tmp.setAttribute("x2", a.x); tmp.setAttribute("y2", a.y);
+          tmp.setAttribute("stroke", "#F59E0B"); tmp.setAttribute("stroke-width", "3"); tmp.setAttribute("stroke-linecap", "round"); tmp.setAttribute("stroke-dasharray", "6 4");
+          svg.appendChild(tmp);
+          b.classList.add("sel");
+        }
+        const pr0 = pairs.getBoundingClientRect();
+        svg.setAttribute("width", pr0.width); svg.setAttribute("height", pr0.height);
+        svg.setAttribute("viewBox", "0 0 " + pr0.width + " " + pr0.height);
+        tmp.setAttribute("x2", e.clientX - pr0.left); tmp.setAttribute("y2", e.clientY - pr0.top);
+      }
+      function onUp(e) {
+        window.removeEventListener("pointermove", onMove);
+        window.removeEventListener("pointerup", onUp);
+        if (tmp) tmp.remove();
+        b.classList.remove("sel");
+        if (!dragging) return;
+        b._dragged = true;
+        const el = document.elementFromPoint(e.clientX, e.clientY);
+        const rb = el ? el.closest(".qz-chip") : null;
+        if (rb && colR.contains(rb) && !rb.classList.contains("done")) tryPair(pr[0], rb.textContent, b, rb);
+      }
+      window.addEventListener("pointermove", onMove);
+      window.addEventListener("pointerup", onUp);
     });
     colL.appendChild(b);
   });
@@ -6850,17 +6964,14 @@ function qzRenderMatch(item, card, fb) {
     if (Object.keys(item._matched).some(k => item._matched[k] === w)) b.classList.add("done");
     b.addEventListener("click", () => {
       if (b.classList.contains("done") || !selChar || qzLocked) return;
-      const pair = item.pairs.find(p => p[0] === selChar);
-      if (pair && pair[1] === w) {
-        item._matched[selChar] = w; b.classList.add("done"); selBtn.classList.add("done"); selBtn.classList.remove("sel");
-        fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + selChar + " → " + w + "，配對成功！";
-        const c = selChar; selChar = null; selBtn = null; qzGain(item, c);
-      } else { const wc = qzWrong(item, selChar); const _sc = selChar; qzWrongFb(item, fb, wc, "💪 " + qzEncourage() + "「" + _sc + "」唔係配「" + w + "」。", () => { item._matched = {}; item.pairs.forEach(pr => { item._matched[pr[0]] = pr[1]; }); colL.querySelectorAll(".qz-chip").forEach(c => c.classList.add("done")); colR.querySelectorAll(".qz-chip").forEach(c => c.classList.add("done")); selChar = null; selBtn = null; qzReveal(item, fb, "正確配對：" + item.pairs.map(pr => pr[0] + "→" + pr[1]).join("， ")); }); }
+      tryPair(selChar, w, selBtn, b);
     });
     colR.appendChild(b);
   });
   pairs.appendChild(colL); pairs.appendChild(colR);
   card.appendChild(pairs);
+  requestAnimationFrame(drawLines);
+  window.addEventListener("resize", drawLines);
 }
 function qzRenderDrag(item, card, fb) {
   item._placed = item._placed || {};
@@ -6934,13 +7045,55 @@ function qzRenderOrder(item, card, fb) {
   const line = qzEl("div", "qz-orderline");
   const tray = qzEl("div", "qz-tray");
   const placed = [];
+  function syncPlaced() { placed.length = 0; line.querySelectorAll(".qz-chip").forEach(c => placed.push(c.textContent)); }
   function mkChip(txt) {
     const c = qzEl("div", "qz-chip", txt);
     c.addEventListener("click", () => {
+      if (c._dragged) { c._dragged = false; return; }
       if (item._done || qzLocked) return;
-      if (c.parentElement === tray) { line.appendChild(c); placed.push(txt); }
-      else { tray.appendChild(c); const ix = placed.indexOf(txt); if (ix >= 0) placed.splice(ix, 1); }
-      fb.textContent = "";
+      if (c.parentElement === tray) line.appendChild(c); else tray.appendChild(c);
+      syncPlaced(); fb.textContent = "";
+    });
+    c.addEventListener("pointerdown", (ev) => {
+      if (item._done || qzLocked) return;
+      const startX = ev.clientX, startY = ev.clientY;
+      let dragging = false, ghost = null, gap = null, targetParent = null, targetBefore = null;
+      function onMove(e) {
+        if (!dragging && Math.hypot(e.clientX - startX, e.clientY - startY) < 10) return;
+        if (!dragging) {
+          dragging = true;
+          ghost = c.cloneNode(true); ghost.className = "qz-chip qz-ghost";
+          document.body.appendChild(ghost);
+          c.classList.add("dragsrc");
+        }
+        ghost.style.left = (e.clientX - 30) + "px"; ghost.style.top = (e.clientY - 20) + "px";
+        if (gap) { gap.remove(); gap = null; }
+        targetParent = null; targetBefore = null;
+        const lr = line.getBoundingClientRect(), tr = tray.getBoundingClientRect();
+        const inLine = e.clientX >= lr.left && e.clientX <= lr.right && e.clientY >= lr.top && e.clientY <= lr.bottom;
+        const inTray = e.clientX >= tr.left && e.clientX <= tr.right && e.clientY >= tr.top && e.clientY <= tr.bottom;
+        if (inLine) {
+          targetParent = line;
+          const others = [...line.children].filter(x => x !== c);
+          targetBefore = others.find(x => { const r = x.getBoundingClientRect(); return e.clientX < r.left + r.width / 2; }) || null;
+          gap = qzEl("div", "qz-gap");
+          if (targetBefore) line.insertBefore(gap, targetBefore); else line.appendChild(gap);
+        } else if (inTray) { targetParent = tray; }
+      }
+      function onUp(e) {
+        window.removeEventListener("pointermove", onMove);
+        window.removeEventListener("pointerup", onUp);
+        if (ghost) ghost.remove();
+        if (gap) gap.remove();
+        c.classList.remove("dragsrc");
+        if (!dragging) return;
+        c._dragged = true;
+        if (targetParent === line) { if (targetBefore) line.insertBefore(c, targetBefore); else line.appendChild(c); }
+        else if (targetParent === tray) { tray.appendChild(c); }
+        syncPlaced(); fb.textContent = "";
+      }
+      window.addEventListener("pointermove", onMove);
+      window.addEventListener("pointerup", onUp);
     });
     return c;
   }
@@ -6951,11 +7104,17 @@ function qzRenderOrder(item, card, fb) {
     if (item._done || qzLocked) return;
     if (placed.length < item.parts.length) { fb.className = "qz-fb no"; fb.textContent = "仲未排完呀，把所有詞語放上句子框先！"; return; }
     if (JSON.stringify(placed) === JSON.stringify(item.parts)) {
-      item._done = true; fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + "「" + item.parts.join("") + "。」"; const sb = qzSpeakBtn(item.parts.join("")); if (sb) fb.appendChild(sb);
+      item._done = true; fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + "「" + item.parts.join("") + "。」"; const sb = qzSpeakBtn(item.parts.join("")); if (sb) fb.insertBefore(sb, fb.firstChild);
       line.querySelectorAll(".qz-chip").forEach(c => c.classList.add("done")); qzGain(item);
     } else { const wc = qzWrong(item); qzWrongFb(item, fb, wc, "💪 " + qzEncourage() + "邊句是原因、邊句是結果？㩒句子框的詞語可以放回下面。", () => { line.innerHTML = ""; item.parts.forEach(t => { const c = qzEl("div", "qz-chip done", t); line.appendChild(c); }); qzReveal(item, fb, "正確次序：「" + item.parts.join("") + "」"); }); }
   });
-  row.appendChild(chk);
+  const clr = qzEl("button", "qz-btn", "↺ 重新排");
+  clr.addEventListener("click", () => {
+    if (item._done || qzLocked) return;
+    [...line.children].forEach(ch => tray.appendChild(ch));
+    placed.length = 0; fb.textContent = "";
+  });
+  row.appendChild(chk); row.appendChild(clr);
   if (item._done) { item.parts.forEach(t => { const c = qzEl("div", "qz-chip done", t); line.appendChild(c); }); fb.className = "qz-fb ok"; fb.textContent = "✅ 已完成"; }
   card.appendChild(line); card.appendChild(tray); card.appendChild(row);
 }
@@ -6981,7 +7140,7 @@ function qzRenderReveal(item, card, fb) {
   const b = qzEl("button", "qz-btn", "👀 睇參考答案");
   const ans = qzEl("div", "qz-answer", item.answer);
   const sb = qzSpeakBtn(item.answer || "");
-  if (sb) ans.appendChild(sb);
+  if (sb) ans.insertBefore(sb, ans.firstChild);
   b.addEventListener("click", () => { ans.style.display = ans.style.display === "block" ? "none" : "block"; });
   row.appendChild(b); card.appendChild(row); card.appendChild(ans);
 }
@@ -7036,7 +7195,7 @@ function qzFinishCard() {
     row.appendChild(rb);
   }
   if (qzSetName === "retry") {
-    const back = qzEl("button", "qz-btn", "↩️ 返去" + (QZ[S._from] ? QZ[S._from].label : "課文版"));
+    const back = qzEl("button", "qz-btn", "↩️ 返去" + (QZ[S._from] ? QZ[S._from].label : "課文題"));
     back.addEventListener("click", () => qzSwitchSet(S._from || "textbook"));
     row.appendChild(back);
   }
@@ -7044,12 +7203,12 @@ function qzFinishCard() {
   again.addEventListener("click", () => { const from = S._from; qzResetSet(qzSetName); if (qzSetName === "retry") qzSwitchSet(from || "textbook"); else qzGo(0); });
   row.appendChild(again);
   if (qzSetName === "textbook" && QZ.apply) {
-    const nx = qzEl("button", "qz-bigbtn", wrong.length === 0 ? "🎉 挑戰成功！去玩應用版 ▶" : "➡️ 試下應用版 ▶");
+    const nx = qzEl("button", "qz-bigbtn", wrong.length === 0 ? "🎉 挑戰成功！去玩應用題一 ▶" : "➡️ 試下應用題一 ▶");
     nx.addEventListener("click", () => qzSwitchSet("apply"));
     card.appendChild(nx);
   }
   if (qzSetName === "apply" && QZ.challenge) {
-    const nx = qzEl("button", "qz-bigbtn", wrong.length === 0 ? "🎉 挑戰成功！去玩挑戰版 ▶" : "➡️ 試下挑戰版 ▶");
+    const nx = qzEl("button", "qz-bigbtn", wrong.length === 0 ? "🎉 挑戰成功！去玩應用題二 ▶" : "➡️ 試下應用題二 ▶");
     nx.addEventListener("click", () => qzSwitchSet("challenge"));
     card.appendChild(nx);
   }
@@ -7185,7 +7344,7 @@ window.qzOpen = function (id, itemKey) {
   if (QZ.easy || QZ.normal) {
     const tb = [], seen = {};
     (QZ.easy ? QZ.easy.items : []).concat(QZ.normal ? QZ.normal.items : []).forEach(it => { const k = it.label + "||" + it.q; if (!seen[k]) { seen[k] = 1; tb.push(it); } });
-    QZ.textbook = { label: "課文版", items: tb };
+    QZ.textbook = { label: "課文題", items: tb };
   }
   qzMigrateLegacy();
   qzBuilt = true;
@@ -7193,6 +7352,7 @@ window.qzOpen = function (id, itemKey) {
   const _at3 = document.getElementById("qzTabApply"); if (_at3) _at3.style.display = QZ.apply ? "" : "none";
   const _ct3 = document.getElementById("qzTabChallenge"); if (_ct3) _ct3.style.display = QZ.challenge ? "" : "none";
   qzSwitchSet("textbook");
+  const _rv = document.getElementById("qzReview"); if (_rv) _rv.style.display = "none";
   document.getElementById("quizModal").style.display = "flex";
   document.body.style.overflow = "hidden";
 };
@@ -7207,41 +7367,46 @@ document.getElementById("qzPrev").addEventListener("click", () => qzGo(qzIdx - 1
 document.getElementById("qzNext").addEventListener("click", () => qzGo(qzIdx + 1));
 // 一撳即睇：每課重點回顧（來源：課本 grammar_points、默書範圍、單元概念；唔使開書）
 const QZ_REVIEW = {
-  chi_l3: { title: "《心中的鈴鐺》重點", points: ["句式「……所以……」表示因果", "形近字：鈴鐺／叮噹、怕／拍、吵／沙、陪／部、少／小", "上下結構：分上小下大、上大下小、上下相等", "故事圖式：背景 → 難題 → 解決方法 → 結果"] },
-  chi_l4: { title: "《小老虎的成長紀錄》重點", points: ["故事結構：背景 → 難題 → 解決方法 → 難題 → 解決方法 → 結果", "成長紀錄要填身高和尾巴長", "小老虎到人類的村子借尺子"] },
-  chi_l5: { title: "《很大很大的爸爸》重點", points: ["句式「……要是……」表示假設", "動詞重疊加「一」：按一按、摸一摸（動作短、試一試）", "左右結構：左小右大、左大右小、左右相等", "比喻：爸爸像一座樓／一條船"] },
-  chi_l6: { title: "《鞋》重點", points: ["頓號：同類詞語之間的短停頓", "擬人法：鞋子像人一樣說話", "比喻：鞋像船，家是港灣"] },
+  chi_l3: { title: "《心中的鈴鐺》重點", points: ["句式「……所以……」表示因果", "形近字：鈴鐺／叮噹、怕／拍、吵／沙、陪／部、少／小", "上下結構：分上小下大、上大下小、上下相等", "故事圖式：背景 → 難題 → 解決方法 → 結果"], text: "①心中的鈴鐺\n②晚上，小熊想上廁所，四周黑黑的、靜靜的，沒有媽媽陪着，小熊十分害怕，便邊走邊搖着鈴鐺。「叮噹，叮噹，叮噹……」\n③小熊剛到廁所門口，看見媽媽從臥室裏探出頭來，便說：「媽媽，我很害怕，所以讓鈴聲陪我上廁所。」\n④「非常好，你不用害怕呀。」媽媽回去睡覺了。\n⑤第二天晚上，小熊又想上廁所了。他拿起小鈴鐺，一想到媽媽會被吵醒，便放下鈴鐺說：「讓我在心中搖鈴鐺吧，這樣不會吵醒媽媽，我也不會害怕呢！」\n⑥「叮噹，叮噹，叮噹……」第三天晚上，小熊起身上廁所的時候，不用在心中搖鈴鐺了。" },
+  chi_l4: { title: "《小老虎的成長紀錄》重點", points: ["故事結構：背景 → 難題 → 解決方法 → 難題 → 解決方法 → 結果", "成長紀錄要填身高和尾巴長", "小老虎到人類的村子借尺子"], text: "①小老虎畢業前，必須填寫一份成長紀錄：身高：＿＿　尾巴長：＿＿\n②小老虎決定到人類的村子去借尺子。牠敲一家裁縫店的窗，裁縫看見小老虎，嚇得手都抖了。小老虎說：「你別怕，我是來請你幫我量一量身體有多長的。」\n⋯（第③段未入庫）⋯\n④裁縫答：「我只給人量身高，從不給動物量的。」說完就拉下了窗簾。\n⑤小老虎只好想別的辦法。牠在河邊看見一隻青蛙在跳遠，旁邊還有一隻青蛙在做紀錄。\n⑥青蛙對小老虎說：「我們在測量這個泥坑的長度，如果泥坑不及＿＿時填平，會影響小昆蟲的生活。」\n⑦小老虎替青蛙填平了泥坑後，請青蛙量一量自己的身高和尾巴。\n⑧小老虎於是在牠的成長紀錄上寫上：身高：三個青蛙跳；尾巴長：一個青蛙跳。\n⑨第二天，小老虎把成長紀錄交給老師。老師笑着宣佈：「小老虎正式成為老虎學校的畢業生！」" },
+  chi_l5: { title: "《很大很大的爸爸》重點", points: ["句式「……要是……」表示假設", "動詞重疊加「一」：按一按、摸一摸（動作短、試一試）", "左右結構：左小右大、左大右小、左右相等", "比喻：爸爸像一座樓／一條船"], text: "我的爸爸站着的時候，就像一座樓：腳是第一層，手是第二層，肩是第三層。我要使出爬山的勁，才能爬上爸爸這座樓。\n我的爸爸躺着的時候，就像一條船：腳是船尾，頭是駕駛台，身體是又寬又大的甲板。無論我在甲板上翻跟頭、跑步、跳高，爸爸這艘船總是穩穩的。要是我按一按他的鼻子，他還會發出和大輪船一樣的汽笛聲。\n我的爸爸真的很大很大，你要是不相信，可以到我家裏來看一看他。不過請你進門的時候要千萬小心，不要光顧着抬頭看我爸爸的臉，而不當心自己往後倒地。" },
+  chi_l6: { title: "《鞋》重點", points: ["頓號：同類詞語之間的短停頓", "擬人法：鞋子像人一樣說話", "比喻：鞋像船，家是港灣"], text: "我回家，把鞋脫下\n姊姊回家，把鞋脫下\n哥哥、爸爸回家\n也都把鞋脫下\n\n大大小小的鞋\n是一家人\n依偎在一起\n說着一天的見聞\n\n大大小小的鞋\n就像大大小小的船\n回到安靜的港灣\n享受家的溫暖" },
   chi_l7: { title: "第7課（小花貓）重點", points: ["默書詞語：難看、追捕、感到、覺得、鏡子、被、辦法、撞、幫忙、樣子、乾乾淨淨、浴室", "讀默：課文 P.5 第五、六段", "背默：課文 P.4 第二段"] },
   eng_u14: { title: "English Units 1–4 重點", points: ["Is there …? / Where is …? 問地方", "現在進行時：I am / We are + 動詞 -ing", "must / must not 講規則", "'s 表示擁有：Bob's watch", "do / does 問答現在式", "on / in 講位置和地方"] },
   eng_paper: { title: "英文評估題型重點", points: ["疑問詞：where / what / who / when", "動詞填形：現在式、進行時", "改錯：句子要有正確動詞和時態", "時間介詞：in / on / at"] },
   math_a1: { title: "數學重點", points: ["三位數：百位、十位、個位", "加法和減法：進位和退位要小心", "角：直角、銳角（比直角小）、鈍角（比直角大）", "垂直線：兩條線相交成直角", "米：量度較長東西的單位"] },
   sci_a1: { title: "科學重點", points: ["生物和非生物：生物會生長、需要食物、水和空氣", "觀察動物：用眼睛、耳朵等感官", "種植物需要陽光、水和空氣"] }
 };
-window.qzHasReview = function (lessonId) { return !!QZ_REVIEW[lessonId]; };
-window.qzCardReview = function (lessonId, host) {
-  const r = QZ_REVIEW[lessonId]; if (!r || !host) return;
-  let dv = host.querySelector(":scope > .qz-cardreview");
-  if (dv && dv.dataset.lesson === lessonId && dv.style.display !== "none") { dv.style.display = "none"; return; }
-  if (!dv) { dv = qzEl("div", "qz-cardreview"); host.appendChild(dv); }
-  dv.dataset.lesson = lessonId;
-  dv.innerHTML = "<h4>📖 " + r.title + "</h4><ul>" + r.points.map(p => "<li>" + p + "</li>").join("") + "</ul>";
-  dv.style.display = "block";
-};
 function qzToggleReview() {
   const panel = document.getElementById("qzReview");
-  const btn = document.getElementById("qzReviewBtn");
   if (!panel) return;
-  if (panel.style.display !== "none" && panel.style.display !== "") { panel.style.display = "none"; if (btn) btn.textContent = "📖 重點"; return; }
+  if (panel.style.display !== "none" && panel.style.display !== "") {
+    panel.style.display = "none";
+    document.querySelectorAll(".qz-reviewbtn").forEach(b => b.classList.remove("on"));
+    return;
+  }
   const r = QZ_REVIEW[qzCtx.lessonId];
-  panel.innerHTML = r ? ("<h4>📖 " + r.title + "</h4><ul>" + r.points.map(p => "<li>" + p + "</li>").join("") + "</ul>")
-                     : "<h4>📖 重點</h4><p>呢一課暫時未有重點回顧。</p>";
+  if (!r) { panel.innerHTML = "<h4>📖 重點</h4><p>呢一課暫時未有重點回顧。</p>"; }
+  else {
+    const pts = "<ul>" + r.points.map(p => "<li>" + p + "</li>").join("") + "</ul>";
+    if (r.text) {
+      panel.innerHTML = "<h4>📖 " + r.title + "</h4><div class=\"qz-revtabs\"><button class=\"qz-revtab on\" data-t=\"pts\">重點</button><button class=\"qz-revtab\" data-t=\"txt\">課文內容</button></div><div class=\"qz-revpts\">" + pts + "</div><div class=\"qz-revtxt\" style=\"display:none\"></div>";
+      panel.querySelector(".qz-revtxt").textContent = r.text;
+      panel.querySelectorAll(".qz-revtab").forEach(tb => tb.addEventListener("click", () => {
+        panel.querySelectorAll(".qz-revtab").forEach(x => x.classList.toggle("on", x === tb));
+        panel.querySelector(".qz-revpts").style.display = tb.dataset.t === "pts" ? "" : "none";
+        panel.querySelector(".qz-revtxt").style.display = tb.dataset.t === "txt" ? "" : "none";
+      }));
+    } else {
+      panel.innerHTML = "<h4>📖 " + r.title + "</h4>" + pts;
+    }
+  }
   panel.style.display = "block";
-  if (btn) btn.textContent = "✕ 收起重點";
+  document.querySelectorAll(".qz-reviewbtn").forEach(b => b.classList.add("on"));
 }
 const _qzTt = document.getElementById("qzTabTextbook"); if (_qzTt) _qzTt.addEventListener("click", () => qzSwitchSet("textbook"));
 const _qzAt = document.getElementById("qzTabApply"); if (_qzAt) _qzAt.addEventListener("click", () => qzSwitchSet("apply"));
 const _qzCt = document.getElementById("qzTabChallenge"); if (_qzCt) _qzCt.addEventListener("click", () => qzSwitchSet("challenge"));
-const _qzRb = document.getElementById("qzReviewBtn"); if (_qzRb) _qzRb.addEventListener("click", qzToggleReview);
 function qzSwitchSet(name) {
   if (!QZ[name]) name = "textbook";
   qzSetName = name;
@@ -7250,7 +7415,6 @@ function qzSwitchSet(name) {
   const _at2 = document.getElementById("qzTabApply"); if (_at2) _at2.classList.toggle("on", name === "apply");
   qzGo(0);
 }
-
 </script>
 </body>
 </html>
