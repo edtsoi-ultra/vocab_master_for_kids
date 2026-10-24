@@ -343,6 +343,12 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
   #wsSheet .wsq, #wsSheet .ws-wordrow { break-inside: avoid; page-break-inside: avoid; }
   #wsSheet .ws-answers { break-before: page !important; page-break-before: always !important; }
 }
+
+.qz-filltext { font-size: 24px; line-height: 2.1; font-weight: 700; margin: 10px 0 12px; }
+.qz-slot { display: inline-block; min-width: 76px; border-bottom: 3px dashed #F59E0B; padding: 0 8px 2px; margin: 0 2px; text-align: center; cursor: pointer; color: #FDE68A; }
+.qz-slot.sel { background: #451A03; border-radius: 8px; border-bottom-color: #FBBF24; }
+.qz-slot.filled { color: #F1F5F9; border-bottom-style: solid; border-bottom-color: #38BDF8; }
+.qz-slot.done { border-bottom-color: #22C55E; color: #BBF7D0; pointer-events: none; }
 </style>
 <script data-goatcounter="https://2a-study.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -6692,7 +6698,7 @@ function qzMigrateLegacy() {
     });
   } catch (e) {}
 }
-function qzMax(item) { return item.type === "mc" || item.type === "order" ? 1 : item.type === "match" ? item.pairs.length : item.type === "drag" ? item.chips.length : 0; }
+function qzMax(item) { return item.type === "mc" || item.type === "order" || item.type === "fill" ? 1 : item.type === "match" ? item.pairs.length : item.type === "drag" ? item.chips.length : 0; }
 function qzEarned(item) { return item._earned || 0; }
 function qzComplete(item) { const m = qzMax(item); return m > 0 && qzEarned(item) >= m; }
 function qzTotals() { let e = 0, t = 0; qzItems().forEach(it => { e += qzEarned(it); t += qzMax(it); }); return [e, t]; }
@@ -6733,7 +6739,7 @@ function qzReveal(item, fb, answerText) {
   item._done = true; item._revealed = true;
   fb.className = "qz-fb ok";
   fb.textContent = "✅ " + answerText + (item.why ? " " + item.why : "");
-  const spk = (item.type === "mc" || item.type === "imgmc") ? (answerText + " " + (item.why || "")) : (item.why || answerText);
+  const spk = (item.type === "mc" || item.type === "imgmc" || item.type === "fill") ? (answerText + " " + (item.why || "")) : (item.why || answerText);
   const sb = qzSpeakBtn(spk);
   if (sb) fb.insertBefore(sb, fb.firstChild);
 }
@@ -6831,7 +6837,7 @@ function qzRender() {
   qrow.appendChild(rvb);
   card.appendChild(qrow);
   const fb = qzEl("div", "qz-fb");
-  ({ mc: qzRenderMC, imgmc: qzRenderImgMC, match: qzRenderMatch, drag: qzRenderDrag, order: qzRenderOrder, draw: qzRenderDraw, reveal: qzRenderReveal })[item.type](item, card, fb);
+  ({ mc: qzRenderMC, imgmc: qzRenderImgMC, match: qzRenderMatch, drag: qzRenderDrag, order: qzRenderOrder, fill: qzRenderFill, draw: qzRenderDraw, reveal: qzRenderReveal })[item.type](item, card, fb);
   card.appendChild(fb);
   stage.appendChild(card);
   qzScoreUpd();
@@ -7120,6 +7126,88 @@ function qzRenderOrder(item, card, fb) {
   if (item._done) { item.parts.forEach(t => { const c = qzEl("div", "qz-chip done", t); line.appendChild(c); }); fb.className = "qz-fb ok"; fb.textContent = "✅ 已完成"; }
   card.appendChild(line); card.appendChild(tray); card.appendChild(row);
 }
+function qzRenderFill(item, card, fb) {
+  const gaps = item.ans.length;
+  const flow = qzEl("div", "qz-filltext");
+  const slots = [];
+  let sel = -1;
+  function setSel(i) { sel = i; slots.forEach((s, j) => s.classList.toggle("sel", j === i)); }
+  function firstEmpty() { return slots.findIndex(s => !s._chip && !s.classList.contains("done")); }
+  function completed() { return item.segs.map((t, i) => t + (i < gaps ? item.ans[i] : "")).join(""); }
+  item.segs.forEach((t, i) => {
+    if (t) flow.appendChild(document.createTextNode(t));
+    if (i < gaps) {
+      const s = qzEl("span", "qz-slot");
+      s.addEventListener("click", () => {
+        if (item._done || qzLocked || s.classList.contains("done")) return;
+        if (s._chip) { tray.appendChild(s._chip); s._chip = null; s.textContent = ""; s.classList.remove("filled"); fb.textContent = ""; setSel(i); }
+        else setSel(i);
+      });
+      slots.push(s); flow.appendChild(s);
+    }
+  });
+  const tray = qzEl("div", "qz-tray");
+  if (!item._done) {
+    item.bank.forEach(w => {
+      const c = qzEl("div", "qz-chip", w);
+      c.addEventListener("click", () => {
+        if (item._done || qzLocked) return;
+        let i = (sel >= 0 && !slots[sel]._chip && !slots[sel].classList.contains("done")) ? sel : firstEmpty();
+        if (i < 0) return;
+        const s = slots[i];
+        s._chip = c; s.textContent = w; s.classList.add("filled");
+        tray.removeChild(c);
+        const ne = firstEmpty();
+        setSel(ne >= 0 ? ne : -1);
+        fb.textContent = "";
+      });
+      tray.appendChild(c);
+    });
+  } else {
+    slots.forEach((s, i) => { s.textContent = item.ans[i]; s.classList.add("done"); });
+  }
+  const row = qzEl("div", "qz-row");
+  const chk = qzEl("button", "qz-btn", "✔️ 檢查");
+  chk.addEventListener("click", () => {
+    if (item._done || qzLocked) return;
+    if (firstEmpty() >= 0) { fb.className = "qz-fb no"; fb.textContent = "仲有空格未填呀，填晒先檢查！"; return; }
+    const cur = slots.map(s => s.textContent);
+    if (JSON.stringify(cur) === JSON.stringify(item.ans)) {
+      item._done = true;
+      slots.forEach(s => s.classList.add("done"));
+      fb.className = "qz-fb ok";
+      fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + "「" + completed() + "」" + (item.why ? " " + item.why : "");
+      const sb = qzSpeakBtn(item.why || completed());
+      if (sb) fb.insertBefore(sb, fb.firstChild);
+      qzGain(item);
+    } else {
+      let newlyLocked = 0;
+      slots.forEach((s, i) => {
+        if (s.classList.contains("done")) return;
+        if (s.textContent === item.ans[i]) { s.classList.add("done"); newlyLocked++; }
+        else { if (s._chip) tray.appendChild(s._chip); s._chip = null; s.textContent = ""; s.classList.remove("filled"); }
+      });
+      const wc = qzWrong(item);
+      const baseText = newlyLocked > 0
+        ? "💪 " + qzEncourage() + "啱咗嗰格已經鎖住，錯嗰格返咗落去，再試下！"
+        : "💪 " + qzEncourage() + "錯嗰格返咗落去，再試下！";
+      qzWrongFb(item, fb, wc, baseText, () => {
+        slots.forEach((s, i) => { s.textContent = item.ans[i]; s.classList.add("done"); s._chip = null; });
+        qzReveal(item, fb, "正確答案：「" + completed() + "」");
+      });
+      setSel(firstEmpty());
+    }
+  });
+  const clr = qzEl("button", "qz-btn alt", "↺ 清空格");
+  clr.addEventListener("click", () => {
+    if (item._done || qzLocked) return;
+    slots.forEach(s => { if (s.classList.contains("done")) return; if (s._chip) tray.appendChild(s._chip); s._chip = null; s.textContent = ""; s.classList.remove("filled"); });
+    fb.textContent = ""; setSel(firstEmpty());
+  });
+  row.appendChild(chk); row.appendChild(clr);
+  if (item._done) { fb.className = "qz-fb ok"; fb.textContent = "✅ 已完成"; }
+  card.appendChild(flow); card.appendChild(tray); card.appendChild(row);
+}
 function qzRenderDraw(item, card, fb) {
   const box = qzEl("div", "qz-drawbox");
   box.appendChild(qzEl("div", "qz-guide", item.guide));
@@ -7223,7 +7311,7 @@ function qzWrongItemCount() {
 function qzStartRetry() {
   const from = qzSetName, src = QZ[from];
   const clones = src.items.filter(it => it._wrongKeys && Object.keys(it._wrongKeys).length)
-    .map(it => { const c = Object.assign({}, it); c._earned = 0; c._done = false; c._stars = 0; c._matched = {}; c._placed = {}; c._wrongKeys = {}; c._wrongCount = 0; c._revealed = false; c._orig = it; return c; });
+    .map(it => { const c = Object.assign({}, it); c._earned = 0; c._done = false; c._stars = 0; c._matched = {}; c._placed = {}; c._wrongKeys = {}; c._wrongCount = 0; c._revealed = false; c._hintShown = false; c._orig = it; return c; });
   if (!clones.length) return;
   QZ.retry = { label: "錯題再練", items: clones, _wrong: [], _from: from };
   qzSetName = "retry";
@@ -7234,7 +7322,7 @@ function qzStartRetry() {
 }
 function qzResetSet(name) {
   const S = QZ[name]; S._wrong = [];
-  S.items.forEach(it => { it._earned = 0; it._done = false; it._stars = 0; it._retried = false; it._matched = {}; it._placed = {}; it._wrongKeys = {}; it._wrongCount = 0; it._revealed = false; });
+  S.items.forEach(it => { it._earned = 0; it._done = false; it._stars = 0; it._retried = false; it._matched = {}; it._placed = {}; it._wrongKeys = {}; it._wrongCount = 0; it._revealed = false; it._hintShown = false; });
 }
 function qzPackState() {
   function pack(name) {
