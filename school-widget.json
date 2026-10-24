@@ -1,7 +1,7 @@
 {
   "service": "daughter-school",
   "student": "2A",
-  "updated": "2026-10-24T15:52:36.810246+00:00",
+  "updated": "2026-10-24T16:31:35.036856+00:00",
   "homework": [
     {
       "key": "HUM_VIDEO_1",
@@ -11,7 +11,7 @@
       "subject_en": "Humanities",
       "title_en": "Humanities Video Task 1",
       "due_display": "10月31日 (六)",
-      "days_left": 7
+      "days_left": 6
     }
   ],
   "upcoming": [
@@ -25,7 +25,7 @@
       "subject_en": "Chinese",
       "title_en": "Chinese Dictation",
       "date_display": "10月28日 (三)",
-      "days_left": 4
+      "days_left": 3
     },
     {
       "key": "CHI_PROGRESS_1",
@@ -38,7 +38,7 @@
       "subject_en": "Chinese",
       "title_en": "Chinese Formative Assessment",
       "date_display": "11月5日 (四)",
-      "days_left": 12
+      "days_left": 11
     },
     {
       "key": "ENG_DICT_3",
@@ -51,7 +51,20 @@
       "subject_en": "English",
       "title_en": "English Dictation 3",
       "date_display": "11月6日 (五)",
-      "days_left": 13
+      "days_left": 12
+    },
+    {
+      "key": "ASSESS_1_CHI",
+      "type": "評估",
+      "subject": "中文",
+      "title": "評估一・中文（閱讀＋寫作）",
+      "date": "2026-11-19",
+      "scope": "課文一冊第1-3課·二冊第7課,單元一/二/五,進評一二 ※含已有知識",
+      "type_en": "Assessment",
+      "subject_en": "Chinese",
+      "title_en": "Assessment 1 · Chinese (Reading + Writing)",
+      "date_display": "11月19日 (四)",
+      "days_left": 25
     }
   ],
   "notices": {
