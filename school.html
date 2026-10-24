@@ -286,6 +286,9 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .ws-bar button { border: none; border-radius: 9px; padding: 9px 16px; font-size: 14px; font-weight: 800; cursor: pointer; }
 .ws-print { background: #2563EB; color: #fff; }
 .ws-close { background: #475569; color: #fff; width: 36px; height: 36px; border-radius: 50%; padding: 0; font-size: 15px; flex: 0 0 auto; }
+@media screen and (min-width: 900px) {
+  body { max-width: 880px; margin: 0 auto; }
+}
 @media (max-width: 380px) {
   header h1 { flex: 1 1 100%; }
   .modesw { margin-left: 0; }
@@ -764,7 +767,7 @@ function enrichmentHTML(card, item, opts) {
     if (item.quiz && item.quiz.lessons) item.quiz.lessons.filter(L => L.status === "live" || L.status === "preview").forEach(L => { const b = el("button", "kidbtn", LANG === "en" ? "🎮 Lesson " + L.n + (L.title ? ": " + L.title : "") + " ▶" : "🎮 第" + L.n + "課" + (L.title ? "《" + L.title + "》" : "") + " ▶"); b.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(L.id, item.key); }); kf.appendChild(b); });
     else if (item.quiz && item.quiz.sets) item.quiz.sets.forEach(qs => { const b = el("button", "kidbtn", "🎮 " + qs.title + " ▶"); b.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(qs.id, item.key); }); kf.appendChild(b); });
     else if (item.quiz && item.quiz.id) { const b = el("button", "kidbtn", T("kidQuiz")); b.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(item.quiz.id, item.key); }); kf.appendChild(b); }
-    if (item.words && item.words.length) { const b = el("button", "kidbtn alt", T("kidWords")); b.dataset.act = "words"; b.addEventListener("click", (e) => { e.stopPropagation(); expandCard(cardElF); const sb = cardElF.querySelector('[data-act="speakwords"]'); setTimeout(() => { if (sb) { sb.scrollIntoView({ behavior: "smooth", block: "center" }); sb.click(); } else cardElF.scrollIntoView({ behavior: "smooth", block: "start" }); }, 60); }); kf.appendChild(b); }
+    if (item.words && item.words.length) { const b = el("button", "kidbtn alt", T("kidWords")); b.dataset.act = "words"; b.addEventListener("click", (e) => { e.stopPropagation(); expandCard(cardElF); const sb = cardElF.querySelector('[data-act="speakwords"]'); setTimeout(() => { if (sb) sb.scrollIntoView({ behavior: "smooth", block: "center" }); else cardElF.scrollIntoView({ behavior: "smooth", block: "start" }); }, 60); }); kf.appendChild(b); }
     if (kf.children.length) { const fe = cardElF.querySelector(".cardfoot"); cardElF.insertBefore(kf, fe.nextSibling); }
   }
   if (checkable && !(item.practice && item.practice.length) && !(item.words && item.words.length) && !(item.hints && item.hints.length) && item.detail) {
@@ -1428,10 +1431,10 @@ function qzBase() { return "school2a-quiz-v1:" + qzCtx.itemKey + ":" + qzCtx.les
 function qzMigrateLegacy() {
   if (qzCtx.lessonId !== "chi_l3") return;
   try {
-    const lp = localStorage.getItem("quizDemoL3-progress");
+    const lp = localStorage.getItem("school2a-quizDemoL3-progress");
     if (lp && !localStorage.getItem(qzBase() + ":progress")) localStorage.setItem(qzBase() + ":progress", lp);
     ["easy", "normal"].forEach(sn => {
-      const v = localStorage.getItem("quizDemoL3-" + sn);
+      const v = localStorage.getItem("school2a-quizDemoL3-" + sn);
       if (v && !localStorage.getItem(qzBase() + ":" + sn)) localStorage.setItem(qzBase() + ":" + sn, v);
     });
   } catch (e) {}
