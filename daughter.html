@@ -360,6 +360,17 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-scbtn.on { background: #F59E0B; color: #451A03; }
 .qz-scbtn.warn { background: #B91C1C; border-color: #FCA5A5; color: #FEE2E2; flex: 2 1 0; }
 .qz-scbtn:disabled { opacity: .4; cursor: default; }
+/* Batch B: question-count progress bar + finish wrong-only review */
+.qz-prog { margin: 10px 2px 12px; background: linear-gradient(#334155, #334155) top / 100% 10px no-repeat; }
+.qz-progfill { height: 10px; border-radius: 6px; background: #22C55E; }
+.qz-progtxt { font-size: 14px; font-weight: 700; color: #E2E8F0; margin-top: 6px; }
+.qz-finrev { margin-top: 16px; border-top: 1.5px solid #334155; padding-top: 12px; }
+.qz-finrev h4 { margin: 0 0 10px; font-size: 16px; color: #FDE68A; }
+.qz-finrev-item { background: #0F172A; border: 1.5px solid #334155; border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; }
+.qz-finrev-q { font-size: 15px; font-weight: 800; color: #FFFFFF; margin-bottom: 6px; line-height: 1.5; }
+.qz-finrev-exp { font-size: 15px; line-height: 1.55; color: #E2E8F0; }
+.qz-finrev-exp .qz-spk { margin-right: 6px; }
+.qz-finrev-ans { font-size: 15px; line-height: 1.55; color: #BBF7D0; font-weight: 700; }
 </style>
 <script data-goatcounter="https://2a-study.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -6720,6 +6731,53 @@ function qzScoreUpd() {
   qzRenderDots();
 }
 function qzEl(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
+/* Batch B #3 PARTIAL shuffle: runtime-only permutation for mc/imgmc.
+   The permutation is cached by (set name + question index within that set),
+   so redraw, wrong-retry, break-card return and finish review all show the
+   SAME order. It is also carried on the item as _shuf, so retry clones
+   (Object.assign in qzStartRetry) inherit it. It is NEVER written to
+   localStorage (qzPackState does not pack it) — known limitation: a mid-set
+   page reload may re-shuffle. Banks are never rewritten. */
+const QZ_SHUFFLE_EXEMPT = [
+  /* Audit batchB_exempt.json: why names the displayed image position. */
+  { lesson: "chi_l7", label: "圖片選擇：幫忙", q: "哪一幅圖的小朋友正在幫忙？" }
+];
+function qzPosRef(text) {
+  if (!text) return false;
+  return /[A-D][係是]/.test(text) || /選項\s*[A-D]/.test(text) || /[A-D]選項/.test(text)
+    || /答案[係是][A-D]/.test(text) || /第[一二三四1234]幅/.test(text)
+    || /第[一二三四1234]個選項/.test(text)
+    || /第[一二三四1234]個(係|就係|先係|[。！？、，；：\s]|$)/.test(text)
+    || /[左右上下]邊(嗰個|嗰幅|個|幅)/.test(text) || /最[左右]邊/.test(text)
+    || /option [A-D]/i.test(text) || /(first|second|third|fourth) option/i.test(text);
+}
+function qzShuffleExempt(item) {
+  if (QZ_SHUFFLE_EXEMPT.some(e => e.lesson === qzCtx.lessonId && e.label === item.label && e.q === item.q)) return true;
+  return qzPosRef(item.why) || qzPosRef(item.wrongWhy) || qzPosRef(item.hint);
+}
+let qzShufCache = {};
+function qzPermValid(perm, n) {
+  if (!Array.isArray(perm) || perm.length !== n) return false;
+  const s = perm.slice().sort((a, b) => a - b);
+  for (let i = 0; i < n; i++) if (s[i] !== i) return false;
+  return true;
+}
+function qzDispOpts(item) {
+  const n = item.type === "mc" ? (item.opts || []).length : (item.imgs || []).length;
+  const ident = []; for (let i = 0; i < n; i++) ident.push(i);
+  if (qzShuffleExempt(item)) return { order: ident, dispAns: item.ans, shuffled: false };
+  const idx = qzItems().indexOf(item);
+  const key = qzSetName + ":" + idx;
+  let perm = qzShufCache[key];
+  if (!qzPermValid(perm, n) && qzSetName === "retry" && qzPermValid(item._shuf, n)) perm = item._shuf;
+  if (!qzPermValid(perm, n)) {
+    perm = ident.slice();
+    for (let i = perm.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = perm[i]; perm[i] = perm[j]; perm[j] = t; }
+  }
+  qzShufCache[key] = perm;
+  item._shuf = perm;
+  return { order: perm, dispAns: perm.indexOf(item.ans), shuffled: true };
+}
 function qzWrong(item, sub) {
   const key = item.label + (sub ? "：" + sub : "");
   const S = QZ[qzSetName];
@@ -6819,13 +6877,14 @@ function qzRender() {
   if (foot) foot.style.display = qzIdx >= items.length ? "none" : "flex";
   if (qzBreakFor === qzIdx && qzIdx > 0 && qzIdx < items.length) {
     prev.disabled = true; next.disabled = true;
+    stage.appendChild(qzProgBar(true));
     stage.appendChild(qzBreakCard());
     qzRenderDots();
     return;
   }
   prev.disabled = qzIdx === 0; next.disabled = false;
   next.textContent = qzIdx >= items.length ? "🏁 已到成績頁" : "下一題 →";
-  if (qzIdx >= items.length) { stage.appendChild(qzFinishCard()); qzRenderDots(); return; }
+  if (qzIdx >= items.length) { stage.appendChild(qzFinishCard()); const fr = qzFinishReview(); if (fr) stage.appendChild(fr); qzRenderDots(); return; }
   const item = items[qzIdx];
   const card = qzEl("div", "qz-card qz-enter");
   card.appendChild(qzEl("span", "qz-tag", item.tag + " ・ 第 " + (qzIdx + 1) + " / " + items.length + " 題"));
@@ -6851,9 +6910,33 @@ function qzRender() {
   const fb = qzEl("div", "qz-fb");
   ({ mc: qzRenderMC, imgmc: qzRenderImgMC, match: qzRenderMatch, drag: qzRenderDrag, order: qzRenderOrder, fill: qzRenderFill, draw: qzRenderDraw, reveal: qzRenderReveal })[item.type](item, card, fb);
   card.appendChild(fb);
+  stage.appendChild(qzProgBar(false));
   stage.appendChild(card);
   qzScoreUpd();
   qzRenderDots();
+}
+/* Batch B #11 question-count progress bar: denominator is the QUESTION count
+   (items.length), never the star total. Width is pure CSS from qzIdx — no new
+   state. The bar is a navigation aid only: no prize wording anywhere near it. */
+function qzProgBar(isBreak) {
+  const items = qzItems(), total = items.length;
+  const wrap = qzEl("div", "qz-prog");
+  const fill = qzEl("div", "qz-progfill");
+  fill.style.width = (total ? Math.round(qzIdx / total * 100) : 0) + "%";
+  wrap.appendChild(fill);
+  const txt = qzEl("div", "qz-progtxt");
+  if (isBreak) {
+    txt.textContent = "休息中・已經完成 " + qzIdx + " / " + total + " 題";
+  } else {
+    const n = qzIdx + 1;
+    let nb = null;
+    for (let b = 4; b < total; b += 4) { if (b >= n) { nb = b; break; } }
+    if (nb === null) txt.textContent = "第 " + n + " / " + total + " 題・最後 " + (total - n + 1) + " 題";
+    else if (nb === n) txt.textContent = "第 " + n + " / " + total + " 題・做完呢題就休息";
+    else txt.textContent = "第 " + n + " / " + total + " 題・再 " + (nb - n) + " 題就休息";
+  }
+  wrap.appendChild(txt);
+  return wrap;
 }
 function qzBreakCard() {
   const card = qzEl("div", "qz-card qz-enter qz-break");
@@ -6868,13 +6951,15 @@ function qzBreakCard() {
 }
 function qzRenderMC(item, card, fb) {
   const opts = qzEl("div", "qz-opts");
-  item.opts.forEach((o, i) => {
+  const disp = qzDispOpts(item);
+  disp.order.forEach((orig, di) => {
+    const o = item.opts[orig];
     const b = qzEl("button", "qz-opt", o);
-    if (item._done && i === item.ans) b.classList.add("right");
+    if (item._done && di === disp.dispAns) b.classList.add("right");
     b.addEventListener("click", () => {
       if (item._done || qzLocked) return;
-      if (i === item.ans) { item._done = true; b.classList.add("right"); fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + item.why; const sb = qzSpeakBtn(item.why || ""); if (sb) fb.insertBefore(sb, fb.firstChild); qzGain(item); }
-      else { b.classList.add("wrong"); const wc = qzWrong(item); qzWrongFb(item, fb, wc, "💪 " + qzEncourage(), () => { opts.children[item.ans].classList.add("right"); qzReveal(item, fb, "正確答案：「" + item.opts[item.ans] + "」"); }); setTimeout(() => b.classList.remove("wrong"), 900); }
+      if (di === disp.dispAns) { item._done = true; b.classList.add("right"); fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + item.why; const sb = qzSpeakBtn(item.why || ""); if (sb) fb.insertBefore(sb, fb.firstChild); qzGain(item); }
+      else { b.classList.add("wrong"); const wc = qzWrong(item); qzWrongFb(item, fb, wc, "💪 " + qzEncourage(), () => { opts.children[disp.dispAns].classList.add("right"); qzReveal(item, fb, "正確答案：「" + item.opts[item.ans] + "」"); }); setTimeout(() => b.classList.remove("wrong"), 900); }
     });
     opts.appendChild(b);
   });
@@ -6883,16 +6968,18 @@ function qzRenderMC(item, card, fb) {
 }
 function qzRenderImgMC(item, card, fb) {
   const grid = qzEl("div", "qz-imggrid");
-  item.imgs.forEach((src, i) => {
+  const disp = qzDispOpts(item);
+  disp.order.forEach((orig, di) => {
+    const src = item.imgs[orig];
     const b = qzEl("button", "qz-imgbtn");
     if (src.trim().startsWith("<")) { const d = qzEl("div", "qz-img"); d.innerHTML = src; b.appendChild(d); }
-    else { const im = qzEl("img", "qz-img"); im.src = src; im.alt = "選項 " + (i + 1); b.appendChild(im); }
-    b.appendChild(qzEl("span", "qz-imgnum", String(i + 1)));
-    if (item._done && i === item.ans) b.classList.add("right");
+    else { const im = qzEl("img", "qz-img"); im.src = src; im.alt = "選項 " + (di + 1); b.appendChild(im); }
+    b.appendChild(qzEl("span", "qz-imgnum", String(di + 1)));
+    if (item._done && di === disp.dispAns) b.classList.add("right");
     b.addEventListener("click", () => {
       if (item._done || qzLocked) return;
-      if (i === item.ans) { item._done = true; b.classList.add("right"); fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + item.why; const sb = qzSpeakBtn(item.why || ""); if (sb) fb.insertBefore(sb, fb.firstChild); qzGain(item); }
-      else { b.classList.add("wrong"); const wc = qzWrong(item); qzWrongFb(item, fb, wc, "💪 " + qzEncourage(), () => { grid.children[item.ans].classList.add("right"); qzReveal(item, fb, "正確答案係第 " + (item.ans + 1) + " 幅圖。"); }); setTimeout(() => b.classList.remove("wrong"), 900); }
+      if (di === disp.dispAns) { item._done = true; b.classList.add("right"); fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + item.why; const sb = qzSpeakBtn(item.why || ""); if (sb) fb.insertBefore(sb, fb.firstChild); qzGain(item); }
+      else { b.classList.add("wrong"); const wc = qzWrong(item); qzWrongFb(item, fb, wc, "💪 " + qzEncourage(), () => { grid.children[disp.dispAns].classList.add("right"); qzReveal(item, fb, "正確答案係第 " + (disp.dispAns + 1) + " 幅圖。"); }); setTimeout(() => b.classList.remove("wrong"), 900); }
     });
     grid.appendChild(b);
   });
@@ -7232,7 +7319,7 @@ function qzRenderDraw(item, card, fb) {
   const ctx = cv.getContext("2d"); ctx.lineWidth = 7; ctx.lineCap = "round"; ctx.strokeStyle = "#FDE68A";
   let drawing = false, lastPt = null;
   function ptOf(e) { const r = cv.getBoundingClientRect(); return { x: (e.clientX - r.left) * (cv.width / r.width), y: (e.clientY - r.top) * (cv.height / r.height) }; }
-  cv.addEventListener("pointerdown", e => { e.preventDefault(); drawing = true; lastPt = ptOf(e); cv.setPointerCapture(e.pointerId); });
+  cv.addEventListener("pointerdown", e => { e.preventDefault(); item._drawn = true; drawing = true; lastPt = ptOf(e); cv.setPointerCapture(e.pointerId); });
   cv.addEventListener("pointermove", e => { if (!drawing) return; const p = ptOf(e); ctx.beginPath(); ctx.moveTo(lastPt.x, lastPt.y); ctx.lineTo(p.x, p.y); ctx.stroke(); lastPt = p; });
   ["pointerup", "pointercancel"].forEach(t => cv.addEventListener(t, () => { drawing = false; }));
   fb.className = "qz-fb"; fb.textContent = "自由練習，唔計分 — 畫完㩒「下一題」繼續。隨時可以㩒右上角 ✕ 停低，進度已經存好。";
@@ -7243,7 +7330,7 @@ function qzRenderReveal(item, card, fb) {
   const ans = qzEl("div", "qz-answer", item.answer);
   const sb = qzSpeakBtn(item.answer || "");
   if (sb) ans.insertBefore(sb, ans.firstChild);
-  b.addEventListener("click", () => { ans.style.display = ans.style.display === "block" ? "none" : "block"; });
+  b.addEventListener("click", () => { const show = ans.style.display !== "block"; ans.style.display = show ? "block" : "none"; if (show) item._viewed = true; });
   row.appendChild(b); card.appendChild(row); card.appendChild(ans);
 }
 function qzSkillSummary(cardEl) {
@@ -7267,6 +7354,60 @@ function qzSkillSummary(cardEl) {
     wrap.appendChild(qzEl("span", "qz-pill " + cls, s + " " + icon));
   });
   cardEl.appendChild(wrap);
+}
+/* Batch B #5 finish wrong-only review: a section BELOW the finish card, no
+   new page. Included iff the child got the item wrong at least once
+   (non-empty _wrongKeys, even if later corrected) OR never finished it.
+   Finished is judged per type, NOT via qzMax/qzComplete for single-answer
+   types: live daughter.html qzMax lacks imgmc (known drift, Eddie's decision
+   pending, deliberately untouched), so qzComplete(imgmc) is always false
+   there — using it would wrongly include every first-try-correct imgmc.
+   Rule: mc/imgmc/order/fill → included iff !_done; match/drag → included
+   iff !qzComplete (their live qzMax is correct); draw → !_drawn; reveal →
+   !_viewed. Read-only: never changes stars, scores or retry behaviour.
+   Voice is tap-to-play only (qzSpeakBtn), never auto-played on render.
+   No-why draw/match/order show ONLY the bank's correct result with the
+   explanation left blank — never an invented explanation, and a wrongWhy
+   (a wrong-answer note) is never presented as the explanation. */
+function qzCorrectResult(item) {
+  if (item.type === "draw") return qzEl("div", "qz-finrev-ans", "正確寫法／畫法：" + (item.guide || ""));
+  if (item.type === "match") return qzEl("div", "qz-finrev-ans", "正確配對：" + item.pairs.map(pr => pr[0] + "→" + pr[1]).join("， "));
+  if (item.type === "order") return qzEl("div", "qz-finrev-ans", "正確次序：「" + item.parts.join("") + "」");
+  if (item.type === "mc") return qzEl("div", "qz-finrev-ans", "正確答案：「" + item.opts[item.ans] + "」");
+  if (item.type === "imgmc") { const d = qzDispOpts(item); return qzEl("div", "qz-finrev-ans", "正確答案係第 " + (d.dispAns + 1) + " 幅圖。"); }
+  if (item.type === "fill") return qzEl("div", "qz-finrev-ans", "正確答案：「" + item.segs.map((t, i) => t + (i < item.ans.length ? item.ans[i] : "")).join("") + "」");
+  if (item.type === "reveal") return qzEl("div", "qz-finrev-ans", item.answer || "");
+  return null;
+}
+function qzFinishReview() {
+  const rev = qzItems().filter(it => {
+    if (it._wrongKeys && Object.keys(it._wrongKeys).length) return true;
+    if (it.type === "mc" || it.type === "imgmc" || it.type === "order" || it.type === "fill") return !it._done;
+    if (it.type === "match" || it.type === "drag") return !qzComplete(it);
+    if (it.type === "draw") return !it._drawn;
+    if (it.type === "reveal") return !it._viewed;
+    return false;
+  });
+  if (!rev.length) return null;
+  const sec = qzEl("div", "qz-finrev");
+  sec.appendChild(qzEl("h4", null, "📖 錯題同未完成題目回顧"));
+  rev.forEach(it => {
+    const box = qzEl("div", "qz-finrev-item");
+    const title = (it.tag ? it.tag + "・" : "") + (it.q || "練習題");
+    box.appendChild(qzEl("div", "qz-finrev-q", title));
+    if (it.why) {
+      const exp = qzEl("div", "qz-finrev-exp");
+      exp.textContent = it.why;
+      const sb = qzSpeakBtn(it.why);
+      if (sb) exp.insertBefore(sb, exp.firstChild);
+      box.appendChild(exp);
+    } else {
+      const cr = qzCorrectResult(it);
+      if (cr) box.appendChild(cr);
+    }
+    sec.appendChild(box);
+  });
+  return sec;
 }
 function qzFinishCard() {
   const S = QZ[qzSetName], t = qzTotals();
@@ -7322,8 +7463,18 @@ function qzWrongItemCount() {
 }
 function qzStartRetry() {
   const from = qzSetName, src = QZ[from];
-  const clones = src.items.filter(it => it._wrongKeys && Object.keys(it._wrongKeys).length)
-    .map(it => { const c = Object.assign({}, it); c._earned = 0; c._done = false; c._stars = 0; c._matched = {}; c._placed = {}; c._wrongKeys = {}; c._wrongCount = 0; c._revealed = false; c._hintShown = false; c._orig = it; return c; });
+  const clones = [];
+  src.items.forEach((it, oi) => {
+    if (!(it._wrongKeys && Object.keys(it._wrongKeys).length)) return;
+    const c = Object.assign({}, it); c._earned = 0; c._done = false; c._stars = 0; c._matched = {}; c._placed = {}; c._wrongKeys = {}; c._wrongCount = 0; c._revealed = false; c._hintShown = false; c._drawn = false; c._viewed = false; c._orig = it;
+    /* Batch B #3: the retry clone inherits the original's shuffle permutation
+       (cached by set+index, else the item's _shuf carrier), so retry shows the
+       same option order as the first playthrough. */
+    const perm = qzShufCache[from + ":" + oi];
+    if (qzPermValid(perm, (it.opts || it.imgs || []).length)) c._shuf = perm.slice();
+    else if (qzPermValid(it._shuf, (it.opts || it.imgs || []).length)) c._shuf = it._shuf.slice();
+    clones.push(c);
+  });
   if (!clones.length) return;
   QZ.retry = { label: "錯題再練", items: clones, _wrong: [], _from: from };
   qzSetName = "retry";
@@ -7335,7 +7486,10 @@ function qzStartRetry() {
 function qzResetSet(name) {
   qzScratchClear();
   const S = QZ[name]; S._wrong = [];
-  S.items.forEach(it => { it._earned = 0; it._done = false; it._stars = 0; it._retried = false; it._matched = {}; it._placed = {}; it._wrongKeys = {}; it._wrongCount = 0; it._revealed = false; it._hintShown = false; });
+  /* Batch B #3: set reset clears the shuffle cache for this set (next
+     playthrough re-shuffles) and the _shuf carriers on its items. */
+  Object.keys(qzShufCache).forEach(k => { if (k.indexOf(name + ":") === 0) delete qzShufCache[k]; });
+  S.items.forEach(it => { it._earned = 0; it._done = false; it._stars = 0; it._retried = false; it._matched = {}; it._placed = {}; it._wrongKeys = {}; it._wrongCount = 0; it._revealed = false; it._hintShown = false; delete it._shuf; it._drawn = false; it._viewed = false; });
 }
 function qzPackState() {
   function pack(name) {
@@ -7596,6 +7750,7 @@ function qzSwitchSet(name) {
   const _at2 = document.getElementById("qzTabApply"); if (_at2) _at2.classList.toggle("on", name === "apply");
   qzGo(0);
 }
+
 </script>
 </body>
 </html>
