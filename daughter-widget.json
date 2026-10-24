@@ -1,7 +1,7 @@
 {
   "service": "daughter-school",
   "student": "琳琳 2A",
-  "updated": "2026-10-23T23:52:17.745494+00:00",
+  "updated": "2026-10-24T00:25:42.533704+00:00",
   "homework": [
     {
       "key": "HUM_VIDEO_1",
@@ -9,6 +9,8 @@
       "title": "人文視訊一",
       "due": "2026-10-31",
       "status": "pending",
+      "subject_en": "Humanities",
+      "title_en": "Humanities Video Task 1",
       "due_display": "10月31日 (六)",
       "days_left": 7
     }
@@ -20,6 +22,9 @@
       "subject": "英文",
       "title": "英文默書",
       "date": "2026-10-23",
+      "type_en": "Dictation",
+      "subject_en": "English",
+      "title_en": "English Dictation",
       "date_display": "10月23日 (五)",
       "days_left": -1
     },
@@ -29,6 +34,9 @@
       "subject": "中文",
       "title": "中文默書",
       "date": "2026-10-28",
+      "type_en": "Dictation",
+      "subject_en": "Chinese",
+      "title_en": "Chinese Dictation",
       "date_display": "10月28日 (三)",
       "days_left": 4
     },
@@ -39,6 +47,9 @@
       "title": "中文進評",
       "date": "2026-11-05",
       "scope": "課文第3至7課",
+      "type_en": "Formative Assessment",
+      "subject_en": "Chinese",
+      "title_en": "Chinese Formative Assessment",
       "date_display": "11月5日 (四)",
       "days_left": 12
     },
@@ -49,6 +60,9 @@
       "title": "英文默書 Dict 3",
       "date": "2026-11-06",
       "scope": "Unit 3",
+      "type_en": "Dictation",
+      "subject_en": "English",
+      "title_en": "English Dictation 3",
       "date_display": "11月6日 (五)",
       "days_left": 13
     }
