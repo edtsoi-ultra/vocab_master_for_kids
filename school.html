@@ -189,11 +189,11 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-tab.on { border-color: #F59E0B; background: #451A03; color: #FDE68A; }
 #qzScore { color: #FDE68A; font-size: 16px; font-weight: 900; }
 #qzStreak { color: #FB923C; font-size: 14.5px; font-weight: 900; }
-.qz-wrap { flex: 1; overflow-y: auto; width: 100%; max-width: 720px; margin: 0 auto; padding: 2px 10px 18px; width: 100%; }
+.qz-wrap { flex: 1; overflow-y: auto; width: 100%; max-width: 720px; margin: 0 auto; padding: 2px 10px calc(84px + env(safe-area-inset-bottom)); width: 100%; }
 #qzStage { min-height: 380px; }
-.qz-footer { flex: none; width: 100%; max-width: 720px; margin: 0 auto; display: flex; align-items: center; gap: 8px; padding: 9px 10px calc(9px + env(safe-area-inset-bottom)); background: #0B1220; border-top: 1.5px solid #334155; }
-.qz-footer .qz-btn { flex: none; padding: 10px 13px; font-size: 14px; }
-#qzDots { flex: 1; display: flex; gap: 5px; flex-wrap: nowrap; overflow-x: auto; justify-content: center; padding: 2px 0; cursor: pointer; }
+.qz-footer { flex: none; width: 100%; max-width: 720px; margin: 0 auto; display: flex; flex-wrap: nowrap; align-items: center; gap: 8px; padding: 9px 10px calc(9px + env(safe-area-inset-bottom)); background: #0B1220; border-top: 1.5px solid #334155; }
+.qz-footer .qz-btn { flex: none; width: 104px; box-sizing: border-box; padding: 10px 6px; font-size: 14px; white-space: nowrap; }
+#qzDots { flex: 1 1 auto; min-width: 0; display: flex; gap: 5px; flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; padding: 2px 0; cursor: pointer; }
 #qzJump { display: none; flex: none; width: 100%; max-width: 720px; margin: 0 auto; background: #0F172A; border-top: 1.5px solid #334155; padding: 10px 12px 12px; }
 #qzJump.open { display: block; }
 .qz-jhead { display: flex; justify-content: space-between; align-items: center; margin-bottom: 9px; color: #CBD5E1; font-weight: 800; font-size: 14.5px; }
@@ -6795,24 +6795,21 @@ function qzGain(item, sub) {
     qzLocked = true;
     if (!item._wrongKeys || !Object.keys(item._wrongKeys).length) qzStreak++; else qzStreak = 0;
     qzScoreUpd();
-    qzMaybeAdvance();
+    /* Batch A manual advance: no auto-advance timer — the user advances with 下一題. */
   }
-}
-function qzMaybeAdvance() {
-  const idx = qzIdx;
-  setTimeout(() => {
-    if (qzIdx !== idx) return;
-    const nxt = idx + 1;
-    if (nxt < qzItems().length && nxt % 4 === 0) { qzBreakFor = nxt; qzRender(); }
-    else if (nxt <= qzItems().length) qzGo(nxt);
-  }, 1150);
 }
 function qzGo(i) {
   qzJumpToggle(false);
   const items = qzItems();
-  qzIdx = Math.max(0, Math.min(i, items.length));
+  const was = qzIdx;
+  const target = Math.max(0, Math.min(i, items.length));
+  qzIdx = target;
   qzLocked = false;
-  if (qzBreakFor !== qzIdx) qzBreakFor = -1;
+  /* Batch A atomic break: a forward step (+1) into a 4-boundary sets qzIdx AND
+     qzBreakFor together, so qzRender shows the break card at once. Backward,
+     jump-panel and finish navigation never trigger a break card. */
+  if (target > 0 && target < items.length && target % 4 === 0 && target === was + 1) qzBreakFor = target;
+  else if (qzBreakFor !== qzIdx) qzBreakFor = -1;
   qzRender();
 }
 function qzRender() {
@@ -7403,6 +7400,9 @@ function qzRenderDots() {
   const fin = qzEl("span", "qz-dot", "🏁");
   if (qzIdx >= qzItems().length) fin.classList.add("cur");
   box.appendChild(fin);
+  /* Batch A footer: keep the active dot visible inside the scrollable dots strip. */
+  const cur = box.querySelector(".qz-dot.cur");
+  if (cur) cur.scrollIntoView({ block: "nearest", inline: "nearest" });
   if (!box.dataset.jumpBound) { box.dataset.jumpBound = "1"; box.addEventListener("click", () => qzJumpToggle()); }
   qzRenderJump();
 }
@@ -7505,7 +7505,7 @@ function qzScratchEl() {
   return p;
 }
 function qzScratchOpen() { const p = document.getElementById("qzScratch"); return !!(p && p.style.display !== "none" && p.style.display !== ""); }
-function qzScratchToggle() { const p = qzScratchEl(); const wasOpen = qzScratchOpen(); p.style.display = wasOpen ? "none" : "block"; if (!wasOpen && p._ring) p._ring.style.display = "none"; }
+function qzScratchToggle() { const p = qzScratchEl(); const wasOpen = qzScratchOpen(); p.style.display = wasOpen ? "none" : "block"; if (!wasOpen) p.scrollIntoView({ block: "nearest" }); if (!wasOpen && p._ring) p._ring.style.display = "none"; }
 function qzScratchClear() {
   qzScStrokes = []; qzScUndone = []; qzScTool = "pen";
   const p = document.getElementById("qzScratch");
