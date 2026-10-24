@@ -286,6 +286,17 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .ws-bar button { border: none; border-radius: 9px; padding: 9px 16px; font-size: 14px; font-weight: 800; cursor: pointer; }
 .ws-print { background: #2563EB; color: #fff; }
 .ws-close { background: #475569; color: #fff; width: 36px; height: 36px; border-radius: 50%; padding: 0; font-size: 15px; flex: 0 0 auto; }
+@media (max-width: 380px) {
+  header h1 { flex: 1 1 100%; }
+  .modesw { margin-left: 0; }
+}
+@media (max-width: 480px) {
+  .card .top { flex-wrap: wrap; }
+  .card .ttl { flex: 1 1 100%; order: 5; }
+  .card .due { order: 6; }
+  .card .chev { order: 7; margin-left: auto; }
+  h2.sec { font-size: 15px; }
+}
 @media print {
   body { background: #fff !important; padding: 0; position: static !important; top: auto !important; width: auto !important; overflow: visible !important; }
   body > header, body > .sub, #topnav, #actionBanner, #app, footer { display: none !important; }
