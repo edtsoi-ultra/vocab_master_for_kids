@@ -243,10 +243,10 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-opt.wrong { border-color: #F97316; background: #431407; }
 .qz-fb { margin-top: 10px; font-size: 15px; font-weight: 800; min-height: 22px; }
 .qz-fb.ok { color: #4ADE80; } .qz-fb.no { color: #FB923C; }
-.qz-pairs { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 10px; position: relative; }
+.qz-pairs { display: flex; gap: 40px; flex-wrap: wrap; margin-top: 10px; position: relative; }
 .qz-lines { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
 .qz-pairs .qz-chip { position: relative; z-index: 1; }
-.qz-col { flex: 1; min-width: 130px; display: flex; flex-direction: column; gap: 8px; }
+.qz-col { flex: 1; min-width: 130px; display: flex; flex-direction: column; gap: 20px; }
 .qz-chip { background: #0F172A; color: #F1F5F9; border: 2px solid #64748B; border-radius: 11px; padding: 11px 8px; font-size: 18px; font-weight: 800; cursor: pointer; text-align: center; user-select: none; -webkit-user-select: none; touch-action: none; }
 .qz-chip.sel { border-color: #F59E0B; background: #451A03; }
 .qz-chip.done { border-color: #22C55E; background: #14532D; opacity: .75; pointer-events: none; }
@@ -254,8 +254,12 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 /* Match endpoint dots (matchdots batch): inner-side dot per match box; 28px
    hit box centred on the box edge, 12px visible circle (16px when snapped).
    Colour only assists: box border+bg, dot fill and line together carry state. */
-.qz-col-l .qz-chip { padding-right: 16px; }
-.qz-col-r .qz-chip { padding-left: 16px; }
+/* Matchdots2 refinement (2026-10-25): smaller match boxes (7px vertical
+   padding, was 11px; font stays 18px) + wider inter-column gap (40px, was
+   14px) so paired dots separate, + wider row gap (20px, was 8px) so the
+   smaller boxes do not pull neighbouring rows' dots closer together. */
+.qz-col-l .qz-chip { padding: 7px 16px 7px 8px; }
+.qz-col-r .qz-chip { padding: 7px 8px 7px 16px; }
 .qz-matchdot { position: absolute; top: 50%; width: 28px; height: 28px; margin-top: -14px; border-radius: 50%; pointer-events: none; z-index: 2; }
 .qz-col-l .qz-matchdot { right: -14px; }
 .qz-col-r .qz-matchdot { left: -14px; }
@@ -373,8 +377,14 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-scratchbtn.on { background: #F59E0B; color: #451A03; }
 #qzScratch { display: none; margin-top: 12px; position: relative; }
 #qzScratchCv { width: 100%; aspect-ratio: 720 / 440; background: #1E293B; border: 2px solid #F59E0B; border-radius: 12px; touch-action: none; display: block; }
-#qzScratchHint { position: absolute; top: 0; left: 0; width: 100%; aspect-ratio: 720 / 440; display: flex; align-items: center; justify-content: center; color: #94A3B8; font-size: 18px; font-weight: 800; pointer-events: none; }
+#qzScratchHint { position: absolute; top: 60px; left: 0; width: 100%; aspect-ratio: 720 / 440; display: flex; align-items: center; justify-content: center; color: #94A3B8; font-size: 18px; font-weight: 800; pointer-events: none; }
 #qzScratchRing { position: absolute; border: 2px dashed #FDE68A; background: rgba(253,230,138,0.18); border-radius: 50%; pointer-events: none; display: none; z-index: 2; }
+/* Scratch scroll strip (scratchscroll batch): full-width drag-to-scroll row at the
+   TOP of the panel, above the canvas. touch-action: pan-y lets a vertical finger
+drag scroll .qz-wrap; the canvas keeps touch-action: none for drawing. Height
+   52px (>=48px finger target) + 8px margin = 60px, which is why #qzScratchHint
+   below is offset top: 60px so it stays exactly over the canvas. */
+#qzScrScroll { display: flex; align-items: center; justify-content: center; gap: 8px; height: 52px; margin-bottom: 8px; background: #0F172A; border: 2px dashed #38BDF8; border-radius: 12px; color: #E0F2FE; font-size: 17px; font-weight: 900; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
 .qz-scrow { display: flex; gap: 6px; margin-top: 8px; flex-wrap: nowrap; }
 .qz-scbtn { border: 2px solid #F59E0B; background: #451A03; color: #FDE68A; border-radius: 999px; padding: 10px 2px; font-size: 15px; font-weight: 800; cursor: pointer; flex: 1 1 0; min-width: 0; white-space: nowrap; }
 .qz-scbtn.on { background: #F59E0B; color: #451A03; }
@@ -6937,6 +6947,10 @@ function qzGain(item, sub) {
   }
 }
 function qzGo(i) {
+  /* Break-next: any real navigation clears the double-tap guard, so a
+     legitimate back-then-forward (which routes through qzGo) is never
+     swallowed — the guard blocks only a rapid 2nd footer-next tap. */
+  qzBreakNextGuard = 0;
   qzJumpToggle(false);
   const items = qzItems();
   const was = qzIdx;
@@ -6958,7 +6972,8 @@ function qzRender() {
   const foot = document.querySelector(".qz-footer");
   if (foot) foot.style.display = qzIdx >= items.length ? "none" : "flex";
   if (qzBreakFor === qzIdx && qzIdx > 0 && qzIdx < items.length) {
-    prev.disabled = true; next.disabled = true;
+    prev.disabled = true; next.disabled = false;
+    next.textContent = "下一題 →";
     stage.appendChild(qzProgBar(true));
     stage.appendChild(qzBreakCard());
     qzRenderDots();
@@ -7020,6 +7035,17 @@ function qzProgBar(isBreak) {
   wrap.appendChild(txt);
   return wrap;
 }
+/* Break-next: footer 下一題 and card-tap converge on qzBreakDismiss —
+   show the pending boundary question, never advance past it. The guard
+   stamps a short window so a rapid double-tap on 下一題 cannot advance
+   twice or skip the pending question. No stars/progress/counts change
+   here: dismiss only clears qzBreakFor and re-renders. */
+let qzBreakNextGuard = 0;
+function qzBreakDismiss() {
+  qzBreakFor = -1;
+  qzBreakNextGuard = Date.now() + 600;
+  qzRender();
+}
 function qzBreakCard() {
   const card = qzEl("div", "qz-card qz-enter qz-break");
   card.appendChild(qzEl("div", "qz-break-emoji", "🔔"));
@@ -7027,7 +7053,7 @@ function qzBreakCard() {
   card.appendChild(qzEl("div", "qz-break-text", "鈴鐺入面有一粒小珠，搖嘅時候小珠撞到鈴身，就會發出「叮噹叮噹」嘅聲音！飲啖水，伸個懶腰先。"));
   const row = qzEl("div", "qz-row");
   const b = qzEl("button", "qz-btn", "休息完，繼續！→");
-  b.addEventListener("click", () => { qzBreakFor = -1; qzRender(); });
+  b.addEventListener("click", () => qzBreakDismiss());
   row.appendChild(b); card.appendChild(row);
   return card;
 }
@@ -7780,6 +7806,7 @@ function qzScratchEl() {
   if (p) return p;
   const wrap = document.querySelector(".qz-wrap");
   p = qzEl("div"); p.id = "qzScratch";
+  const scr = qzEl("div", "qz-scrscroll", "↕ 拖住呢度碌上碌落"); scr.id = "qzScrScroll"; p.appendChild(scr);
   const cv = document.createElement("canvas"); cv.id = "qzScratchCv"; cv.width = 720; cv.height = 440;
   p.appendChild(cv);
   const hint = document.createElement("div"); hint.id = "qzScratchHint"; hint.textContent = "✏️ 喺呢度畫草稿"; p.appendChild(hint);
@@ -7872,7 +7899,20 @@ document.getElementById("quizCloseBtn").addEventListener("click", () => {
   if (window.speechSynthesis) try { speechSynthesis.cancel(); } catch (e) {}
 });
 document.getElementById("qzPrev").addEventListener("click", () => qzGo(qzIdx - 1));
-document.getElementById("qzNext").addEventListener("click", () => qzGo(qzIdx + 1));
+document.getElementById("qzNext").addEventListener("click", () => {
+  if (qzBreakFor === qzIdx && qzIdx > 0 && qzIdx < qzItems().length) { qzBreakDismiss(); return; }
+  if (Date.now() < qzBreakNextGuard) return;
+  qzGo(qzIdx + 1);
+});
+/* Break-next: any tap inside the question stage (answering, scratch, review)
+   proves deliberate action and clears the double-tap guard, so a fast
+   answer-then-next is never swallowed. Taps on the break card itself do not
+   clear it (the card-tap dismiss arms the guard); footer taps never reach
+   this listener (the footer is outside #qzStage). */
+document.getElementById("qzStage").addEventListener("click", (e) => {
+  if (e.target && e.target.closest && e.target.closest(".qz-break")) return;
+  qzBreakNextGuard = 0;
+});
 // 一撳即睇：每課重點回顧（來源：課本 grammar_points、默書範圍、單元概念；唔使開書）
 const QZ_REVIEW = {
   chi_l3: { title: "《心中的鈴鐺》重點", points: ["句式「……所以……」表示因果", "形近字：鈴鐺／叮噹、怕／拍、吵／沙、陪／部、少／小", "上下結構：分上小下大、上大下小、上下相等", "故事圖式：背景 → 難題 → 解決方法 → 結果"], text: "①心中的鈴鐺\n②晚上，小熊想上廁所，四周黑黑的、靜靜的，沒有媽媽陪着，小熊十分害怕，便邊走邊搖着鈴鐺。「叮噹，叮噹，叮噹……」\n③小熊剛到廁所門口，看見媽媽從臥室裏探出頭來，便說：「媽媽，我很害怕，所以讓鈴聲陪我上廁所。」\n④「非常好，你不用害怕呀。」媽媽回去睡覺了。\n⑤第二天晚上，小熊又想上廁所了。他拿起小鈴鐺，一想到媽媽會被吵醒，便放下鈴鐺說：「讓我在心中搖鈴鐺吧，這樣不會吵醒媽媽，我也不會害怕呢！」\n⑥「叮噹，叮噹，叮噹……」第三天晚上，小熊起身上廁所的時候，不用在心中搖鈴鐺了。" },
