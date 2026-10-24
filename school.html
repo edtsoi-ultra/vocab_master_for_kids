@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>🎒 2A 學習專頁</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, "PingFang HK", "Microsoft JhengHei", sans-serif; background: linear-gradient(180deg, #0B0F19, #151C2C); color: #F8FAFC; min-height: 100vh; padding: 14px 12px 40px; }
+header { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; }
+h1 { font-size: 21px; font-weight: 900; }
+.badge { background: #334155; color: #00E5FF; font-weight: 800; font-size: 12px; padding: 2px 8px; border-radius: 5px; }
+.sub { color: #94A3B8; font-size: 12.5px; margin-bottom: 14px; }
+h2.sec { font-size: 16.5px; font-weight: 900; margin: 20px 0 10px; }
+.card { background: rgba(30,41,59,.88); border-radius: 14px; padding: 14px 14px 12px; margin-bottom: 12px; border-left: 6px solid #64748B; }
+.card.hw { border-left-color: #FFD600; }
+.card.exam { border-left-color: #00E5FF; }
+.card.notice { border-left-color: #E082FF; }
+.card .top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.card .ttl { font-size: 16px; font-weight: 800; line-height: 1.35; }
+.top { cursor: pointer; }
+.chev { margin-left: 6px; color: #94A3B8; font-size: 12px; align-self: center; transition: transform .15s; flex: 0 0 auto; }
+.card.open .chev { transform: rotate(180deg); }
+.ttl-sub { font-size: 12.5px; font-weight: 700; color: #94A3B8; margin-top: 1px; }
+.card .due { font-size: 13px; font-weight: 800; white-space: nowrap; }
+.due.soon { color: #FF3B5C; } .due.warn { color: #FFB300; } .due.ok { color: #E2E8F0; }
+.due.tmr { color: #FF9100; } .due.done { color: #64748B; }
+.card .meta { color: #CBD5E1; font-size: 13px; margin-top: 3px; }
+.scope { background: rgba(2,6,23,.55); border-radius: 9px; padding: 9px 11px; margin-top: 10px; font-size: 13.5px; line-height: 1.65; color: #E2E8F0; }
+.scope b { color: #7DD3FC; }
+.blk { margin-top: 12px; border-radius: 10px; padding: 10px 12px; font-size: 14px; line-height: 1.7; }
+.blk h4 { font-size: 13px; font-weight: 900; margin-bottom: 5px; letter-spacing: .5px; }
+.blk ul, .blk ol { margin-left: 20px; }
+.detail { background: rgba(2,6,23,.55); color: #E2E8F0; white-space: pre-wrap; }
+.points { background: rgba(88,28,135,.35); color: #F3E8FF; }
+.focus { background: rgba(120,53,15,.45); color: #FDE68A; }
+.words .word { display: inline-block; background: #1E3A8A; color: #fff; border-radius: 8px; padding: 5px 10px; margin: 0; font-weight: 800; font-size: 15px; }
+.wordunit { display: inline-flex; align-items: center; gap: 5px; margin: 0 10px 8px 0; vertical-align: middle; white-space: nowrap; }
+.wordunit .lchk { margin: 0; flex: 0 0 auto; }
+.wordunit.known .word { background: #14532D; }
+.wordunit.known .word::after { content: " ✓"; color: #86EFAC; }
+.wlegend { font-size: 12px; color: #93C5FD; font-weight: 700; margin-bottom: 7px; }
+.scope .sline { display: block; margin-left: 3em; }
+.practice li.known, .hints li.known, .sent li.known { opacity: .55; }
+.sentrow { display: flex; align-items: flex-start; gap: 8px; }
+.senttext { flex: 1; }
+.sentrow .lchk { margin: 0; flex: 0 0 auto; }
+.sent li { margin-bottom: 7px; }
+.speak1 { background: #2563EB; color: #fff; border: none; border-radius: 8px; padding: 5px 10px; font-size: 13px; font-weight: 800; cursor: pointer; flex: 0 0 auto; }
+.speak1:active { background: #1D4ED8; }
+.words .word { cursor: pointer; }
+.wordunit .speak1 { padding: 4px 8px; font-size: 12px; }
+.recite .senttext.covered { filter: blur(7px); -webkit-filter: blur(7px); }
+.words .word .mean { color: #FDE68A; font-weight: 700; margin-left: 7px; font-size: 13px; }
+.words .word .syl { color: #93C5FD; font-weight: 600; margin-left: 7px; font-size: 12.5px; }
+.words, .sent { background: rgba(30,58,138,.30); }
+.hints { background: rgba(20,83,45,.38); color: #DCFCE7; }
+.practice { background: rgba(6,78,59,.42); color: #ECFDF5; }
+.practice h5 { font-size: 13.5px; font-weight: 900; color: #6EE7B7; margin: 8px 0 3px; }
+.practice h5:first-of-type { margin-top: 2px; }
+details.ans { margin-top: 10px; background: rgba(2,6,23,.6); border-radius: 9px; padding: 8px 12px; }
+details.ans summary { cursor: pointer; font-weight: 900; font-size: 13.5px; color: #FBBF24; }
+details.ans .abody { margin-top: 6px; font-size: 13.5px; line-height: 1.7; color: #FDE68A; }
+details.ans .agroup { font-weight: 900; color: #6EE7B7; margin-top: 5px; }
+.speak { background: #2563EB; color: #fff; border: none; border-radius: 9px; padding: 8px 14px; font-size: 14px; font-weight: 800; margin-top: 8px; cursor: pointer; }
+.speak:active { background: #1D4ED8; }
+.prog { margin-left: 10px; font-size: 13.5px; font-weight: 800; color: #FBBF24; }
+.tier { display: inline-block; font-size: 11.5px; font-weight: 800; border-radius: 6px; padding: 2px 8px; margin-top: 8px; }
+.tier.verified { background: #14532D; color: #86EFAC; }
+.tier.kb { background: #1E3A8A; color: #BFDBFE; }
+.tier.guess { background: #713F12; color: #FDE68A; }
+.flag { margin-top: 7px; font-size: 12.5px; font-weight: 700; color: #FCD34D; }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.tab { background: #334155; color: #E2E8F0; border: 2px solid transparent; border-radius: 999px; padding: 5px 13px; font-size: 13px; font-weight: 800; cursor: pointer; }
+.tab.on { background: #0EA5E9; color: #fff; border-color: #BAE6FD; }
+.wsrow { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.wsbtn { background: #7C3AED; color: #fff; border: none; border-radius: 9px; padding: 9px 14px; font-size: 13.5px; font-weight: 800; cursor: pointer; }
+.wsbtn.doc { background: #0F766E; }
+.empty { color: #94A3B8; font-size: 14px; padding: 8px 2px; }
+footer { color: #64748B; font-size: 11.5px; margin-top: 22px; text-align: center; line-height: 1.7; }
+/* ===== Phase C: nav / banner / accordion ===== */
+#topnav { position: sticky; top: 0; z-index: 100; display: flex; flex-wrap: wrap; overflow-x: visible; gap: 6px; align-items: center; padding: 7px 12px; margin: 10px -12px 12px; background: rgba(11,15,25,.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid rgba(148,163,184,.28); scrollbar-width: none; }
+#topnav::-webkit-scrollbar { display: none; }
+.navbtn { background: #334155; color: #E2E8F0; border: 2px solid transparent; border-radius: 999px; padding: 5px 10px; font-size: 12.5px; font-weight: 800; cursor: pointer; white-space: nowrap; flex: 0 0 auto; }
+.navbtn.on { background: #0EA5E9; color: #fff; border-color: #BAE6FD; }
+.navbtn.collapseall { margin-left: auto; background: #475569; color: #E2E8F0; }
+#actionBanner { display: none; background: linear-gradient(135deg, #7F1D1D, #9A3412); border: 2px solid #F97316; color: #FFF7ED; border-radius: 14px; padding: 13px 14px; margin-bottom: 12px; font-size: 15px; font-weight: 800; line-height: 1.65; }
+#actionBanner .ab-item { display: block; cursor: pointer; padding: 6px 8px; background: rgba(255,255,255,.09); border-radius: 9px; margin-top: 6px; }
+#actionBanner .ab-item:active { opacity: .65; }
+.card { scroll-margin-top: 70px; }
+.cardbody { display: none; }
+.card.open .cardbody { display: block; }
+.cardfoot { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.cardfoot .tier { margin-top: 0; }
+.cardfoot .pcount { color: #94A3B8; font-size: 12.5px; font-weight: 700; }
+.toggle { margin-left: auto; background: #2563EB; color: #fff; border: none; border-radius: 10px; padding: 10px 16px; font-size: 14px; font-weight: 800; cursor: pointer; min-height: 42px; }
+.toggle:active { background: #1D4ED8; }
+details.orig { margin-top: 12px; background: rgba(2,6,23,.55); border-radius: 10px; padding: 10px 12px; }
+details.orig summary { cursor: pointer; font-weight: 900; font-size: 13.5px; color: #E9D5FF; }
+details.orig .origbody { margin-top: 6px; font-size: 14px; line-height: 1.7; color: #E2E8F0; white-space: pre-wrap; }
+/* ===== Phase C.1: 進度 checkbox / 無內容提示 ===== */
+.nocontent { color: #94A3B8; font-size: 12.5px; font-weight: 700; margin-top: 10px; }
+.lchk { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 800; color: #86EFAC; cursor: pointer; margin: 2px 0 2px 8px; vertical-align: middle; }
+.lchk input { width: 24px; height: 24px; min-width: 24px; accent-color: #22C55E; cursor: pointer; margin: 0; }
+.progbar { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+.progcnt { color: #86EFAC; font-size: 13px; font-weight: 800; }
+.pbar { flex: 1 1 100%; height: 10px; background: #0F172A; border: 1px solid #334155; border-radius: 6px; overflow: hidden; margin-top: 2px; }
+.pfill { height: 100%; background: linear-gradient(90deg, #16A34A, #4ADE80); width: 0%; transition: width .4s ease; }
+.cardfoot .progcnt { color: #86EFAC; }
+.resetbtn { background: none; border: none; color: #94A3B8; font-size: 12.5px; font-weight: 700; cursor: pointer; text-decoration: underline; padding: 6px 2px; }
+/* ===== Interactive quiz player v2.2 (trial) ===== */
+.quizlaunch.prev { border-color: #F59E0B; background: #451A03; color: #FDE68A; }
+.quizlaunch { width: 100%; border: 2px solid #22C55E; background: #14532D; color: #F0FDF4; border-radius: 12px; padding: 14px 12px; font-size: 15.5px; font-weight: 900; cursor: pointer; line-height: 1.45; min-height: 52px; }
+.qzgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+.qzlesson { border: 2px solid #22C55E; background: #14532D; color: #F0FDF4; border-radius: 12px; padding: 12px 10px; font-size: 15px; font-weight: 900; cursor: pointer; line-height: 1.4; min-height: 52px; text-align: left; }
+.qzlesson small { display: block; font-size: 12px; font-weight: 700; color: #BBF7D0; margin-top: 2px; }
+.qzlesson.off { border-color: #475569; background: #1E293B; color: #94A3B8; cursor: default; }
+.qzlesson.off small { color: #64748B; }
+.qzlesson.preview { border-color: #F59E0B; background: #451A03; color: #FDE68A; }
+.qzlesson.preview small { color: #FCD34D; }
+.subj-tag { display: inline-block; font-size: 11.5px; font-weight: 900; border-radius: 20px; padding: 2px 9px; margin-right: 7px; vertical-align: 2px; white-space: nowrap; }
+.tag-chi { background: #450A0A; color: #FCA5A5; border: 1px solid #EF4444; }
+.tag-eng { background: #172554; color: #93C5FD; border: 1px solid #3B82F6; }
+.tag-math { background: #022C22; color: #6EE7B7; border: 1px solid #10B981; }
+.tag-hum { background: #451A03; color: #FCD34D; border: 1px solid #F59E0B; }
+details.ptools { margin-top: 12px; border-top: 1px dashed #475569; padding-top: 10px; }
+details.ptools summary { list-style: none; cursor: pointer; background: #334155; color: #E2E8F0; border-radius: 10px; padding: 12px; font-size: 14px; font-weight: 800; min-height: 44px; }
+.flag .flag-t { display: block; font-size: 13.5px; }
+.flag .flag-s { display: block; font-weight: 600; color: #FDE68A; opacity: .85; margin-top: 1px; }
+.lchk input.lcb { width: 20px; height: 20px; vertical-align: -4px; }
+.lchk { margin-left: 8px; white-space: nowrap; }
+header { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.modesw { margin-left: auto; display: flex; gap: 6px; }
+.modebtn { border: 1.5px solid #475569; background: #1E293B; color: #CBD5E1; border-radius: 20px; padding: 7px 13px; font-size: 13.5px; font-weight: 800; cursor: pointer; min-height: 40px; }
+.modebtn.on { background: #2563EB; border-color: #60A5FA; color: #fff; }
+body.kid .secwrap[data-sec="notice"], body.kid #actionBanner { display: none !important; }
+body.edition-school .lchk, body.edition-school .progbar, body.edition-school .pbar, body.edition-school .progcnt, body.edition-school .resetbtn { display: none !important; }
+body.kid #topnav .navbtn[data-filter="notice"] { display: none; }
+body.kid .flag, body.kid details.ptools, body.kid details.ans, body.kid .tier { display: none !important; }
+body.kid .qzlesson { font-size: 17px; min-height: 64px; }
+body.kid .word { font-size: 19px; }
+body.kid .toggle { min-height: 48px; font-size: 16.5px; }
+#upd { display: inline; }
+body.kid #forceReload, body.kid .donedrawer { display: none !important; }
+body.parent .lchk, body.parent .progbar, body.parent .cardfoot .toggle, body.parent .cardfoot .progcnt, body.parent .cardfoot .pbar { display: none !important; }
+body.parent .blk.practice, body.parent .quizlaunch, body.parent details.ans, body.parent details.ptools, body.parent .flag { display: none !important; }
+.objblock { display: none; }
+body.parent .objblock { display: block; background: #422006; border: 1.5px solid #F59E0B; border-radius: 12px; padding: 10px 14px; margin-top: 12px; }
+.objblock h4 { color: #FCD34D; margin: 0 0 6px; font-size: 14.5px; }
+.objblock ul { margin: 0; padding-left: 20px; color: #FDE68A; line-height: 1.65; }
+.teview { display: none; }
+body.parent .teview.on { display: block; background: #1E293B; border: 1.5px solid #475569; border-radius: 12px; padding: 10px 14px; margin-top: 12px; }
+.teview h4 { margin: 0 0 6px; font-size: 14.5px; color: #E2E8F0; }
+.teview ol { margin: 0; padding-left: 22px; line-height: 1.7; color: #E2E8F0; }
+.teview .tea { color: #F87171; font-weight: 800; margin: 2px 0 8px; }
+.parentbar { display: none; }
+body.parent .parentbar { display: flex; gap: 8px; flex-wrap: nowrap; margin-top: 12px; }
+.parentbar .wsbtn { flex: 1 1 0; min-width: 0; white-space: nowrap; overflow: hidden; font-size: 13.5px; padding-left: 4px; padding-right: 4px; }
+.statline { color: #FCD34D !important; }
+body.kid .statline { display: none; }
+.kidface { display: none; }
+body.kid .card[data-hasquiz="1"] .blk.practice { display: none; }
+body.kid .kidface { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+.kidbtn { width: 100%; box-sizing: border-box; background: #14532D; border: 2px solid #22C55E; color: #BBF7D0; border-radius: 12px; padding: 12px 14px; font-size: 15.5px; font-weight: 900; cursor: pointer; min-height: 52px; }
+.kidbtn.alt { background: #172554; border-color: #38BDF8; color: #BAE6FD; }
+.assessfolder { border: 2px dashed #7C3AED; border-radius: 14px; padding: 10px; margin-top: 14px; }
+.afhead { width: 100%; background: #2E1065; color: #DDD6FE; border: none; border-radius: 10px; padding: 14px; font-size: 15.5px; font-weight: 900; cursor: pointer; min-height: 52px; }
+.af-body { display: none; }
+.assessfolder.open .af-body { display: block; }
+.typechip { display: inline-block; font-size: 11.5px; font-weight: 900; border-radius: 6px; padding: 2px 8px; margin-right: 7px; vertical-align: 2px; white-space: nowrap; }
+.tc-dict { background: #FFD600; color: #090D16; }
+.tc-prog { background: #00E5FF; color: #090D16; }
+.tc-assess { background: #E879F9; color: #090D16; }
+.tc-test { background: #FF4D6D; color: #FFFFFF; }
+.scopepill { display: inline-block; background: #334155; border: 1px solid #64748B; color: #E2E8F0; border-radius: 14px; padding: 1px 9px; margin: 2px 3px 2px 0; font-size: 12.5px; font-weight: 800; }
+details.donedrawer { margin-top: 12px; border: 1.5px dashed #475569; border-radius: 12px; padding: 10px 12px; }
+details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900; color: #A7F3D0; padding: 6px 2px; }
+.iconbtn { width: 36px; height: 36px; border-radius: 50%; background: #1E293B; border: 1.5px solid #38BDF8; font-size: 15px; cursor: pointer; padding: 0; flex: 0 0 auto; }
+.updmini { order: 99; flex: 1 1 100%; font-size: 10px; color: #64748B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right; margin: 1px 2px 0 0; }
+#collapseAll { flex: 0 0 auto; }
+#collapseAll { flex: 0 0 auto; }
+#quizModal { display: none; position: fixed; inset: 0; background: rgba(2,6,23,.97); z-index: 1100; flex-direction: column; overscroll-behavior: contain; }
+.qz-bar { width: 100%; max-width: 720px; margin: 0 auto; padding: 10px; display: flex; gap: 8px; justify-content: space-between; align-items: center; flex-wrap: wrap; flex: none; }
+.qz-tabs { display: flex; gap: 6px; }
+.qz-tab { border: 2px solid #64748B; background: #0F172A; color: #CBD5E1; border-radius: 20px; padding: 7px 15px; font-size: 14.5px; font-weight: 900; cursor: pointer; }
+.qz-tab.on { border-color: #F59E0B; background: #451A03; color: #FDE68A; }
+#qzScore { color: #FDE68A; font-size: 16px; font-weight: 900; }
+#qzStreak { color: #FB923C; font-size: 14.5px; font-weight: 900; }
+.qz-wrap { flex: 1; overflow-y: auto; width: 100%; max-width: 720px; margin: 0 auto; padding: 2px 10px 18px; width: 100%; }
+#qzStage { min-height: 380px; }
+.qz-footer { flex: none; width: 100%; max-width: 720px; margin: 0 auto; display: flex; align-items: center; gap: 8px; padding: 9px 10px calc(9px + env(safe-area-inset-bottom)); background: #0B1220; border-top: 1.5px solid #334155; }
+.qz-footer .qz-btn { flex: none; padding: 10px 13px; font-size: 14px; }
+#qzDots { flex: 1; display: flex; gap: 5px; flex-wrap: nowrap; overflow-x: auto; justify-content: center; padding: 2px 0; cursor: pointer; }
+#qzJump { display: none; flex: none; width: 100%; max-width: 720px; margin: 0 auto; background: #0F172A; border-top: 1.5px solid #334155; padding: 10px 12px 12px; }
+#qzJump.open { display: block; }
+.qz-jhead { display: flex; justify-content: space-between; align-items: center; margin-bottom: 9px; color: #CBD5E1; font-weight: 800; font-size: 14.5px; }
+.qz-jclose { width: 36px; height: 36px; border-radius: 50%; border: 2px solid #475569; background: #334155; color: #F1F5F9; font-size: 15px; font-weight: 900; cursor: pointer; line-height: 1; }
+.qz-jgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(54px, 1fr)); gap: 8px; }
+.qz-jbtn { height: 52px; border-radius: 12px; border: 2px solid #64748B; background: #1E293B; color: #F1F5F9; font-size: 18px; font-weight: 900; cursor: pointer; padding: 0; }
+.qz-jbtn.cur { border-color: #F59E0B; color: #FDE68A; box-shadow: 0 0 0 2px rgba(245,158,11,.4); }
+.qz-jbtn.done { border-color: #22C55E; background: #14532D; }
+.qz-jbtn.tried { border-color: #F97316; }
+.qz-dot { width: 28px; height: 28px; flex: none; display: inline-flex; align-items: center; justify-content: center; border-radius: 9px; border: 2px solid #64748B; background: #1E293B; color: #F1F5F9; font-size: 12.5px; font-weight: 900; padding: 0; line-height: 1; }
+.qz-dot.cur { border-color: #F59E0B; color: #FDE68A; box-shadow: 0 0 0 2px rgba(245,158,11,.4); }
+.qz-dot.done { border-color: #22C55E; background: #14532D; }
+.qz-dot.tried { border-color: #F97316; }
+.qz-card { background: #1E293B; border: 1.5px solid #475569; border-radius: 14px; padding: 16px; }
+.qz-enter { animation: qzSlide .35s ease; }
+@keyframes qzSlide { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+.qz-tag { display: inline-block; background: #7C2D12; color: #FED7AA; font-size: 12px; font-weight: 800; border-radius: 20px; padding: 2px 10px; margin-bottom: 8px; }
+.qz-qrow { display: flex; gap: 8px; align-items: flex-start; }
+.qz-q { color: #F1F5F9; font-size: 18.5px; font-weight: 800; line-height: 1.6; flex: 1; }
+.qz-speak { flex: none; border: 2px solid #38BDF8; background: #082F49; border-radius: 50%; width: 44px; height: 44px; font-size: 19px; cursor: pointer; }
+.qz-hint { color: #FCD34D; font-size: 14.5px; margin: 8px 0 10px; }
+.qz-img { text-align: center; margin: 4px 0 12px; }
+.qz-img svg { max-width: 300px; width: 80%; height: auto; }
+.qz-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 10px; }
+.qz-opt { background: #0F172A; color: #F1F5F9; border: 2px solid #64748B; border-radius: 11px; padding: 13px 8px; font-size: 18px; font-weight: 800; cursor: pointer; min-height: 54px; }
+.qz-opt.right { border-color: #22C55E; background: #14532D; }
+.qz-opt.wrong { border-color: #F97316; background: #431407; }
+.qz-fb { margin-top: 10px; font-size: 15px; font-weight: 800; min-height: 22px; }
+.qz-fb.ok { color: #4ADE80; } .qz-fb.no { color: #FB923C; }
+.qz-pairs { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 10px; }
+.qz-col { flex: 1; min-width: 130px; display: flex; flex-direction: column; gap: 8px; }
+.qz-chip { background: #0F172A; color: #F1F5F9; border: 2px solid #64748B; border-radius: 11px; padding: 11px 8px; font-size: 18px; font-weight: 800; cursor: pointer; text-align: center; user-select: none; -webkit-user-select: none; touch-action: none; }
+.qz-chip.sel { border-color: #F59E0B; background: #451A03; }
+.qz-chip.done { border-color: #22C55E; background: #14532D; opacity: .75; pointer-events: none; }
+.qz-chip.dragging { opacity: .92; box-shadow: 0 8px 22px rgba(0,0,0,.5); }
+.qz-tray { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 12px; }
+.qz-baskets { display: flex; gap: 10px; flex-wrap: wrap; }
+.qz-basket { flex: 1; min-width: 140px; min-height: 96px; border: 2px dashed #64748B; border-radius: 12px; padding: 9px; }
+.qz-basket.over { border-color: #F59E0B; background: rgba(245,158,11,.12); }
+.qz-basket h4 { color: #FDE68A; font-size: 15px; margin: 0 0 8px; text-align: center; }
+.qz-basket .qz-chip { margin-bottom: 7px; padding: 8px 4px; font-size: 16.5px; }
+.qz-basket .qz-chip.wrongin { border-color: #F97316; background: #431407; }
+.qz-orderline { min-height: 58px; border: 2px dashed #64748B; border-radius: 12px; padding: 8px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 10px 0 12px; }
+.qz-orderline .qz-chip { border-color: #38BDF8; }
+.qz-drawbox { position: relative; width: 264px; height: 264px; margin: 4px auto; }
+.qz-guide { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 190px; color: rgba(148,163,184,.28); background: #0F172A; border: 2px solid #475569; border-radius: 10px; pointer-events: none; font-family: "PingFang HK", serif; }
+#qzCanvas { position: absolute; inset: 0; touch-action: none; border-radius: 10px; }
+.qz-row { display: flex; gap: 8px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
+.qz-btn { border: none; border-radius: 9px; padding: 11px 18px; font-size: 15px; font-weight: 800; cursor: pointer; background: #2563EB; color: #fff; }
+.qz-btn.alt { background: #475569; }
+.qz-btn:disabled { opacity: .38; cursor: default; }
+.qz-answer { display: none; background: #14532D; color: #DCFCE7; border-radius: 10px; padding: 11px 13px; font-size: 15.5px; line-height: 1.65; margin-top: 10px; }
+.qz-break { text-align: center; }
+.qz-break-emoji { font-size: 62px; margin: 10px 0 4px; }
+.qz-break-text { color: #E2E8F0; font-size: 16.5px; line-height: 1.7; margin-bottom: 8px; }
+.qz-skills { margin-top: 10px; font-size: 15.5px; line-height: 1.7; }
+.qz-pill { display: inline-block; border-radius: 20px; padding: 5px 12px; margin: 3px 5px 3px 0; font-size: 14px; font-weight: 800; border: 1.5px solid #64748B; color: #E2E8F0; background: #1E293B; }
+.qz-pill.ok { border-color: #22C55E; color: #BBF7D0; background: #14532D; }
+.qz-pill.bad { border-color: #F97316; color: #FED7AA; background: #431407; }
+.qz-summary { background: #422006; border: 2px solid #F59E0B; border-radius: 14px; padding: 18px; color: #FEF3C7; font-size: 16.5px; line-height: 1.75; }
+/* ===== Worksheet modal ===== */
+#wsModal { display: none; position: fixed; inset: 0; background: rgba(2,6,23,.88); z-index: 1000; overflow-y: auto; padding: 14px 8px 40px; overscroll-behavior: contain; }
+#wsPick { display: none; position: fixed; inset: 0; background: rgba(2,6,23,.97); z-index: 1150; overflow-y: auto; padding: 18px 14px 40px; }
+#wsPick .pickbox { max-width: 560px; margin: 0 auto; background: #1E293B; border: 1.5px solid #475569; border-radius: 16px; padding: 18px 16px 20px; }
+#wsPick h3 { margin: 0 0 6px; font-size: 18px; }
+#wsPick .picklbl { font-size: 13.5px; font-weight: 800; color: #94A3B8; margin: 14px 0 7px; }
+.pickrow { display: flex; flex-wrap: wrap; gap: 8px; }
+.pickchip { border: 2px solid #475569; background: #0F172A; color: #E2E8F0; border-radius: 999px; padding: 9px 14px; font-size: 14.5px; font-weight: 800; cursor: pointer; }
+.pickchip.on { border-color: #38BDF8; background: #0C4A6E; color: #E0F2FE; }
+.pickacts { display: flex; gap: 8px; margin-top: 20px; }
+.pickacts .wsbtn { flex: 1 1 0; padding: 13px 6px; font-size: 15px; white-space: nowrap; }
+#wsSheet { background: #fff; color: #111; max-width: 820px; margin: 0 auto; border-radius: 6px; padding: 30px 34px 36px; font-family: "PingFang HK", "Microsoft JhengHei", serif; }
+#wsSheet h1 { font-size: 21px; text-align: center; margin-bottom: 4px; }
+#wsSheet .wsmeta { display: flex; justify-content: space-between; border-bottom: 2.5px solid #111; padding-bottom: 8px; margin-bottom: 14px; font-size: 14.5px; }
+#wsSheet h3 { font-size: 16px; margin: 16px 0 8px; border-left: 5px solid #111; padding-left: 8px; }
+#wsSheet .wsq { margin-bottom: 13px; font-size: 15.5px; line-height: 1.6; }
+#wsSheet .wsq .qn { font-weight: 900; }
+.ws-work { border: 1.5px solid #666; height: 74px; margin: 6px 0 4px 22px; border-radius: 3px; }
+.ws-lines { margin: 4px 0 2px 22px; }
+.ws-line { border-bottom: 1.5px solid #999; height: 26px; }
+.ws-wordrow { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; font-size: 16px; flex-wrap: wrap; }
+.ws-cellgroup { margin-right: 16px; white-space: nowrap; }
+.ws-wline { display: inline-block; border-bottom: 1.5px solid #999; width: 230px; height: 26px; }
+.ws-word { font-weight: 800; min-width: 130px; }
+.ws-cell { display: inline-block; width: 36px; height: 36px; border: 1.5px solid #333; margin-right: 5px; vertical-align: middle; background-image: linear-gradient(to right, transparent 49%, #C9C9C9 49%, #C9C9C9 51%, transparent 51%), linear-gradient(to bottom, transparent 49%, #C9C9C9 49%, #C9C9C9 51%, transparent 51%); }
+.ws-answers { page-break-before: always; margin-top: 26px; }
+.ws-answers h3 { border-left-color: #B45309; }
+.ws-answers .wsq { font-size: 14px; margin-bottom: 7px; }
+.ws-bar { max-width: 820px; margin: 0 auto 10px; display: flex; gap: 8px; justify-content: flex-end; }
+.ws-bar button { border: none; border-radius: 9px; padding: 9px 16px; font-size: 14px; font-weight: 800; cursor: pointer; }
+.ws-print { background: #2563EB; color: #fff; }
+.ws-close { background: #475569; color: #fff; width: 36px; height: 36px; border-radius: 50%; padding: 0; font-size: 15px; flex: 0 0 auto; }
+@media print {
+  body { background: #fff !important; padding: 0; position: static !important; top: auto !important; width: auto !important; overflow: visible !important; }
+  body > header, body > .sub, #topnav, #actionBanner, #app, footer { display: none !important; }
+  #wsModal { position: static !important; overflow: visible !important; height: auto !important; max-height: none !important; background: #fff; padding: 0; }
+  #quizModal, #wsPick { display: none !important; }
+  .ws-bar { display: none !important; }
+  .lchk, .progbar { display: none !important; }
+  #wsSheet { max-width: none; border-radius: 0; padding: 6mm 4mm; }
+  #wsSheet h3 { break-after: avoid; page-break-after: avoid; }
+  #wsSheet .wsq, #wsSheet .ws-wordrow { break-inside: avoid; page-break-inside: avoid; }
+}
+</style>
+</head>
+<body class="edition-school">
+<script>window.__EDITION = "school";</script>
+<header><h1>🎒 2A 學習專頁</h1><span class="modesw"><button id="modeParent" class="modebtn on">👨‍👩‍👧 家長</button><button id="modeKid" class="modebtn">👧 溫書</button></span><button id="langToggle" class="modebtn">EN</button><button id="forceReload" class="iconbtn" aria-label="reload">🔄</button></header>
+<nav id="topnav"><button class="navbtn on" data-filter="all">全部</button><button class="navbtn" data-filter="exam">⏰ 測驗 <span id="cntExam"></span></button><button class="navbtn" data-filter="hw">📝 功課 <span id="cntHw"></span></button><button class="navbtn" data-filter="notice">📢 通告 <span id="cntNotice"></span></button><span id="upd" class="updmini">…</span><button class="navbtn collapseall" id="collapseAll">⏬ Expand</button></nav>
+<div id="actionBanner"></div>
+<div id="app"></div>
+<div id="quizModal"><div class="qz-bar"><div class="qz-tabs"><button id="qzTabEasy" class="qz-tab on">簡易版</button><button id="qzTabNormal" class="qz-tab">正常版</button></div><span id="qzScore">⭐ 0 / 13</span><span id="qzStreak"></span><button class="ws-close" id="quizCloseBtn">✕ 關閉</button></div><div class="qz-wrap"><div id="qzStage"></div></div><div class="qz-footer"><button id="qzPrev" class="qz-btn alt">← 上一題</button><div id="qzDots"></div><button id="qzNext" class="qz-btn">下一題 →</button></div></div>
+<div id="wsModal"><div class="ws-bar"><button class="ws-print" id="wsPrintBtn">🖨️ 列印 / 儲存 PDF</button><button class="ws-close" id="wsCloseBtn">✕ 關閉</button></div><div id="wsSheet"></div></div>
+<footer>資料來源：學校 eClass 通告及通告附頁、Google Classroom 功課指示、課本/默書紙拍攝內容。<br>「學校原文」為官方內容；「AI 輔助」提示同練習由 Muse 生成，練習答案只供家長核對。</footer>
+<script>
+const $app = document.getElementById("app");
+const STR = {
+  zh: { title: "🎒 2A 學習專頁", modeParent: "👨‍👩‍👧 家長", modeKid: "👧 溫書", nav_all: "全部", nav_exam: "⏰ 測驗", nav_hw: "📝 功課", nav_notice: "📢 通告", easy: "簡易版", normal: "正常版", prev: "← 上一題", next: "下一題 →", close: "✕", wsPrint: "🖨️ 列印 / 儲存 PDF", updated: "最後更新：", updSuffix: "", loadFail: "⚠️ 資料載入失敗，請稍後再開", secExam: "⏰ 測驗・默書・評估", secHw: "📚 功課", secNotice: "📢 通告", emptyExam: "暫時冇測驗／默書／評估", emptyHw: "暫時冇功課", emptyNotice: "暫時冇新通告", doneItems: "✅ 已完成項目", done: "已完成", today: "今日！", tmr: "聽日！", duePrefix: "📅 截止：", unsigned: "✍️ 設有回條", replyBy: "｜回條死線：", scope: "範圍：", startRevise: "▶️ 開始溫習", closeUp: "收起 ▲", hwOpen: "📋 睇指示 / 提示 ▼", origText: "睇學校原文", blkDetail: "📋 內容／指示（學校原文）", blkPoints: "📌 要點", blkFocus: "🎯 重點注意", blkWords: "📝 字詞表", wordsLegend: "每組：字詞 + 🔊（只讀嗰個，讀兩次）", speakWords: "🔊 讀默字詞", blkSent: "🗣 讀默句子", sentLegend: "每句有自己嘅 🔊 掣（只讀嗰句，讀兩次）", blkRecite: "🎒 背默（遮住先，背完先好開嚟對）", reciteLegend: "背默段落預設遮住：背完撳 👁 開嚟對；🔊 只讀嗰段兩次", blkHints: "💡 點樣幫佢做（AI 輔助）", blkPractice: "✏️ 練習題（AI 生成）", ansCheck: "🔑 家長核對答案", ansKey: "🔑 家長核對（問功課紀錄）", blkQuiz: "🎮 互動練習", qzPreview: "👀 㩒入去玩", qzSets: "簡易版／正常版・㩒入去玩", qzAwait: "等課文入庫", qzSoon: "準備中", ptools: "🧰 家長工具／選項", wsPreview: "🖨️ 工作紙 / 列印", wsWord: "📄 下載 Word", qaBtn: "📋 題目與答案", print: "🖨️ 印工作紙", teview: "📋 題目與答案（教師版）", objTitle: "🎯 溫習目標", kidQuiz: "🎮 互動練習 ▶", kidWords: "🔊 聽讀默 / 認字 ▼", folder: "🗓️ 評估一預習（共{n}科）", inDays: " · {d} 日後", verified: "✅ 資料已核實", bankReady: "✅ 題庫已齊", stepsDone: "📋 完成步驟", learned: "✅ 已識", gotIt: "✅識咗", reset: "↺ 重置進度", flagT: "⚠️ 未上傳相片", flagS: "請家長上傳課本／默書紙相片，以生成精準字表。", tierVerified: "✅ 已核實內容", tierKb: "📚 按課本內容生成", tierGuessC: "⚠️ 待傳相片", tierGuess: "⚠️ 基礎範圍練習", expand: "⏬ 展開", qzJump: "🔍 跳去邊一題？", qzJumpClose: "✕", pickTitle: "📝 揀練習工作紙", pickLesson: "① 揀課", pickSet: "② 揀份（可多選）", pickAll: "三份全選", pickPrint: "🖨️ 列印工作紙", pickWord: "📄 下載 Word", setNames: "練習一（基礎）|練習二（應用）|練習三（進階）", wsFor: "工作紙", ansHead: "🔑 家長核對答案（列印時自動另開一頁）", collapse: "⏫ 收起", remainToday: "今日到期！", remainTmr: "聽日到期" },
+  en: { title: "🎒 2A Study Page", modeParent: "👨‍👩‍👧 Parents", modeKid: "👧 Study", nav_all: "All", nav_exam: "⏰ Tests", nav_hw: "📝 Homework", nav_notice: "📢 Notices", easy: "Easy", normal: "Normal", prev: "← Prev", next: "Next →", close: "✕", wsPrint: "🖨️ Print / Save PDF", updated: "Updated: ", updSuffix: "", loadFail: "⚠️ Could not load data, please reopen later", secExam: "⏰ Tests · Dictations · Assessments", secHw: "📚 Homework", secNotice: "📢 Notices", emptyExam: "No tests / dictations / assessments for now", emptyHw: "No homework right now", emptyNotice: "No new notices", doneItems: "✅ Completed items", done: "Done", today: "Today!", tmr: "Tomorrow!", duePrefix: "📅 Due: ", unsigned: "✍️ Reply slip", replyBy: " | Reply deadline: ", scope: "Scope: ", startRevise: "▶️ Start revising", closeUp: "Close ▲", hwOpen: "📋 Instructions / Tips ▼", origText: "School original text", blkDetail: "📋 Instructions (school original)", blkPoints: "📌 Key points", blkFocus: "🎯 Focus", blkWords: "📝 Word list", wordsLegend: "Each item: word + 🔊 (reads that word twice)", speakWords: "🔊 Play dictation words", blkSent: "🗣 Dictation sentences", sentLegend: "Each sentence has its own 🔊 button (reads twice)", blkRecite: "🎒 Recitation (covered — recite first, then peek)", reciteLegend: "Covered by default: recite, tap 👁 to check; 🔊 reads it twice", blkHints: "💡 How to help (AI tips)", blkPractice: "✏️ Practice (AI-generated)", ansCheck: "🔑 Answers (parents)", ansKey: "🔑 Answer key (homework record)", blkQuiz: "🎮 Interactive practice", qzPreview: "👀 Tap to play", qzSets: "Easy / Normal · tap to play", qzAwait: "Waiting for textbook", qzSoon: "Coming soon", ptools: "🧰 Parent tools", wsPreview: "🖨️ Worksheet preview / print", wsWord: "📄 Download Word", qaBtn: "📋 Questions & Answers", print: "🖨️ Print worksheet", teview: "📋 Questions & Answers (Teacher's Edition)", objTitle: "🎯 Study goals", kidQuiz: "🎮 Interactive practice ▶", kidWords: "🔊 Listen & learn words ▼", folder: "🗓️ Assessment 1 prep ({n} subjects)", inDays: " · in {d} days", verified: "✅ Content verified", bankReady: "✅ Question bank ready", stepsDone: "📋 Steps done", learned: "✅ Learned", gotIt: "✅ Got it", reset: "↺ Reset progress", flagT: "⚠️ Photos not uploaded yet", flagS: "Please upload textbook / dictation sheet photos to generate an accurate word list.", tierVerified: "✅ Verified content", tierKb: "📚 Built from textbook", tierGuessC: "⚠️ Photos needed", tierGuess: "⚠️ Based on scope only", expand: "⏬ Expand", qzJump: "🔍 Jump to question", qzJumpClose: "✕", pickTitle: "📝 Choose a worksheet", pickLesson: "1. Lesson", pickSet: "2. Sets (tap to toggle)", pickAll: "All 3 sets", pickPrint: "🖨️ Print worksheet", pickWord: "📄 Download Word", setNames: "Set 1 (Basics)|Set 2 (Practice)|Set 3 (Challenge)", wsFor: "Worksheet", ansHead: "🔑 Answer key (prints on a separate page)", collapse: "⏫ Collapse", remainToday: "Due today!", remainTmr: "Due tomorrow" }
+};
+let LANG = "zh";
+try { LANG = localStorage.getItem("school2a-lang") === "en" ? "en" : "zh"; } catch (e) {}
+function T(k) { const v = STR[LANG] ? STR[LANG][k] : undefined; if (v !== undefined) return v; const z = STR.zh[k]; return z !== undefined ? z : ""; }
+function applyStaticI18n() {
+  document.querySelector("header h1").textContent = T("title");
+  document.getElementById("modeParent").textContent = T("modeParent");
+  document.getElementById("modeKid").textContent = T("modeKid");
+  const lt = document.getElementById("langToggle"); if (lt) lt.textContent = LANG === "zh" ? "EN" : "中文";
+  document.querySelectorAll("#topnav .navbtn[data-filter]").forEach(b => { const cnt = b.querySelector("span"); const f = b.dataset.filter; b.textContent = f === "all" ? T("nav_all") : ({ exam: "⏰", hw: "📝", notice: "📢" })[f] + " "; if (cnt) b.appendChild(cnt); });
+  document.getElementById("qzTabEasy").textContent = T("easy");
+  document.getElementById("qzTabNormal").textContent = T("normal");
+  document.getElementById("qzPrev").textContent = T("prev");
+  document.getElementById("qzNext").textContent = T("next");
+  document.getElementById("quizCloseBtn").textContent = T("close");
+  document.getElementById("wsPrintBtn").textContent = T("wsPrint");
+  document.getElementById("wsCloseBtn").textContent = T("close");
+}
+const ITEMS = {};
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+function htmlAware(parent, content) { if (content && content.indexOf("<") >= 0) { const s = el("span"); s.innerHTML = content; parent.appendChild(s); } else parent.appendChild(document.createTextNode(content || "")); }
+function dueLabel(item) {
+  const dl = item.days_left;
+  if (dl == null) return "";
+  if (!(item.due || item.date || item.deadline)) return "";
+  if (dl < 0) return T("done");
+  if (dl === 0) return T("today");
+  if (dl === 1) return T("tmr");
+  return LANG === "en" ? "in " + dl + " days" : dl + " 日後";
+}
+function dueClass(item) { const dl = item.days_left; if (dl == null) return "ok"; if (dl < 0) return "done"; if (dl === 0) return "soon"; if (dl === 1) return "tmr"; if (dl <= 3) return "warn"; return "ok"; }
+function langOf(item) { return (item.subject === "英文" || item.subject === "English") ? "en-GB" : "zh-HK"; }
+function tierBadge(item, compactGuess) {
+  if (!item.source_tier) return null;
+  if (item.source_tier === "verified_capture") return el("span", "tier verified", T("tierVerified"));
+  if (item.source_tier === "curriculum_kb") return el("span", "tier kb", T("tierKb"));
+  return el("span", "tier guess", compactGuess ? T("tierGuessC") : T("tierGuess"));
+}
+/* ---------- 日期重算（前端，香港時間；唔信後端靜態 days_left） ---------- */
+function hkTodayStr() {
+  const parts = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Hong_Kong", year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(new Date());
+  const o = {};
+  parts.forEach(p => { o[p.type] = p.value; });
+  return o.year + "-" + o.month + "-" + o.day;
+}
+function dayNumOf(y, m, d) { return Date.UTC(y, m - 1, d) / 86400000; }
+function parseItemDay(item) {
+  const isoFields = [item.date, item.due, item.deadline];
+  for (const v of isoFields) {
+    if (v && /^\d{4}-\d{2}-\d{2}/.test(v)) { const a = v.slice(0, 10).split("-"); return dayNumOf(+a[0], +a[1], +a[2]); }
+  }
+  const t = hkTodayStr().split("-");
+  const todayDn = dayNumOf(+t[0], +t[1], +t[2]);
+  const texts = [item.date_display, item.due_display, item.deadline_display, item.date, item.due, item.deadline];
+  for (const v of texts) {
+    if (!v) continue;
+    const m = /(\d{1,2})月(\d{1,2})日/.exec(v);
+    if (m) {
+      let dn = dayNumOf(+t[0], +m[1], +m[2]);
+      if (todayDn - dn > 60) dn = dayNumOf(+t[0] + 1, +m[1], +m[2]);
+      return dn;
+    }
+  }
+  return null;
+}
+function fixDaysLeft(item) {
+  const dn = parseItemDay(item);
+  if (dn != null) { const t = hkTodayStr().split("-"); item.days_left = Math.round(dn - dayNumOf(+t[0], +t[1], +t[2])); }
+}
+/* ---------- 學習進度（localStorage） ---------- */
+const PROG_LSK = "school2a-progress-v1";
+let PROG = {};
+try { PROG = JSON.parse(localStorage.getItem(PROG_LSK) || "{}") || {}; } catch (e) { PROG = {}; }
+function saveProg() { try { localStorage.setItem(PROG_LSK, JSON.stringify(PROG)); } catch (e) {} }
+function hashStr(s) { let h = 5381; s = s || ""; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0; return h.toString(36); }
+function ckFor(sec, item) { return item.key || (sec + "|" + (item.title || "") + "|" + (item.date || item.due || item.deadline || "")); }
+function checkLabel(cardKey, itemId, labelText) {
+  const lab = el("label", "lchk");
+  const cb = document.createElement("input");
+  cb.type = "checkbox";
+  cb.className = "lcb";
+  cb.dataset.card = cardKey;
+  cb.dataset.item = itemId;
+  cb.checked = !!PROG[cardKey + "::" + itemId];
+  cb.addEventListener("change", () => {
+    const k = cardKey + "::" + itemId;
+    if (cb.checked) PROG[k] = 1; else delete PROG[k];
+    saveProg();
+    refreshProgCounts();
+  });
+  lab.appendChild(cb);
+  if (labelText !== "") lab.appendChild(document.createTextNode(labelText || "✅識咗"));
+  return lab;
+}
+function refreshProgCounts() {
+  const totals = {};
+  document.querySelectorAll("input.lcb").forEach(cb => {
+    if (document.body.classList.contains("kid") && cb.closest(".blk.practice")) { const cd = cb.closest(".card"); if (cd && cd.dataset.hasquiz === "1") return; }
+    const k = cb.dataset.card;
+    if (!totals[k]) totals[k] = { t: 0, d: 0 };
+    totals[k].t++;
+    if (cb.checked) totals[k].d++;
+  });
+  document.querySelectorAll("[data-prog-for]").forEach(elm => {
+    const s = totals[elm.getAttribute("data-prog-for")];
+    if (s && s.t > 0) { elm.textContent = (elm.dataset.progLabel || "✅ 已識") + " " + s.d + "/" + s.t; elm.style.display = ""; }
+    else { elm.textContent = ""; elm.style.display = "none"; }
+  });
+  document.querySelectorAll("[data-pbar-for]").forEach(elm => {
+    const s = totals[elm.getAttribute("data-pbar-for")];
+    if (s && s.t > 0) { elm.style.display = ""; const f = elm.firstChild; if (s.d === 0) { f.style.width = "100%"; f.style.background = "#475569"; } else { f.style.width = Math.round(100 * s.d / s.t) + "%"; f.style.background = ""; } }
+    else elm.style.display = "none";
+  });
+  document.querySelectorAll("[data-prog-wrap]").forEach(elm => {
+    const s = totals[elm.getAttribute("data-prog-wrap")];
+    elm.style.display = (s && s.t > 0) ? "" : "none";
+  });
+  document.querySelectorAll(".wordunit").forEach(u => {
+    const cb = u.querySelector("input.lcb");
+    if (cb) u.classList.toggle("known", cb.checked);
+  });
+  document.querySelectorAll(".practice li, .hints li, .sent li").forEach(li => {
+    const cb = li.querySelector("input.lcb");
+    if (cb) li.classList.toggle("known", cb.checked);
+  });
+}
+function resetProg(cardKey) {
+  Object.keys(PROG).forEach(k => { if (k.indexOf(cardKey + "::") === 0) delete PROG[k]; });
+  saveProg();
+  document.querySelectorAll("input.lcb").forEach(cb => { if (cb.dataset.card === cardKey) cb.checked = false; });
+  refreshProgCounts();
+}
+function hasContent(item) {
+  return !!((item.practice && item.practice.length) || (item.words && item.words.length) ||
+    (item.hints && item.hints.length) || item.detail ||
+    (item.points && item.points.length) || (item.sentences && item.sentences.length) ||
+    (item.recite_sentences && item.recite_sentences.length) ||
+    (item.focus_points && item.focus_points.length) || item.answer_key);
+}
+function attachBody(c, item, opts) {
+  if (!hasContent(item)) {
+    c.appendChild(el("div", "nocontent", "⏳ 待補充範圍或相片"));
+    return null;
+  }
+  return makeCollapsible(c, item, opts);
+}
+
+/* ---------- 讀默 ---------- */
+let speakingBtn = null;
+function speakSeq(texts, lang, btn, prog) {
+  if (!("speechSynthesis" in window)) { btn.textContent = "此瀏覽器不支援語音"; return; }
+  if (speakingBtn === btn) { speechSynthesis.cancel(); speakingBtn = null; btn.textContent = btn.dataset.label; if (prog) prog.textContent = ""; return; }
+  speechSynthesis.cancel();
+  if (speakingBtn) speakingBtn.textContent = speakingBtn.dataset.label;
+  speakingBtn = btn;
+  btn.dataset.label = btn.textContent;
+  btn.textContent = "⏹ 停止讀默";
+  let i = 0;
+  function alive() { return speakingBtn === btn; }
+  function finish() { if (!alive()) return; speakingBtn = null; btn.textContent = btn.dataset.label; if (prog) prog.textContent = "✅ 讀默完成"; }
+  function say(text, cb) { const u = new SpeechSynthesisUtterance(text); u.lang = lang; u.rate = 0.78; u.onend = cb; u.onerror = cb; speechSynthesis.speak(u); }
+  function playItem() {
+    if (!alive()) return;
+    if (i >= texts.length) { finish(); return; }
+    if (prog) prog.textContent = "🔊 讀默中：第 " + (i + 1) + " / " + texts.length + " 題";
+    say(texts[i], () => setTimeout(() => { if (!alive()) return; say(texts[i], () => setTimeout(() => { i++; playItem(); }, 6000)); }, 2000));
+  }
+  playItem();
+}
+/* 單項讀默：只讀嗰一項，讀兩次（逐句/逐字用，唔使成串聽晒） */
+let tapSeq = 0;
+function sayTwice(text, lang, isAlive, onDone) {
+  const say = (t, cb) => { const u = new SpeechSynthesisUtterance(t); u.lang = lang; u.rate = 0.78; u.onend = cb; u.onerror = cb; speechSynthesis.speak(u); };
+  say(text, () => setTimeout(() => { if (!isAlive()) return; say(text, onDone || (() => {})); }, 900));
+}
+function speakSingle(text, lang, btn) {
+  if (!("speechSynthesis" in window)) { btn.textContent = "此瀏覽器不支援語音"; return; }
+  if (speakingBtn === btn) { speechSynthesis.cancel(); speakingBtn = null; btn.textContent = btn.dataset.label; return; }
+  tapSeq++;
+  speechSynthesis.cancel();
+  if (speakingBtn) speakingBtn.textContent = speakingBtn.dataset.label;
+  speakingBtn = btn;
+  btn.dataset.label = btn.textContent;
+  btn.textContent = "⏹";
+  sayTwice(text, lang, () => speakingBtn === btn, () => { if (speakingBtn !== btn) return; speakingBtn = null; btn.textContent = btn.dataset.label; });
+}
+function speakTap(text, lang) {
+  if (!("speechSynthesis" in window)) return;
+  if (speakingBtn) { speakingBtn.textContent = speakingBtn.dataset.label; speakingBtn = null; }
+  speechSynthesis.cancel();
+  const my = ++tapSeq;
+  sayTwice(text, lang, () => tapSeq === my);
+}
+
+/* ---------- 分頁 (tabs) ---------- */
+function normPractice(p) { if (typeof p === "string") return { q: p }; if (p && p.text && !p.q) return { q: p.text, guide: p.guide, a: p.a || "" }; return p; }
+function groupOf(p, mode) { return mode === "lesson" ? (p.lesson || "") : (p.subject || ""); }
+function buildTabs(card, item) {
+  const practice = item.practice || [];
+  const words = item.words || [];
+  const lessons = [...new Set([...words, ...practice].map(p => p.lesson).filter(Boolean))].sort();
+  let mode = null, groups = [];
+  if (lessons.length) { mode = "lesson"; groups = lessons; }
+  else {
+    const subs = [...new Set(practice.map(p => p.subject).filter(Boolean))];
+    if (subs.length >= 2) { mode = "subject"; groups = subs; }
+  }
+  if (!mode) return null;
+  const untagged = mode === "lesson"
+    ? (words.some(w => !w.lesson) || practice.some(p => !p.lesson))
+    : practice.some(p => !p.subject);
+  const bar = el("div", "tabs");
+  const labels = [...groups, ...(untagged ? ["綜合"] : []), "全部"];
+  function applyTab(lab) {
+    bar.querySelectorAll(".tab").forEach(t => t.classList.toggle("on", t.dataset.lab === lab));
+    card.querySelectorAll("[data-g]").forEach(elm => {
+      const g = elm.getAttribute("data-g");
+      elm.style.display = (lab === "全部" || g === lab || (lab === "綜合" && g === "")) ? "" : "none";
+    });
+  }
+  labels.forEach(lab => {
+    let cnt = 0;
+    if (lab === "全部") cnt = words.length + practice.length;
+    else if (lab === "綜合") cnt = [...words, ...practice].filter(p => !groupOf(p, mode)).length;
+    else cnt = [...words, ...practice].filter(p => groupOf(p, mode) === lab).length;
+    const b = el("button", "tab", lab + (cnt ? " (" + cnt + ")" : ""));
+    b.dataset.lab = lab;
+    b.addEventListener("click", () => applyTab(lab));
+    bar.appendChild(b);
+  });
+  card._tabMode = mode;
+  card._applyTab = applyTab;
+  card._defaultTab = labels[0];
+  return bar;
+}
+
+/* ---------- Enrichment 區塊 ---------- */
+function block(cls, title) { const b = el("div", "blk " + cls); b.appendChild(el("h4", null, title)); return b; }
+function enrichmentHTML(card, item, opts) {
+  opts = opts || {};
+  const ck = opts.cardKey || "";
+  const checkable = !!opts.checkable;
+  const isGuess = item.source_tier === "scope_guess";
+  const isDict = /默書/.test(item.type || "") || /默書|Dict/.test(item.title || "");
+  if (item.flag && !(item.days_left != null && item.days_left < 0)) card.appendChild(el("div", "flag", item.flag));
+  else if (isGuess && !(item.days_left != null && item.days_left < 0)) { const fl = el("div", "flag"); fl.appendChild(el("span", "flag-t", T("flagT"))); fl.appendChild(el("span", "flag-s", T("flagS"))); card.appendChild(fl); }
+  const tabs = buildTabs(card, item);
+  if (tabs) card.appendChild(tabs);
+  const mode = card._tabMode;
+  const gAttr = (g) => mode ? (g || "") : null;
+  if (item.detail && !isDict) {
+    if (opts.wrapDetail) {
+      const det = el("details", "orig");
+      det.appendChild(el("summary", null, T("origText")));
+      det.appendChild(el("div", "origbody", item.detail));
+      card.appendChild(det);
+    } else { const b = block("detail", T("blkDetail")); b.appendChild(el("div", null, item.detail)); card.appendChild(b); }
+  }
+  if (item.points && item.points.length && !isDict) { const b = block("points", T("blkPoints")); const ul = el("ul"); item.points.forEach(p => ul.appendChild(el("li", null, p))); b.appendChild(ul); card.appendChild(b); }
+  if (item.focus_points && item.focus_points.length && !isDict) { const b = block("focus", T("blkFocus")); const ul = el("ul"); item.focus_points.forEach(p => ul.appendChild(el("li", null, p))); b.appendChild(ul); card.appendChild(b); }
+  const wIdx = new Map(); (item.words || []).forEach((w, i) => wIdx.set(w, i));
+  if (item.words && item.words.length) {
+    const b = block("words", T("blkWords"));
+    if (checkable) b.appendChild(el("div", "wlegend", T("wordsLegend")));
+    const wordUnit = (w) => {
+      const unit = el("span", "wordunit");
+      const s = el("span", "word", w.text);
+      if (w.meaning) s.appendChild(el("span", "mean", w.meaning));
+      if (w.syllables) s.appendChild(el("span", "syl", w.syllables));
+      s.title = "撳一下聽讀音（讀兩次）";
+      s.addEventListener("click", () => speakTap(w.text, langOf(item)));
+      unit.appendChild(s);
+      const wb = el("button", "speak1", "🔊");
+      wb.addEventListener("click", () => speakSingle(w.text, langOf(item), wb));
+      unit.appendChild(wb);
+      if (checkable) unit.appendChild(checkLabel(ck, "w" + wIdx.get(w) + "-" + hashStr(w.text), ""));
+      return unit;
+    };
+    if (mode === "lesson") {
+      const byLesson = {};
+      item.words.forEach(w => { const g = w.lesson || ""; (byLesson[g] = byLesson[g] || []).push(w); });
+      Object.keys(byLesson).forEach(g => {
+        const wrap = el("div"); wrap.setAttribute("data-g", g);
+        if (g) wrap.appendChild(el("h4", null, "📖 " + g));
+        byLesson[g].forEach(w => wrap.appendChild(wordUnit(w)));
+        b.appendChild(wrap);
+      });
+    } else {
+      item.words.forEach(w => b.appendChild(wordUnit(w)));
+    }
+    const btn = el("button", "speak", T("speakWords")); btn.dataset.act = "speakwords";
+    const prog = el("span", "prog");
+    btn.addEventListener("click", () => speakSeq(item.words.map(w => w.text), langOf(item), btn, prog));
+    b.appendChild(el("br")); b.appendChild(btn); b.appendChild(prog);
+    card.appendChild(b);
+  }
+  if (item.sentences && item.sentences.length) {
+    const b = block("sent", T("blkSent"));
+    if (checkable) b.appendChild(el("div", "wlegend", T("sentLegend")));
+    const ol = el("ol");
+    item.sentences.forEach((s, i) => {
+      const li = el("li");
+      const row = el("div", "sentrow");
+      row.appendChild(el("span", "senttext", s));
+      const sb = el("button", "speak1", "🔊");
+      sb.addEventListener("click", () => speakSingle(s, langOf(item), sb));
+      row.appendChild(sb);
+      if (checkable) row.appendChild(checkLabel(ck, "s" + i + "-" + hashStr(s), ""));
+      li.appendChild(row);
+      ol.appendChild(li);
+    });
+    b.appendChild(ol);
+    card.appendChild(b);
+  }
+  if (item.recite_sentences && item.recite_sentences.length) {
+    const b = block("sent recite", T("blkRecite"));
+    if (checkable) b.appendChild(el("div", "wlegend", T("reciteLegend")));
+    const ol = el("ol");
+    item.recite_sentences.forEach((s, i) => {
+      const li = el("li");
+      const row = el("div", "sentrow");
+      const txt = el("span", "senttext covered", s);
+      row.appendChild(txt);
+      const rb = el("button", "speak1", "👁");
+      rb.addEventListener("click", () => { const covered = txt.classList.toggle("covered"); rb.textContent = covered ? "👁" : "🙈"; });
+      row.appendChild(rb);
+      const sb = el("button", "speak1", "🔊");
+      sb.addEventListener("click", () => speakSingle(s, langOf(item), sb));
+      row.appendChild(sb);
+      if (checkable) row.appendChild(checkLabel(ck, "r" + i + "-" + hashStr(s), ""));
+      li.appendChild(row);
+      ol.appendChild(li);
+    });
+    b.appendChild(ol);
+    card.appendChild(b);
+  }
+  if (item.hints && item.hints.length && !isDict) { const b = block("hints", T("blkHints")); const ul = el("ul"); item.hints.forEach((h, i) => { const li = el("li", null, h); if (opts.hintsCheck) li.appendChild(checkLabel(ck, "h" + i + "-" + hashStr(h), "✅識咗")); ul.appendChild(li); }); b.appendChild(ul); card.appendChild(b); }
+  if (item.practice && item.practice.length) {
+    const b = block("practice", T("blkPractice"));
+    const groups = {};
+    item.practice.forEach(p => { const g = mode ? groupOf(p, mode) : (p.subject || ""); (groups[g] = groups[g] || []).push(p); });
+    const ans = el("details", "ans");
+    ans.appendChild(el("summary", null, T("ansCheck")));
+    const abody = el("div", "abody");
+    let pIdx = 0;
+    Object.keys(groups).forEach(g => {
+      const wrap = el("div");
+      if (mode) wrap.setAttribute("data-g", g);
+      if (g) wrap.appendChild(el("h5", null, (mode === "lesson" ? "📖 " : "📚 ") + g));
+      const ol = el("ol");
+      groups[g].forEach(p => { const li = el("li"); htmlAware(li, p.q); const pid = "p" + (pIdx++) + "-" + hashStr(p.q); if (checkable && !p.guide && !isTaskQ(p)) li.appendChild(checkLabel(ck, pid, T("gotIt"))); ol.appendChild(li); });
+      wrap.appendChild(ol);
+      b.appendChild(wrap);
+      const awrap = el("div");
+      if (mode) awrap.setAttribute("data-g", g);
+      if (g) awrap.appendChild(el("div", "agroup", g));
+      groups[g].forEach((p, i) => { const d = el("div", null, (i + 1) + ". " + (p.a || "")); awrap.appendChild(d); });
+      abody.appendChild(awrap);
+    });
+    ans.appendChild(abody);
+    card.appendChild(b);
+    card.appendChild(ans);
+    const tasks = item.practice.filter(p => p.guide || isTaskQ(p));
+    if (tasks.length) { const ob = block("objblock", T("objTitle")); const ul = el("ul"); tasks.forEach(p => ul.appendChild(el("li", null, p.q))); ob.appendChild(ul); card.appendChild(ob); }
+    const reals = item.practice.filter(p => !(p.guide || isTaskQ(p)));
+    if (reals.length) { const tv = el("div", "teview"); tv.appendChild(el("h4", null, T("teview"))); const ol2 = el("ol"); reals.forEach(p => { const li = el("li"); htmlAware(li, p.q); if (p.a) li.appendChild(el("div", "tea", "✅ " + p.a)); ol2.appendChild(li); }); tv.appendChild(ol2); card.appendChild(tv); card._teview = tv; }
+  }
+  if (item.answer_key) {
+    const d = el("details", "ans");
+    d.appendChild(el("summary", null, T("ansKey")));
+    const body = el("div", "abody", item.answer_key);
+    body.style.whiteSpace = "pre-wrap";
+    d.appendChild(body);
+    card._pendingAns = d;
+  }
+  if (item.quiz && item.quiz.lessons) {
+    const b = block("practice", T("blkQuiz"));
+    const grid = el("div", "qzgrid");
+    item.quiz.lessons.forEach(L => {
+      const label = "第" + L.n + "課" + (L.title ? "《" + L.title + "》" : "");
+      if (L.status === "live" || L.status === "preview") {
+        const qb = el("button", "qzlesson" + (L.status === "preview" ? " preview" : ""), "▶ " + label);
+        qb.appendChild(el("small", null, T("qzSets")));
+        qb.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(L.id, item.key); });
+        grid.appendChild(qb);
+      } else {
+        const qb = el("button", "qzlesson off", label);
+        qb.appendChild(el("small", null, L.status === "awaiting" ? (L.note || T("qzAwait")) : T("qzSoon")));
+        qb.disabled = true;
+        grid.appendChild(qb);
+      }
+    });
+    b.appendChild(grid);
+    card.appendChild(b);
+  }
+  else if (item.quiz && item.quiz.sets) {
+    item.quiz.sets.forEach((qs) => {
+      const row = el("div", "wsrow");
+      const qb = el("button", "quizlaunch" + (qs.status === "preview" ? " prev" : ""), "▶ " + T("blkQuiz") + "：" + qs.title + "（" + T("easy") + "／" + T("normal") + "）");
+      qb.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(qs.id, item.key); });
+      row.appendChild(qb);
+      card.appendChild(row);
+    });
+  }
+  else if (item.quiz) {
+    const row = el("div", "wsrow");
+    const qb = el("button", "quizlaunch" + (item.quiz.status === "preview" ? " prev" : ""), "▶ " + T("blkQuiz") + "：" + (item.quiz.title || "") + "（" + T("easy") + "／" + T("normal") + "）");
+    qb.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(item.quiz.id, item.key); });
+    row.appendChild(qb);
+    card.appendChild(row);
+  }
+  if ((item.practice && item.practice.length) || (item.words && item.words.length)) {
+    const det = el("details", "ptools");
+    det.appendChild(el("summary", null, T("ptools")));
+    const row = el("div", "wsrow");
+    const b1 = el("button", "wsbtn", T("wsPreview"));
+    b1.addEventListener("click", () => openWorksheet(item));
+    const b2 = el("button", "wsbtn doc", T("wsWord"));
+    b2.addEventListener("click", () => downloadWord(item));
+    card._wsB1 = b1; card._wsB2 = b2;
+    row.appendChild(b1); row.appendChild(b2);
+    if (card._pendingAns) { det.appendChild(card._pendingAns); card._pendingAns = null; }
+    det.appendChild(row);
+    card.appendChild(det);
+  }
+  if (card._pendingAns) { card.appendChild(card._pendingAns); card._pendingAns = null; }
+  if (card._teview || card._wsB1) {
+    const pb = el("div", "parentbar");
+    if (card._teview) { const qa = el("button", "wsbtn", T("qaBtn") + " ▼"); qa.addEventListener("click", () => { const on = card._teview.classList.toggle("on"); qa.textContent = T("qaBtn") + (on ? " ▲" : " ▼"); }); pb.appendChild(qa); }
+    const hasSets = item.worksheets && item.worksheets.length;
+    if (card._wsB1) { const pb1 = el("button", "wsbtn", T("print")); pb1.addEventListener("click", () => { if (hasSets) openWsPick(item, "print"); else card._wsB1.click(); }); pb.appendChild(pb1); }
+    if (card._wsB2) { const pb2 = el("button", "wsbtn doc", T("wsWord")); pb2.addEventListener("click", () => { if (hasSets) openWsPick(item, "word"); else card._wsB2.click(); }); pb.appendChild(pb2); }
+    card.appendChild(pb);
+  }
+  const cardElF = card.closest ? card.closest(".card") : null;
+  if (cardElF && cardElF.querySelector(".cardfoot")) {
+    const kf = el("div", "kidface");
+    if (item.quiz && item.quiz.lessons) item.quiz.lessons.filter(L => L.status === "live" || L.status === "preview").forEach(L => { const b = el("button", "kidbtn", LANG === "en" ? "🎮 Lesson " + L.n + (L.title ? ": " + L.title : "") + " ▶" : "🎮 第" + L.n + "課" + (L.title ? "《" + L.title + "》" : "") + " ▶"); b.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(L.id, item.key); }); kf.appendChild(b); });
+    else if (item.quiz && item.quiz.sets) item.quiz.sets.forEach(qs => { const b = el("button", "kidbtn", "🎮 " + qs.title + " ▶"); b.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(qs.id, item.key); }); kf.appendChild(b); });
+    else if (item.quiz && item.quiz.id) { const b = el("button", "kidbtn", T("kidQuiz")); b.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(item.quiz.id, item.key); }); kf.appendChild(b); }
+    if (item.words && item.words.length) { const b = el("button", "kidbtn alt", T("kidWords")); b.dataset.act = "words"; b.addEventListener("click", (e) => { e.stopPropagation(); expandCard(cardElF); const sb = cardElF.querySelector('[data-act="speakwords"]'); setTimeout(() => { if (sb) { sb.scrollIntoView({ behavior: "smooth", block: "center" }); sb.click(); } else cardElF.scrollIntoView({ behavior: "smooth", block: "start" }); }, 60); }); kf.appendChild(b); }
+    if (kf.children.length) { const fe = cardElF.querySelector(".cardfoot"); cardElF.insertBefore(kf, fe.nextSibling); }
+  }
+  if (checkable && !(item.practice && item.practice.length) && !(item.words && item.words.length) && !(item.hints && item.hints.length) && item.detail) {
+    const b = block("hints", "✅ 進度");
+    b.appendChild(checkLabel(ck, "task", "✅ 完成／學識咗"));
+    card.appendChild(b);
+  }
+  if (card._applyTab && card._defaultTab) card._applyTab(card._defaultTab);
+}
+/* ---------- 工作紙 ---------- */
+function isTaskQ(p) { const t = (p.q || "") + (p.a || ""); return /家長|朗讀|讀出|背誦|重讀課文/.test(t); }
+function esc(s) { return (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
+function qExtra(p) {
+  const q = p.q || "";
+  if (q.indexOf("<") >= 0) return "";
+  if (/=\s*\?\s*$/.test(q) || q.indexOf("直式") >= 0) return '<div class="ws-work"><br><br><br></div>';
+  if (q.indexOf("______") >= 0 || q.indexOf("（　）") >= 0 || q.indexOf("（ ）") >= 0 || q.indexOf("( )") >= 0) return "";
+  const a = p.a || "";
+  const n = a.length > 28 ? 3 : (a.length > 10 ? 2 : 1);
+  let s = '<div class="ws-lines">';
+  for (let i = 0; i < n; i++) s += '<div class="ws-line"></div>';
+  return s + "</div>";
+}
+function buildSheet(item) {
+  const title = (item.subject ? item.subject + "：" : "") + (item.title || "練習");
+  let h = "<h1>" + esc(title) + " 工作紙</h1>";
+  h += '<div class="wsmeta"><span>姓名：____________</span><span>日期：____________</span><span>成績：________</span></div>';
+  if (item.scope) h += '<div style="font-size:13.5px;color:#444;margin-bottom:6px">範圍：' + esc(item.scope) + "</div>";
+  if (item.words && item.words.length) {
+    h += "<h3>一、字詞練寫（先讀一次，再喺格仔度寫）</h3>";
+    item.words.forEach(w => {
+      const t = w.text || "";
+      let practiceArea;
+      if (/[㐀-鿿]/.test(t)) {
+        const chars = [...t.replace(/\s/g, "")];
+        practiceArea = chars.map(() => '<span class="ws-cellgroup">' + '<span class="ws-cell"></span><span class="ws-cell"></span>' + "</span>").join("");
+      } else {
+        practiceArea = '<span class="ws-wline"></span><span class="ws-wline"></span>';
+      }
+      h += '<div class="ws-wordrow"><span class="ws-word">' + esc(t) + (w.meaning ? ' <span style="font-weight:400;font-size:13px;color:#555">(' + esc(w.meaning) + ")</span>" : "") + "</span>" + practiceArea + "</div>";
+    });
+  }
+  const qs = (item.practice || []).filter(p => !isTaskQ(p));
+  const multiSub = [...new Set(qs.map(p => p.subject).filter(Boolean))].length >= 2;
+  if (qs.length) {
+    h += "<h3>" + (item.words && item.words.length ? "二" : "一") + "、練習題</h3>";
+    let curG = null;
+    qs.forEach((p, i) => {
+      const g = p.subject || p.lesson || "";
+      if (multiSub && g && g !== curG) { curG = g; h += '<div style="font-weight:900;margin:10px 0 4px">📚 ' + esc(g) + "</div>"; }
+      const qhtml = (p.q || "").indexOf("<") >= 0 ? p.q : esc(p.q);
+      h += '<div class="wsq"><span class="qn">' + (i + 1) + ".</span> " + qhtml + qExtra(p) + "</div>";
+    });
+    h += '<div class="ws-answers"><h3>🔑 家長核對答案（列印時自動另開一頁）</h3>';
+    qs.forEach((p, i) => {
+      h += '<div class="wsq">' + (i + 1) + ". " + (multiSub && p.subject ? "[" + esc(p.subject) + "] " : "") + esc(p.a || "") + "</div>";
+    });
+    h += "</div>";
+  }
+  return h;
+}
+let wsScrollY = 0;
+function buildSetSheet(item, entry, idxs) {
+  const setNames = T("setNames").split("|");
+  const lt = entry.title ? "《" + entry.title + "》" : "";
+  const title = (item.subject ? item.subject + "：" : "") + "第" + entry.n + "課" + lt + " " + T("wsFor");
+  let h = "<h1>" + esc(title) + "</h1>";
+  h += '<div class="wsmeta"><span>姓名：____________</span><span>日期：____________</span><span>成績：________</span></div>';
+  let answers = "";
+  idxs.forEach(si => {
+    const qs = entry.sets[si] || [];
+    h += "<h3>" + esc(setNames[si] || ("練習" + (si + 1))) + "</h3>";
+    qs.forEach((p, i) => {
+      const qhtml = (p.q || "").indexOf("<") >= 0 ? p.q : esc(p.q);
+      h += '<div class="wsq"><span class="qn">' + (i + 1) + ".</span> " + (p.skill ? "【" + esc(p.skill) + "】" : "") + qhtml + qExtra(p) + "</div>";
+    });
+    answers += "<h3>" + esc(setNames[si] || ("練習" + (si + 1))) + "</h3>";
+    qs.forEach((p, i) => { answers += '<div class="wsq">' + (i + 1) + ". " + esc(p.a || "") + "</div>"; });
+  });
+  h += '<div class="ws-answers"><h3>' + esc(T("ansHead")) + "</h3>" + answers + "</div>";
+  return h;
+}
+let _pick = null;
+function openWsPick(item, mode) {
+  _pick = { item, mode, lesson: 0, sets: new Set([0]) };
+  let m = document.getElementById("wsPick");
+  if (!m) {
+    m = el("div"); m.id = "wsPick";
+    document.body.appendChild(m);
+    m.addEventListener("click", (e) => { if (e.target === m) closeWsPick(); });
+  }
+  renderWsPick();
+  m.style.display = "block";
+  document.body.style.overflow = "hidden";
+}
+function closeWsPick() {
+  const m = document.getElementById("wsPick");
+  if (m) m.style.display = "none";
+  document.body.style.overflow = "";
+}
+function renderWsPick() {
+  const m = document.getElementById("wsPick");
+  const { item, mode } = _pick;
+  const setNames = T("setNames").split("|");
+  m.innerHTML = "";
+  const box = el("div", "pickbox");
+  const head = el("div", null);
+  head.style.display = "flex"; head.style.justifyContent = "space-between"; head.style.alignItems = "center";
+  head.appendChild(el("h3", null, T("pickTitle")));
+  const x = el("button", "qz-jclose", "✕");
+  x.addEventListener("click", closeWsPick);
+  head.appendChild(x);
+  box.appendChild(head);
+  box.appendChild(el("div", "picklbl", T("pickLesson")));
+  const lrow = el("div", "pickrow");
+  (item.worksheets || []).forEach((entry, li) => {
+    const lbl = "第" + entry.n + "課" + (entry.title ? "《" + entry.title + "》" : "");
+    const chip = el("button", "pickchip" + (li === _pick.lesson ? " on" : ""), lbl);
+    chip.addEventListener("click", () => { _pick.lesson = li; renderWsPick(); });
+    lrow.appendChild(chip);
+  });
+  box.appendChild(lrow);
+  box.appendChild(el("div", "picklbl", T("pickSet")));
+  const srow = el("div", "pickrow");
+  const entry = (item.worksheets || [])[_pick.lesson];
+  (entry ? entry.sets : []).forEach((st, si) => {
+    const chip = el("button", "pickchip" + (_pick.sets.has(si) ? " on" : ""), setNames[si] || ("練習" + (si + 1)));
+    chip.addEventListener("click", () => { if (_pick.sets.has(si)) { if (_pick.sets.size > 1) _pick.sets.delete(si); } else _pick.sets.add(si); renderWsPick(); });
+    srow.appendChild(chip);
+  });
+  const all = el("button", "pickchip", T("pickAll"));
+  all.addEventListener("click", () => { _pick.sets = new Set((entry ? entry.sets : []).map((_, i) => i)); renderWsPick(); });
+  srow.appendChild(all);
+  box.appendChild(srow);
+  const acts = el("div", "pickacts");
+  const go = el("button", "wsbtn" + (mode === "word" ? " doc" : ""), mode === "word" ? T("pickWord") : T("pickPrint"));
+  go.addEventListener("click", () => {
+    const e2 = (item.worksheets || [])[_pick.lesson];
+    if (!e2) return;
+    const idxs = [..._pick.sets].sort((a, b) => a - b);
+    const html = buildSetSheet(item, e2, idxs);
+    const fname = "第" + e2.n + "課" + (e2.title || "") + "_" + T("wsFor");
+    closeWsPick();
+    if (mode === "word") downloadWordHTML(html, fname); else showSheetHTML(html);
+  });
+  acts.appendChild(go);
+  box.appendChild(acts);
+  m.appendChild(box);
+}
+function showSheetHTML(html) {
+  document.getElementById("wsSheet").innerHTML = html;
+  const m = document.getElementById("wsModal");
+  m.style.display = "block";
+  m.scrollTop = 0;
+  wsScrollY = window.scrollY || 0;
+  document.body.style.overflow = "hidden";
+  document.body.style.position = "fixed";
+  document.body.style.top = (-wsScrollY) + "px";
+  document.body.style.width = "100%";
+}
+function downloadWordHTML(sheetHtml, fname) {
+  const css = "body{font-family:'PingFang HK','Microsoft JhengHei',serif;color:#111}h1{font-size:20px;text-align:center}.wsmeta{font-size:14px;border-bottom:2px solid #111;padding-bottom:8px}h3{font-size:15px}.wsq{font-size:14.5px;margin-bottom:10px}.ws-line{border-bottom:1px solid #999;height:24px}.ws-work{border:1.5px solid #666;height:70px}.ws-wordrow{font-size:15px;margin-bottom:8px}.ws-word{font-weight:bold}.ws-cell{display:inline-block;width:34px;height:34px;border:1.5px solid #333}.ws-cellgroup{margin-right:16px}.ws-wline{display:inline-block;border-bottom:1px solid #999;width:230px;height:24px}.ws-answers{page-break-before:always}";
+  const html = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word'><head><meta charset='utf-8'><style>" + css + "</style></head><body>" + sheetHtml + "</body></html>";
+  const blob = new Blob(["\ufeff" + html], { type: "application/msword" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = fname + ".doc";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+function openWorksheet(item) {
+  document.getElementById("wsSheet").innerHTML = buildSheet(item);
+  const m = document.getElementById("wsModal");
+  m.style.display = "block";
+  m.scrollTop = 0;
+  wsScrollY = window.scrollY || 0;
+  document.body.style.overflow = "hidden";
+  document.body.style.position = "fixed";
+  document.body.style.top = (-wsScrollY) + "px";
+  document.body.style.width = "100%";
+}
+function closeWorksheet() {
+  document.getElementById("wsModal").style.display = "none";
+  document.body.style.overflow = "";
+  document.body.style.position = "";
+  document.body.style.top = "";
+  document.body.style.width = "";
+  window.scrollTo(0, wsScrollY);
+}
+function downloadWord(item) {
+  const css = "body{font-family:'PingFang HK','Microsoft JhengHei',serif;color:#111}h1{font-size:20px;text-align:center}.wsmeta{font-size:14px;border-bottom:2px solid #111;padding-bottom:8px}h3{font-size:15px}.wsq{font-size:14.5px;margin-bottom:10px}.ws-line{border-bottom:1px solid #999;height:24px}.ws-work{border:1.5px solid #666;height:70px}.ws-wordrow{font-size:15px;margin-bottom:8px}.ws-word{font-weight:bold}.ws-cell{display:inline-block;width:34px;height:34px;border:1.5px solid #333}.ws-cellgroup{margin-right:16px}.ws-wline{display:inline-block;border-bottom:1px solid #999;width:230px;height:24px}.ws-answers{page-break-before:always}";
+  const html = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word'><head><meta charset='utf-8'><style>" + css + "</style></head><body>" + buildSheet(item) + "</body></html>";
+  const blob = new Blob(["\ufeff" + html], { type: "application/msword" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = ((item.title || "工作紙") + "_工作紙.doc");
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+document.getElementById("wsPrintBtn").addEventListener("click", () => window.print());
+document.getElementById("wsCloseBtn").addEventListener("click", closeWorksheet);
+document.getElementById("wsModal").addEventListener("click", (e) => { if (e.target.id === "wsModal") closeWorksheet(); });
+
+/* ---------- 卡片 ---------- */
+let cardSeq = 0;
+const SUBJ_STYLE = [
+  [/中文|中國語文/, "chi", "📖 中文", "#EF4444", "📖 Chinese"],
+  [/英文|英語|English/i, "eng", "🔤 英文", "#3B82F6", "🔤 English"],
+  [/數學|Maths/i, "math", "🔢 數學", "#10B981", "🔢 Mathematics"],
+  [/科學/, "hum", "🔬 科學", "#F59E0B", "🔬 Science"],
+  [/人文|常識|社會/, "hum", "🌍 人文", "#F59E0B", "🌍 Humanities"]
+];
+function subjOf(item) {
+  const t = (item.subject || "") + " " + (item.title || "");
+  for (const r of SUBJ_STYLE) if (r[0].test(t)) return { key: r[1], label: LANG === "en" ? (r[4] || r[2]) : r[2], color: r[3] };
+  return null;
+}
+function cardShell(cls, ttlText, dueText, dueCls, subj, typeText) {
+  const c = el("div", "card " + cls);
+  if (subj) c.style.borderLeft = "6px solid " + subj.color;
+  const top = el("div", "top");
+  const ttl = el("div", "ttl");
+  if (typeText) { const tc = /默書/.test(typeText) ? "tc-dict" : /進評/.test(typeText) ? "tc-prog" : /評估/.test(typeText) ? "tc-assess" : "tc-test"; ttl.appendChild(el("span", "typechip " + tc, typeText)); }
+  if (subj) ttl.appendChild(el("span", "subj-tag tag-" + subj.key, subj.label));
+  ttl.appendChild(document.createTextNode(ttlText));
+  top.appendChild(ttl);
+  if (dueText) top.appendChild(el("div", "due " + dueCls, dueText));
+  top.appendChild(el("span", "chev", "▼"));
+  c.appendChild(top);
+  return c;
+}
+function expandCard(c) { c.classList.add("open"); if (c._toggleBtn) c._toggleBtn.textContent = T("closeUp"); updateToggleBtn(); }
+function collapseCard(c) { c.classList.remove("open"); if (c._toggleBtn) c._toggleBtn.textContent = c._expandLabel || "▶️ 開始溫習"; updateToggleBtn(); }
+function toggleCard(c) { if (c.classList.contains("open")) collapseCard(c); else expandCard(c); }
+function collapseAllCards() { document.querySelectorAll(".card.open").forEach(collapseCard); }
+function visibleCards() { return [...document.querySelectorAll(".card")].filter(c => { const w = c.closest(".secwrap"); return !w || w.style.display !== "none"; }); }
+function anyOpen() { return visibleCards().some(c => c.classList.contains("open")); }
+function updateToggleBtn() { const b = document.getElementById("collapseAll"); if (b) b.textContent = anyOpen() ? T("collapse") : T("expand"); }
+function toggleAllCards() { const open = anyOpen(); visibleCards().forEach(c => open ? collapseCard(c) : expandCard(c)); updateToggleBtn(); }
+let _lastData = null;
+function applyAssessFolder() {
+  const wrap = document.querySelector('.secwrap[data-sec="exam"]');
+  if (!wrap || !_lastData) return;
+  const subs = (_lastData.upcoming || []).filter(u => u.key && u.key.indexOf("ASSESS_1") === 0 && u.days_left != null && u._cid);
+  let folder = wrap.querySelector(".assessfolder");
+  if (!subs.length) return;
+  const minD = Math.min.apply(null, subs.map(u => u.days_left));
+  if (minD <= 7) { // assessment week: cards return to the main list
+    if (folder) { subs.forEach(u => { const c = document.getElementById(u._cid); if (c && c.parentElement !== wrap) wrap.insertBefore(c, folder); }); folder.remove(); }
+    return;
+  }
+  if (!folder) {
+    folder = el("div", "assessfolder");
+    const fb = el("div", "af-body");
+    const fh = el("button", "afhead", "");
+    const label = () => T("folder").replace("{n}", subs.length) + T("inDays").replace("{d}", minD) + (folder.classList.contains("open") ? " ▲" : " ▼");
+    fh.addEventListener("click", () => { folder.classList.toggle("open"); fh.textContent = label(); });
+    folder.appendChild(fh); folder.appendChild(fb);
+    wrap.appendChild(folder);
+    folder._fb = fb; folder._label = label;
+    fh.textContent = label();
+  }
+  subs.forEach(u => { const c = document.getElementById(u._cid); if (c && c.parentNode !== folder._fb) folder._fb.appendChild(c); });
+}
+function openCardById(id) {
+  const c = document.getElementById(id);
+  if (!c) return;
+  setFilter("all");
+  const fld = c.closest(".assessfolder"); if (fld) fld.classList.add("open");
+  expandCard(c);
+  setTimeout(() => c.scrollIntoView({ behavior: "smooth", block: "start" }), 40);
+}
+function makeCollapsible(c, item, opts) {
+  opts = opts || {};
+  const ck = ckFor(opts.sec || "", item);
+  c._expandLabel = opts.expandLabel || T("startRevise");
+  const foot = el("div", "cardfoot");
+  const allP = item.practice || [];
+  const taskN = allP.filter(p => p && (p.guide || isTaskQ(p))).length;
+  const pc = allP.length - taskN;
+  if (pc) foot.appendChild(el("span", "pcount", "✏️ " + pc));
+  if (taskN) foot.appendChild(el("span", "pcount", "🎯 " + taskN));
+  const qn = item.quiz ? ((item.quiz.lessons || []).filter(l => l.status === "live" || l.status === "preview").length + (item.quiz.sets || []).length + (item.quiz.id ? 1 : 0)) : 0;
+  if (qn) { foot.appendChild(el("span", "pcount", "🎮 " + qn)); c.dataset.hasquiz = "1"; }
+  const slText = item.flag ? item.flag : (item.quiz ? T("bankReady") : (item.source_tier === "verified_capture" ? T("verified") : (item.source_tier === "scope_guess" ? T("flagT") : "")));
+  if (slText) foot.appendChild(el("span", "pcount statline", slText));
+  const wc = (item.words && item.words.length) || 0;
+  if (wc) foot.appendChild(el("span", "pcount", "📖 " + wc));
+  const ps = el("span", "pcount progcnt");
+  ps.setAttribute("data-prog-for", ck); ps.dataset.progLabel = opts.sec === "hw" ? T("stepsDone") : T("learned");
+  ps.style.display = "none";
+  foot.appendChild(ps);
+  const pbar = el("div", "pbar");
+  pbar.setAttribute("data-pbar-for", ck);
+  pbar.style.display = "none";
+  pbar.appendChild(el("div", "pfill"));
+  foot.appendChild(pbar);
+  c.appendChild(foot);
+  const body = el("div", "cardbody");
+  const bar = el("div", "progbar");
+  bar.setAttribute("data-prog-wrap", ck);
+  bar.style.display = "none";
+  const cnt = el("span", "progcnt");
+  cnt.setAttribute("data-prog-off", ck); cnt.style.display = "none";
+  bar.appendChild(cnt);
+  const rb = el("button", "resetbtn", T("reset"));
+  rb.addEventListener("click", () => resetProg(ck));
+  bar.appendChild(rb);
+  body.appendChild(bar);
+  c.appendChild(body);
+  const top = c.querySelector(".top");
+  if (top) { top.style.cursor = "pointer"; top.addEventListener("click", () => toggleCard(c)); }
+  return body;
+}
+function applyLangData(item) { if (LANG === "en") { if (item.practice_en) item.practice = item.practice_en; if (item.hints_en) item.hints = item.hints_en; } if (item.practice) item.practice = item.practice.map(normPractice); }
+function upcomingCard(item) { applyLangData(item);
+  const c = cardShell("exam", (LANG === "en" && item.title_en) ? item.title_en : (item.subject || "") + "：" + item.title, dueLabel(item), dueClass(item), subjOf(item), (LANG === "en" && item.type_en) ? item.type_en : (item.type || ""));
+  if (LANG === "en" && item.title_en) { const st = el("div", "ttl-sub"); st.textContent = (item.subject || "") + "：" + item.title; c.querySelector(".top").after(st); }
+  c.id = "card-" + (cardSeq++); item._cid = c.id;
+  c.appendChild(el("div", "meta", "📅 " + (item.date_display || item.date || "")));
+  if (item.scope) {
+    const s = el("div", "scope");
+    s.appendChild(el("b", null, T("scope")));
+    const segs = item.scope.split(/[｜|丨]/).map(x => x.trim()).filter(Boolean);
+    const iconFor = (seg) => /中文|中國語文/.test(seg.slice(0, 5)) ? "📖 " : /英文|英語/.test(seg.slice(0, 5)) ? "🔤 " : /數學/.test(seg.slice(0, 5)) ? "🔢 " : /人文|常識/.test(seg.slice(0, 5)) ? "🌍 " : /科學/.test(seg.slice(0, 5)) ? "🔬 " : "";
+    const renderSeg = (seg) => {
+      const line = el("span", "sline");
+      const m = seg.match(/課文第(\d+)至(\d+)課/);
+      if (m) {
+        line.appendChild(document.createTextNode(iconFor(seg) + seg.slice(0, m.index) + "課文"));
+        for (let n = +m[1]; n <= +m[2]; n++) line.appendChild(el("span", "scopepill", "第" + n + "課"));
+        line.appendChild(document.createTextNode(seg.slice(m.index + m[0].length)));
+      } else line.appendChild(document.createTextNode(iconFor(seg) + seg));
+      return line;
+    };
+    if (segs.length <= 1) { const only = segs[0] || ""; if (/課文第\d+至\d+課/.test(only)) s.appendChild(renderSeg(only)); else s.appendChild(document.createTextNode(only.trim())); }
+    else segs.forEach(seg => s.appendChild(renderSeg(seg)));
+    c.appendChild(s);
+  }
+  const body = attachBody(c, item, { sec: "exam" });
+  if (body) enrichmentHTML(body, item, { checkable: true, cardKey: ckFor("exam", item) });
+  return c;
+}
+function homeworkCard(item) { applyLangData(item);
+  const c = cardShell("hw", (LANG === "en" && item.title_en) ? item.title_en : (item.subject || "") + "：" + item.title, dueLabel(item), dueClass(item), subjOf(item));
+  if (LANG === "en" && item.title_en) { const st = el("div", "ttl-sub"); st.textContent = (item.subject || "") + "：" + item.title; c.querySelector(".top").after(st); }
+  c.id = "card-" + (cardSeq++); item._cid = c.id;
+  c.appendChild(el("div", "meta", T("duePrefix") + (item.due_display || item.due || "")));
+  const body = attachBody(c, item, { sec: "hw", expandLabel: T("hwOpen") });
+  if (body) enrichmentHTML(body, item, { checkable: true, hintsCheck: true, cardKey: ckFor("hw", item) });
+  return c;
+}
+function noticeCard(item) {
+  const c = cardShell("notice", "📣 " + item.title, item.days_left != null ? dueLabel(item) : "", dueClass(item));
+  c.id = "card-" + (cardSeq++); item._cid = c.id;
+  const meta = el("div", "meta", T("unsigned") + (item.deadline_display ? T("replyBy") + item.deadline_display : ""));
+  c.appendChild(meta);
+  enrichmentHTML(c, item, { showTier: true, wrapDetail: true });
+  return c;
+}
+function sectionWrap(sec, title) {
+  const w = el("div", "secwrap");
+  w.dataset.sec = sec;
+  w.appendChild(el("h2", "sec", title));
+  $app.appendChild(w);
+  return w;
+}
+/* ---------- 導航列 / 提示條 ---------- */
+let curFilter = "all";
+function setFilter(f) {
+  curFilter = f;
+  document.querySelectorAll("#topnav .navbtn[data-filter]").forEach(b => b.classList.toggle("on", b.dataset.filter === f));
+  document.querySelectorAll(".secwrap").forEach(w => { w.style.display = (f === "all" || w.dataset.sec === f) ? "" : "none"; });
+  updateToggleBtn();
+}
+document.querySelectorAll("#topnav .navbtn[data-filter]").forEach(b => b.addEventListener("click", () => setFilter(b.dataset.filter)));
+const MODE_LSK = "school2a-mode";
+function setMode(m) {
+  document.body.classList.toggle("kid", m === "kid");
+  document.body.classList.toggle("parent", m !== "kid");
+  applyAssessFolder();
+  document.querySelectorAll(".card").forEach(c => c.classList.toggle("open", m !== "kid"));
+  updateToggleBtn();
+  document.getElementById("modeParent").classList.toggle("on", m !== "kid");
+  document.getElementById("modeKid").classList.toggle("on", m === "kid");
+  try { localStorage.setItem(MODE_LSK, m); } catch (e) {}
+}
+document.getElementById("modeParent").addEventListener("click", () => setMode("parent"));
+document.getElementById("modeKid").addEventListener("click", () => setMode("kid"));
+try { setMode(localStorage.getItem(MODE_LSK) === "kid" ? "kid" : "parent"); } catch (e) { document.body.classList.add("parent"); }
+document.getElementById("forceReload").addEventListener("click", () => { location.replace(location.pathname + "?v=" + Date.now()); });
+document.getElementById("langToggle").addEventListener("click", () => { try { localStorage.setItem("school2a-lang", LANG === "zh" ? "en" : "zh"); } catch (e) {} location.reload(); });
+try { if (new URLSearchParams(location.search).get("mode") === "kid") setMode("kid"); } catch (e) {}
+applyStaticI18n();
+document.getElementById("collapseAll").addEventListener("click", toggleAllCards);
+function remainText(dl) { return dl === 0 ? T("remainToday") : dl === 1 ? T("remainTmr") : (LANG === "en" ? dl + " days left" : "仲有 " + dl + " 日"); }
+function buildBanner(d) {
+  const banner = document.getElementById("actionBanner");
+  const rows = [];
+  const push = (icon, text, item) => { if (item && item._cid) rows.push({ icon, text, id: item._cid }); };
+  (d.upcoming || []).forEach(u => { if (u.days_left != null && u.days_left >= 0 && u.days_left <= 3) push("⏰", (u.subject || "") + "：" + u.title + "（" + remainText(u.days_left) + "）", u); });
+  (d.homework || []).forEach(h => { if (h.days_left != null && h.days_left >= 0 && h.days_left <= 3) push("📝", "功課死線：" + (h.subject || "") + "：" + h.title + "（" + remainText(h.days_left) + "）", h); });
+  ((d.notices && d.notices.items) || []).forEach(n => { if (n.days_left != null && n.days_left >= 0 && n.days_left <= 3) push("📢", "通告死線：" + n.title + "（" + remainText(n.days_left) + "）", n); });
+  if (!rows.length) { banner.style.display = "none"; return; }
+  banner.appendChild(el("div", null, "🔥 近 3 日急件"));
+  rows.forEach(r => {
+    const line = el("span", "ab-item", r.icon + " " + r.text);
+    line.addEventListener("click", () => openCardById(r.id));
+    banner.appendChild(line);
+  });
+  banner.style.display = "block";
+}
+
+function byDue(a, b) {
+  const da = a.days_left, db = b.days_left;
+  const ea = da != null && da < 0, eb = db != null && db < 0;
+  if (ea !== eb) return ea ? 1 : -1;
+  return (da == null ? 9999 : da) - (db == null ? 9999 : db);
+}
+fetch("school-detail.json?t=" + Date.now())
+  .then(r => r.json())
+  .then(d => {
+    (d.upcoming || []).forEach(fixDaysLeft);
+    (d.homework || []).forEach(fixDaysLeft);
+    ((d.notices && d.notices.items) || []).forEach(fixDaysLeft);
+    const upd = new Date(d.updated);
+    document.getElementById("upd").textContent = T("updated") + upd.toLocaleString(LANG === "en" ? "en-GB" : "zh-HK", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" }) + T("updSuffix");
+    const examWrap = sectionWrap("exam", T("secExam"));
+    const ups = [...(d.upcoming || [])].sort(byDue);
+    if (ups.length) {
+      const act = ups.filter(u => !(u.days_left != null && u.days_left < 0));
+      const past = ups.filter(u => u.days_left != null && u.days_left < 0);
+      act.forEach(u => examWrap.appendChild(upcomingCard(u)));
+      if (past.length) {
+        const det = el("details", "donedrawer");
+        det.appendChild(el("summary", null, T("doneItems") + " (" + past.length + ")"));
+        past.forEach(u => det.appendChild(upcomingCard(u)));
+        examWrap.appendChild(det);
+      }
+    }
+    else examWrap.appendChild(el("div", "empty", T("emptyExam")));
+    const hwWrap = sectionWrap("hw", T("secHw"));
+    const hws = [...(d.homework || [])].sort(byDue);
+    if (hws.length) hws.forEach(h => hwWrap.appendChild(homeworkCard(h)));
+    else hwWrap.appendChild(el("div", "empty", T("emptyHw")));
+    const ntWrap = sectionWrap("notice", T("secNotice"));
+    const nts = [...((d.notices && d.notices.items) || [])].sort(byDue);
+    if (nts.length) nts.forEach(n => ntWrap.appendChild(noticeCard(n)));
+    else ntWrap.appendChild(el("div", "empty", T("emptyNotice")));
+    document.getElementById("cntExam").textContent = "" + ups.length;
+    document.getElementById("cntHw").textContent = "" + hws.length;
+    document.getElementById("cntNotice").textContent = "" + nts.length;
+    buildBanner({ upcoming: ups, homework: hws, notices: d.notices });
+    refreshProgCounts();
+    _lastData = d;
+    applyAssessFolder();
+    if (!document.body.classList.contains("kid")) document.querySelectorAll(".card").forEach(c => c.classList.add("open"));
+    updateToggleBtn();
+    const hk = (location.hash || "").replace(/^#/, "");
+    if (hk) { const allItems = [...(d.upcoming || []), ...(d.homework || [])]; const hit = allItems.find(x => x.key === hk); if (hit && hit._cid) openCardById(hit._cid); }
+  })
+  .catch(e => {
+    document.getElementById("upd").textContent = T("loadFail");
+  });
+</script>
+<script>
+/* ===== Interactive quiz player v2.2: 第3課《心中的鈴鐺》 (trial; content from curriculum_kb) ===== */
+const QZ_BELL_SVG = '<svg viewBox="0 0 200 190" xmlns="http://www.w3.org/2000/svg"><circle cx="170" cy="26" r="13" fill="#E2E8F0"/><circle cx="163" cy="22" r="11" fill="#0F172A" opacity="0.25"/><path d="M30 62 q-16 26 0 52" stroke="#38BDF8" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M170 62 q16 26 0 52" stroke="#38BDF8" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="100" cy="36" r="10" fill="#F59E0B"/><path d="M100 46 C 68 46 58 82 58 106 L 50 136 L 150 136 L 142 106 C 142 82 132 46 100 46 Z" fill="#FBBF24" stroke="#B45309" stroke-width="4"/><rect x="44" y="136" width="112" height="10" rx="5" fill="#B45309"/><circle cx="100" cy="160" r="11" fill="#92400E"/><text x="100" y="104" font-size="26" text-anchor="middle" fill="#92400E" font-weight="bold">叮噹</text></svg>';
+const QZ_PRAISE = ["好嘢！", "叻叻！", "做得好！", "勁呀！", "啱晒，犀利！"];
+const QZ_ENCOURAGE = ["差少少咋，再諗多步！", "唔緊要，慢慢嚟，再試下！", "好接近喇，再睇清楚啲！"];
+const QZ_L3 = {
+  easy: { label: "簡易版", items: [
+    { type: "mc", skill: "形近字辨析", tag: "點選題 MC", q: "小熊搖着（　）鐺上廁所。", opts: ["玲", "鈴", "伶", "齡"], ans: 1, why: "「鈴」有金字邊，因為鈴鐺是金屬做的。", hint: "💡 鈴鐺是金屬做的，想想哪個字有金字部。", label: "選擇：鈴鐺的「鈴」" },
+    { type: "mc", skill: "課文內容", tag: "圖片題 Image", img: QZ_BELL_SVG, q: "圖入面係咩嚟㗎？小熊上廁所嗰陣搖住嘅係——", opts: ["雨傘", "鈴鐺", "水壺", "書包"], ans: 1, why: "課文第②段：小熊「便邊走邊搖着鈴鐺」。", hint: "💡 睇吓圖入面金色、會發出「叮噹」聲嘅係咩。", label: "圖片題：鈴鐺" },
+    { type: "mc", skill: "因果句式", tag: "點選題 MC", q: "「小熊很害怕，所以＿＿。」", opts: ["媽媽回去睡覺了", "讓鈴聲陪他上廁所", "天黑了", "他第二天又想上廁所"], ans: 1, why: "課文第③段：小熊說「我很害怕，所以讓鈴聲陪我上廁所。」", hint: "💡 「所以」後面要接結果：害怕之後他做了甚麼？", label: "選擇：所以句式" },
+    { type: "mc", skill: "詞語運用", tag: "點選題 MC", q: "小熊放下鈴鐺，因為他不想＿＿媽媽。", opts: ["陪", "起身", "吵醒", "害怕"], ans: 2, why: "課文第⑤段：「這樣不會吵醒媽媽。」", hint: "💡 鈴聲好嘈，會令媽媽點樣？", label: "選擇：不想吵醒媽媽" },
+    { type: "match", skill: "形近字辨析", tag: "配對 Matching", q: "形近字配詞語：先㩒左邊個字，再㩒右邊佢嘅詞語。", pairs: [["怕", "害怕"], ["拍", "拍手"], ["吵", "吵醒"], ["沙", "沙灘"]], right: ["沙灘", "害怕", "吵醒", "拍手"], hint: "💡 睇偏旁：怕是心字部，同心情有關。", label: "配對：形近字" },
+    { type: "drag", skill: "上下結構", tag: "拖放 Drag & Drop", q: "上下結構分類：把字拖入正確的籃（或者㩒住個字，再㩒個籃）。", chips: [{ ch: "室", cat: "small" }, { ch: "熊", cat: "big" }, { ch: "露", cat: "small" }, { ch: "想", cat: "big" }, { ch: "客", cat: "small" }], cats: [["big", "上大下小"], ["small", "上小下大"]], hint: "💡 睇吓個字上半部同下半部邊個大啲。", label: "拖放：上下結構" },
+    { type: "draw", skill: "描字練習", tag: "畫畫・寫字 Drawing", q: "跟住灰色嘅字，寫一個「鈴」字；或者畫出你心中的鈴鐺。", guide: "鈴", label: "描字：鈴" },
+    { type: "reveal", skill: "思考與理解", tag: "諗深一層・自我核對", q: "為甚麼小熊在第二天晚上，拿起鈴鐺後又把它放下？（先自己講出嚟，再睇答案）", answer: "因為他想到媽媽會被鈴聲吵醒。他體貼媽媽，所以放下鈴鐺，改在心中搖鈴鐺 — 這樣不會吵醒媽媽，自己也不會害怕。", label: "思考題：放下鈴鐺" }
+  ]},
+  normal: { label: "正常版", items: [
+    { type: "mc", skill: "思考與理解", tag: "點選題 MC", q: "「在心中搖鈴鐺」其實是指甚麼？", opts: ["把鈴鐺放進心中", "想像鈴聲安慰自己，給自己勇氣", "在心中數綿羊", "真的聽到鈴聲"], ans: 1, why: "小熊想像有鈴聲陪着自己，令自己不再害怕 — 是給自己勇氣的方法。", label: "選擇：心中的鈴鐺" },
+    { type: "mc", skill: "課文內容", tag: "點選題 MC", q: "小熊第三晚為甚麼連心中的鈴鐺都不用搖？", opts: ["因為鈴鐺壞了", "因為媽媽收起了鈴鐺", "因為他已經不再害怕", "因為他不想上廁所"], ans: 2, why: "課文第⑥段：第三晚小熊起身上廁所，「不用在心中搖鈴鐺了」 — 他已經克服了害怕。", label: "選擇：第三晚" },
+    { type: "order", skill: "因果句式", tag: "句子重組 Order", q: "用「……所以……」把句子排好：㩒詞語放入句子框。", parts: ["美美用功溫習", "所以", "取得好成績"], shuffled: ["所以", "取得好成績", "美美用功溫習"], label: "重組：美美溫習" },
+    { type: "order", skill: "因果句式", tag: "句子重組 Order", q: "用「……所以……」把句子排好：㩒詞語放入句子框。", parts: ["下雨了", "所以", "我們留在家中看書"], shuffled: ["我們留在家中看書", "下雨了", "所以"], label: "重組：下雨了" },
+    { type: "drag", skill: "上下結構", tag: "拖放 Drag & Drop", q: "上下結構大分類：把十二個字拖入正確的籃。", chips: [{ ch: "第", cat: "small" }, { ch: "想", cat: "big" }, { ch: "分", cat: "equal" }, { ch: "室", cat: "small" }, { ch: "熊", cat: "big" }, { ch: "去", cat: "equal" }, { ch: "露", cat: "small" }, { ch: "書", cat: "big" }, { ch: "皇", cat: "equal" }, { ch: "客", cat: "small" }, { ch: "堡", cat: "big" }, { ch: "忠", cat: "equal" }], cats: [["equal", "上下相等"], ["small", "上小下大"], ["big", "上大下小"]], label: "拖放：上下結構大分類" },
+    { type: "match", skill: "形近字辨析", tag: "配對 Matching", q: "形近字配詞語（進階）：先㩒左邊個字，再㩒右邊佢嘅詞語。", pairs: [["怕", "害怕"], ["拍", "拍手"], ["吵", "吵醒"], ["沙", "沙灘"], ["陪", "陪伴"], ["部", "部分"]], right: ["部分", "沙灘", "陪伴", "害怕", "拍手", "吵醒"], label: "配對：形近字進階" },
+    { type: "reveal", skill: "思考與理解", tag: "思考題・自我核對", q: "媽媽對小熊搖鈴鐺的做法有甚麼反應？從課文哪一句看得出來？（先自己講，再睇答案）", answer: "媽媽說：「非常好，你不用害怕呀。」— 她支持和安慰小熊，沒有責備他。", label: "思考題：媽媽的反應" }
+  ]}
+};
+const QZ_L4 = {
+  easy: { label: "簡易版", items: [
+    { type: "mc", skill: "課文內容", tag: "點選題 MC", q: "小老虎畢業前，要填咩紀錄？", opts: ["成長紀錄", "功課紀錄", "健康紀錄", "閱讀紀錄"], ans: 0, why: "課文第①段：小老虎畢業前，必須填寫一份成長紀錄。", hint: "💡 紀錄上面要寫身高同尾巴長。", label: "選擇：成長紀錄" },
+    { type: "mc", skill: "課文內容", tag: "點選題 MC", q: "小老虎去邊度借尺子？", opts: ["人類的村子", "老虎的學校", "青蛙的河邊", "裁縫的家裏"], ans: 0, why: "課文第②段：小老虎決定到人類的村子去借尺子。", hint: "💡 佢去咗一個有人住嘅地方。", label: "選擇：借尺子的地方" },
+    { type: "mc", skill: "課文內容", tag: "點選題 MC", q: "裁縫點解唔幫小老虎量身高？", opts: ["佢只幫人量身高", "佢嗰日好忙冇時間", "佢唔識睇成長紀錄", "佢驚青蛙唔敢開門"], ans: 0, why: "課文第④段：裁縫說「我只給人量身高，從不給動物量的。」", hint: "💡 裁縫平時只幫邊種「客」量？", label: "選擇：裁縫拒絕的原因" },
+    { type: "mc", skill: "課文內容", tag: "點選題 MC", q: "青蛙喺河邊做緊咩？", opts: ["跳遠同量泥坑", "游水同捉昆蟲", "唱歌同跳舞繩", "瞓覺同晒太陽"], ans: 0, why: "課文第⑤段：一隻青蛙在跳遠，另一隻在做紀錄，量泥坑的長度。", hint: "💡 同「跳」同「量嘢」有關。", label: "選擇：青蛙做什麼" },
+    { type: "mc", skill: "課文內容", tag: "點選題 MC", q: "小老虎嘅身高係幾多個青蛙跳？", opts: ["三個", "一個", "五個", "十個"], ans: 0, why: "課文第⑧段：身高：三個青蛙跳；尾巴長：一個青蛙跳。", hint: "💡 身高比尾巴長，所以數目大啲。", label: "選擇：身高幾跳" },
+    { type: "order", skill: "故事順序", tag: "句子重組 Order", q: "按故事次序排好：㩒句子放入框。", parts: ["填成長紀錄", "向裁縫借尺", "幫青蛙填泥坑", "青蛙幫佢量身", "交紀錄畢業"], shuffled: ["幫青蛙填泥坑", "填成長紀錄", "交紀錄畢業", "向裁縫借尺", "青蛙幫佢量身"], label: "重組：故事次序" },
+    { type: "match", skill: "課文內容", tag: "配對 Matching", q: "人物配對：先㩒左邊人物，再㩒右邊佢做嘅事。", pairs: [["裁縫", "幫人量身高"], ["青蛙", "跳遠量泥坑"], ["小老虎", "填成長紀錄"], ["老師", "宣佈畢業消息"]], right: ["跳遠量泥坑", "填成長紀錄", "宣佈畢業消息", "幫人量身高"], hint: "💡邊個平時成日幫人量衫？", label: "配對：人物與事情" },
+    { type: "reveal", skill: "思考與理解", tag: "諗深一層・自我核對", q: "點解要用「青蛙跳」嚟量身高？", answer: "因為佢借唔到尺子，青蛙就用自己跳遠的方法幫佢量。雖然唔係用尺，但都量得出身高同尾巴有幾長。", label: "思考題：青蛙跳量身高" }
+  ]},
+  normal: { label: "正常版", items: [
+    { type: "mc", skill: "故事結構", tag: "點選題 MC", q: "故事入面，第一個難題係咩？", opts: ["借唔到尺子", "填唔平泥坑", "量唔到尾巴", "交唔到紀錄"], ans: 0, why: "小老虎要借尺子量身高，但裁縫拒絕，呢個係第一個難題。", label: "選擇：第一個難題" },
+    { type: "mc", skill: "課文內容", tag: "點選題 MC", q: "裁縫見到小老虎，有咩反應？", opts: ["嚇得手都抖了", "開心咁迎接佢", "即刻幫佢量身", "送咗把尺俾佢"], ans: 0, why: "課文第②段：裁縫看見小老虎，嚇得手都抖了。", label: "選擇：裁縫的反應" },
+    { type: "mc", skill: "課文內容", tag: "點選題 MC", q: "小老虎先幫青蛙＿＿，再請青蛙量身高。", opts: ["填平泥坑", "跳一次遠", "借把尺子", "填紀錄表"], ans: 0, why: "課文第⑦段：小老虎替青蛙填平了泥坑後，請青蛙量一量自己的身高和尾巴。", label: "選擇：先幫青蛙做什麼" },
+    { type: "mc", skill: "詞語運用", tag: "點選題 MC", q: "「宣佈」係咩意思？", opts: ["公開講出嚟", "細聲講悄悄話", "寫喺紙上面", "諗喺心入面"], ans: 0, why: "老師笑着宣佈小老虎成為畢業生，係當眾公開講出嚟。", label: "選擇：宣佈的意思" },
+    { type: "mc", skill: "課文內容", tag: "點選題 MC", q: "成長紀錄上，尾巴長寫咩？", opts: ["一個青蛙跳", "三個青蛙跳", "五個青蛙跳", "十個青蛙跳"], ans: 0, why: "課文第⑧段：尾巴長：一個青蛙跳。", label: "選擇：尾巴長" },
+    { type: "order", skill: "故事結構", tag: "句子重組 Order", q: "按故事結構排好：㩒句子放入框。", parts: ["背景：要填紀錄", "難題：借唔到尺", "解決：青蛙幫忙量", "結果：成為畢業生"], shuffled: ["解決：青蛙幫忙量", "背景：要填紀錄", "結果：成為畢業生", "難題：借唔到尺"], label: "重組：故事結構" },
+    { type: "reveal", skill: "思考與理解", tag: "思考題・自我核對", q: "借唔到尺子，仲有咩辦法量身高？", answer: "可以用繩、樹枝或者自己的腳步來量，再記下用了多少；也可以和同學背靠背比較。重點是：沒有尺子，也可以想辦法量度。", label: "思考題：沒有尺子怎麼辦" }
+  ]}
+};
+const QZ_L5 = {
+  easy: { label: "簡易版", items: [
+    { type: "mc", skill: "比喻", tag: "點選題 MC", q: "爸爸企喺度嗰陣，像咩？", opts: ["一座樓", "一條船", "一座山", "一棵樹"], ans: 0, why: "課文第一段：我的爸爸站着的時候，就像一座樓。", hint: "💡 爸爸企喺度好高，腳係第一層。", label: "選擇：爸爸像一座樓" },
+    { type: "mc", skill: "比喻", tag: "點選題 MC", q: "爸爸瞓低嗰陣，像咩？", opts: ["一條船", "一座樓", "一張牀", "一架車"], ans: 0, why: "課文第二段：我的爸爸躺着的時候，就像一條船。", hint: "💡 呢樣嘢會喺水上面行。", label: "選擇：爸爸像一條船" },
+    { type: "mc", skill: "課文內容", tag: "點選題 MC", q: "爸爸邊度係船嘅甲板？", opts: ["身體", "鼻子", "手指", "頭髮"], ans: 0, why: "課文第二段：身體是又寬又大的甲板。", hint: "💡 甲板係又寬又大嗰部分。", label: "選擇：甲板是身體" },
+    { type: "mc", skill: "動詞重疊", tag: "點選題 MC", q: "「按一按」即係將個動作點？", opts: ["做一次試吓", "做好多次先", "用好大力做", "叫人哋去做"], ans: 0, why: "動詞重疊加「一」表示動作短短哋、試一試，例如摸一摸、看一看。", hint: "💡 「一」即係一次、試吓。", label: "選擇：按一按的意思" },
+    { type: "mc", skill: "課文內容", tag: "點選題 MC", q: "按一按爸爸個鼻，佢會出咩聲？", opts: ["汽笛聲", "打鼾聲", "唱歌聲", "笑哈哈"], ans: 0, why: "課文第二段：他還會發出和大輪船一樣的汽笛聲。", hint: "💡 大輪船會出咩聲？", label: "選擇：汽笛聲" },
+    { type: "match", skill: "比喻", tag: "配對 Matching", q: "爸爸像一座樓：先㩒左邊，再㩒右邊佢係第幾層。", pairs: [["腳", "第一層"], ["手", "第二層"], ["肩", "第三層"]], right: ["第二層", "第三層", "第一層"], hint: "💡 由下而上數：腳喺最底。", label: "配對：樓的層數" },
+    { type: "order", skill: "假設句式", tag: "句子重組 Order", q: "用課文句式排好：㩒詞語放入句子框。", parts: ["你要是不相信", "可以到我家裏", "來看一看他"], shuffled: ["來看一看他", "你要是不相信", "可以到我家裏"], label: "重組：要是不相信" },
+    { type: "draw", skill: "描字練習", tag: "畫畫・寫字 Drawing", q: "跟住灰色嘅字，寫一個「船」字；或者畫一隻大輪船。", guide: "船", label: "描字：船" }
+  ]},
+  normal: { label: "正常版", items: [
+    { type: "mc", skill: "假設句式", tag: "點選題 MC", q: "邊一句用咗「要是」？", opts: ["要是我去公園，就帶雨傘。", "我今日去咗公園度玩耍。", "爸爸就像一座樓咁高大。", "我哋今日一齊去公園玩。"], ans: 0, why: "「要是」用嚟講假設嘅情況，例如：你要是不相信，可以到我家裏來看一看他。", label: "選擇：要是句" },
+    { type: "mc", skill: "字形結構", tag: "點選題 MC", q: "「穩」字係咩結構？", opts: ["左右結構", "上下結構", "全包圍結構", "獨體結構"], ans: 0, why: "課本指「穩」係左右結構（左小右大），同「像、臉」一組。", label: "選擇：穩的結構" },
+    { type: "mc", skill: "比喻", tag: "點選題 MC", q: "點解話爸爸像一條船？", opts: ["因為佢好大又瞓得穩", "因為佢識得游水去玩", "因為佢鍾意坐船旅行", "因為佢件衫有船圖案"], ans: 0, why: "課文說爸爸這艘船總是穩穩的，小朋友在甲板上翻跟頭、跑步、跳高都唔怕。", label: "選擇：像船的原因" },
+    { type: "mc", skill: "課文內容", tag: "點選題 MC", q: "入門口嗰陣，要小心啲咩？", opts: ["唔好淨係抬頭睇爸爸", "唔好大聲講嘢傾偈", "唔好踩到爸爸隻腳", "唔好帶太多嘢入嚟"], ans: 0, why: "課文第三段：不要光顧着抬頭看我爸爸的臉，而不當心自己往後倒地。", label: "選擇：入門要小心" },
+    { type: "mc", skill: "詞語運用", tag: "點選題 MC", q: "「甲板」係船嘅邊部分？", opts: ["船面俾人行嘅板", "船頭駕駛嘅位置", "船尾放貨嘅地方", "船身最高嘅旗杆"], ans: 0, why: "甲板係船上面俾人行走嘅平面。課文話爸爸嘅身體係又寬又大嘅甲板。", label: "選擇：甲板是什麼" },
+    { type: "match", skill: "動詞重疊", tag: "配對 Matching", q: "動詞重疊配對：先㩒左邊個字，再㩒右邊佢嘅重疊式。", pairs: [["按", "按一按"], ["摸", "摸一摸"], ["拍", "拍一拍"], ["笑", "笑一笑"]], right: ["拍一拍", "笑一笑", "按一按", "摸一摸"], label: "配對：動詞重疊" },
+    { type: "reveal", skill: "思考與理解", tag: "思考題・自我核對", q: "點解可以喺爸爸身上翻跟頭、跑步？", answer: "因為爸爸很大很穩，就像一艘大船的甲板，怎樣玩都不會翻側；也表示爸爸很疼愛小朋友，任由他在身上玩。", label: "思考題：在爸爸身上玩" }
+  ]}
+};
+const QZ_L6 = {
+  easy: { label: "簡易版", items: [
+    { type: "mc", skill: "課文內容", tag: "點選題 MC", q: "邊個返到屋企會把鞋脫下？", opts: ["成家人都會", "只有我一個", "只有爸爸會", "只有姊姊會"], ans: 0, why: "詩入面：我、姊姊、哥哥、爸爸回家，也都把鞋脫下。", hint: "💡 數吓詩入面有幾多人脫鞋。", label: "選擇：誰脫鞋" },
+    { type: "mc", skill: "擬人法", tag: "點選題 MC", q: "詩入面，啲鞋會做咩？", opts: ["講一天嘅見聞", "一齊去行街買嘢", "排隊等主人返嚟", "瞓喺門口邊休息"], ans: 0, why: "詩入面：大大小小的鞋依偎在一起，說着一天的見聞。", hint: "💡 鞋好似人一樣，會「講」嘢。", label: "選擇：鞋會做什麼" },
+    { type: "mc", skill: "比喻", tag: "點選題 MC", q: "大大小小的鞋，像咩？", opts: ["大大小小的船", "大大小小的車", "大大小小的鳥", "大大小小的魚"], ans: 0, why: "詩入面：大大小小的鞋就像大大小小的船。", hint: "💡 呢樣嘢會返去港灣。", label: "選擇：鞋像船" },
+    { type: "mc", skill: "比喻", tag: "點選題 MC", q: "詩入面，「家」係咩？", opts: ["安靜的港灣", "熱鬧的市場", "大大的學校", "高高的山頂"], ans: 0, why: "詩入面：鞋回到安靜的港灣，享受家的溫暖 — 家就是港灣。", hint: "💡 船返到邊度休息？", label: "選擇：家是港灣" },
+    { type: "mc", skill: "標點符號", tag: "點選題 MC", q: "邊一句啱用頓號？", opts: ["我鍾意蘋果、香蕉同橙。", "我今日去公園玩耍啦。", "你食咗晚飯未呀朋友？", "媽媽返嚟啦我好開心。"], ans: 0, why: "蘋果、香蕉、橙係同類詞語，排埋一齊，中間要用頓號分開。", hint: "💡 一串同類嘅嘢排埋一齊嗰陣用。", label: "選擇：頓號句子" },
+    { type: "match", skill: "詞語運用", tag: "配對 Matching", q: "詞語配意思：先㩒左邊詞語，再㩒右邊佢嘅意思。", pairs: [["依偎", "靠埋一齊"], ["港灣", "船停泊嘅地方"], ["見聞", "見到同聽到嘅事"], ["溫暖", "舒服又開心嘅感覺"]], right: ["船停泊嘅地方", "舒服又開心嘅感覺", "靠埋一齊", "見到同聽到嘅事"], hint: "💡 「依偎」即係靠到好埋。", label: "配對：詞語意思" },
+    { type: "order", skill: "課文內容", tag: "句子重組 Order", q: "按首詩嘅次序排好：㩒句子放入框。", parts: ["我回家，把鞋脫下", "姊姊回家，把鞋脫下", "哥哥、爸爸回家", "也都把鞋脫下"], shuffled: ["哥哥、爸爸回家", "我回家，把鞋脫下", "也都把鞋脫下", "姊姊回家，把鞋脫下"], label: "重組：詩句次序" },
+    { type: "draw", skill: "描字練習", tag: "畫畫・寫字 Drawing", q: "跟住灰色嘅字，寫一個「鞋」字；或者畫一對鞋。", guide: "鞋", label: "描字：鞋" }
+  ]},
+  normal: { label: "正常版", items: [
+    { type: "mc", skill: "擬人法", tag: "點選題 MC", q: "邊一句用咗擬人法？", opts: ["啲鞋依偎住講見聞", "啲鞋放喺門口邊邊", "啲鞋有大又有細嘅", "啲鞋係一家人買嘅"], ans: 0, why: "鞋本來唔識講嘢，詩人寫佢哋「說着見聞」，即係當佢哋係人，係擬人法。", label: "選擇：擬人句" },
+    { type: "mc", skill: "標點符號", tag: "點選題 MC", q: "頓號嘅停頓，比逗號點？", opts: ["短一啲", "長一啲", "一樣長", "冇分別"], ans: 0, why: "課本指頓號表示句子中短短的停頓，停頓比逗號短。", label: "選擇：頓號停頓" },
+    { type: "mc", skill: "詞語運用", tag: "點選題 MC", q: "「享受家的溫暖」係咩意思？", opts: ["開心感受家的溫暖", "喺屋企食好多好嘢", "幫手做家務清潔", "喺屋企瞓個好覺"], ans: 0, why: "「享受」即係開心咁感受；返到屋企，感受到屋企人嘅溫暖。", label: "選擇：享受的意思" },
+    { type: "mc", skill: "比喻", tag: "點選題 MC", q: "詩入面，邊樣嘢代表「家」？", opts: ["港灣", "大海", "船隻", "見聞"], ans: 0, why: "鞋像船，船回到港灣休息；港灣就係代表家。", label: "選擇：代表家的是港灣" },
+    { type: "mc", skill: "思考與理解", tag: "點選題 MC", q: "「大大小小的鞋是一家人」即係咩？", opts: ["全家人的鞋聚在一起", "啲鞋真係一家人嚟", "啲鞋係一齊買返嚟", "啲鞋全部一樣大細"], ans: 0, why: "成家人返到屋企脫下鞋，啲鞋大大小小聚埋一齊，好似一家人咁。", label: "選擇：鞋是一家人" },
+    { type: "drag", skill: "課文內容", tag: "拖放 Drag & Drop", q: "分類：把詞語拖入正確的籃。", chips: [{ ch: "姊姊", cat: "family" }, { ch: "哥哥", cat: "family" }, { ch: "爸爸", cat: "family" }, { ch: "我", cat: "family" }, { ch: "鞋", cat: "thing" }, { ch: "船", cat: "thing" }], cats: [["family", "家人"], ["thing", "東西"]], label: "拖放：家人與東西" },
+    { type: "reveal", skill: "思考與理解", tag: "思考題・自我核對", q: "返到屋企脫鞋，你會諗起咩開心事？", answer: "可以想想今天在學校學了什麼、和誰玩過、吃了什麼好東西。詩人把一天的經歷叫做「見聞」，和家人分享，就是家的溫暖。", label: "思考題：一天的見聞" }
+  ]}
+};
+const QZ_L7 = {
+  easy: { label: "簡易版", items: [
+    { type: "mc", skill: "課文內容", tag: "點選題 MC", q: "「鬍子好比一把尺子」，鬍子像咩？", opts: ["一面鏡子", "一把尺子", "一條繩子", "一支筆杆"], ans: 1, why: "貓媽媽說鬍子好比一把尺子，用來量一量過唔過到個洞。", hint: "💡 鬍子用嚟「量」嘢。", label: "鬍子像尺子" },
+    { type: "mc", skill: "課文內容", tag: "點選題 MC", q: "鬍子俾刮掉，小花貓會點？", opts: ["撞得頭破血流", "跑步跑得快啲", "睇嘢清楚好多", "食嘢方便好多"], ans: 0, why: "課文話鬍子被刮掉，就會碰得頭破血流。", hint: "💡 冇咗尺子量，入洞嗰陣會點？", label: "刮鬍子的後果" },
+    { type: "mc", skill: "課文內容", tag: "點選題 MC", q: "邊個話鬍子好比一把尺子？", opts: ["小花貓", "主人", "貓媽媽", "老鼠"], ans: 2, why: "係貓媽媽耐心地同小花貓講嘅。", hint: "💡 邊個最錫小花貓，會教佢？", label: "誰說的" },
+    { type: "mc", skill: "詞語運用", tag: "點選題 MC", q: "小花貓對住咩嚟照自己個樣？", opts: ["池水", "窗門", "相片", "鏡子"], ans: 3, why: "（默書詞語：鏡子、難看、樣子）：小花貓照鏡子，覺得鬍子難看。", hint: "💡 喺浴室會見到，可以照到自己。", label: "照鏡子" },
+    { type: "mc", skill: "詞語運用", tag: "點選題 MC", q: "「乾乾淨淨」係形容咩？", opts: ["好清潔冇污糟", "好整齊冇亂嘢", "好安靜冇聲音", "好光亮冇暗影"], ans: 0, why: "「乾乾淨淨」即係清潔得好好，冇污糟。", hint: "💡 同「污糟」相反。", label: "乾乾淨淨" },
+    { type: "match", skill: "詞語運用", tag: "配對 Matching", q: "詞語配意思：先㩒左邊詞語，再㩒右邊佢嘅意思。", pairs: [["難看", "唔好睇"], ["追捕", "追住嚟捉"], ["幫忙", "幫手做事"], ["辦法", "做事的方法"]], right: ["幫手做事", "做事的方法", "唔好睇", "追住嚟捉"], hint: "💡 「追捕」即係追住嚟捉。", label: "詞語配對" },
+    { type: "order", skill: "背默句子", tag: "句子重組 Order", q: "按背默句子排好：㩒詞語放入框。", parts: ["小花貓在一旁仰着腦袋", "碧綠的大眼睛", "一眨不眨地看着主人"], shuffled: ["一眨不眨地看着主人", "小花貓在一旁仰着腦袋", "碧綠的大眼睛"], label: "背默句重組" },
+    { type: "reveal", skill: "思考與理解", tag: "諗深一層", q: "點解小花貓以後唔再刮鬍子？", answer: "因為鬍子好比一把尺子，幫佢量一量自己過唔過到個洞。刮掉鬍子，就會碰得頭破血流，所以佢以後都唔再刮鬍子了。", label: "不再刮鬍子" }
+  ]},
+  normal: { label: "正常版", items: [
+    { type: "mc", skill: "課文內容", tag: "點選題 MC", q: "鬍子點樣幫小花貓量嘢？", opts: ["量下自己有幾重", "量下過唔過到個洞", "量下老鼠跑幾快", "量下個洞有幾深"], ans: 1, why: "課文話「你能不能從洞裏鑽過去，先要用尺子量一量」。", label: "鬍子量洞" },
+    { type: "mc", skill: "詞語運用", tag: "點選題 MC", q: "邊一句用「感到」最啱？", opts: ["我感到佢係好人。", "我感到聽日落雨。", "我感到有啲凍。", "我感到本書好睇。"], ans: 2, why: "「感到」用嚟講身體同心情嘅感覺，例如感到凍、感到開心。", label: "感到" },
+    { type: "mc", skill: "詞語運用", tag: "點選題 MC", q: "「一眨不眨」係形容咩？", opts: ["行路行得好快", "眼睛望住唔郁", "講嘢好大聲响", "瞓覺瞓得好沉"], ans: 1, why: "背默句「一眨不眨地看着主人」，形容眼睛望住一樣嘢，唔眨眼。", label: "一眨不眨" },
+    { type: "mc", skill: "課文內容", tag: "點選題 MC", q: "小花貓嘅眼睛係咩顏色？", opts: ["烏黑", "深啡", "碧綠", "淺藍"], ans: 2, why: "背默句寫「碧綠的大眼睛」。", label: "眼睛顏色" },
+    { type: "order", skill: "課文內容", tag: "句子重組 Order", q: "按課文次序排好：㩒句子放入框。", parts: ["你的鬍子好比一把尺子", "先要用尺子量一量", "鬍子被你刮掉了", "會碰得頭破血流"], shuffled: ["鬍子被你刮掉了", "你的鬍子好比一把尺子", "會碰得頭破血流", "先要用尺子量一量"], label: "課文句重組" },
+    { type: "drag", skill: "詞語運用", tag: "拖放 Drag & Drop", q: "分類：把詞語拖入正確的籃。", chips: [{ ch: "追捕", cat: "act" }, { ch: "撞", cat: "act" }, { ch: "幫忙", cat: "act" }, { ch: "鏡子", cat: "thing" }, { ch: "浴室", cat: "thing" }], cats: [["act", "動作"], ["thing", "地方／東西"]], label: "詞語分類" },
+    { type: "reveal", skill: "思考與理解", tag: "思考題", q: "如果你係小花貓，你會點同主人講？", answer: "可以講：「主人，我以前覺得鬍子難看，想刮掉它。原來鬍子好像一把尺子，可以幫我量洞口，我以後都不刮鬍子了。」", label: "同主人講" }
+  ]}
+};
+const QZ_ENG = {
+  easy: { label: "簡易版", items: [
+    { type: "mc", skill: "U3 詞彙", tag: "MC・Preview", q: "Where can we sing songs?", opts: ["In the music room.", "In the art room.", "In the tuck shop.", "In the sick room."], ans: 0, why: "Preview: We sing songs in the music room.（音樂室）", hint: "💡 Music = 音樂。", label: "Preview: music room" },
+    { type: "mc", skill: "U3 詞彙", tag: "MC・Preview", q: "Where can we draw pictures?", opts: ["In the music room.", "In the art room.", "In the office.", "In the corridor."], ans: 1, why: "Preview: We draw pictures in the art room.（美術室）", hint: "💡 Art = 美術。", label: "Preview: art room" },
+    { type: "mc", skill: "U1 介詞", tag: "MC・Preview", q: "It is ___ the cinema.（喺戲院後面）", opts: ["next to", "in front of", "behind", "on the left"], ans: 2, why: "Preview: behind = 後面。It is behind the cinema.", hint: "💡 後面 = behind。", label: "Preview: behind" },
+    { type: "mc", skill: "U2 現在進行式", tag: "MC・Preview", q: "Look! The girls ___ in the pool.", opts: ["swims", "are swimming", "swim yesterday", "is swimming"], ans: 1, why: "Preview: The girls are plural, and it is happening now: are swimming.", hint: "💡 Girls 係多過一個，要用 are。", label: "Preview: are swimming" },
+    { type: "mc", skill: "U2 規則", tag: "MC・Preview", q: "We ___ pick the flowers in the park.", opts: ["must", "can always", "must not", "are"], ans: 2, why: "Preview: We must not pick the flowers.（唔可以摘花）", hint: "💡 摘花係唔啱嘅，要用 must not。", label: "Preview: must not" },
+    { type: "mc", skill: "U4 所有格", tag: "MC・Preview", q: "This watch is ___.（Bob 嘅）", opts: ["Bobs", "Bob", "of Bob", "Bob's"], ans: 3, why: "Preview: Bob's watch — 's after a name shows the owner.", hint: "💡 人名後面加 's。", label: "Preview: Bob's" },
+    { type: "mc", skill: "U4 問句", tag: "MC・Preview", q: "___ you have hairbands?", opts: ["Does", "Do", "Is", "Are"], ans: 1, why: "Preview: Do you have hairbands? Yes, I do.", hint: "💡 You 配 Do。", label: "Preview: Do you" },
+    { type: "order", skill: "U1 問句", tag: "Order・Preview", q: "排好句子：㩒詞語放入框。", parts: ["Is ", "there ", "a post office?"], shuffled: ["a post office?", "Is ", "there "], label: "Preview: Is there" }
+  ]},
+  normal: { label: "正常版", items: [
+    { type: "mc", skill: "U3 位置", tag: "MC・Preview", q: "___ is the library?", opts: ["What", "Where", "Who", "When"], ans: 1, why: "Preview: We ask about places with Where.", label: "Preview: Where" },
+    { type: "mc", skill: "U2 現在進行式", tag: "MC・Preview", q: "She is ___ a song now.", opts: ["singing", "sing a song", "sings songs", "sang a song"], ans: 0, why: "Preview: She is singing a song.（正在唱歌）", label: "Preview: is singing" },
+    { type: "mc", skill: "U3 序數詞", tag: "MC・Preview", q: "邊個係序數詞（講第幾）？", opts: ["five", "fiveth", "fifth", "fives"], ans: 2, why: "Preview: fifth = 第五。Dict 3 範圍有 fourth, fifth, sixth。", label: "Preview: fifth" },
+    { type: "mc", skill: "U4 問句", tag: "MC・Preview", q: "___ she have a ruler?", opts: ["Do", "Does", "Is", "Are"], ans: 1, why: "Preview: She → Does she have...? Yes, she does.", label: "Preview: Does she" },
+    { type: "mc", skill: "U2 規則", tag: "MC・Preview", q: "We ___ keep the classroom clean.", opts: ["must not", "never must", "not must", "must"], ans: 3, why: "Preview: We must keep clean.（要保持清潔）", label: "Preview: must keep" },
+    { type: "reveal", skill: "U3 運用", tag: "Think・Preview", q: "講一句英文：你喺學校邊度上堂？", answer: "Example: I have lessons in the classroom.（我喺課室上堂。）也可以用其他課室詞彙，例如 music room, art room。", label: "Preview: my classroom" }
+  ]}
+};
+const QZ_MATH = {
+  easy: { label: "簡易版", items: [
+    { type: "mc", skill: "三位數", tag: "點選題 MC", q: "356 入面，「5」代表咩？", opts: ["5", "500", "50", "15"], ans: 2, why: "（重用評估練習題庫）：5 在十位，代表 5 個十，即 50。", hint: "💡 睇吓「5」企喺邊個位。", label: "5 的數值" },
+    { type: "mc", skill: "三位數", tag: "點選題 MC", q: "478 ○ 487，○ 係咩符號？", opts: [">", "<", "=", "+"], ans: 1, why: "（重用題庫）：478 比 487 細，所以係 <。", hint: "💡 百位一樣，比較十位。", label: "比較大小" },
+    { type: "mc", skill: "加法", tag: "點選題 MC", q: "246 + 358 = ?", opts: ["594", "604", "504", "614"], ans: 1, why: "（重用題庫）：246 + 358 = 604，記得進位。", hint: "💡 個位 6+8=14，寫 4 進 1。", label: "加法" },
+    { type: "mc", skill: "減法", tag: "點選題 MC", q: "502 − 267 = ?", opts: ["245", "225", "335", "235"], ans: 3, why: "（重用題庫）：502 − 267 = 235，要借位。", hint: "💡 個位唔夠減，向十位借。", label: "減法" },
+    { type: "mc", skill: "三位數", tag: "點選題 MC", q: "邊個數最大？", opts: ["809", "890", "908", "980"], ans: 3, why: "先比百位，980 嘅百位係 9，同 908 一樣；再比十位，8 比 0 大。", hint: "💡 先睇百位，再睇十位。", label: "最大數" },
+    { type: "mc", skill: "角", tag: "點選題 MC", q: "邊種角比直角細？", opts: ["鈍角", "直角", "平角", "銳角"], ans: 3, why: "銳角比直角細，鈍角比直角大。", hint: "💡 細過直角嗰種，個名有個「銳」字。", label: "銳角" },
+    { type: "mc", skill: "米", tag: "點選題 MC", q: "量課室嘅長度，用咩單位好？", opts: ["公斤", "米", "公升", "厘米"], ans: 1, why: "課室長度以米為單位最合適。", hint: "💡 量長度，又要夠大嗰個單位。", label: "米" },
+    { type: "order", skill: "三位數", tag: "句子重組 Order", q: "由細到大排好啲數：㩒數字放入框。", parts: ["245", "452", "524", "542"], shuffled: ["524", "245", "542", "452"], label: "由細到大" }
+  ]},
+  normal: { label: "正常版", items: [
+    { type: "mc", skill: "三位數", tag: "點選題 MC", q: "608 入面，「6」代表咩？", opts: ["600", "60", "6", "68"], ans: 0, why: "6 在百位，代表 6 個百，即 600。", label: "6 的數值" },
+    { type: "mc", skill: "加減應用", tag: "點選題 MC", q: "姐姐有 365 張貼紙，送走 128 張，剩幾多？", opts: ["247 張", "237 張", "227 張", "493 張"], ans: 1, why: "365 − 128 = 237。送走咗，要用減法。", label: "貼紙應用題" },
+    { type: "mc", skill: "角", tag: "點選題 MC", q: "直角係點樣嘅？", opts: ["尖尖細細嗰一種", "好似書角咁方正", "大過方角嗰一種", "圓圓地冇角嗰種"], ans: 1, why: "直角好似書本、方枱嘅角咁方正。", label: "直角" },
+    { type: "mc", skill: "米", tag: "點選題 MC", q: "一支鉛筆長約 1 米，啱唔啱？", opts: ["啱，鉛筆有 1 米", "唔啱，鉛筆長好多", "啱，啱啱 1 米", "唔啱，鉛筆短好多"], ans: 3, why: "1 米大約係課室門一半高度，鉛筆短好多。", label: "1 米有多長" },
+    { type: "mc", skill: "乘法", tag: "點選題 MC", q: "5 × 4 = ?", opts: ["24", "45", "20", "54"], ans: 2, why: "（重用題庫）：5 × 4 = 20，即 4 個 5。", label: "乘法" },
+    { type: "reveal", skill: "角", tag: "思考題", q: "點樣分銳角同鈍角？", answer: "用直角做標準去比：比直角細嘅係銳角，比直角大嘅係鈍角。可以用一本書嘅角嚟量一量。", label: "分銳角鈍角" }
+  ]}
+};
+const QZ_SCI = {
+  easy: { label: "簡易版", items: [
+    { type: "drag", skill: "生物和非生物", tag: "拖放 Drag & Drop", q: "分類：拖入正確的籃。", chips: [{ ch: "小狗", cat: "living" }, { ch: "玫瑰花", cat: "living" }, { ch: "小鳥", cat: "living" }, { ch: "石頭", cat: "nonliving" }, { ch: "木椅", cat: "nonliving" }, { ch: "泥土", cat: "nonliving" }], cats: [["living", "生物"], ["nonliving", "非生物"]], hint: "💡 生物識生長，又要飲水食嘢。", label: "生物分類" },
+    { type: "mc", skill: "生物和非生物", tag: "點選題 MC", q: "邊樣係生物？", opts: ["膠樽", "小樹苗", "鐵釘", "紙張"], ans: 1, why: "小樹苗識生長，係生物。", hint: "💡 識長大嗰樣。", label: "邊樣係生物" },
+    { type: "mc", skill: "動手種植物", tag: "點選題 MC", q: "植物生長需要咩？", opts: ["電視同玩具", "陽光同水", "書包同鉛筆", "雨傘同水樽"], ans: 1, why: "植物要有陽光同水，先可以生長。", hint: "💡 種植物嗰陣，每日要俾佢兩樣嘢。", label: "植物需要" },
+    { type: "mc", skill: "觀察動物", tag: "點選題 MC", q: "想知雀仔食咩，要點觀察？", opts: ["睇佢個嘴嘅形狀", "睇佢飛得有幾高", "數佢有幾多羽毛", "聽佢叫得幾大聲"], ans: 0, why: "雀仔個嘴嘅形狀，同佢食嘅嘢有關。", hint: "💡 食嘢用邊個部位？", label: "觀察雀仔" },
+    { type: "mc", skill: "動手種植物", tag: "點選題 MC", q: "種植物，先將種子放喺邊？", opts: ["水杯上面", "泥土入面", "書包入面", "窗台出面"], ans: 1, why: "種子要放入泥土，先可以發芽生長。", hint: "💡 植物喺邊度生根？", label: "種子放哪" },
+    { type: "reveal", skill: "生物和非生物", tag: "諗深一層", q: "點樣分生物同非生物？", answer: "生物識生長，又需要食物同水，例如小狗、花草。非生物唔識生長，例如石頭、木椅。", label: "分生物" }
+  ]},
+  normal: { label: "正常版", items: [
+    { type: "mc", skill: "生物和非生物", tag: "點選題 MC", q: "邊樣唔係生物嘅特徵？", opts: ["識得長大", "需要飲水", "唔識生長", "需要食物"], ans: 2, why: "生物先識生長；唔識生長係非生物。", label: "生物特徵" },
+    { type: "mc", skill: "動手種植物", tag: "點選題 MC", q: "植物冇陽光會點？", opts: ["生得更加快", "生長得唔好", "開更多花朵", "變成動物嚟"], ans: 1, why: "植物需要陽光生長，冇陽光會生長得唔好。", label: "冇陽光" },
+    { type: "mc", skill: "觀察動物", tag: "點選題 MC", q: "觀察螞蟻嗰陣，唔應該做咩？", opts: ["靜靜咁睇佢哋", "畫低佢哋個樣", "用手捉起佢哋", "記低佢哋去邊"], ans: 2, why: "觀察動物要愛護佢哋，唔好用手捉，靜靜觀察就得。", label: "觀察螞蟻" },
+    { type: "order", skill: "動手種植物", tag: "句子重組 Order", q: "按種植物嘅步驟排好：㩒句子放入框。", parts: ["放種子入泥土", "淋水", "放喺有陽光嘅地方", "等佢發芽"], shuffled: ["淋水", "等佢發芽", "放種子入泥土", "放喺有陽光嘅地方"], label: "種植步驟" },
+    { type: "reveal", skill: "動手種植物", tag: "思考題", q: "點解種植物要淋水？", answer: "植物需要水先可以生長。冇水，植物會枯乾，慢慢死去。所以種植物要定時淋水。", label: "點解淋水" }
+  ]}
+};
+const QZ_ENGPAPER = {
+  easy: { label: "簡易版（歷屆卷風格）", items: [
+    { type: "mc", skill: "疑問詞", tag: "MC・歷屆卷 A 部", q: "___ do you go to school? By bus.", opts: ["How", "Who", "Which", "When"], ans: 0, why: "歷屆卷風格（A 部疑問詞填充）：答「By bus」係講方法，所以用 How。", hint: "💡 答案講點樣去，問方法用邊個？", label: "卷風格：How" },
+    { type: "mc", skill: "疑問詞", tag: "MC・歷屆卷 A 部", q: "___ time do you get up?", opts: ["What", "Where", "Who", "Why"], ans: 0, why: "歷屆卷風格：What time 問時間。", hint: "💡 問幾點，要配 time。", label: "卷風格：What time" },
+    { type: "mc", skill: "代名詞", tag: "MC・歷屆卷 D 部", q: "Miss Lee is my teacher. ___ is nice.", opts: ["She", "He", "It", "We"], ans: 0, why: "歷屆卷風格（D 部代名詞填充）：Miss Lee 係女老師，用 She。", hint: "💡 女士用邊個代名詞？", label: "卷風格：She" },
+    { type: "mc", skill: "所有格形容詞", tag: "MC・歷屆卷 D 部", q: "Tom is my brother. ___ bag is blue.", opts: ["His", "Her", "Its", "My"], ans: 0, why: "歷屆卷風格：Tom 係男仔，「佢嘅」書包用 His。", hint: "💡 男仔嘅嘢，用 His 定 Her？", label: "卷風格：His" },
+    { type: "mc", skill: "一般現在式", tag: "MC・歷屆卷 B 部", q: "Jenny ___ a piano lesson every Friday.", opts: ["has", "have", "having", "is have"], ans: 0, why: "歷屆卷風格（B 部動詞形式）：Jenny 一個人 + every Friday（習慣），用 has。", hint: "💡 一個人，have 要變身做 has。", label: "卷風格：has" },
+    { type: "mc", skill: "時間介詞", tag: "MC・歷屆卷 E 部", q: "I do my homework ___ the afternoon.", opts: ["in", "on", "at", "by"], ans: 0, why: "歷屆卷風格（E 部介詞填充）：in the afternoon（在下午）。", hint: "💡 morning / afternoon 前面用 in。", label: "卷風格：in the afternoon" },
+    { type: "mc", skill: "改錯", tag: "MC・歷屆卷 C 部", q: "邊一句先啱？", opts: ["Gary is watch TV just now.", "Gary is watching TV now.", "Gary watching TV now.", "Gary is watches TV now."], ans: 1, why: "歷屆卷風格（C 部改錯）：now 做緊嘅嘢，要用 is + watching。", hint: "💡 is 後面要加 -ing。", label: "卷風格：改錯 watching" },
+    { type: "order", skill: "疑問詞", tag: "Order・歷屆卷 A 部", q: "排好句子：㩒詞語放入框。", parts: ["What ", "time ", "do you ", "get up?"], shuffled: ["do you ", "What ", "get up?", "time "], label: "卷風格：What time 句" }
+  ]},
+  normal: { label: "正常版（歷屆卷風格）", items: [
+    { type: "mc", skill: "疑問詞", tag: "MC・歷屆卷 A 部", q: "___ many stars are there? Five.", opts: ["How", "What", "Which", "Who"], ans: 0, why: "歷屆卷風格：How many 問數量。", label: "卷風格：How many" },
+    { type: "mc", skill: "代名詞", tag: "MC・歷屆卷 D 部", q: "Ann and I are friends. ___ play together.", opts: ["We", "They", "You", "She"], ans: 0, why: "歷屆卷風格：Ann and I（包括自己）用 We。", label: "卷風格：We" },
+    { type: "mc", skill: "所有格形容詞", tag: "MC・歷屆卷 D 部", q: "The cat is cute. ___ name is Mimi.", opts: ["Its", "It", "He", "She"], ans: 0, why: "歷屆卷風格：動物嘅名字，「佢嘅」用 Its。", label: "卷風格：Its" },
+    { type: "mc", skill: "一般現在式", tag: "MC・歷屆卷 B 部", q: "Ben ___ to Cub Scouts every Monday.", opts: ["goes", "go", "going", "is go"], ans: 0, why: "歷屆卷風格：Ben 一個人，go 要變 goes。", label: "卷風格：goes" },
+    { type: "mc", skill: "改錯", tag: "MC・歷屆卷 C 部", q: "邊一句先啱？", opts: ["Macy do not live in Tai Po.", "Macy does not live in Tai Po.", "Macy does not lives in Tai Po.", "Macy do not lives in Tai Po."], ans: 1, why: "歷屆卷風格（改錯）：一個人（Macy）要用 does not，後面 live 唔加 s。", label: "卷風格：改錯 does not" },
+    { type: "mc", skill: "時間介詞", tag: "MC・歷屆卷 E 部", q: "We have football lessons ___ Saturdays.", opts: ["on", "in", "at", "by"], ans: 0, why: "歷屆卷風格：星期幾前面用 on（on Saturdays）。", label: "卷風格：on Saturdays" },
+    { type: "reveal", skill: "運用", tag: "Think・歷屆卷風格", q: "用英文答：What do you do on Sundays?", answer: "Example: I play football with my friends on Sundays.（用 I + 活動 + on Sundays 回答就得。）", label: "卷風格：答句" }
+  ]}
+};
+const QZ_LESSONS = { chi_l3: QZ_L3, chi_l4: QZ_L4, chi_l5: QZ_L5, chi_l6: QZ_L6, chi_l7: QZ_L7, eng_u14: QZ_ENG, eng_paper: QZ_ENGPAPER, math_a1: QZ_MATH, sci_a1: QZ_SCI };
+let QZ = QZ_LESSONS.chi_l3;
+let qzSetName = "easy", qzIdx = 0, qzBuilt = false, qzStreak = 0, qzLocked = false, qzPraiseIx = 0, qzEncIx = 0, qzBreakFor = -1;
+
+function qzItems() { return QZ[qzSetName].items; }
+let qzCtx = { itemKey: "CHI_PROGRESS_1", lessonId: "chi_l3" };
+function qzBase() { return "school2a-quiz-v1:" + qzCtx.itemKey + ":" + qzCtx.lessonId; }
+function qzMigrateLegacy() {
+  if (qzCtx.lessonId !== "chi_l3") return;
+  try {
+    const lp = localStorage.getItem("quizDemoL3-progress");
+    if (lp && !localStorage.getItem(qzBase() + ":progress")) localStorage.setItem(qzBase() + ":progress", lp);
+    ["easy", "normal"].forEach(sn => {
+      const v = localStorage.getItem("quizDemoL3-" + sn);
+      if (v && !localStorage.getItem(qzBase() + ":" + sn)) localStorage.setItem(qzBase() + ":" + sn, v);
+    });
+  } catch (e) {}
+}
+function qzMax(item) { return item.type === "mc" || item.type === "order" ? 1 : item.type === "match" ? item.pairs.length : item.type === "drag" ? item.chips.length : 0; }
+function qzEarned(item) { return item._earned || 0; }
+function qzComplete(item) { const m = qzMax(item); return m > 0 && qzEarned(item) >= m; }
+function qzTotals() { let e = 0, t = 0; qzItems().forEach(it => { e += qzEarned(it); t += qzMax(it); }); return [e, t]; }
+function qzScoreUpd() {
+  const t = qzTotals();
+  document.getElementById("qzScore").textContent = "⭐ " + qzStars() + " / " + t[1];
+  const st = document.getElementById("qzStreak");
+  if (st) st.textContent = qzStreak >= 2 ? "🔥 連續啱 ×" + qzStreak : "";
+  qzRenderDots();
+}
+function qzEl(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
+function qzWrong(item, sub) {
+  const key = item.label + (sub ? "：" + sub : "");
+  const S = QZ[qzSetName];
+  S._wrong = S._wrong || [];
+  if (!item._wrongKeys) item._wrongKeys = {};
+  if (!item._wrongKeys[key]) { item._wrongKeys[key] = true; S._wrong.push(key); }
+  qzSaveProgress();
+}
+function qzEncourage() { const s = QZ_ENCOURAGE[qzEncIx % QZ_ENCOURAGE.length]; qzEncIx++; return s; }
+function qzSpeak(text) {
+  try {
+    if (!("speechSynthesis" in window)) return;
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text.replace(/[💡🔊・（）「」＿\s]+/g, " "));
+    u.lang = "zh-HK"; u.rate = 0.92;
+    speechSynthesis.speak(u);
+  } catch (e) {}
+}
+function qzStars() { let n = 0; qzItems().forEach(it => { n += it._stars || 0; }); return n; }
+function qzGain(item, sub) {
+  item._earned = qzEarned(item) + 1;
+  const wk = item._wrongKeys || {};
+  const starOk = sub ? !wk[item.label + "：" + sub] : !Object.keys(wk).length;
+  if (starOk) item._stars = (item._stars || 0) + 1;
+  qzScoreUpd();
+  qzSaveProgress();
+  if (qzComplete(item)) {
+    if (item._orig) item._orig._retried = true;
+    qzLocked = true;
+    if (!item._wrongKeys || !Object.keys(item._wrongKeys).length) qzStreak++; else qzStreak = 0;
+    qzScoreUpd();
+    qzMaybeAdvance();
+  }
+}
+function qzMaybeAdvance() {
+  const idx = qzIdx;
+  setTimeout(() => {
+    if (qzIdx !== idx) return;
+    const nxt = idx + 1;
+    if (nxt < qzItems().length && nxt % 4 === 0) { qzBreakFor = nxt; qzRender(); }
+    else if (nxt <= qzItems().length) qzGo(nxt);
+  }, 1150);
+}
+function qzGo(i) {
+  qzJumpToggle(false);
+  const items = qzItems();
+  qzIdx = Math.max(0, Math.min(i, items.length));
+  qzLocked = false;
+  if (qzBreakFor !== qzIdx) qzBreakFor = -1;
+  qzRender();
+}
+function qzRender() {
+  const stage = document.getElementById("qzStage");
+  stage.innerHTML = "";
+  const items = qzItems();
+  const prev = document.getElementById("qzPrev"), next = document.getElementById("qzNext");
+  const foot = document.querySelector(".qz-footer");
+  if (foot) foot.style.display = qzIdx >= items.length ? "none" : "flex";
+  if (qzBreakFor === qzIdx && qzIdx > 0 && qzIdx < items.length) {
+    prev.disabled = true; next.disabled = true;
+    stage.appendChild(qzBreakCard());
+    qzRenderDots();
+    return;
+  }
+  prev.disabled = qzIdx === 0; next.disabled = false;
+  next.textContent = qzIdx >= items.length ? "🏁 已到成績頁" : "下一題 →";
+  if (qzIdx >= items.length) { stage.appendChild(qzFinishCard()); qzRenderDots(); return; }
+  const item = items[qzIdx];
+  const card = qzEl("div", "qz-card qz-enter");
+  card.appendChild(qzEl("span", "qz-tag", item.tag + " ・ 第 " + (qzIdx + 1) + " / " + items.length + " 題"));
+  if (item.img) { const im = qzEl("div", "qz-img"); im.innerHTML = item.img; card.appendChild(im); }
+  const qrow = qzEl("div", "qz-qrow");
+  qrow.appendChild(qzEl("div", "qz-q", item.q));
+  const spk = qzEl("button", "qz-speak", "🔊");
+  spk.title = "讀出題目";
+  spk.addEventListener("click", () => qzSpeak(item.q));
+  qrow.appendChild(spk);
+  card.appendChild(qrow);
+  if (item.hint && qzSetName === "easy") card.appendChild(qzEl("div", "qz-hint", item.hint));
+  const fb = qzEl("div", "qz-fb");
+  ({ mc: qzRenderMC, match: qzRenderMatch, drag: qzRenderDrag, order: qzRenderOrder, draw: qzRenderDraw, reveal: qzRenderReveal })[item.type](item, card, fb);
+  card.appendChild(fb);
+  stage.appendChild(card);
+  qzScoreUpd();
+  qzRenderDots();
+}
+function qzBreakCard() {
+  const card = qzEl("div", "qz-card qz-enter qz-break");
+  card.appendChild(qzEl("div", "qz-break-emoji", "🔔"));
+  card.appendChild(qzEl("div", "qz-q", "休息一陣・小知識"));
+  card.appendChild(qzEl("div", "qz-break-text", "鈴鐺入面有一粒小珠，搖嘅時候小珠撞到鈴身，就會發出「叮噹叮噹」嘅聲音！飲啖水，伸個懶腰先。"));
+  const row = qzEl("div", "qz-row");
+  const b = qzEl("button", "qz-btn", "休息完，繼續！→");
+  b.addEventListener("click", () => { qzBreakFor = -1; qzRender(); });
+  row.appendChild(b); card.appendChild(row);
+  return card;
+}
+function qzRenderMC(item, card, fb) {
+  const opts = qzEl("div", "qz-opts");
+  item.opts.forEach((o, i) => {
+    const b = qzEl("button", "qz-opt", o);
+    if (item._done && i === item.ans) b.classList.add("right");
+    b.addEventListener("click", () => {
+      if (item._done || qzLocked) return;
+      if (i === item.ans) { item._done = true; b.classList.add("right"); fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + item.why; qzGain(item); }
+      else { b.classList.add("wrong"); qzWrong(item); fb.className = "qz-fb no"; if (item.hint && !item._hintShown) { item._hintShown = true; fb.textContent = item.hint + " 再試下！"; } else fb.textContent = "💪 " + qzEncourage(); setTimeout(() => b.classList.remove("wrong"), 900); }
+    });
+    opts.appendChild(b);
+  });
+  if (item._done) { fb.className = "qz-fb ok"; fb.textContent = "✅ " + item.why; }
+  card.appendChild(opts);
+}
+function qzRenderMatch(item, card, fb) {
+  item._matched = item._matched || {};
+  const pairs = qzEl("div", "qz-pairs");
+  const colL = qzEl("div", "qz-col"), colR = qzEl("div", "qz-col");
+  let selChar = null, selBtn = null;
+  item.pairs.forEach(pr => {
+    const b = qzEl("button", "qz-chip", pr[0]);
+    if (item._matched[pr[0]]) b.classList.add("done");
+    b.addEventListener("click", () => {
+      if (b.classList.contains("done")) return;
+      if (selBtn) selBtn.classList.remove("sel");
+      selChar = pr[0]; selBtn = b; b.classList.add("sel");
+    });
+    colL.appendChild(b);
+  });
+  item.right.forEach(w => {
+    const b = qzEl("button", "qz-chip", w);
+    if (Object.keys(item._matched).some(k => item._matched[k] === w)) b.classList.add("done");
+    b.addEventListener("click", () => {
+      if (b.classList.contains("done") || !selChar || qzLocked) return;
+      const pair = item.pairs.find(p => p[0] === selChar);
+      if (pair && pair[1] === w) {
+        item._matched[selChar] = w; b.classList.add("done"); selBtn.classList.add("done"); selBtn.classList.remove("sel");
+        fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + selChar + " → " + w + "，配對成功！";
+        const c = selChar; selChar = null; selBtn = null; qzGain(item, c);
+      } else { fb.className = "qz-fb no"; fb.textContent = "💪 " + qzEncourage() + "「" + selChar + "」唔係配「" + w + "」。"; qzWrong(item, selChar); }
+    });
+    colR.appendChild(b);
+  });
+  pairs.appendChild(colL); pairs.appendChild(colR);
+  card.appendChild(pairs);
+}
+function qzRenderDrag(item, card, fb) {
+  item._placed = item._placed || {};
+  const tray = qzEl("div", "qz-tray");
+  const baskets = qzEl("div", "qz-baskets");
+  let selChip = null;
+  function placeChip(chip, basket) {
+    const id = chip.dataset.ch;
+    if (basket.dataset.cat === chip.dataset.cat) {
+      item._placed[id] = basket.dataset.cat;
+      basket.appendChild(chip); chip.classList.add("done"); chip.classList.remove("sel");
+      fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + "「" + id + "」放啱咗！";
+      if (selChip === chip) selChip = null;
+      qzGain(item, id);
+    } else {
+      chip.classList.add("wrongin"); fb.className = "qz-fb no";
+      fb.textContent = "💪 " + qzEncourage() + "「" + id + "」上下邊部分大啲，再諗諗！";
+      qzWrong(item, id);
+      setTimeout(() => { chip.classList.remove("wrongin"); if (chip.parentElement !== tray) tray.appendChild(chip); }, 950);
+    }
+  }
+  const basketEls = {};
+  item.cats.forEach(cfg => {
+    const bk = qzEl("div", "qz-basket"); bk.dataset.cat = cfg[0];
+    bk.appendChild(qzEl("h4", null, cfg[1]));
+    bk.addEventListener("click", () => { if (selChip && selChip.parentElement === tray && !qzLocked) placeChip(selChip, bk); });
+    baskets.appendChild(bk); basketEls[cfg[0]] = bk;
+  });
+  item.chips.forEach(d => {
+    const chip = qzEl("div", "qz-chip", d.ch);
+    chip.dataset.ch = d.ch; chip.dataset.cat = d.cat;
+    if (item._placed[d.ch]) { basketEls[d.cat].appendChild(chip); chip.classList.add("done"); }
+    else tray.appendChild(chip);
+    chip.addEventListener("pointerdown", ev => {
+      if (chip.classList.contains("done") || qzLocked) return;
+      ev.preventDefault();
+      const startX = ev.clientX, startY = ev.clientY; let moved = false;
+      const r = chip.getBoundingClientRect();
+      chip.setPointerCapture(ev.pointerId);
+      function mv(e2) {
+        if (!moved && Math.hypot(e2.clientX - startX, e2.clientY - startY) > 7) { moved = true; chip.classList.add("dragging"); chip.style.position = "fixed"; chip.style.zIndex = "1300"; chip.style.width = r.width + "px"; chip.style.left = r.left + "px"; chip.style.top = r.top + "px"; }
+        if (moved) { chip.style.left = (e2.clientX - r.width / 2) + "px"; chip.style.top = (e2.clientY - r.height / 2) + "px";
+          card.querySelectorAll(".qz-basket").forEach(bk => { const br = bk.getBoundingClientRect(); bk.classList.toggle("over", e2.clientX >= br.left && e2.clientX <= br.right && e2.clientY >= br.top && e2.clientY <= br.bottom); }); }
+      }
+      function up(e2) {
+        chip.removeEventListener("pointermove", mv); chip.removeEventListener("pointerup", up); chip.removeEventListener("pointercancel", up);
+        card.querySelectorAll(".qz-basket").forEach(bk => bk.classList.remove("over"));
+        if (moved) {
+          chip.classList.remove("dragging"); chip.style.position = ""; chip.style.zIndex = ""; chip.style.width = ""; chip.style.left = ""; chip.style.top = "";
+          let placed = false;
+          card.querySelectorAll(".qz-basket").forEach(bk => { const br = bk.getBoundingClientRect(); if (!placed && e2.clientX >= br.left && e2.clientX <= br.right && e2.clientY >= br.top && e2.clientY <= br.bottom) { placeChip(chip, bk); placed = true; } });
+        } else {
+          if (selChip) selChip.classList.remove("sel");
+          selChip = chip; chip.classList.add("sel");
+          fb.className = "qz-fb"; fb.textContent = "揀咗「" + d.ch + "」，㩒一個籃放佢入去。";
+        }
+      }
+      chip.addEventListener("pointermove", mv); chip.addEventListener("pointerup", up); chip.addEventListener("pointercancel", up);
+    });
+  });
+  card.appendChild(tray); card.appendChild(baskets);
+}
+function qzRenderOrder(item, card, fb) {
+  const line = qzEl("div", "qz-orderline");
+  const tray = qzEl("div", "qz-tray");
+  const placed = [];
+  function mkChip(txt) {
+    const c = qzEl("div", "qz-chip", txt);
+    c.addEventListener("click", () => {
+      if (item._done || qzLocked) return;
+      if (c.parentElement === tray) { line.appendChild(c); placed.push(txt); }
+      else { tray.appendChild(c); const ix = placed.indexOf(txt); if (ix >= 0) placed.splice(ix, 1); }
+      fb.textContent = "";
+    });
+    return c;
+  }
+  item.shuffled.forEach(t => tray.appendChild(mkChip(t)));
+  const row = qzEl("div", "qz-row");
+  const chk = qzEl("button", "qz-btn", "✔️ 檢查");
+  chk.addEventListener("click", () => {
+    if (item._done || qzLocked) return;
+    if (placed.length < item.parts.length) { fb.className = "qz-fb no"; fb.textContent = "仲未排完呀，把所有詞語放上句子框先！"; return; }
+    if (JSON.stringify(placed) === JSON.stringify(item.parts)) {
+      item._done = true; fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + "「" + item.parts.join("") + "。」";
+      line.querySelectorAll(".qz-chip").forEach(c => c.classList.add("done")); qzGain(item);
+    } else { fb.className = "qz-fb no"; fb.textContent = "💪 " + qzEncourage() + "邊句是原因、邊句是結果？㩒句子框的詞語可以放回下面。"; qzWrong(item); }
+  });
+  row.appendChild(chk);
+  if (item._done) { item.parts.forEach(t => { const c = qzEl("div", "qz-chip done", t); line.appendChild(c); }); fb.className = "qz-fb ok"; fb.textContent = "✅ 已完成"; }
+  card.appendChild(line); card.appendChild(tray); card.appendChild(row);
+}
+function qzRenderDraw(item, card, fb) {
+  const box = qzEl("div", "qz-drawbox");
+  box.appendChild(qzEl("div", "qz-guide", item.guide));
+  const cv = document.createElement("canvas"); cv.id = "qzCanvas"; cv.width = 264; cv.height = 264;
+  box.appendChild(cv); card.appendChild(box);
+  const row = qzEl("div", "qz-row");
+  const clr = qzEl("button", "qz-btn alt", "🧹 清除重寫");
+  clr.addEventListener("click", () => { cv.getContext("2d").clearRect(0, 0, cv.width, cv.height); });
+  row.appendChild(clr); card.appendChild(row);
+  const ctx = cv.getContext("2d"); ctx.lineWidth = 7; ctx.lineCap = "round"; ctx.strokeStyle = "#FDE68A";
+  let drawing = false, lastPt = null;
+  function ptOf(e) { const r = cv.getBoundingClientRect(); return { x: (e.clientX - r.left) * (cv.width / r.width), y: (e.clientY - r.top) * (cv.height / r.height) }; }
+  cv.addEventListener("pointerdown", e => { e.preventDefault(); drawing = true; lastPt = ptOf(e); cv.setPointerCapture(e.pointerId); });
+  cv.addEventListener("pointermove", e => { if (!drawing) return; const p = ptOf(e); ctx.beginPath(); ctx.moveTo(lastPt.x, lastPt.y); ctx.lineTo(p.x, p.y); ctx.stroke(); lastPt = p; });
+  ["pointerup", "pointercancel"].forEach(t => cv.addEventListener(t, () => { drawing = false; }));
+  fb.className = "qz-fb"; fb.textContent = "自由練習，唔計分 — 畫完㩒「下一題」繼續。隨時可以㩒右上角 ✕ 停低，進度已經存好。";
+}
+function qzRenderReveal(item, card, fb) {
+  const row = qzEl("div", "qz-row");
+  const b = qzEl("button", "qz-btn", "👀 睇參考答案");
+  const ans = qzEl("div", "qz-answer", item.answer);
+  b.addEventListener("click", () => { ans.style.display = ans.style.display === "block" ? "none" : "block"; });
+  row.appendChild(b); card.appendChild(row); card.appendChild(ans);
+}
+function qzSkillSummary(cardEl) {
+  const bySkill = {};
+  qzItems().forEach(it => {
+    const s = it.skill || "其他";
+    bySkill[s] = bySkill[s] || { wrong: false, done: 0, total: 0 };
+    if (it._wrongKeys && Object.keys(it._wrongKeys).length) bySkill[s].wrong = true;
+    if (qzMax(it) > 0) { bySkill[s].total++; if (qzComplete(it)) bySkill[s].done++; }
+  });
+  const wrap = qzEl("div", "qz-skills");
+  wrap.appendChild(qzEl("div", null, "今次練咗嘅本事："));
+  Object.keys(bySkill).forEach(s => {
+    const v = bySkill[s];
+    let icon, cls;
+    if (v.wrong) {
+      const wrongItems = qzItems().filter(it => (it.skill || "其他") === s && it._wrongKeys && Object.keys(it._wrongKeys).length);
+      const allRetried = wrongItems.length && wrongItems.every(it => it._retried);
+      icon = allRetried ? "✓ 已再練掌握" : "✗ 要再練"; cls = allRetried ? "ok" : "bad";
+    } else { icon = (v.total === 0 || v.done === v.total) ? "✓ 掌握" : "… 練緊"; cls = icon.indexOf("✓") === 0 ? "ok" : ""; }
+    wrap.appendChild(qzEl("span", "qz-pill " + cls, s + " " + icon));
+  });
+  cardEl.appendChild(wrap);
+}
+function qzFinishCard() {
+  const S = QZ[qzSetName], t = qzTotals();
+  const card = qzEl("div", "qz-summary qz-enter");
+  const doneCount = qzItems().filter(it => qzMax(it) > 0 && qzComplete(it)).length;
+  const scoredCount = qzItems().filter(it => qzMax(it) > 0).length;
+  if (qzSetName === "retry") {
+    card.appendChild(qzEl("div", null, "🏁 錯題再練完成！（練習模式，唔再加星）"));
+    card.appendChild(qzEl("div", null, "完成咗 " + doneCount + " / " + scoredCount + " 題錯題 — 返去原本嗰版，錯題會標住「已再練 ✓」。"));
+  } else {
+    card.appendChild(qzEl("div", null, "🏁 " + S.label + "完成！"));
+    card.appendChild(qzEl("div", null, "⭐ " + qzStars() + " 粒星（首次答啱）・✅ 完成 " + doneCount + " / " + scoredCount + " 題"));
+  }
+  const wrong = S._wrong || [];
+  try { localStorage.setItem(qzBase() + ":" + qzSetName, JSON.stringify({ stars: qzStars(), score: t[0], total: t[1], wrong: wrong, at: new Date().toISOString() })); } catch (e) {}
+  qzSkillSummary(card);
+  if (wrong.length) {
+    card.appendChild(qzEl("div", null, "首次答錯（之後改啱都好叻）— 呢啲係「要再練」清單："));
+    wrong.forEach(w => {
+      const it = qzItems().find(x => w === x.label || w.indexOf(x.label + "：") === 0);
+      card.appendChild(qzEl("div", null, "・" + w + (it && it._retried ? "（已再練 ✓）" : "")));
+    });
+  } else card.appendChild(qzEl("div", null, "🎉 全部第一次就答啱，勁！"));
+  const row = qzEl("div", "qz-row");
+  if (wrong.length && qzSetName !== "retry") {
+    const rb = qzEl("button", "qz-btn", "🔁 再練錯題（" + qzWrongItemCount() + " 題）");
+    rb.addEventListener("click", qzStartRetry);
+    row.appendChild(rb);
+  }
+  if (qzSetName === "retry") {
+    const back = qzEl("button", "qz-btn", "↩️ 返去" + (QZ[S._from] ? QZ[S._from].label : "簡易版"));
+    back.addEventListener("click", () => qzSwitchSet(S._from || "easy"));
+    row.appendChild(back);
+  }
+  const again = qzEl("button", "qz-btn alt", "🔄 重新開始呢一版");
+  again.addEventListener("click", () => { const from = S._from; qzResetSet(qzSetName); if (qzSetName === "retry") qzSwitchSet(from || "easy"); else qzGo(0); });
+  row.appendChild(again);
+  if (qzSetName === "easy") {
+    const nx = qzEl("button", "qz-bigbtn", wrong.length === 0 ? "🎉 挑戰成功！去玩正常版 ▶" : "➡️ 試下正常版 ▶");
+    nx.addEventListener("click", () => qzSwitchSet("normal"));
+    card.appendChild(nx);
+  }
+  card.appendChild(row);
+  return card;
+}
+function qzWrongItemCount() {
+  return QZ[qzSetName].items.filter(it => it._wrongKeys && Object.keys(it._wrongKeys).length).length;
+}
+function qzStartRetry() {
+  const from = qzSetName, src = QZ[from];
+  const clones = src.items.filter(it => it._wrongKeys && Object.keys(it._wrongKeys).length)
+    .map(it => { const c = Object.assign({}, it); c._earned = 0; c._done = false; c._stars = 0; c._matched = {}; c._placed = {}; c._wrongKeys = {}; c._orig = it; return c; });
+  if (!clones.length) return;
+  QZ.retry = { label: "錯題再練", items: clones, _wrong: [], _from: from };
+  qzSetName = "retry";
+  document.getElementById("qzTabEasy").classList.remove("on");
+  document.getElementById("qzTabNormal").classList.remove("on");
+  qzGo(0);
+}
+function qzResetSet(name) {
+  const S = QZ[name]; S._wrong = [];
+  S.items.forEach(it => { it._earned = 0; it._done = false; it._stars = 0; it._retried = false; it._matched = {}; it._placed = {}; it._wrongKeys = {}; });
+}
+function qzPackState() {
+  function pack(name) {
+    const S = QZ[name];
+    return S.items.map(it => {
+      const rec = { e: it._earned || 0 };
+      if (it._done) rec.d = 1;
+      if (it._stars) rec.s = it._stars;
+      if (it._retried) rec.r = 1;
+      const wk = it._wrongKeys ? Object.keys(it._wrongKeys) : [];
+      if (wk.length) rec.w = wk.map(k => k === it.label ? "" : k.slice(it.label.length + 1));
+      const mk = it._matched ? Object.keys(it._matched) : [];
+      if (mk.length) rec.m = mk;
+      if (it._placed && Object.keys(it._placed).length) rec.p = it._placed;
+      return rec;
+    });
+  }
+  return { v: 1, easy: pack("easy"), normal: pack("normal") };
+}
+function qzSaveProgress() {
+  try { localStorage.setItem(qzBase() + ":progress", JSON.stringify(qzPackState())); } catch (e) {}
+}
+function qzRestoreProgress() {
+  try {
+    const raw = localStorage.getItem(qzBase() + ":progress");
+    if (raw) qzApplyState(JSON.parse(raw));
+  } catch (e) {}
+}
+function qzApplyState(data) {
+  try {
+    if (!data || data.v !== 1) return false;
+    ["easy", "normal"].forEach(name => {
+      const arr = data[name], S = QZ[name];
+      if (!Array.isArray(arr) || arr.length !== S.items.length) return;
+      S._wrong = [];
+      arr.forEach((rec, i) => {
+        const it = S.items[i];
+        it._earned = rec.e || 0; it._done = !!rec.d; it._stars = rec.s || 0; it._retried = !!rec.r;
+        it._wrongKeys = {}; (rec.w || []).forEach(sub => { const k = sub === "" ? it.label : (sub.indexOf(it.label) === 0 ? sub : it.label + "：" + sub); it._wrongKeys[k] = true; S._wrong.push(k); });
+        it._matched = {}; if (rec.m) rec.m.forEach(ch => { const pr = (it.pairs || []).find(p => p[0] === ch); if (pr) it._matched[ch] = pr[1]; });
+        it._placed = rec.p || {};
+      });
+    });
+    qzScoreUpd();
+    return true;
+  } catch (e) { return false; }
+}
+function qzRenderDots() {
+  const box = document.getElementById("qzDots");
+  if (!box) return;
+  box.innerHTML = "";
+  qzItems().forEach((it, i) => {
+    const b = qzEl("span", "qz-dot", String(i + 1));
+    if (i === qzIdx) b.classList.add("cur");
+    if (qzComplete(it)) b.classList.add("done");
+    else if (it._wrongKeys && Object.keys(it._wrongKeys).length) b.classList.add("tried");
+    box.appendChild(b);
+  });
+  const fin = qzEl("span", "qz-dot", "🏁");
+  if (qzIdx >= qzItems().length) fin.classList.add("cur");
+  box.appendChild(fin);
+  if (!box.dataset.jumpBound) { box.dataset.jumpBound = "1"; box.addEventListener("click", () => qzJumpToggle()); }
+  qzRenderJump();
+}
+function qzJumpEl() {
+  let p = document.getElementById("qzJump");
+  if (p) return p;
+  p = qzEl("div"); p.id = "qzJump";
+  const head = qzEl("div", "qz-jhead");
+  head.appendChild(qzEl("span", null, (window.T ? T("qzJump") : "🔍 跳去邊一題？")));
+  const x = qzEl("button", "qz-jclose", "✕");
+  x.addEventListener("click", () => qzJumpToggle(false));
+  head.appendChild(x);
+  p.appendChild(head);
+  p.appendChild(qzEl("div", "qz-jgrid"));
+  const foot = document.querySelector(".qz-footer");
+  if (foot && foot.parentNode) foot.parentNode.insertBefore(p, foot);
+  return p;
+}
+function qzJumpToggle(force) {
+  const p = qzJumpEl();
+  const open = force !== undefined ? !!force : !p.classList.contains("open");
+  p.classList.toggle("open", open);
+  if (open) qzRenderJump();
+}
+function qzRenderJump() {
+  const p = document.getElementById("qzJump");
+  if (!p) return;
+  const grid = p.querySelector(".qz-jgrid");
+  if (!grid) return;
+  grid.innerHTML = "";
+  qzItems().forEach((it, i) => {
+    const b = qzEl("button", "qz-jbtn", String(i + 1));
+    if (i === qzIdx) b.classList.add("cur");
+    if (qzComplete(it)) b.classList.add("done");
+    else if (it._wrongKeys && Object.keys(it._wrongKeys).length) b.classList.add("tried");
+    b.addEventListener("click", () => qzGo(i));
+    grid.appendChild(b);
+  });
+  const fin = qzEl("button", "qz-jbtn", "🏁");
+  if (qzIdx >= qzItems().length) fin.classList.add("cur");
+  fin.addEventListener("click", () => qzGo(qzItems().length));
+  grid.appendChild(fin);
+}
+window.qzOpen = function (id, itemKey) {
+  qzCtx = { itemKey: itemKey || "CHI_PROGRESS_1", lessonId: id || "chi_l3" };
+  if (QZ_LESSONS[qzCtx.lessonId]) QZ = QZ_LESSONS[qzCtx.lessonId];
+  qzMigrateLegacy();
+  qzBuilt = true;
+  qzRestoreProgress();
+  qzSwitchSet("easy");
+  document.getElementById("quizModal").style.display = "flex";
+  document.body.style.overflow = "hidden";
+};
+const _qzOb = document.getElementById("quizOpenBtn");
+if (_qzOb) _qzOb.addEventListener("click", () => window.qzOpen("chi_l3", "CHI_PROGRESS_1"));
+document.getElementById("quizCloseBtn").addEventListener("click", () => {
+  document.getElementById("quizModal").style.display = "none";
+  document.body.style.overflow = "";
+  if (window.speechSynthesis) try { speechSynthesis.cancel(); } catch (e) {}
+});
+document.getElementById("qzPrev").addEventListener("click", () => qzGo(qzIdx - 1));
+document.getElementById("qzNext").addEventListener("click", () => qzGo(qzIdx + 1));
+document.getElementById("qzTabEasy").addEventListener("click", () => qzSwitchSet("easy"));
+document.getElementById("qzTabNormal").addEventListener("click", () => qzSwitchSet("normal"));
+function qzSwitchSet(name) {
+  qzSetName = name;
+  document.getElementById("qzTabEasy").classList.toggle("on", name === "easy");
+  document.getElementById("qzTabNormal").classList.toggle("on", name === "normal");
+  qzGo(0);
+}
+</script>
+</body>
+</html>
