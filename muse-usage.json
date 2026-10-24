@@ -1,11 +1,1 @@
-{
-  "service": "Muse",
-  "plan": "Free",
-  "usage_percent": 100,
-  "period": "weekly",
-  "reset": "2026-10-25T17:58:00+08:00",
-  "reset_display": "Oct 25 5:58PM",
-  "extra_tokens_percent": 2,
-  "extra_tokens_left": "982M tokens",
-  "updated": "2026-10-24T04:34:11+08:00"
-}
+{"extra_tokens_left":"979M","extra_tokens_percent":2,"period":"weekly","plan":"Free","reset":"2026-10-25T17:58:00+08:00","reset_display":"Oct 25 5:58PM","service":"Muse","updated":"2026-10-24T10:34:30+08:00","usage_percent":100}
