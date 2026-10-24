@@ -220,7 +220,7 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-revtab { border: 1.5px solid #F59E0B; background: transparent; color: #FDE68A; border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 800; cursor: pointer; }
 .qz-revtab.on { background: #F59E0B; color: #451A03; }
 .qz-revtxt { white-space: pre-wrap; font-size: 16px; line-height: 1.8; color: #F1F5F9; }
-.qz-gap { width: 6px; background: #F59E0B; border-radius: 3px; align-self: stretch; }
+.qz-gap { width: 22px; min-height: 52px; flex: none; background: rgba(245,158,11,.28); border: 3px dashed #F59E0B; border-radius: 8px; box-shadow: 0 0 0 2px rgba(245,158,11,.55); align-self: stretch; }
 .qz-ghost { position: fixed; z-index: 9999; opacity: .85; pointer-events: none; box-shadow: 0 8px 24px rgba(0,0,0,.45); }
 .qz-chip.dragsrc { opacity: .35; }
 .qz-imggrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
@@ -275,6 +275,12 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-orderline .qz-chip { border-color: #38BDF8; }
 /* Punctuation-chip uniform size (背默句重組 fix): width floor so single-char ，/。 chips are not tiny; applies to all order items (tray + line), not just this item. */
 .qz-orderline .qz-chip, .qz-orderline ~ .qz-tray .qz-chip { min-width: 72px; }
+/* Order placed-line phrase+punctuation units (layout batch): a phrase chip and its
+   following punctuation chip(s) wrap as one unit, so punctuation never dangles at a
+   row start. Display grouping only -- check logic still reads the flat chip sequence.
+   Units pass pointer events through so chips stay draggable by finger. */
+.qz-unit { display: inline-flex; align-items: center; gap: 2px; flex: none; pointer-events: none; }
+.qz-unit .qz-chip { pointer-events: auto; }
 .qz-drawbox { position: relative; width: 264px; height: 264px; margin: 4px auto; }
 .qz-guide { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 190px; color: rgba(148,163,184,.28); background: #0F172A; border: 2px solid #475569; border-radius: 10px; pointer-events: none; font-family: "PingFang HK", serif; }
 #qzCanvas { position: absolute; inset: 0; touch-action: none; border-radius: 10px; }
@@ -1806,12 +1812,16 @@ const QZ_L3 = {
         "q": "用「……所以……」把句子排好：按詞語放入句子框。",
         "parts": [
           "天黑了",
+          "，",
           "所以",
-          "媽媽開了燈"
+          "媽媽開了燈",
+          "。"
         ],
         "shuffled": [
           "媽媽開了燈",
+          "，",
           "天黑了",
+          "。",
           "所以"
         ],
         "ans": "天黑了，所以媽媽開了燈",
@@ -1827,11 +1837,13 @@ const QZ_L3 = {
         "parts": [
           "小熊",
           "在心中",
-          "搖鈴鐺"
+          "搖鈴鐺",
+          "。"
         ],
         "shuffled": [
           "搖鈴鐺",
           "小熊",
+          "。",
           "在心中"
         ],
         "ans": "小熊在心中搖鈴鐺",
@@ -2734,12 +2746,16 @@ const QZ_L5 = {
         "q": "用課文句式排好：把詞語放入句子框中。",
         "parts": [
           "你要是不相信",
+          "，",
           "可以到我家裏",
-          "來看一看他"
+          "來看一看他",
+          "。"
         ],
         "shuffled": [
           "來看一看他",
           "你要是不相信",
+          "。",
+          "，",
           "可以到我家裏"
         ],
         "label": "重組：要是不相信",
@@ -2899,13 +2915,19 @@ const QZ_L5 = {
         "q": "按課文句子排好：按詞語放入框。",
         "parts": [
           "無論我在甲板上翻跟頭",
+          "、",
           "跑步、跳高",
-          "爸爸這艘船總是穩穩的"
+          "，",
+          "爸爸這艘船總是穩穩的",
+          "。"
         ],
         "shuffled": [
           "爸爸這艘船總是穩穩的",
+          "、",
           "無論我在甲板上翻跟頭",
-          "跑步、跳高"
+          "。",
+          "跑步、跳高",
+          "，"
         ],
         "ans": "無論我在甲板上翻跟頭跑步、跳高爸爸這艘船總是穩穩的",
         "why": "無論怎樣玩，爸爸呢艘船總係穩穩嘅。",
@@ -4164,10 +4186,12 @@ const QZ_L7 = {
         "parts": [
           "小花貓",
           "在浴室裏",
-          "照鏡子"
+          "照鏡子",
+          "。"
         ],
         "shuffled": [
           "照鏡子",
+          "。",
           "小花貓",
           "在浴室裏"
         ],
@@ -4571,11 +4595,13 @@ const QZ_ENG = {
         "parts": [
           "Is ",
           "there ",
-          "a post office?"
+          "a post office",
+          "?"
         ],
         "shuffled": [
-          "a post office?",
+          "a post office",
           "Is ",
+          "?",
           "there "
         ],
         "label": "Preview: Is there",
@@ -4589,11 +4615,13 @@ const QZ_ENG = {
         "parts": [
           "The book ",
           "is ",
-          "next to the bag."
+          "next to the bag",
+          "."
         ],
         "shuffled": [
-          "next to the bag.",
+          "next to the bag",
           "The book ",
+          ".",
           "is "
         ],
         "ans": "The book is next to the bag.",
@@ -4704,11 +4732,13 @@ const QZ_ENG = {
         "parts": [
           "This ",
           "is ",
-          "Ann's bag."
+          "Ann's bag",
+          "."
         ],
         "shuffled": [
-          "Ann's bag.",
+          "Ann's bag",
           "This ",
+          ".",
           "is "
         ],
         "ans": "This is Ann's bag.",
@@ -4724,11 +4754,13 @@ const QZ_ENG = {
         "parts": [
           "Is ",
           "there ",
-          "a library?"
+          "a library",
+          "?"
         ],
         "shuffled": [
-          "a library?",
+          "a library",
           "Is ",
+          "?",
           "there "
         ],
         "ans": "Is there a library?",
@@ -4813,11 +4845,13 @@ const QZ_ENG = {
         "parts": [
           "Where ",
           "is ",
-          "the art room?"
+          "the art room",
+          "?"
         ],
         "shuffled": [
-          "the art room?",
+          "the art room",
           "Where ",
+          "?",
           "is "
         ],
         "ans": "Where is the art room?",
@@ -4833,11 +4867,13 @@ const QZ_ENG = {
         "parts": [
           "They ",
           "are ",
-          "playing football."
+          "playing football",
+          "."
         ],
         "shuffled": [
-          "playing football.",
+          "playing football",
           "They ",
+          ".",
           "are "
         ],
         "ans": "They are playing football.",
@@ -4955,11 +4991,13 @@ const QZ_ENG = {
         "parts": [
           "Do ",
           "you ",
-          "have a ruler?"
+          "have a ruler",
+          "?"
         ],
         "shuffled": [
-          "have a ruler?",
+          "have a ruler",
           "Do ",
+          "?",
           "you "
         ],
         "ans": "Do you have a ruler?",
@@ -4975,11 +5013,13 @@ const QZ_ENG = {
         "parts": [
           "She ",
           "is ",
-          "not singing."
+          "not singing",
+          "."
         ],
         "shuffled": [
-          "not singing.",
+          "not singing",
           "She ",
+          ".",
           "is "
         ],
         "ans": "She is not singing.",
@@ -6283,12 +6323,14 @@ const QZ_ENGPAPER = {
           "What ",
           "time ",
           "do you ",
-          "get up?"
+          "get up",
+          "?"
         ],
         "shuffled": [
           "do you ",
           "What ",
-          "get up?",
+          "get up",
+          "?",
           "time "
         ],
         "label": "卷風格：What time 句",
@@ -6302,11 +6344,13 @@ const QZ_ENGPAPER = {
         "parts": [
           "They ",
           "play football ",
-          "on Sundays."
+          "on Sundays",
+          "."
         ],
         "shuffled": [
-          "on Sundays.",
+          "on Sundays",
           "They ",
+          ".",
           "play football "
         ],
         "ans": "They play football on Sundays.",
@@ -6433,11 +6477,13 @@ const QZ_ENGPAPER = {
         "parts": [
           "She ",
           "goes ",
-          "to school by bus."
+          "to school by bus",
+          "."
         ],
         "shuffled": [
-          "to school by bus.",
+          "to school by bus",
           "She ",
+          ".",
           "goes "
         ],
         "ans": "She goes to school by bus.",
@@ -6453,11 +6499,13 @@ const QZ_ENGPAPER = {
         "parts": [
           "How ",
           "many ",
-          "apples are there?"
+          "apples are there",
+          "?"
         ],
         "shuffled": [
-          "apples are there?",
+          "apples are there",
           "How ",
+          "?",
           "many "
         ],
         "ans": "How many apples are there?",
@@ -6542,11 +6590,13 @@ const QZ_ENGPAPER = {
         "parts": [
           "When ",
           "do you ",
-          "go home?"
+          "go home",
+          "?"
         ],
         "shuffled": [
-          "go home?",
+          "go home",
           "When ",
+          "?",
           "do you "
         ],
         "ans": "When do you go home?",
@@ -6562,11 +6612,13 @@ const QZ_ENGPAPER = {
         "parts": [
           "I ",
           "have breakfast ",
-          "at seven."
+          "at seven",
+          "."
         ],
         "shuffled": [
-          "at seven.",
+          "at seven",
           "I ",
+          ".",
           "have breakfast "
         ],
         "ans": "I have breakfast at seven.",
@@ -6661,11 +6713,13 @@ const QZ_ENGPAPER = {
         "parts": [
           "How ",
           "many ",
-          "books are there?"
+          "books are there",
+          "?"
         ],
         "shuffled": [
-          "books are there?",
+          "books are there",
           "How ",
+          "?",
           "many "
         ],
         "ans": "How many books are there?",
@@ -6681,11 +6735,13 @@ const QZ_ENGPAPER = {
         "parts": [
           "She ",
           "does ",
-          "not like fish."
+          "not like fish",
+          "."
         ],
         "shuffled": [
-          "not like fish.",
+          "not like fish",
           "She ",
+          ".",
           "does "
         ],
         "ans": "She does not like fish.",
@@ -7196,6 +7252,19 @@ function qzRenderDrag(item, card, fb) {
   });
   card.appendChild(tray); card.appendChild(baskets);
 }
+function qzIsPunctChip(txt) { return /^[\u3001\uFF0C\u3002\uFF1F\uFF01\uFF1B\uFF1A,.?!;:]$/.test((txt || "").trim()); }
+function qzRegroupOrderLine(line) {
+  const chips = [...line.querySelectorAll(".qz-chip")];
+  if (!chips.length) { line.querySelectorAll(".qz-unit").forEach(u => u.remove()); return; }
+  const frag = document.createDocumentFragment();
+  let unit = null;
+  chips.forEach(ch => {
+    if (qzIsPunctChip(ch.textContent) && unit) unit.appendChild(ch);
+    else { unit = qzEl("span", "qz-unit"); unit.appendChild(ch); frag.appendChild(unit); }
+  });
+  line.innerHTML = "";
+  line.appendChild(frag);
+}
 function qzRenderOrder(item, card, fb) {
   const line = qzEl("div", "qz-orderline");
   const tray = qzEl("div", "qz-tray");
@@ -7207,6 +7276,7 @@ function qzRenderOrder(item, card, fb) {
       if (c._dragged) { c._dragged = false; return; }
       if (item._done || qzLocked) return;
       if (c.parentElement === tray) line.appendChild(c); else tray.appendChild(c);
+      qzRegroupOrderLine(line);
       syncPlaced(); fb.textContent = "";
     });
     c.addEventListener("pointerdown", (ev) => {
@@ -7229,10 +7299,21 @@ function qzRenderOrder(item, card, fb) {
         const inTray = e.clientX >= tr.left && e.clientX <= tr.right && e.clientY >= tr.top && e.clientY <= tr.bottom;
         if (inLine) {
           targetParent = line;
-          const others = [...line.children].filter(x => x !== c);
-          targetBefore = others.find(x => { const r = x.getBoundingClientRect(); return e.clientX < r.left + r.width / 2; }) || null;
+          const others = [...line.querySelectorAll(".qz-chip")].filter(x => x !== c);
+          targetBefore = null;
+          if (others.length) {
+            const rows = [];
+            others.forEach(x => { const r = x.getBoundingClientRect(); let row = rows.find(rw => Math.abs(rw.top - r.top) <= 4); if (!row) { row = { top: r.top, h: r.height, items: [] }; rows.push(row); } row.items.push({ el: x, r: r }); });
+            rows.sort((a, b) => a.top - b.top);
+            let row = null;
+            for (const rw of rows) { if (e.clientY >= rw.top - 4 && e.clientY <= rw.top + rw.h + 8) { row = rw; break; } }
+            if (!row) { row = rows[0]; for (const rw of rows) { const d = Math.abs(e.clientY - (rw.top + rw.h / 2)), bd = Math.abs(e.clientY - (row.top + row.h / 2)); if (d < bd) row = rw; } }
+            const hit = row.items.find(it => e.clientX < it.r.left + it.r.width / 2);
+            if (hit) targetBefore = hit.el;
+            else { const ri = rows.indexOf(row); targetBefore = (ri + 1 < rows.length) ? rows[ri + 1].items[0].el : null; }
+          }
           gap = qzEl("div", "qz-gap");
-          if (targetBefore) line.insertBefore(gap, targetBefore); else line.appendChild(gap);
+          if (targetBefore) targetBefore.parentNode.insertBefore(gap, targetBefore); else line.appendChild(gap);
         } else if (inTray) { targetParent = tray; }
       }
       function onUp(e) {
@@ -7243,8 +7324,8 @@ function qzRenderOrder(item, card, fb) {
         c.classList.remove("dragsrc");
         if (!dragging) return;
         c._dragged = true;
-        if (targetParent === line) { if (targetBefore) line.insertBefore(c, targetBefore); else line.appendChild(c); }
-        else if (targetParent === tray) { tray.appendChild(c); }
+        if (targetParent === line) { if (targetBefore) targetBefore.parentNode.insertBefore(c, targetBefore); else line.appendChild(c); qzRegroupOrderLine(line); }
+        else if (targetParent === tray) { tray.appendChild(c); qzRegroupOrderLine(line); }
         syncPlaced(); fb.textContent = "";
       }
       window.addEventListener("pointermove", onMove);
@@ -7259,18 +7340,18 @@ function qzRenderOrder(item, card, fb) {
     if (item._done || qzLocked) return;
     if (placed.length < item.parts.length) { fb.className = "qz-fb no"; fb.textContent = "仲未排完呀，把所有詞語放上句子框先！"; return; }
     if (JSON.stringify(placed) === JSON.stringify(item.parts)) {
-      item._done = true; fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + "「" + item.parts.join("") + "。」"; const sb = qzSpeakBtn(item.parts.join("")); if (sb) fb.insertBefore(sb, fb.firstChild);
+      item._done = true; fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + "「" + item.parts.join("") + (/[。？！.!?]$/.test(item.parts.join("")) ? "" : "。") + "」"; const sb = qzSpeakBtn(item.parts.join("")); if (sb) fb.insertBefore(sb, fb.firstChild);
       line.querySelectorAll(".qz-chip").forEach(c => c.classList.add("done")); qzGain(item);
-    } else { const wc = qzWrong(item); qzWrongFb(item, fb, wc, "💪 " + qzEncourage() + "邊句是原因、邊句是結果？㩒句子框的詞語可以放回下面。", () => { line.innerHTML = ""; item.parts.forEach(t => { const c = qzEl("div", "qz-chip done", t); line.appendChild(c); }); qzReveal(item, fb, "正確次序：「" + item.parts.join("") + "」"); }); }
+    } else { const wc = qzWrong(item); qzWrongFb(item, fb, wc, "💪 " + qzEncourage() + "邊句是原因、邊句是結果？㩒句子框的詞語可以放回下面。", () => { line.innerHTML = ""; item.parts.forEach(t => { const c = qzEl("div", "qz-chip done", t); line.appendChild(c); }); qzRegroupOrderLine(line); qzReveal(item, fb, "正確次序：「" + item.parts.join("") + "」"); }); }
   });
   const clr = qzEl("button", "qz-btn", "↺ 重新排");
   clr.addEventListener("click", () => {
     if (item._done || qzLocked) return;
-    [...line.children].forEach(ch => tray.appendChild(ch));
+    [...line.querySelectorAll(".qz-chip")].forEach(ch => tray.appendChild(ch)); qzRegroupOrderLine(line);
     placed.length = 0; fb.textContent = "";
   });
   row.appendChild(chk); row.appendChild(clr);
-  if (item._done) { item.parts.forEach(t => { const c = qzEl("div", "qz-chip done", t); line.appendChild(c); }); fb.className = "qz-fb ok"; fb.textContent = "✅ 已完成"; }
+  if (item._done) { item.parts.forEach(t => { const c = qzEl("div", "qz-chip done", t); line.appendChild(c); }); qzRegroupOrderLine(line); fb.className = "qz-fb ok"; fb.textContent = "✅ 已完成"; }
   card.appendChild(line); card.appendChild(tray); card.appendChild(row);
 }
 function qzRenderFill(item, card, fb) {
