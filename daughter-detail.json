@@ -1,7 +1,7 @@
 {
   "service": "daughter-school-detail",
   "student": "琳琳 2A",
-  "updated": "2026-10-24T01:01:17.454825+00:00",
+  "updated": "2026-10-24T01:33:55.140274+00:00",
   "homework": [
     {
       "key": "HUM_VIDEO_1",
@@ -264,7 +264,7 @@
           {
             "n": 7,
             "status": "preview",
-            "note": "預覽版（按默書範圍）",
+            "note": "",
             "id": "chi_l7"
           }
         ]
@@ -455,7 +455,7 @@
           {
             "n": 7,
             "status": "preview",
-            "note": "預覽版（按默書範圍）",
+            "note": "",
             "id": "chi_l7"
           }
         ]
@@ -489,11 +489,11 @@
         "sets": [
           {
             "id": "eng_u14",
-            "title": "英文評估預覽（U1-U4）"
+            "title": "英文評估（U1-U4）"
           },
           {
             "id": "eng_paper",
-            "title": "歷屆卷風格預覽"
+            "title": "歷屆卷風格"
           }
         ]
       }
@@ -589,7 +589,7 @@
       "source": "評估一範圍（eClass 通告 2627-125）",
       "quiz": {
         "id": "math_a1",
-        "title": "數學評估預覽"
+        "title": "數學評估"
       }
     },
     {
@@ -637,7 +637,7 @@
       "source": "評估一範圍（eClass 通告 2627-125）",
       "quiz": {
         "id": "sci_a1",
-        "title": "科學評估預覽"
+        "title": "科學評估"
       }
     }
   ],
