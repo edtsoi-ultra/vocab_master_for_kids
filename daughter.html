@@ -82,7 +82,7 @@ details.ans .agroup { font-weight: 900; color: #6EE7B7; margin-top: 5px; }
 .empty { color: #94A3B8; font-size: 14px; padding: 8px 2px; }
 footer { color: #64748B; font-size: 11.5px; margin-top: 22px; text-align: center; line-height: 1.7; }
 /* ===== Phase C: nav / banner / accordion ===== */
-#topnav { position: sticky; top: 0; z-index: 100; display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 6px; align-items: center; padding: 7px 12px; margin: 10px -12px 12px; background: rgba(11,15,25,.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid rgba(148,163,184,.28); scrollbar-width: none; }
+#topnav { position: sticky; top: 0; z-index: 100; display: flex; flex-wrap: wrap; overflow-x: visible; gap: 6px; align-items: center; padding: 7px 12px; margin: 10px -12px 12px; background: rgba(11,15,25,.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid rgba(148,163,184,.28); scrollbar-width: none; }
 #topnav::-webkit-scrollbar { display: none; }
 .navbtn { background: #334155; color: #E2E8F0; border: 2px solid transparent; border-radius: 999px; padding: 5px 10px; font-size: 12.5px; font-weight: 800; cursor: pointer; white-space: nowrap; flex: 0 0 auto; }
 .navbtn.on { background: #0EA5E9; color: #fff; border-color: #BAE6FD; }
@@ -156,7 +156,8 @@ body.parent .teview.on { display: block; background: #1E293B; border: 1.5px soli
 .teview ol { margin: 0; padding-left: 22px; line-height: 1.7; color: #E2E8F0; }
 .teview .tea { color: #F87171; font-weight: 800; margin: 2px 0 8px; }
 .parentbar { display: none; }
-body.parent .parentbar { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+body.parent .parentbar { display: flex; gap: 8px; flex-wrap: nowrap; margin-top: 12px; }
+.parentbar .wsbtn { flex: 1 1 0; min-width: 0; white-space: nowrap; overflow: hidden; font-size: 13.5px; padding-left: 4px; padding-right: 4px; }
 .statline { color: #FCD34D !important; }
 body.kid .statline { display: none; }
 .kidface { display: none; }
@@ -177,7 +178,8 @@ body.kid .kidface { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; mar
 details.donedrawer { margin-top: 12px; border: 1.5px dashed #475569; border-radius: 12px; padding: 10px 12px; }
 details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900; color: #A7F3D0; padding: 6px 2px; }
 .iconbtn { width: 36px; height: 36px; border-radius: 50%; background: #1E293B; border: 1.5px solid #38BDF8; font-size: 15px; cursor: pointer; padding: 0; flex: 0 0 auto; }
-.updmini { font-size: 11px; color: #94A3B8; white-space: nowrap; align-self: center; margin-left: auto; }
+.updmini { font-size: 11px; color: #94A3B8; white-space: nowrap; align-self: center; margin-left: auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; flex: 0 1 auto; }
+#collapseAll { flex: 0 0 auto; }
 #collapseAll { flex: 0 0 auto; }
 #quizModal { display: none; position: fixed; inset: 0; background: rgba(2,6,23,.97); z-index: 1100; flex-direction: column; overscroll-behavior: contain; }
 .qz-bar { width: 100%; max-width: 720px; margin: 0 auto; padding: 10px; display: flex; gap: 8px; justify-content: space-between; align-items: center; flex-wrap: wrap; flex: none; }
@@ -190,8 +192,17 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 #qzStage { min-height: 380px; }
 .qz-footer { flex: none; width: 100%; max-width: 720px; margin: 0 auto; display: flex; align-items: center; gap: 8px; padding: 9px 10px calc(9px + env(safe-area-inset-bottom)); background: #0B1220; border-top: 1.5px solid #334155; }
 .qz-footer .qz-btn { flex: none; padding: 10px 13px; font-size: 14px; }
-#qzDots { flex: 1; display: flex; gap: 5px; flex-wrap: nowrap; overflow-x: auto; justify-content: center; padding: 2px 0; }
-.qz-dot { width: 28px; height: 28px; border-radius: 9px; border: 2px solid #64748B; background: #1E293B; color: #F1F5F9; font-size: 12.5px; font-weight: 900; cursor: pointer; padding: 0; line-height: 1; }
+#qzDots { flex: 1; display: flex; gap: 5px; flex-wrap: nowrap; overflow-x: auto; justify-content: center; padding: 2px 0; cursor: pointer; }
+#qzJump { display: none; flex: none; width: 100%; max-width: 720px; margin: 0 auto; background: #0F172A; border-top: 1.5px solid #334155; padding: 10px 12px 12px; }
+#qzJump.open { display: block; }
+.qz-jhead { display: flex; justify-content: space-between; align-items: center; margin-bottom: 9px; color: #CBD5E1; font-weight: 800; font-size: 14.5px; }
+.qz-jclose { width: 36px; height: 36px; border-radius: 50%; border: 2px solid #475569; background: #334155; color: #F1F5F9; font-size: 15px; font-weight: 900; cursor: pointer; line-height: 1; }
+.qz-jgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(54px, 1fr)); gap: 8px; }
+.qz-jbtn { height: 52px; border-radius: 12px; border: 2px solid #64748B; background: #1E293B; color: #F1F5F9; font-size: 18px; font-weight: 900; cursor: pointer; padding: 0; }
+.qz-jbtn.cur { border-color: #F59E0B; color: #FDE68A; box-shadow: 0 0 0 2px rgba(245,158,11,.4); }
+.qz-jbtn.done { border-color: #22C55E; background: #14532D; }
+.qz-jbtn.tried { border-color: #F97316; }
+.qz-dot { width: 28px; height: 28px; flex: none; display: inline-flex; align-items: center; justify-content: center; border-radius: 9px; border: 2px solid #64748B; background: #1E293B; color: #F1F5F9; font-size: 12.5px; font-weight: 900; padding: 0; line-height: 1; }
 .qz-dot.cur { border-color: #F59E0B; color: #FDE68A; box-shadow: 0 0 0 2px rgba(245,158,11,.4); }
 .qz-dot.done { border-color: #22C55E; background: #14532D; }
 .qz-dot.tried { border-color: #F97316; }
@@ -286,12 +297,12 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 <script>
 const $app = document.getElementById("app");
 const STR = {
-  zh: { title: "🎒 2A 學習專頁", modeParent: "👨‍👩‍👧 家長", modeKid: "👧 溫書", nav_all: "全部", nav_exam: "⏰ 測驗", nav_hw: "📝 功課", nav_notice: "📢 通告", easy: "簡易版", normal: "正常版", prev: "← 上一題", next: "下一題 →", close: "✕", wsPrint: "🖨️ 列印 / 儲存 PDF", updated: "最後更新：", updSuffix: "", loadFail: "⚠️ 資料載入失敗，請稍後再開", secExam: "⏰ 測驗・默書・評估", secHw: "📚 未交功課", secNotice: "📣 未簽通告", emptyExam: "暫時冇測驗／默書／評估", emptyHw: "✅ 功課全部交齊", emptyNotice: "✅ 冇未簽通告", doneItems: "✅ 已完成項目", done: "已完成", today: "今日！", tmr: "聽日！", duePrefix: "📅 截止：", unsigned: "✍️ 未簽署", replyBy: "｜回條死線：", scope: "範圍：", startRevise: "▶️ 開始溫習", closeUp: "收起 ▲", hwOpen: "📋 睇指示 / 提示 ▼", origText: "睇學校原文", blkDetail: "📋 內容／指示（學校原文）", blkPoints: "📌 要點", blkFocus: "🎯 重點注意", blkWords: "📝 字詞表", wordsLegend: "每組：字詞 + 🔊（只讀嗰個，讀兩次）+ 剔格（剔咗 ✓ 變綠色 = 識咗）", speakWords: "🔊 讀默字詞", blkSent: "🗣 讀默句子", sentLegend: "每句有自己嘅 🔊 掣（只讀嗰句，讀兩次）同剔格，識咗就剔", blkRecite: "🎒 背默（遮住先，背完先好開嚟對）", reciteLegend: "背默段落預設遮住：背完撳 👁 開嚟對；🔊 只讀嗰段兩次；識背就剔 ✓", blkHints: "💡 點樣幫佢做（AI 輔助）", blkPractice: "✏️ 練習題（AI 生成）", ansCheck: "🔑 家長核對答案", ansKey: "🔑 家長核對（問功課紀錄）", blkQuiz: "🎮 互動練習", qzPreview: "👀 㩒入去玩", qzSets: "簡易版／正常版・㩒入去玩", qzAwait: "等課文入庫", qzSoon: "準備中", ptools: "🧰 家長工具／選項", wsPreview: "🖨️ 工作紙 / 列印", wsWord: "📄 下載 Word", qaBtn: "📋 題目與答案", print: "🖨️ 印工作紙", teview: "📋 題目與答案（教師版）", objTitle: "🎯 溫習目標", kidQuiz: "🎮 互動練習 ▶", kidWords: "🔊 聽讀默 / 認字 ▼", folder: "🗓️ 評估一預習（共{n}科）", inDays: " · {d} 日後", verified: "✅ 資料已核實", bankReady: "✅ 題庫已齊", stepsDone: "📋 完成步驟", learned: "✅ 已識", gotIt: "✅識咗", reset: "↺ 重置進度", flagT: "⚠️ 未上傳相片", flagS: "請家長上傳課本／默書紙相片，以生成精準字表。", tierVerified: "✅ 已核實內容", tierKb: "📚 按課本內容生成", tierGuessC: "⚠️ 待傳相片", tierGuess: "⚠️ 基礎範圍練習", expand: "⏬ 展開", collapse: "⏫ 收起", remainToday: "今日到期！", remainTmr: "聽日到期" },
-  en: { title: "🎒 2A Study Page", modeParent: "👨‍👩‍👧 Parents", modeKid: "👧 Study", nav_all: "All", nav_exam: "⏰ Tests", nav_hw: "📝 Homework", nav_notice: "📢 Notices", easy: "Easy", normal: "Normal", prev: "← Prev", next: "Next →", close: "✕", wsPrint: "🖨️ Print / Save PDF", updated: "Updated: ", updSuffix: "", loadFail: "⚠️ Could not load data, please reopen later", secExam: "⏰ Tests · Dictations · Assessments", secHw: "📚 Homework Due", secNotice: "📣 Notices to Sign", emptyExam: "No tests / dictations / assessments for now", emptyHw: "✅ All homework handed in", emptyNotice: "✅ No unsigned notices", doneItems: "✅ Completed items", done: "Done", today: "Today!", tmr: "Tomorrow!", duePrefix: "📅 Due: ", unsigned: "✍️ Unsigned", replyBy: " | Reply deadline: ", scope: "Scope: ", startRevise: "▶️ Start revising", closeUp: "Close ▲", hwOpen: "📋 Instructions / Tips ▼", origText: "School original text", blkDetail: "📋 Instructions (school original)", blkPoints: "📌 Key points", blkFocus: "🎯 Focus", blkWords: "📝 Word list", wordsLegend: "Each item: word + 🔊 (reads that word twice) + checkbox (✓ green = learned)", speakWords: "🔊 Play dictation words", blkSent: "🗣 Dictation sentences", sentLegend: "Each sentence has its own 🔊 button (reads twice) and a checkbox", blkRecite: "🎒 Recitation (covered — recite first, then peek)", reciteLegend: "Covered by default: recite, tap 👁 to check; 🔊 reads it twice; tick ✓ when you can recite it", blkHints: "💡 How to help (AI tips)", blkPractice: "✏️ Practice (AI-generated)", ansCheck: "🔑 Answers (parents)", ansKey: "🔑 Answer key (homework record)", blkQuiz: "🎮 Interactive practice", qzPreview: "👀 Tap to play", qzSets: "Easy / Normal · tap to play", qzAwait: "Waiting for textbook", qzSoon: "Coming soon", ptools: "🧰 Parent tools", wsPreview: "🖨️ Worksheet preview / print", wsWord: "📄 Download Word", qaBtn: "📋 Questions & Answers", print: "🖨️ Print worksheet", teview: "📋 Questions & Answers (Teacher's Edition)", objTitle: "🎯 Study goals", kidQuiz: "🎮 Interactive practice ▶", kidWords: "🔊 Listen & learn words ▼", folder: "🗓️ Assessment 1 prep ({n} subjects)", inDays: " · in {d} days", verified: "✅ Content verified", bankReady: "✅ Question bank ready", stepsDone: "📋 Steps done", learned: "✅ Learned", gotIt: "✅ Got it", reset: "↺ Reset progress", flagT: "⚠️ Photos not uploaded yet", flagS: "Please upload textbook / dictation sheet photos to generate an accurate word list.", tierVerified: "✅ Verified content", tierKb: "📚 Built from textbook", tierGuessC: "⚠️ Photos needed", tierGuess: "⚠️ Based on scope only", expand: "⏬ Expand", collapse: "⏫ Collapse", remainToday: "Due today!", remainTmr: "Due tomorrow" }
+  zh: { title: "🎒 2A 學習專頁", modeParent: "👨‍👩‍👧 家長", modeKid: "👧 溫書", nav_all: "全部", nav_exam: "⏰ 測驗", nav_hw: "📝 功課", nav_notice: "📢 通告", easy: "簡易版", normal: "正常版", prev: "← 上一題", next: "下一題 →", close: "✕", wsPrint: "🖨️ 列印 / 儲存 PDF", updated: "最後更新：", updSuffix: "", loadFail: "⚠️ 資料載入失敗，請稍後再開", secExam: "⏰ 測驗・默書・評估", secHw: "📚 未交功課", secNotice: "📣 未簽通告", emptyExam: "暫時冇測驗／默書／評估", emptyHw: "✅ 功課全部交齊", emptyNotice: "✅ 冇未簽通告", doneItems: "✅ 已完成項目", done: "已完成", today: "今日！", tmr: "聽日！", duePrefix: "📅 截止：", unsigned: "✍️ 未簽署", replyBy: "｜回條死線：", scope: "範圍：", startRevise: "▶️ 開始溫習", closeUp: "收起 ▲", hwOpen: "📋 睇指示 / 提示 ▼", origText: "睇學校原文", blkDetail: "📋 內容／指示（學校原文）", blkPoints: "📌 要點", blkFocus: "🎯 重點注意", blkWords: "📝 字詞表", wordsLegend: "每組：字詞 + 🔊（只讀嗰個，讀兩次）+ 剔格（剔咗 ✓ 變綠色 = 識咗）", speakWords: "🔊 讀默字詞", blkSent: "🗣 讀默句子", sentLegend: "每句有自己嘅 🔊 掣（只讀嗰句，讀兩次）同剔格，識咗就剔", blkRecite: "🎒 背默（遮住先，背完先好開嚟對）", reciteLegend: "背默段落預設遮住：背完撳 👁 開嚟對；🔊 只讀嗰段兩次；識背就剔 ✓", blkHints: "💡 點樣幫佢做（AI 輔助）", blkPractice: "✏️ 練習題（AI 生成）", ansCheck: "🔑 家長核對答案", ansKey: "🔑 家長核對（問功課紀錄）", blkQuiz: "🎮 互動練習", qzPreview: "👀 㩒入去玩", qzSets: "簡易版／正常版・㩒入去玩", qzAwait: "等課文入庫", qzSoon: "準備中", ptools: "🧰 家長工具／選項", wsPreview: "🖨️ 工作紙 / 列印", wsWord: "📄 下載 Word", qaBtn: "📋 題目與答案", print: "🖨️ 印工作紙", teview: "📋 題目與答案（教師版）", objTitle: "🎯 溫習目標", kidQuiz: "🎮 互動練習 ▶", kidWords: "🔊 聽讀默 / 認字 ▼", folder: "🗓️ 評估一預習（共{n}科）", inDays: " · {d} 日後", verified: "✅ 資料已核實", bankReady: "✅ 題庫已齊", stepsDone: "📋 完成步驟", learned: "✅ 已識", gotIt: "✅識咗", reset: "↺ 重置進度", flagT: "⚠️ 未上傳相片", flagS: "請家長上傳課本／默書紙相片，以生成精準字表。", tierVerified: "✅ 已核實內容", tierKb: "📚 按課本內容生成", tierGuessC: "⚠️ 待傳相片", tierGuess: "⚠️ 基礎範圍練習", expand: "⏬ 展開", qzJump: "🔍 跳去邊一題？", qzJumpClose: "✕", collapse: "⏫ 收起", remainToday: "今日到期！", remainTmr: "聽日到期" },
+  en: { title: "🎒 2A Study Page", modeParent: "👨‍👩‍👧 Parents", modeKid: "👧 Study", nav_all: "All", nav_exam: "⏰ Tests", nav_hw: "📝 Homework", nav_notice: "📢 Notices", easy: "Easy", normal: "Normal", prev: "← Prev", next: "Next →", close: "✕", wsPrint: "🖨️ Print / Save PDF", updated: "Updated: ", updSuffix: "", loadFail: "⚠️ Could not load data, please reopen later", secExam: "⏰ Tests · Dictations · Assessments", secHw: "📚 Homework Due", secNotice: "📣 Notices to Sign", emptyExam: "No tests / dictations / assessments for now", emptyHw: "✅ All homework handed in", emptyNotice: "✅ No unsigned notices", doneItems: "✅ Completed items", done: "Done", today: "Today!", tmr: "Tomorrow!", duePrefix: "📅 Due: ", unsigned: "✍️ Unsigned", replyBy: " | Reply deadline: ", scope: "Scope: ", startRevise: "▶️ Start revising", closeUp: "Close ▲", hwOpen: "📋 Instructions / Tips ▼", origText: "School original text", blkDetail: "📋 Instructions (school original)", blkPoints: "📌 Key points", blkFocus: "🎯 Focus", blkWords: "📝 Word list", wordsLegend: "Each item: word + 🔊 (reads that word twice) + checkbox (✓ green = learned)", speakWords: "🔊 Play dictation words", blkSent: "🗣 Dictation sentences", sentLegend: "Each sentence has its own 🔊 button (reads twice) and a checkbox", blkRecite: "🎒 Recitation (covered — recite first, then peek)", reciteLegend: "Covered by default: recite, tap 👁 to check; 🔊 reads it twice; tick ✓ when you can recite it", blkHints: "💡 How to help (AI tips)", blkPractice: "✏️ Practice (AI-generated)", ansCheck: "🔑 Answers (parents)", ansKey: "🔑 Answer key (homework record)", blkQuiz: "🎮 Interactive practice", qzPreview: "👀 Tap to play", qzSets: "Easy / Normal · tap to play", qzAwait: "Waiting for textbook", qzSoon: "Coming soon", ptools: "🧰 Parent tools", wsPreview: "🖨️ Worksheet preview / print", wsWord: "📄 Download Word", qaBtn: "📋 Questions & Answers", print: "🖨️ Print worksheet", teview: "📋 Questions & Answers (Teacher's Edition)", objTitle: "🎯 Study goals", kidQuiz: "🎮 Interactive practice ▶", kidWords: "🔊 Listen & learn words ▼", folder: "🗓️ Assessment 1 prep ({n} subjects)", inDays: " · in {d} days", verified: "✅ Content verified", bankReady: "✅ Question bank ready", stepsDone: "📋 Steps done", learned: "✅ Learned", gotIt: "✅ Got it", reset: "↺ Reset progress", flagT: "⚠️ Photos not uploaded yet", flagS: "Please upload textbook / dictation sheet photos to generate an accurate word list.", tierVerified: "✅ Verified content", tierKb: "📚 Built from textbook", tierGuessC: "⚠️ Photos needed", tierGuess: "⚠️ Based on scope only", expand: "⏬ Expand", qzJump: "🔍 Jump to question", qzJumpClose: "✕", collapse: "⏫ Collapse", remainToday: "Due today!", remainTmr: "Due tomorrow" }
 };
 let LANG = "zh";
 try { LANG = localStorage.getItem("daughter-lang") === "en" ? "en" : "zh"; } catch (e) {}
-function T(k) { return (STR[LANG] && STR[LANG][k]) || STR.zh[k] || k; }
+function T(k) { const v = STR[LANG] ? STR[LANG][k] : undefined; if (v !== undefined) return v; const z = STR.zh[k]; return z !== undefined ? z : ""; }
 function applyStaticI18n() {
   document.querySelector("header h1").textContent = T("title");
   document.getElementById("modeParent").textContent = T("modeParent");
@@ -937,7 +948,7 @@ function makeCollapsible(c, item, opts) {
 function applyLangData(item) { if (LANG === "en") { if (item.practice_en) item.practice = item.practice_en; if (item.hints_en) item.hints = item.hints_en; } if (item.practice) item.practice = item.practice.map(normPractice); }
 function upcomingCard(item) { applyLangData(item);
   const c = cardShell("exam", (LANG === "en" && item.title_en) ? item.title_en : (item.subject || "") + "：" + item.title, dueLabel(item), dueClass(item), subjOf(item), (LANG === "en" && item.type_en) ? item.type_en : (item.type || ""));
-  if (LANG === "en" && item.title_en) { const st = el("div", "ttl-sub"); st.textContent = (item.subject || "") + "：" + item.title; c.querySelector(".ttl").after(st); }
+  if (LANG === "en" && item.title_en) { const st = el("div", "ttl-sub"); st.textContent = (item.subject || "") + "：" + item.title; c.querySelector(".top").after(st); }
   c.id = "card-" + (cardSeq++); item._cid = c.id;
   c.appendChild(el("div", "meta", "📅 " + (item.date_display || item.date || "")));
   if (item.scope) {
@@ -965,7 +976,7 @@ function upcomingCard(item) { applyLangData(item);
 }
 function homeworkCard(item) { applyLangData(item);
   const c = cardShell("hw", (LANG === "en" && item.title_en) ? item.title_en : (item.subject || "") + "：" + item.title, dueLabel(item), dueClass(item), subjOf(item));
-  if (LANG === "en" && item.title_en) { const st = el("div", "ttl-sub"); st.textContent = (item.subject || "") + "：" + item.title; c.querySelector(".ttl").after(st); }
+  if (LANG === "en" && item.title_en) { const st = el("div", "ttl-sub"); st.textContent = (item.subject || "") + "：" + item.title; c.querySelector(".top").after(st); }
   c.id = "card-" + (cardSeq++); item._cid = c.id;
   c.appendChild(el("div", "meta", T("duePrefix") + (item.due_display || item.due || "")));
   const body = attachBody(c, item, { sec: "hw", expandLabel: T("hwOpen") });
@@ -1347,6 +1358,7 @@ function qzMaybeAdvance() {
   }, 1150);
 }
 function qzGo(i) {
+  qzJumpToggle(false);
   const items = qzItems();
   qzIdx = Math.max(0, Math.min(i, items.length));
   qzLocked = false;
@@ -1695,17 +1707,57 @@ function qzRenderDots() {
   if (!box) return;
   box.innerHTML = "";
   qzItems().forEach((it, i) => {
-    const b = qzEl("button", "qz-dot", String(i + 1));
+    const b = qzEl("span", "qz-dot", String(i + 1));
+    if (i === qzIdx) b.classList.add("cur");
+    if (qzComplete(it)) b.classList.add("done");
+    else if (it._wrongKeys && Object.keys(it._wrongKeys).length) b.classList.add("tried");
+    box.appendChild(b);
+  });
+  const fin = qzEl("span", "qz-dot", "🏁");
+  if (qzIdx >= qzItems().length) fin.classList.add("cur");
+  box.appendChild(fin);
+  if (!box.dataset.jumpBound) { box.dataset.jumpBound = "1"; box.addEventListener("click", () => qzJumpToggle()); }
+  qzRenderJump();
+}
+function qzJumpEl() {
+  let p = document.getElementById("qzJump");
+  if (p) return p;
+  p = qzEl("div"); p.id = "qzJump";
+  const head = qzEl("div", "qz-jhead");
+  head.appendChild(qzEl("span", null, (window.T ? T("qzJump") : "🔍 跳去邊一題？")));
+  const x = qzEl("button", "qz-jclose", "✕");
+  x.addEventListener("click", () => qzJumpToggle(false));
+  head.appendChild(x);
+  p.appendChild(head);
+  p.appendChild(qzEl("div", "qz-jgrid"));
+  const foot = document.querySelector(".qz-footer");
+  if (foot && foot.parentNode) foot.parentNode.insertBefore(p, foot);
+  return p;
+}
+function qzJumpToggle(force) {
+  const p = qzJumpEl();
+  const open = force !== undefined ? !!force : !p.classList.contains("open");
+  p.classList.toggle("open", open);
+  if (open) qzRenderJump();
+}
+function qzRenderJump() {
+  const p = document.getElementById("qzJump");
+  if (!p) return;
+  const grid = p.querySelector(".qz-jgrid");
+  if (!grid) return;
+  grid.innerHTML = "";
+  qzItems().forEach((it, i) => {
+    const b = qzEl("button", "qz-jbtn", String(i + 1));
     if (i === qzIdx) b.classList.add("cur");
     if (qzComplete(it)) b.classList.add("done");
     else if (it._wrongKeys && Object.keys(it._wrongKeys).length) b.classList.add("tried");
     b.addEventListener("click", () => qzGo(i));
-    box.appendChild(b);
+    grid.appendChild(b);
   });
-  const fin = qzEl("button", "qz-dot", "🏁");
+  const fin = qzEl("button", "qz-jbtn", "🏁");
   if (qzIdx >= qzItems().length) fin.classList.add("cur");
   fin.addEventListener("click", () => qzGo(qzItems().length));
-  box.appendChild(fin);
+  grid.appendChild(fin);
 }
 window.qzOpen = function (id, itemKey) {
   qzCtx = { itemKey: itemKey || "CHI_PROGRESS_1", lessonId: id || "chi_l3" };
