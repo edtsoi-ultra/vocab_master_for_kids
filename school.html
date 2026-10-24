@@ -252,6 +252,18 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-chip.sel { border-color: #F59E0B; background: #451A03; }
 .qz-chip.done { border-color: #22C55E; background: #14532D; opacity: .75; pointer-events: none; }
 .qz-chip.dragging { opacity: .92; box-shadow: 0 8px 22px rgba(0,0,0,.5); }
+/* Match endpoint dots (matchdots batch): inner-side dot per match box; 28px
+   hit box centred on the box edge, 12px visible circle (16px when snapped).
+   Colour only assists: box border+bg, dot fill and line together carry state. */
+.qz-col-l .qz-chip { padding-right: 16px; }
+.qz-col-r .qz-chip { padding-left: 16px; }
+.qz-matchdot { position: absolute; top: 50%; width: 28px; height: 28px; margin-top: -14px; border-radius: 50%; pointer-events: none; z-index: 2; }
+.qz-col-l .qz-matchdot { right: -14px; }
+.qz-col-r .qz-matchdot { left: -14px; }
+.qz-matchdot::before { content: ""; position: absolute; inset: 8px; border-radius: 50%; background: #F1F5F9; border: 2px solid #94A3B8; box-shadow: 0 1px 4px rgba(0,0,0,.45); }
+.qz-chip.sel .qz-matchdot::before, .qz-chip.snap .qz-matchdot::before { background: #F59E0B; border-color: #F59E0B; inset: 6px; }
+.qz-chip.done .qz-matchdot::before { background: #22C55E; border-color: #22C55E; }
+.qz-chip.snap { border-color: #F59E0B; background: #451A03; box-shadow: 0 0 0 3px rgba(245,158,11,.35); }
 .qz-tray { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 12px; }
 .qz-baskets { display: flex; gap: 10px; flex-wrap: wrap; }
 .qz-basket { flex: 1; min-width: 140px; min-height: 96px; border: 2px dashed #64748B; border-radius: 12px; padding: 9px; }
@@ -261,6 +273,8 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-basket .qz-chip.wrongin { border-color: #F97316; background: #431407; }
 .qz-orderline { min-height: 58px; border: 2px dashed #64748B; border-radius: 12px; padding: 8px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 10px 0 12px; }
 .qz-orderline .qz-chip { border-color: #38BDF8; }
+/* Punctuation-chip uniform size (背默句重組 fix): width floor so single-char ，/。 chips are not tiny; applies to all order items (tray + line), not just this item. */
+.qz-orderline .qz-chip, .qz-orderline ~ .qz-tray .qz-chip { min-width: 72px; }
 .qz-drawbox { position: relative; width: 264px; height: 264px; margin: 4px auto; }
 .qz-guide { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 190px; color: rgba(148,163,184,.28); background: #0F172A; border: 2px solid #475569; border-radius: 10px; pointer-events: none; font-family: "PingFang HK", serif; }
 #qzCanvas { position: absolute; inset: 0; touch-action: none; border-radius: 10px; }
@@ -3966,13 +3980,19 @@ const QZ_L7 = {
         "q": "按背默句子排好：把詞語放入框中。",
         "parts": [
           "小花貓在一旁仰着腦袋",
+          "，",
           "碧綠的大眼睛",
-          "一眨不眨地看着主人"
+          "，",
+          "一眨不眨地看着主人",
+          "。"
         ],
         "shuffled": [
+          "碧綠的大眼睛",
           "一眨不眨地看着主人",
+          "。",
           "小花貓在一旁仰着腦袋",
-          "碧綠的大眼睛"
+          "，",
+          "，"
         ],
         "label": "背默句重組",
         "wrongWhy": "先係小花貓，再係眼睛，最後係睇着主人。"
@@ -7000,9 +7020,16 @@ function qzRenderMatch(item, card, fb) {
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svg.setAttribute("class", "qz-lines");
   pairs.appendChild(svg);
-  const colL = qzEl("div", "qz-col"), colR = qzEl("div", "qz-col");
+  const colL = qzEl("div", "qz-col qz-col-l"), colR = qzEl("div", "qz-col qz-col-r");
   let selChar = null, selBtn = null;
-  function ctr(el) { const r = el.getBoundingClientRect(), pr = pairs.getBoundingClientRect(); return { x: r.left - pr.left + r.width / 2, y: r.top - pr.top + r.height / 2 }; }
+  /* Match dots (matchdots batch): SNAP radius 28px. While dragging, a pointer
+     within <=28px of a right-column dot centre auto-snaps the line to that
+     dot; release while snapped confirms the pairing. Drag release outside
+     the snap radius confirms nothing (no elementFromPoint fallback). */
+  const QZ_MATCH_SNAP = 28;
+  function qzMkDot(side) { const d = document.createElement("span"); d.className = "qz-matchdot"; d.dataset.side = side; d.setAttribute("aria-hidden", "true"); return d; }
+  function qzClearSnap() { colR.querySelectorAll(".qz-chip.snap").forEach(c => c.classList.remove("snap")); }
+  function ctr(el) { const r = el.getBoundingClientRect(), pr = pairs.getBoundingClientRect(); const y = r.top - pr.top + r.height / 2; return el.dataset.side === "right" ? { x: r.left - pr.left, y: y } : { x: r.left - pr.left + r.width, y: y }; }  // match dot centre: left col -> right edge, right col -> left edge
   function drawLines() {
     if (!document.contains(pairs)) return;
     svg.innerHTML = "";
@@ -7031,6 +7058,7 @@ function qzRenderMatch(item, card, fb) {
   }
   item.pairs.forEach(pr => {
     const b = qzEl("button", "qz-chip", pr[0]);
+    b.dataset.side = "left"; b.appendChild(qzMkDot("left"));
     if (item._matched[pr[0]]) b.classList.add("done");
     b.addEventListener("click", () => {
       if (b._dragged) { b._dragged = false; return; }
@@ -7041,7 +7069,7 @@ function qzRenderMatch(item, card, fb) {
     b.addEventListener("pointerdown", (ev) => {
       if (b.classList.contains("done") || qzLocked) return;
       const startX = ev.clientX, startY = ev.clientY;
-      let dragging = false, tmp = null;
+      let dragging = false, tmp = null, snapTarget = null;
       function onMove(e) {
         if (!dragging && Math.hypot(e.clientX - startX, e.clientY - startY) < 10) return;
         if (!dragging) {
@@ -7056,18 +7084,29 @@ function qzRenderMatch(item, card, fb) {
         const pr0 = pairs.getBoundingClientRect();
         svg.setAttribute("width", pr0.width); svg.setAttribute("height", pr0.height);
         svg.setAttribute("viewBox", "0 0 " + pr0.width + " " + pr0.height);
-        tmp.setAttribute("x2", e.clientX - pr0.left); tmp.setAttribute("y2", e.clientY - pr0.top);
+        const px = e.clientX - pr0.left, py = e.clientY - pr0.top;
+        let snap = null, best = QZ_MATCH_SNAP;
+        [...colR.children].forEach(rb2 => {
+          if (rb2.classList.contains("done")) return;
+          const d = ctr(rb2); const dist = Math.hypot(px - d.x, py - d.y);
+          if (dist <= best) { best = dist; snap = rb2; }
+        });
+        snapTarget = snap; qzClearSnap();
+        if (snap) { snap.classList.add("snap"); const dc = ctr(snap); tmp.setAttribute("x2", dc.x); tmp.setAttribute("y2", dc.y); }
+        else { tmp.setAttribute("x2", px); tmp.setAttribute("y2", py); }
       }
       function onUp(e) {
         window.removeEventListener("pointermove", onMove);
         window.removeEventListener("pointerup", onUp);
         if (tmp) tmp.remove();
         b.classList.remove("sel");
+        qzClearSnap();
         if (!dragging) return;
         b._dragged = true;
-        const el = document.elementFromPoint(e.clientX, e.clientY);
-        const rb = el ? el.closest(".qz-chip") : null;
-        if (rb && colR.contains(rb) && !rb.classList.contains("done")) tryPair(pr[0], rb.textContent, b, rb);
+        /* Drag confirms ONLY via snap: release outside the snap radius
+           confirms nothing, even over a box. */
+        if (snapTarget && colR.contains(snapTarget) && !snapTarget.classList.contains("done")) tryPair(pr[0], snapTarget.textContent, b, snapTarget);
+        snapTarget = null;
       }
       window.addEventListener("pointermove", onMove);
       window.addEventListener("pointerup", onUp);
@@ -7076,6 +7115,7 @@ function qzRenderMatch(item, card, fb) {
   });
   item.right.forEach(w => {
     const b = qzEl("button", "qz-chip", w);
+    b.dataset.side = "right"; b.appendChild(qzMkDot("right"));
     if (Object.keys(item._matched).some(k => item._matched[k] === w)) b.classList.add("done");
     b.addEventListener("click", () => {
       if (b.classList.contains("done") || !selChar || qzLocked) return;
