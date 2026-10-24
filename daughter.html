@@ -140,7 +140,6 @@ body.kid .toggle { min-height: 48px; font-size: 16.5px; }
 #upd { display: inline; }
 body.kid #forceReload, body.kid .donedrawer { display: none !important; }
 body.parent .lchk, body.parent .progbar, body.parent .cardfoot .toggle, body.parent .cardfoot .progcnt, body.parent .cardfoot .pbar { display: none !important; }
-body.parent .cardbody { display: block; }
 body.parent .blk.practice, body.parent .quizlaunch, body.parent details.ans, body.parent details.ptools, body.parent .flag { display: none !important; }
 .objblock { display: none; }
 body.parent .objblock { display: block; background: #422006; border: 1.5px solid #F59E0B; border-radius: 12px; padding: 10px 14px; margin-top: 12px; }
@@ -156,8 +155,8 @@ body.parent .parentbar { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 1
 .statline { color: #FCD34D !important; }
 body.kid .statline { display: none; }
 .kidface { display: none; }
-body.kid .kidface { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
-.kidbtn { background: #14532D; border: 2px solid #22C55E; color: #BBF7D0; border-radius: 12px; padding: 12px 14px; font-size: 15.5px; font-weight: 900; cursor: pointer; min-height: 52px; }
+body.kid .kidface { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+.kidbtn { width: 100%; box-sizing: border-box; background: #14532D; border: 2px solid #22C55E; color: #BBF7D0; border-radius: 12px; padding: 12px 14px; font-size: 15.5px; font-weight: 900; cursor: pointer; min-height: 52px; }
 .kidbtn.alt { background: #172554; border-color: #38BDF8; color: #BAE6FD; }
 .assessfolder { border: 2px dashed #7C3AED; border-radius: 14px; padding: 10px; margin-top: 14px; }
 .afhead { width: 100%; background: #2E1065; color: #DDD6FE; border: none; border-radius: 10px; padding: 14px; font-size: 15.5px; font-weight: 900; cursor: pointer; min-height: 52px; }
@@ -820,15 +819,15 @@ document.getElementById("wsModal").addEventListener("click", (e) => { if (e.targ
 /* ---------- 卡片 ---------- */
 let cardSeq = 0;
 const SUBJ_STYLE = [
-  [/中文|中國語文/, "chi", "📖 中文", "#EF4444"],
-  [/英文|英語|English/i, "eng", "🔤 英文", "#3B82F6"],
-  [/數學|Maths/i, "math", "🔢 數學", "#10B981"],
-  [/科學/, "hum", "🔬 科學", "#F59E0B"],
-  [/人文|常識|社會/, "hum", "🌍 人文", "#F59E0B"]
+  [/中文|中國語文/, "chi", "📖 中文", "#EF4444", "📖 Chinese"],
+  [/英文|英語|English/i, "eng", "🔤 英文", "#3B82F6", "🔤 English"],
+  [/數學|Maths/i, "math", "🔢 數學", "#10B981", "🔢 Mathematics"],
+  [/科學/, "hum", "🔬 科學", "#F59E0B", "🔬 Science"],
+  [/人文|常識|社會/, "hum", "🌍 人文", "#F59E0B", "🌍 Humanities"]
 ];
 function subjOf(item) {
   const t = (item.subject || "") + " " + (item.title || "");
-  for (const r of SUBJ_STYLE) if (r[0].test(t)) return { key: r[1], label: r[2], color: r[3] };
+  for (const r of SUBJ_STYLE) if (r[0].test(t)) return { key: r[1], label: LANG === "en" ? (r[4] || r[2]) : r[2], color: r[3] };
   return null;
 }
 function cardShell(cls, ttlText, dueText, dueCls, subj, typeText) {
@@ -929,7 +928,7 @@ function makeCollapsible(c, item, opts) {
 }
 function applyLangData(item) { if (LANG === "en") { if (item.practice_en) item.practice = item.practice_en; if (item.hints_en) item.hints = item.hints_en; } if (item.practice) item.practice = item.practice.map(normPractice); }
 function upcomingCard(item) { applyLangData(item);
-  const c = cardShell("exam", (item.subject || "") + "：" + item.title, dueLabel(item), dueClass(item), subjOf(item), item.type || "");
+  const c = cardShell("exam", (LANG === "en" && item.title_en) ? item.title_en : (item.subject || "") + "：" + item.title, dueLabel(item), dueClass(item), subjOf(item), (LANG === "en" && item.type_en) ? item.type_en : (item.type || ""));
   c.id = "card-" + (cardSeq++); item._cid = c.id;
   c.appendChild(el("div", "meta", "📅 " + (item.date_display || item.date || "")));
   if (item.scope) {
@@ -956,7 +955,7 @@ function upcomingCard(item) { applyLangData(item);
   return c;
 }
 function homeworkCard(item) { applyLangData(item);
-  const c = cardShell("hw", (item.subject || "") + "：" + item.title, dueLabel(item), dueClass(item), subjOf(item));
+  const c = cardShell("hw", (LANG === "en" && item.title_en) ? item.title_en : (item.subject || "") + "：" + item.title, dueLabel(item), dueClass(item), subjOf(item));
   c.id = "card-" + (cardSeq++); item._cid = c.id;
   c.appendChild(el("div", "meta", T("duePrefix") + (item.due_display || item.due || "")));
   const body = attachBody(c, item, { sec: "hw", expandLabel: T("hwOpen") });
@@ -992,6 +991,7 @@ function setMode(m) {
   document.body.classList.toggle("kid", m === "kid");
   document.body.classList.toggle("parent", m !== "kid");
   applyAssessFolder(m);
+  document.querySelectorAll(".card").forEach(c => c.classList.toggle("open", m !== "kid"));
   updateToggleBtn();
   document.getElementById("modeParent").classList.toggle("on", m !== "kid");
   document.getElementById("modeKid").classList.toggle("on", m === "kid");
@@ -1066,6 +1066,7 @@ fetch("daughter-detail.json?t=" + Date.now())
     refreshProgCounts();
     _lastData = d;
     applyAssessFolder(document.body.classList.contains("kid") ? "kid" : "parent");
+    if (!document.body.classList.contains("kid")) document.querySelectorAll(".card").forEach(c => c.classList.add("open"));
     updateToggleBtn();
     const hk = (location.hash || "").replace(/^#/, "");
     if (hk) { const allItems = [...(d.upcoming || []), ...(d.homework || [])]; const hit = allItems.find(x => x.key === hk); if (hit && hit._cid) openCardById(hit._cid); }
