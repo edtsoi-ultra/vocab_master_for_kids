@@ -407,6 +407,19 @@ drag scroll .qz-wrap; the canvas keeps touch-action: none for drawing. Height
 .qz-finrev-ord .qz-finrev-box { text-align: left; }
 .qz-finrev-arrow { flex: none; font-size: 18px; font-weight: 900; color: #FDE68A; }
 .qz-finrev-num { flex: none; width: 28px; height: 28px; border-radius: 50%; background: #334155; color: #FDE68A; font-size: 16px; font-weight: 900; display: inline-flex; align-items: center; justify-content: center; }
+/* Study-mode hardening (2026-10-25): #quizModal ONLY — it is the one container
+   covering .qz-bar + .qz-wrap (stems/options/review) + .qz-footer, so both fixes
+   land here and nowhere else. touch-action: manipulation stops double-tap zoom
+   while preserving pinch zoom + panning (no user-scalable=no / maximum-scale in
+   the viewport — that would be an accessibility regression). Narrower rules
+   still win where they must via touch-action intersection: canvas + chips keep
+   none (none ∩ manipulation = none, drawing/dragging intact), scroll strip keeps
+   pan-y (pan-y ∩ manipulation = pan-y), .qz-wrap keeps scrolling. user-select
+   inherits down the modal, so stems/options/review/footer text all become
+   unselectable; the parent view outside #quizModal is untouched and stays
+   selectable. No inputs/textareas exist inside the quiz, so nothing editable
+   is affected. */
+#quizModal { touch-action: manipulation; user-select: none; -webkit-user-select: none; }
 </style>
 <script data-goatcounter="https://2a-study.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
