@@ -572,7 +572,7 @@ function enrichmentHTML(card, item, opts) {
     } else {
       item.words.forEach(w => b.appendChild(wordUnit(w)));
     }
-    const btn = el("button", "speak", T("speakWords"));
+    const btn = el("button", "speak", T("speakWords")); btn.dataset.act = "speakwords";
     const prog = el("span", "prog");
     btn.addEventListener("click", () => speakSeq(item.words.map(w => w.text), langOf(item), btn, prog));
     b.appendChild(el("br")); b.appendChild(btn); b.appendChild(prog);
@@ -721,7 +721,7 @@ function enrichmentHTML(card, item, opts) {
     if (item.quiz && item.quiz.lessons) item.quiz.lessons.filter(L => L.status === "live" || L.status === "preview").forEach(L => { const b = el("button", "kidbtn", LANG === "en" ? "🎮 Lesson " + L.n + " ▶" : "🎮 第" + L.n + "課闖關 ▶"); b.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(L.id, item.key); }); kf.appendChild(b); });
     else if (item.quiz && item.quiz.sets) item.quiz.sets.forEach(qs => { const b = el("button", "kidbtn", "🎮 " + qs.title + " ▶"); b.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(qs.id, item.key); }); kf.appendChild(b); });
     else if (item.quiz && item.quiz.id) { const b = el("button", "kidbtn", T("kidQuiz")); b.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(item.quiz.id, item.key); }); kf.appendChild(b); }
-    if (item.words && item.words.length) { const b = el("button", "kidbtn alt", T("kidWords")); b.addEventListener("click", (e) => { e.stopPropagation(); expandCard(cardElF); cardElF.scrollIntoView({ behavior: "smooth", block: "start" }); }); kf.appendChild(b); }
+    if (item.words && item.words.length) { const b = el("button", "kidbtn alt", T("kidWords")); b.dataset.act = "words"; b.addEventListener("click", (e) => { e.stopPropagation(); expandCard(cardElF); const sb = cardElF.querySelector('[data-act="speakwords"]'); setTimeout(() => { if (sb) { sb.scrollIntoView({ behavior: "smooth", block: "center" }); sb.click(); } else cardElF.scrollIntoView({ behavior: "smooth", block: "start" }); }, 60); }); kf.appendChild(b); }
     if (kf.children.length) { const fe = cardElF.querySelector(".cardfoot"); cardElF.insertBefore(kf, fe.nextSibling); }
   }
   if (checkable && !(item.practice && item.practice.length) && !(item.words && item.words.length) && !(item.hints && item.hints.length) && item.detail) {
