@@ -349,6 +349,16 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-slot.sel { background: #451A03; border-radius: 8px; border-bottom-color: #FBBF24; }
 .qz-slot.filled { color: #F1F5F9; border-bottom-style: solid; border-bottom-color: #38BDF8; }
 .qz-slot.done { border-bottom-color: #22C55E; color: #BBF7D0; pointer-events: none; }
+
+.qz-scratchbtn { flex: none; border: 2px solid #F59E0B; background: #451A03; color: #FDE68A; border-radius: 50%; width: 44px; height: 44px; font-size: 19px; cursor: pointer; margin-left: 6px; }
+.qz-scratchbtn.on { background: #F59E0B; color: #451A03; }
+#qzScratch { display: none; margin-top: 12px; }
+#qzScratchCv { width: 100%; aspect-ratio: 720 / 440; background: #0F172A; border: 2px solid #F59E0B; border-radius: 12px; touch-action: none; display: block; }
+.qz-scrow { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+.qz-scbtn { border: 2px solid #F59E0B; background: #451A03; color: #FDE68A; border-radius: 999px; padding: 8px 14px; font-size: 15px; font-weight: 800; cursor: pointer; }
+.qz-scbtn.on { background: #F59E0B; color: #451A03; }
+.qz-scbtn.warn { background: #B91C1C; border-color: #FCA5A5; color: #FEE2E2; }
+.qz-scbtn:disabled { opacity: .4; cursor: default; }
 </style>
 <script data-goatcounter="https://2a-study.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -6835,6 +6845,11 @@ function qzRender() {
   if (_rvp && _rvp.style.display !== "none" && _rvp.style.display !== "") rvb.classList.add("on");
   rvb.addEventListener("click", qzToggleReview);
   qrow.appendChild(rvb);
+  const scb = qzEl("button", "qz-scratchbtn", "✏️");
+  scb.title = "開草稿";
+  if (qzScratchOpen()) scb.classList.add("on");
+  scb.addEventListener("click", () => { qzScratchToggle(); scb.classList.toggle("on", qzScratchOpen()); });
+  qrow.appendChild(scb);
   card.appendChild(qrow);
   const fb = qzEl("div", "qz-fb");
   ({ mc: qzRenderMC, imgmc: qzRenderImgMC, match: qzRenderMatch, drag: qzRenderDrag, order: qzRenderOrder, fill: qzRenderFill, draw: qzRenderDraw, reveal: qzRenderReveal })[item.type](item, card, fb);
@@ -7321,6 +7336,7 @@ function qzStartRetry() {
   qzGo(0);
 }
 function qzResetSet(name) {
+  qzScratchClear();
   const S = QZ[name]; S._wrong = [];
   S.items.forEach(it => { it._earned = 0; it._done = false; it._stars = 0; it._retried = false; it._matched = {}; it._placed = {}; it._wrongKeys = {}; it._wrongCount = 0; it._revealed = false; it._hintShown = false; });
 }
@@ -7428,6 +7444,72 @@ function qzRenderJump() {
   fin.addEventListener("click", () => qzGo(qzItems().length));
   grid.appendChild(fin);
 }
+/* ---- Scratch pad 草稿板：quiz 層通用，轉題保留，關閉／reset 即清，唔寫入進度儲存 ---- */
+let qzScStrokes = [];
+let qzScUndone = [];
+let qzScTool = "pen";
+function qzScratchEl() {
+  let p = document.getElementById("qzScratch");
+  if (p) return p;
+  const wrap = document.querySelector(".qz-wrap");
+  p = qzEl("div"); p.id = "qzScratch";
+  const cv = document.createElement("canvas"); cv.id = "qzScratchCv"; cv.width = 720; cv.height = 440;
+  p.appendChild(cv);
+  const row = qzEl("div", "qz-scrow");
+  const pen = qzEl("button", "qz-scbtn on", "✏️ 筆");
+  const ers = qzEl("button", "qz-scbtn", "🧹 擦膠");
+  const und = qzEl("button", "qz-scbtn", "↩️ 復原");
+  const red = qzEl("button", "qz-scbtn", "↪️ 重做");
+  const clr = qzEl("button", "qz-scbtn", "🗑️ 清除");
+  pen.addEventListener("click", () => { qzScTool = "pen"; pen.classList.add("on"); ers.classList.remove("on"); });
+  ers.addEventListener("click", () => { qzScTool = "erase"; ers.classList.add("on"); pen.classList.remove("on"); });
+  und.addEventListener("click", () => { if (!qzScStrokes.length) return; qzScUndone.push(qzScStrokes.pop()); p._paint(); p._btns(); });
+  red.addEventListener("click", () => { if (!qzScUndone.length) return; qzScStrokes.push(qzScUndone.pop()); p._paint(); p._btns(); });
+  clr.addEventListener("click", () => {
+    if (p._clearArm) { clearTimeout(p._clearArm); p._clearArm = null; clr.textContent = "🗑️ 清除"; clr.classList.remove("warn"); qzScStrokes = []; qzScUndone = []; p._paint(); p._btns(); return; }
+    clr.textContent = "真係清除？"; clr.classList.add("warn");
+    p._clearArm = setTimeout(() => { p._clearArm = null; clr.textContent = "🗑️ 清除"; clr.classList.remove("warn"); }, 3000);
+  });
+  [pen, ers, und, red, clr].forEach(b => row.appendChild(b));
+  p.appendChild(row);
+  p._pen = pen; p._ers = ers; p._und = und; p._red = red; p._clr = clr; p._clearArm = null;
+  p._btns = () => { und.disabled = qzScStrokes.length === 0; red.disabled = qzScUndone.length === 0; };
+  const ctx = cv.getContext("2d");
+  function seg(a, b, erase) {
+    ctx.save();
+    ctx.lineCap = "round"; ctx.lineJoin = "round";
+    if (erase) { ctx.globalCompositeOperation = "destination-out"; ctx.strokeStyle = "rgba(0,0,0,1)"; ctx.lineWidth = 20; }
+    else { ctx.globalCompositeOperation = "source-over"; ctx.strokeStyle = "#FDE68A"; ctx.lineWidth = 4; }
+    ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+    ctx.restore();
+  }
+  p._paint = () => {
+    ctx.save(); ctx.globalCompositeOperation = "source-over"; ctx.clearRect(0, 0, cv.width, cv.height); ctx.restore();
+    qzScStrokes.forEach(st => { for (let i = 1; i < st.pts.length; i++) seg(st.pts[i - 1], st.pts[i], st.e); });
+  };
+  let drawing = false, cur = null;
+  function ptOf(e) { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * (cv.width / r.width), (e.clientY - r.top) * (cv.height / r.height)]; }
+  cv.addEventListener("pointerdown", e => { e.preventDefault(); drawing = true; cur = { e: qzScTool === "erase", pts: [ptOf(e)] }; try { cv.setPointerCapture(e.pointerId); } catch (err) {} });
+  cv.addEventListener("pointermove", e => { if (!drawing || !cur) return; const p2 = ptOf(e); const p1 = cur.pts[cur.pts.length - 1]; seg(p1, p2, cur.e); cur.pts.push(p2); });
+  ["pointerup", "pointercancel"].forEach(t => cv.addEventListener(t, () => { if (!drawing) return; drawing = false; if (cur && cur.pts.length) { qzScStrokes.push(cur); qzScUndone = []; p._btns(); } cur = null; }));
+  (wrap || document.getElementById("quizModal")).appendChild(p);
+  p._btns();
+  return p;
+}
+function qzScratchOpen() { const p = document.getElementById("qzScratch"); return !!(p && p.style.display !== "none" && p.style.display !== ""); }
+function qzScratchToggle() { const p = qzScratchEl(); p.style.display = qzScratchOpen() ? "none" : "block"; }
+function qzScratchClear() {
+  qzScStrokes = []; qzScUndone = []; qzScTool = "pen";
+  const p = document.getElementById("qzScratch");
+  if (!p) return;
+  if (p._clearArm) { clearTimeout(p._clearArm); p._clearArm = null; }
+  if (p._clr) { p._clr.textContent = "🗑️ 清除"; p._clr.classList.remove("warn"); }
+  if (p._pen) p._pen.classList.add("on");
+  if (p._ers) p._ers.classList.remove("on");
+  if (p._paint) p._paint();
+  if (p._btns) p._btns();
+  p.style.display = "none";
+}
 window.qzOpen = function (id, itemKey) {
   qzCtx = { itemKey: itemKey || "CHI_PROGRESS_1", lessonId: id || "chi_l3" };
   if (QZ_LESSONS[qzCtx.lessonId]) QZ = QZ_LESSONS[qzCtx.lessonId];
@@ -7443,12 +7525,14 @@ window.qzOpen = function (id, itemKey) {
   const _ct3 = document.getElementById("qzTabChallenge"); if (_ct3) _ct3.style.display = QZ.challenge ? "" : "none";
   qzSwitchSet("textbook");
   const _rv = document.getElementById("qzReview"); if (_rv) _rv.style.display = "none";
+  qzScratchClear();
   document.getElementById("quizModal").style.display = "flex";
   document.body.style.overflow = "hidden";
 };
 const _qzOb = document.getElementById("quizOpenBtn");
 if (_qzOb) _qzOb.addEventListener("click", () => window.qzOpen("chi_l3", "CHI_PROGRESS_1"));
 document.getElementById("quizCloseBtn").addEventListener("click", () => {
+  qzScratchClear();
   document.getElementById("quizModal").style.display = "none";
   document.body.style.overflow = "";
   if (window.speechSynthesis) try { speechSynthesis.cancel(); } catch (e) {}
