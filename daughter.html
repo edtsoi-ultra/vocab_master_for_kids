@@ -192,20 +192,14 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 #qzStage { min-height: 380px; }
 .qz-footer { flex: none; width: 100%; max-width: 720px; margin: 0 auto; display: flex; flex-wrap: nowrap; align-items: center; gap: 8px; padding: 9px 10px calc(9px + env(safe-area-inset-bottom)); background: #0B1220; border-top: 1.5px solid #334155; }
 .qz-footer .qz-btn { flex: none; width: 104px; box-sizing: border-box; padding: 10px 6px; font-size: 14px; white-space: nowrap; }
-#qzDots { flex: 1 1 auto; min-width: 0; display: flex; gap: 5px; flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; padding: 2px 0; cursor: pointer; }
-#qzJump { display: none; flex: none; width: 100%; max-width: 720px; margin: 0 auto; background: #0F172A; border-top: 1.5px solid #334155; padding: 10px 12px 12px; }
-#qzJump.open { display: block; }
-.qz-jhead { display: flex; justify-content: space-between; align-items: center; margin-bottom: 9px; color: #CBD5E1; font-weight: 800; font-size: 14.5px; }
+#qzProgLine { flex: 1 1 auto; min-width: 0; display: flex; align-items: center; padding: 0 10px; }
+#qzProgFill { height: 8px; border-radius: 6px; background: #22C55E; width: 0%; transition: width .25s; }
+
+
 .qz-jclose { width: 36px; height: 36px; border-radius: 50%; border: 2px solid #475569; background: #334155; color: #F1F5F9; font-size: 15px; font-weight: 900; cursor: pointer; line-height: 1; }
-.qz-jgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(54px, 1fr)); gap: 8px; }
-.qz-jbtn { height: 52px; border-radius: 12px; border: 2px solid #64748B; background: #1E293B; color: #F1F5F9; font-size: 18px; font-weight: 900; cursor: pointer; padding: 0; }
-.qz-jbtn.cur { border-color: #F59E0B; color: #FDE68A; box-shadow: 0 0 0 2px rgba(245,158,11,.4); }
-.qz-jbtn.done { border-color: #22C55E; background: #14532D; }
-.qz-jbtn.tried { border-color: #F97316; }
-.qz-dot { width: 28px; height: 28px; flex: none; display: inline-flex; align-items: center; justify-content: center; border-radius: 9px; border: 2px solid #64748B; background: #1E293B; color: #F1F5F9; font-size: 12.5px; font-weight: 900; padding: 0; line-height: 1; }
-.qz-dot.cur { border-color: #F59E0B; color: #FDE68A; box-shadow: 0 0 0 2px rgba(245,158,11,.4); }
-.qz-dot.done { border-color: #22C55E; background: #14532D; }
-.qz-dot.tried { border-color: #F97316; }
+
+
+
 .qz-card { background: #1E293B; border: 1.5px solid #475569; border-radius: 14px; padding: 16px; }
 .qz-review { background: #0F172A; border: 1.5px solid #F59E0B; border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; }
 .qz-review h4 { margin: 0 0 8px; font-size: 16px; color: #FDE68A; }
@@ -291,6 +285,8 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
    Scoped to .qz-opt only; matching/drag/order chips are untouched. */
 .qz-opts { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; margin-top: 10px; }
 .qz-opt { background: #0F172A; color: #F1F5F9; border: 2px solid #64748B; border-radius: 14px; padding: 14px 12px; font-size: 24px; font-weight: 800; cursor: pointer; min-height: 60px; line-height: 1.35; box-sizing: border-box; min-width: 0; overflow-wrap: break-word; text-wrap: balance; }
+/* Next2 press effect: :active only (no .qz-opt:hover rule exists, so no touch hover-stick); background/border-colour only, no size or position change. Sits BEFORE .right/.wrong so equal-specificity feedback rules below always win on a pressed correct/wrong option. */
+.qz-opt:active { background: #334155; border-color: #94A3B8; }
 .qz-opt.right { border-color: #22C55E; background: #14532D; box-shadow: 0 0 0 3px #22C55E; }
 .qz-opt.wrong { border-color: #F97316; background: #431407; box-shadow: 0 0 0 3px rgba(249,115,22,.45); }
 .qz-fb { margin-top: 10px; font-size: 15px; font-weight: 800; min-height: 22px; }
@@ -397,7 +393,16 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
   .qz-fb { font-size: 20px; }
   .qz-tab { font-size: 17px; padding: 10px 18px; }
 }
-@media (max-width: 380px) {
+/* F-A: the header wraps deterministically below 480px. Measured (Chromium):
+   one header row needs ~453px viewport (title 146 + mode buttons 158 +
+   EN 47 + reload 36 + gaps/padding); at 390 the EN + reload buttons spilled
+   to row 2, at 420 the reload button orphaned alone on row 2, while the old
+   <=380px rule already put the title on its own row. Extending that rule to
+   480px makes small screens always title-row + controls-row (controls need
+   only ~261px, so they never spill again); >=481px keeps the one-row header
+   (480px viewport already fits one row with ~27px slack). iPad widths
+   unchanged (one row). The nav collapse button never wrapped at any width. */
+@media (max-width: 480px) {
   header h1 { flex: 1 1 100%; }
   .modesw { margin-left: 0; }
 }
@@ -441,15 +446,31 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-scpeek { padding: 8px 6px; font-size: 16px; }
 .qz-scclose-top { position: absolute; top: 8px; right: 8px; z-index: 3; height: 44px; min-width: 44px; border: 2px solid #FCA5A5; background: #7F1D1D; color: #FEE2E2; border-radius: 999px; padding: 8px 12px; font-size: 15px; font-weight: 800; cursor: pointer; white-space: nowrap; }
 /* Batch B: question-count progress bar + finish wrong-only review */
-.qz-prog { margin: 10px 2px 12px; background: linear-gradient(#334155, #334155) top / 100% 10px no-repeat; }
-.qz-progfill { height: 10px; border-radius: 6px; background: #22C55E; }
-.qz-progtxt { font-size: 14px; font-weight: 700; color: #E2E8F0; margin-top: 6px; }
-.qz-finrev { margin-top: 16px; border-top: 1.5px solid #334155; padding-top: 12px; }
+
+.qz-finrev { margin-top: 16px; border-top: 1.5px solid #334155; padding-top: 12px; padding-bottom: 96px; }
 .qz-finrev h4 { margin: 0 0 10px; font-size: 16px; color: #FDE68A; }
-.qz-finrev-item { background: #0F172A; border: 1.5px solid #334155; border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; }
+.qz-finrev-item { background: #0F172A; border: 1.5px solid #334155; border-radius: 12px; padding: 12px 14px; margin-bottom: 20px; }
 .qz-finrev-q { font-size: 15px; font-weight: 800; color: #FFFFFF; margin-bottom: 6px; line-height: 1.5; }
-.qz-finrev-exp { font-size: 15px; line-height: 1.55; color: #E2E8F0; }
-.qz-finrev-exp .qz-spk { margin-right: 6px; }
+.qz-finrev-exp { font-size: 15px; line-height: 1.55; color: #E2E8F0; display: flex; gap: 8px; align-items: flex-start; }
+.qz-finrev-exp .qz-spk { flex: none; margin-right: 0; }
+.qz-finrev-exptxt { flex: 1 1 auto; min-width: 0; }
+.qz-finrev-sum { background: #0F172A; border: 1.5px solid #22C55E; border-radius: 12px; padding: 12px 14px; margin-bottom: 14px; font-size: 15px; line-height: 1.6; color: #F1F5F9; }
+.qz-finrev-sumline { font-size: 17px; font-weight: 900; color: #BBF7D0; margin-bottom: 4px; }
+.qz-finrev-allrow { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; flex-wrap: wrap; }
+.qz-finrev-allnote { font-size: 13.5px; color: #94A3B8; font-weight: 700; }
+.qz-finrev-headrow { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
+.qz-finrev-chk { width: 24px; height: 24px; min-width: 24px; accent-color: #22C55E; cursor: pointer; margin: 0; }
+.qz-finrev-qnum { background: #334155; color: #FDE68A; border-radius: 999px; padding: 2px 10px; font-size: 13px; font-weight: 900; white-space: nowrap; }
+.qz-finrev-tag { background: #FACC15; color: #1E293B; border-radius: 999px; padding: 2px 10px; font-size: 13px; font-weight: 900; white-space: nowrap; }
+.qz-finrev-item.sel { border-color: #22C55E; }
+.qz-finrev-wrong { font-size: 15px; line-height: 1.55; color: #FCA5A5; font-weight: 800; margin-bottom: 8px; }
+.qz-finrev-wrongbox { margin-bottom: 8px; }
+.qz-finrev-wrongbox .qz-finrev-head { color: #FCA5A5; font-weight: 900; }
+.qz-finrev-foot { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 10px; }
+.qz-finrev-selstate { font-size: 13.5px; font-weight: 800; color: #86EFAC; }
+.qz-finrev-bar { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(72px + env(safe-area-inset-bottom)); width: min(700px, calc(100vw - 20px)); z-index: 5; display: flex; justify-content: center; }
+.qz-finrev-bar .qz-btn { width: 100%; padding: 14px; font-size: 17px; }
+.qz-finrev-bar .qz-btn:disabled { opacity: .45; }
 .qz-finrev-ans { font-size: 15px; line-height: 1.55; color: #BBF7D0; font-weight: 700; }
 .qz-finrev-head { margin-bottom: 8px; }
 .qz-finrev-pair, .qz-finrev-ord { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
@@ -474,14 +495,15 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 /* Quiz redesign batch (2026-10-25) */
 #quizModal.qz-answering .qz-tabs, #quizModal.qz-entry .qz-tabs { display: none !important; }
 #quizModal.qz-answering #qzScore, #quizModal.qz-answering #qzStreak { display: none !important; }
-#quizModal.qz-entry .qz-footer, #quizModal.qz-entry #qzJump { display: none !important; }
+#quizModal.qz-entry .qz-footer { display: none !important; }
 .qz-topline { color: #E2E8F0; font-size: 14.5px; font-weight: 800; }
 #quizModal.qz-entry .qz-topline { color: #FDE68A; }
 .qz-entryset { display: block; width: 100%; box-sizing: border-box; text-align: left; background: #0F172A; border: 2px solid #64748B; color: #F1F5F9; border-radius: 12px; padding: 14px; margin: 10px 0; cursor: pointer; }
 .qz-entryset.sel { border-color: #F59E0B; background: #451A03; }
 .qz-entrysett { font-size: 18px; font-weight: 900; }
+.qz-lessontitle { font-size: 20px; font-weight: 900; color: #FDE68A; margin-bottom: 8px; line-height: 1.4; }
 .qz-entrysub { font-size: 14.5px; color: #FDE68A; margin-top: 4px; font-weight: 800; }
-.qz-startbtn { width: 100%; margin-top: 12px; padding: 14px; font-size: 17px; }
+
 .qz-peekbtn { flex: none; border: 2px solid #F59E0B; background: #451A03; color: #FDE68A; border-radius: 999px; padding: 0 12px; height: 40px; font-size: 15px; font-weight: 800; cursor: pointer; margin-left: 6px; white-space: nowrap; }
 .qz-scstage { position: relative; flex: 1 1 auto; min-width: 0; }
 .qz-scrow .qz-scclear { margin-left: auto; }
@@ -534,18 +556,18 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-orderline.qz-timeline .qz-unit::before { content: counter(qzstep); flex: none; width: 28px; height: 28px; border-radius: 50%; background: #334155; color: #FDE68A; font-size: 16px; font-weight: 900; display: inline-flex; align-items: center; justify-content: center; margin-right: 2px; }
 .qz-btn.sel { background: #14532D; box-shadow: 0 0 0 3px #22C55E; }
 .qz-finrev-item.qz-retryable { cursor: pointer; }
-.qz-finrev-item.qz-retryable:hover { border-color: #F59E0B; }
-.qz-redopill { float: right; font-size: 13px; font-weight: 800; color: #FDE68A; border: 1.5px solid #F59E0B; border-radius: 999px; padding: 2px 10px; margin-left: 8px; }
+@media (hover:hover) { .qz-finrev-item.qz-retryable:hover { border-color: #F59E0B; } }
+.qz-redopill { font-size: 13px; font-weight: 800; color: #FDE68A; background: transparent; border: 1.5px solid #F59E0B; border-radius: 999px; padding: 4px 12px; cursor: pointer; white-space: nowrap; }
 .qz-diag { margin-top: 12px; border-top: 1.5px solid #334155; padding-top: 10px; }
 .qz-diag-head { font-weight: 900; margin-bottom: 6px; }
 .qz-diag-row { font-size: 15px; font-weight: 800; margin: 6px 0; }
 .qz-diag-row.weak { color: #FED7AA; }
 .qz-diag-row.watch { color: #E2E8F0; }
 .qz-diag .qz-btn { margin: 4px 0 10px; }
-.qz-progtxt { cursor: pointer; }
+
 @media (max-width: 480px) {
   .qz-card { padding: 14px; }
-  .qz-prog { margin: 6px 2px 8px; }
+
 }
 </style>
 <script data-goatcounter="https://2a-study.goatcounter.com/count"
@@ -556,7 +578,7 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 <nav id="topnav"><button class="navbtn on" data-filter="all">全部</button><button class="navbtn" data-filter="exam">⏰ 測驗 <span id="cntExam"></span></button><button class="navbtn" data-filter="hw">📝 功課 <span id="cntHw"></span></button><button class="navbtn" data-filter="notice">📢 通告 <span id="cntNotice"></span></button><span id="upd" class="updmini">…</span><button class="navbtn collapseall" id="collapseAll">⏬ Expand</button></nav>
 <div id="actionBanner"></div>
 <div id="app"></div>
-<div id="quizModal"><div class="qz-bar"><div class="qz-tabs"><button id="qzTabTextbook" class="qz-tab on">課文題</button><button id="qzTabApply" class="qz-tab">應用題一</button><button id="qzTabChallenge" class="qz-tab">應用題二</button></div><span id="qzTopLine" class="qz-topline">揀一份練習</span><span id="qzScore">⭐ 0 / 13</span><span id="qzStreak"></span><button class="ws-close" id="quizCloseBtn">✕ 關閉</button></div><div class="qz-wrap"><div id="qzReview" class="qz-review" style="display:none"></div><div id="qzStage"></div></div><div class="qz-footer"><button id="qzPrev" class="qz-btn alt">← 上一題</button><div id="qzDots"></div><button id="qzNext" class="qz-btn">下一題 →</button></div></div>
+<div id="quizModal"><div class="qz-bar"><div class="qz-tabs"><button id="qzTabTextbook" class="qz-tab on">課文題</button><button id="qzTabApply" class="qz-tab">應用題一</button><button id="qzTabChallenge" class="qz-tab">應用題二</button></div><span id="qzTopLine" class="qz-topline">揀一份練習</span><span id="qzScore">⭐ 0 / 13</span><span id="qzStreak"></span><button class="ws-close" id="quizCloseBtn">✕ 關閉</button></div><div class="qz-wrap"><div id="qzReview" class="qz-review" style="display:none"></div><div id="qzStage"></div></div><div class="qz-footer"><button id="qzPrev" class="qz-btn alt">← 上一題</button><div id="qzProgLine"><div id="qzProgFill"></div></div><button id="qzNext" class="qz-btn">下一題 →</button></div></div>
 <div id="wsModal"><div class="ws-bar"><button class="ws-print" id="wsPrintBtn">🖨️ 列印 / 儲存 PDF</button><button class="ws-close" id="wsCloseBtn">✕ 關閉</button></div><div id="wsSheet"></div></div>
 <footer>資料來源：學校 eClass 通告及通告附頁、Google Classroom 功課指示、課本/默書紙拍攝內容。<br>「學校原文」為官方內容；「AI 輔助」提示同練習由 Muse 生成，練習答案只供家長核對。</footer>
 <script>
@@ -1009,7 +1031,15 @@ function enrichmentHTML(card, item, opts) {
     else if (item.quiz && item.quiz.sets) item.quiz.sets.forEach(qs => { const b = el("button", "kidbtn", "🎮 " + qs.title + " ▶"); b.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(qs.id, item.key); }); kf.appendChild(b); });
     else if (item.quiz && item.quiz.id) { const b = el("button", "kidbtn", T("kidQuiz")); b.addEventListener("click", (e) => { e.stopPropagation(); if (window.qzOpen) window.qzOpen(item.quiz.id, item.key); }); kf.appendChild(b); }
     if (item.words && item.words.length) { const b = el("button", "kidbtn alt", T("kidWords")); b.dataset.act = "words"; b.addEventListener("click", (e) => { e.stopPropagation(); expandCard(cardElF); const sb = cardElF.querySelector('[data-act="speakwords"]'); setTimeout(() => { if (sb) sb.scrollIntoView({ behavior: "smooth", block: "center" }); else cardElF.scrollIntoView({ behavior: "smooth", block: "start" }); }, 60); }); kf.appendChild(b); }
-    if (kf.children.length) { const fe = cardElF.querySelector(".cardfoot"); cardElF.insertBefore(kf, fe.nextSibling); }
+    if (kf.children.length) {
+      /* F-C: kidface start buttons live INSIDE the collapsible .cardbody, so
+         collapsing the card hides them. Previously they were inserted after
+         .cardfoot (outside .cardbody), so in kid mode they stayed visible
+         while the card was collapsed — the reported grouping bug. */
+      const bd = cardElF.querySelector(".cardbody");
+      if (bd) bd.insertBefore(kf, bd.firstChild);
+      else { const fe = cardElF.querySelector(".cardfoot"); if (fe) cardElF.insertBefore(kf, fe.nextSibling); }
+    }
   }
   if (checkable && !(item.practice && item.practice.length) && !(item.words && item.words.length) && !(item.hints && item.hints.length) && item.detail) {
     const b = block("hints", "✅ 進度");
@@ -1452,14 +1482,26 @@ fetch("daughter-detail.json?t=" + Date.now())
     else examWrap.appendChild(el("div", "empty", T("emptyExam")));
     const hwWrap = sectionWrap("hw", T("secHw"));
     const hws = [...(d.homework || [])].sort(byDue);
-    if (hws.length) hws.forEach(h => hwWrap.appendChild(homeworkCard(h)));
-    else hwWrap.appendChild(el("div", "empty", T("emptyHw")));
+    /* F-B: completed (past-due) homework moves to the bottom in a collapsed
+       drawer, like the exam past drawer above; only active homework stays
+       in the main list. */
+    const hwAct = hws.filter(h => !(h.days_left != null && h.days_left < 0));
+    const hwPast = hws.filter(h => h.days_left != null && h.days_left < 0);
+    hwAct.forEach(h => hwWrap.appendChild(homeworkCard(h)));
+    if (hwPast.length) { const dw2 = el("details", "donedrawer"); dw2.appendChild(el("summary", null, T("doneItems") + " (" + hwPast.length + ")")); hwPast.forEach(h => dw2.appendChild(homeworkCard(h))); hwWrap.appendChild(dw2); }
+    if (!hwAct.length && !hwPast.length) hwWrap.appendChild(el("div", "empty", T("emptyHw")));
     const hwd = [...(d.homework_done || [])].sort(byDue);
     if (hwd.length) { const dw = el("details", "donedrawer"); dw.appendChild(el("summary", null, T("secHwDone") + " (" + hwd.length + ")")); hwd.forEach(h => dw.appendChild(homeworkCard(h))); hwWrap.appendChild(dw); }
     const ntWrap = sectionWrap("notice", T("secNotice"));
     const nts = [...((d.notices && d.notices.items) || [])].sort(byDue);
-    if (nts.length) nts.forEach(n => ntWrap.appendChild(noticeCard(n)));
-    else ntWrap.appendChild(el("div", "empty", T("emptyNotice")));
+    /* F-B: past-deadline notices move to the bottom in a collapsed drawer;
+       only live notices stay in the main list. (Exam past items already
+       used this pattern — kept unchanged.) */
+    const ntAct = nts.filter(n => !(n.days_left != null && n.days_left < 0));
+    const ntPast = nts.filter(n => n.days_left != null && n.days_left < 0);
+    ntAct.forEach(n => ntWrap.appendChild(noticeCard(n)));
+    if (ntPast.length) { const dw3 = el("details", "donedrawer"); dw3.appendChild(el("summary", null, T("doneItems") + " (" + ntPast.length + ")")); ntPast.forEach(n => dw3.appendChild(noticeCard(n))); ntWrap.appendChild(dw3); }
+    if (!ntAct.length && !ntPast.length) ntWrap.appendChild(el("div", "empty", T("emptyNotice")));
     document.getElementById("cntExam").textContent = "" + ups.length;
     document.getElementById("cntHw").textContent = "" + hws.length;
     document.getElementById("cntNotice").textContent = "" + nts.length;
@@ -1700,152 +1742,6 @@ const QZ_L3 = {
     "label": "正常版",
     "items": [
       {
-        "type": "mc",
-        "skill": "思考與理解",
-        "tag": "點選題 MC",
-        "q": "「在心中搖鈴鐺」其實是指甚麼？",
-        "opts": [
-          "把鈴鐺放進心中",
-          "想像鈴聲安慰自己，給自己勇氣",
-          "在心中數綿羊",
-          "真的聽到鈴聲"
-        ],
-        "ans": 1,
-        "why": "小熊想像有鈴聲陪着自己，令自己唔再害怕 — 係給自己勇氣嘅方法。",
-        "label": "選擇：心中的鈴鐺",
-        "wrongWhy": "「在心中搖鈴鐺」係想像，唔係真嘅搖。"
-      },
-      {
-        "type": "mc",
-        "skill": "課文內容",
-        "tag": "點選題 MC",
-        "q": "小熊第三晚為甚麼連心中的鈴鐺都不用搖？",
-        "opts": [
-          "因為鈴鐺壞了",
-          "因為媽媽收起了鈴鐺",
-          "因為他已經不再害怕",
-          "因為他不想上廁所"
-        ],
-        "ans": 2,
-        "why": "課文第⑥段：第三晚小熊起身上廁所，「不用在心中搖鈴鐺了」 — 佢已經克服了害怕。",
-        "label": "選擇：第三晚",
-        "wrongWhy": "第三天晚上，小熊已經唔再害怕了。"
-      },
-      {
-        "type": "drag",
-        "skill": "上下結構",
-        "tag": "拖放 Drag & Drop",
-        "q": "上下結構大分類：把十二個字拖入正確的籃。",
-        "chips": [
-          {
-            "ch": "第",
-            "cat": "small"
-          },
-          {
-            "ch": "想",
-            "cat": "big"
-          },
-          {
-            "ch": "分",
-            "cat": "equal"
-          },
-          {
-            "ch": "室",
-            "cat": "small"
-          },
-          {
-            "ch": "熊",
-            "cat": "big"
-          },
-          {
-            "ch": "去",
-            "cat": "equal"
-          },
-          {
-            "ch": "露",
-            "cat": "small"
-          },
-          {
-            "ch": "書",
-            "cat": "big"
-          },
-          {
-            "ch": "皇",
-            "cat": "equal"
-          },
-          {
-            "ch": "客",
-            "cat": "small"
-          },
-          {
-            "ch": "堡",
-            "cat": "big"
-          },
-          {
-            "ch": "忠",
-            "cat": "equal"
-          }
-        ],
-        "cats": [
-          [
-            "equal",
-            "上下相等"
-          ],
-          [
-            "small",
-            "上小下大"
-          ],
-          [
-            "big",
-            "上大下小"
-          ]
-        ],
-        "label": "拖放：上下結構大分類",
-        "wrongWhy": "十二個字要按上下結構分類。"
-      },
-      {
-        "type": "match",
-        "skill": "形近字辨析",
-        "tag": "配對 Matching",
-        "q": "形近字配詞語（進階）：先按左邊的字，再按右邊它的詞語。",
-        "pairs": [
-          [
-            "怕",
-            "害怕"
-          ],
-          [
-            "拍",
-            "拍手"
-          ],
-          [
-            "吵",
-            "吵醒"
-          ],
-          [
-            "沙",
-            "沙灘"
-          ],
-          [
-            "陪",
-            "陪伴"
-          ],
-          [
-            "部",
-            "部分"
-          ]
-        ],
-        "right": [
-          "部分",
-          "沙灘",
-          "陪伴",
-          "害怕",
-          "拍手",
-          "吵醒"
-        ],
-        "label": "配對：形近字進階",
-        "wrongWhy": "怕同拍偏旁不同，唔好弄混。"
-      },
-      {
         "type": "reveal",
         "skill": "思考與理解",
         "tag": "思考題・自我核對",
@@ -1853,50 +1749,6 @@ const QZ_L3 = {
         "answer": "媽媽說：「非常好，你不用害怕呀。」— 她支持和安慰小熊，沒有責備他。",
         "label": "思考題：媽媽的反應",
         "wrongWhy": "從課文找媽媽嘅反應，唔好猜。"
-      },
-      {
-        "type": "order",
-        "skill": "因果句式",
-        "tag": "句子重組 Order",
-        "q": "用「……所以……」把句子排好：把詞語放入句子框中。",
-        "parts": [
-          "美美用功溫習",
-          "，",
-          "所以",
-          "取得好成績",
-          "。"
-        ],
-        "shuffled": [
-          "所以",
-          "取得好成績",
-          "。",
-          "美美用功溫習",
-          "，"
-        ],
-        "label": "重組：美美溫習",
-        "wrongWhy": "「所以」前面係原因，後面係結果。"
-      },
-      {
-        "type": "order",
-        "skill": "因果句式",
-        "tag": "句子重組 Order",
-        "q": "用「……所以……」把句子排好：把詞語放入句子框中。",
-        "parts": [
-          "下雨了",
-          "，",
-          "所以",
-          "我們留在家中看書",
-          "。"
-        ],
-        "shuffled": [
-          "我們留在家中看書",
-          "。",
-          "下雨了",
-          "，",
-          "所以"
-        ],
-        "label": "重組：下雨了",
-        "wrongWhy": "下雨係原因，留在家中係結果。"
       }
     ]
   },
@@ -2045,6 +1897,66 @@ const QZ_L3 = {
         "why": "怕同害怕係一組，拍同拍手係一組。",
         "wrongWhy": "睇偏旁配詞語，唔好只睇字形相像。",
         "label": "應用配對：形近字"
+      },
+      {
+        "type": "mc",
+        "skill": "思考與理解",
+        "tag": "點選題 MC",
+        "q": "「在心中搖鈴鐺」其實是指甚麼？",
+        "opts": [
+          "把鈴鐺放進心中",
+          "想像鈴聲安慰自己，給自己勇氣",
+          "在心中數綿羊",
+          "真的聽到鈴聲"
+        ],
+        "ans": 1,
+        "why": "小熊想像有鈴聲陪着自己，令自己唔再害怕 — 係給自己勇氣嘅方法。",
+        "label": "選擇：心中的鈴鐺",
+        "wrongWhy": "「在心中搖鈴鐺」係想像，唔係真嘅搖。"
+      },
+      {
+        "type": "order",
+        "skill": "因果句式",
+        "tag": "句子重組 Order",
+        "q": "用「……所以……」把句子排好：把詞語放入句子框中。",
+        "parts": [
+          "美美用功溫習",
+          "，",
+          "所以",
+          "取得好成績",
+          "。"
+        ],
+        "shuffled": [
+          "所以",
+          "取得好成績",
+          "。",
+          "美美用功溫習",
+          "，"
+        ],
+        "label": "重組：美美溫習",
+        "wrongWhy": "「所以」前面係原因，後面係結果。"
+      },
+      {
+        "type": "order",
+        "skill": "因果句式",
+        "tag": "句子重組 Order",
+        "q": "用「……所以……」把句子排好：把詞語放入句子框中。",
+        "parts": [
+          "下雨了",
+          "，",
+          "所以",
+          "我們留在家中看書",
+          "。"
+        ],
+        "shuffled": [
+          "我們留在家中看書",
+          "。",
+          "下雨了",
+          "，",
+          "所以"
+        ],
+        "label": "重組：下雨了",
+        "wrongWhy": "下雨係原因，留在家中係結果。"
       }
     ]
   },
@@ -2168,6 +2080,136 @@ const QZ_L3 = {
         "why": "像小熊一樣在心中給自己勇氣，就唔會吵醒家人。",
         "wrongWhy": "唔好大聲叫，都唔好整晚開燈。",
         "label": "挑戰思考：怕黑的辦法"
+      },
+      {
+        "type": "mc",
+        "skill": "課文內容",
+        "tag": "點選題 MC",
+        "q": "小熊第三晚為甚麼連心中的鈴鐺都不用搖？",
+        "opts": [
+          "因為鈴鐺壞了",
+          "因為媽媽收起了鈴鐺",
+          "因為他已經不再害怕",
+          "因為他不想上廁所"
+        ],
+        "ans": 2,
+        "why": "課文第⑥段：第三晚小熊起身上廁所，「不用在心中搖鈴鐺了」 — 佢已經克服了害怕。",
+        "label": "選擇：第三晚",
+        "wrongWhy": "第三天晚上，小熊已經唔再害怕了。"
+      },
+      {
+        "type": "drag",
+        "skill": "上下結構",
+        "tag": "拖放 Drag & Drop",
+        "q": "上下結構大分類：把十二個字拖入正確的籃。",
+        "chips": [
+          {
+            "ch": "第",
+            "cat": "small"
+          },
+          {
+            "ch": "想",
+            "cat": "big"
+          },
+          {
+            "ch": "分",
+            "cat": "equal"
+          },
+          {
+            "ch": "室",
+            "cat": "small"
+          },
+          {
+            "ch": "熊",
+            "cat": "big"
+          },
+          {
+            "ch": "去",
+            "cat": "equal"
+          },
+          {
+            "ch": "露",
+            "cat": "small"
+          },
+          {
+            "ch": "書",
+            "cat": "big"
+          },
+          {
+            "ch": "皇",
+            "cat": "equal"
+          },
+          {
+            "ch": "客",
+            "cat": "small"
+          },
+          {
+            "ch": "堡",
+            "cat": "big"
+          },
+          {
+            "ch": "忠",
+            "cat": "equal"
+          }
+        ],
+        "cats": [
+          [
+            "equal",
+            "上下相等"
+          ],
+          [
+            "small",
+            "上小下大"
+          ],
+          [
+            "big",
+            "上大下小"
+          ]
+        ],
+        "label": "拖放：上下結構大分類",
+        "wrongWhy": "十二個字要按上下結構分類。"
+      },
+      {
+        "type": "match",
+        "skill": "形近字辨析",
+        "tag": "配對 Matching",
+        "q": "形近字配詞語（進階）：先按左邊的字，再按右邊它的詞語。",
+        "pairs": [
+          [
+            "怕",
+            "害怕"
+          ],
+          [
+            "拍",
+            "拍手"
+          ],
+          [
+            "吵",
+            "吵醒"
+          ],
+          [
+            "沙",
+            "沙灘"
+          ],
+          [
+            "陪",
+            "陪伴"
+          ],
+          [
+            "部",
+            "部分"
+          ]
+        ],
+        "right": [
+          "部分",
+          "沙灘",
+          "陪伴",
+          "害怕",
+          "拍手",
+          "吵醒"
+        ],
+        "label": "配對：形近字進階",
+        "wrongWhy": "怕同拍偏旁不同，唔好弄混。"
       }
     ]
   }
@@ -4191,15 +4233,6 @@ const QZ_L7 = {
         "wrongWhy": "詞語同意思要一一對應。"
       },
       {
-        "type": "reveal",
-        "skill": "思考與理解",
-        "tag": "諗深一層",
-        "q": "為什麼小花貓以後不再刮鬍子？",
-        "answer": "因為鬍子好比一把尺子，幫佢量一量自己過唔過到個洞。刮掉鬍子，就會碰得頭破血流，所以佢以後都唔再刮鬍子了。",
-        "label": "不再刮鬍子",
-        "wrongWhy": "刮掉鬍子會撞傷，所以唔再刮鬍子。"
-      },
-      {
         "type": "order",
         "skill": "背默句子",
         "tag": "句子重組 Order",
@@ -4253,54 +4286,6 @@ const QZ_L7 = {
         "type": "mc",
         "skill": "課文內容",
         "tag": "點選題 MC",
-        "q": "鬍子怎樣幫小花貓量一量？",
-        "opts": [
-          "量一下自己有多重",
-          "量一下能不能通過那個洞",
-          "量一下老鼠跑多快",
-          "量一下那個洞有多深"
-        ],
-        "ans": 1,
-        "why": "課文話「你能不能從洞裏鑽過去，先要用尺子量一量」。",
-        "label": "鬍子量洞",
-        "wrongWhy": "鬍子用來量度，能唔能夠通過嗰個洞。"
-      },
-      {
-        "type": "mc",
-        "skill": "詞語運用",
-        "tag": "點選題 MC",
-        "q": "哪一句用「感到」最恰當？",
-        "opts": [
-          "我感到他是好人。",
-          "我感到明天會下雨。",
-          "我感到有點冷。",
-          "我感到這本書好看。"
-        ],
-        "ans": 2,
-        "why": "「感到」用嚟講身體同心情嘅感覺，例如感到凍、感到開心。",
-        "label": "感到",
-        "wrongWhy": "「感到」講感覺，感到冷才正確。"
-      },
-      {
-        "type": "mc",
-        "skill": "詞語運用",
-        "tag": "點選題 MC",
-        "q": "「一眨不眨」是形容什麼？",
-        "opts": [
-          "走路走得很快",
-          "眼睛望着不動",
-          "講東西很大聲響",
-          "睡覺睡得很沉"
-        ],
-        "ans": 1,
-        "why": "背默句「一眨不眨地看着主人」，形容眼睛望住一樣嘢，唔眨眼。",
-        "label": "一眨不眨",
-        "wrongWhy": "「一眨不眨」係眼睛望着，不眨眼。"
-      },
-      {
-        "type": "mc",
-        "skill": "課文內容",
-        "tag": "點選題 MC",
         "q": "小花貓的眼睛是什麼顏色？",
         "opts": [
           "烏黑",
@@ -4314,46 +4299,6 @@ const QZ_L7 = {
         "wrongWhy": "小花貓嘅眼睛係碧綠嘅。"
       },
       {
-        "type": "drag",
-        "skill": "詞語運用",
-        "tag": "拖放 Drag & Drop",
-        "q": "分類：把詞語拖入正確的籃。",
-        "chips": [
-          {
-            "ch": "追捕",
-            "cat": "act"
-          },
-          {
-            "ch": "撞",
-            "cat": "act"
-          },
-          {
-            "ch": "幫忙",
-            "cat": "act"
-          },
-          {
-            "ch": "鏡子",
-            "cat": "thing"
-          },
-          {
-            "ch": "浴室",
-            "cat": "thing"
-          }
-        ],
-        "cats": [
-          [
-            "act",
-            "動作"
-          ],
-          [
-            "thing",
-            "地方／東西"
-          ]
-        ],
-        "label": "詞語分類",
-        "wrongWhy": "詞語分類要睇詞語嘅意思。"
-      },
-      {
         "type": "reveal",
         "skill": "思考與理解",
         "tag": "思考題",
@@ -4361,26 +4306,6 @@ const QZ_L7 = {
         "answer": "可以講：「主人，我以前覺得鬍子難看，想刮掉它。原來鬍子好像一把尺子，可以幫我量洞口，我以後都不刮鬍子了。」",
         "label": "同主人講",
         "wrongWhy": "想一想怎樣向主人解釋鬍子有用。"
-      },
-      {
-        "type": "order",
-        "skill": "課文內容",
-        "tag": "句子重組 Order",
-        "q": "按課文次序排好：把句子放入框中。",
-        "parts": [
-          "你的鬍子好比一把尺子",
-          "先要用尺子量一量",
-          "鬍子被你刮掉了",
-          "會碰得頭破血流"
-        ],
-        "shuffled": [
-          "鬍子被你刮掉了",
-          "你的鬍子好比一把尺子",
-          "會碰得頭破血流",
-          "先要用尺子量一量"
-        ],
-        "label": "課文句重組",
-        "wrongWhy": "先說鬍子像尺子，再說量度，最後說後果。"
       },
       {
         "type": "order",
@@ -4549,6 +4474,78 @@ const QZ_L7 = {
         "why": "乾乾淨淨係清潔，難睇係唔好睇。",
         "wrongWhy": "睇詞語嘅意思來配對，唔好只睇字形。",
         "label": "應用配對：詞語意思"
+      },
+      {
+        "type": "mc",
+        "skill": "詞語運用",
+        "tag": "點選題 MC",
+        "q": "哪一句用「感到」最恰當？",
+        "opts": [
+          "我感到他是好人。",
+          "我感到明天會下雨。",
+          "我感到有點冷。",
+          "我感到這本書好看。"
+        ],
+        "ans": 2,
+        "why": "「感到」用嚟講身體同心情嘅感覺，例如感到凍、感到開心。",
+        "label": "感到",
+        "wrongWhy": "「感到」講感覺，感到冷才正確。"
+      },
+      {
+        "type": "mc",
+        "skill": "詞語運用",
+        "tag": "點選題 MC",
+        "q": "「一眨不眨」是形容什麼？",
+        "opts": [
+          "走路走得很快",
+          "眼睛望着不動",
+          "講東西很大聲響",
+          "睡覺睡得很沉"
+        ],
+        "ans": 1,
+        "why": "背默句「一眨不眨地看着主人」，形容眼睛望住一樣嘢，唔眨眼。",
+        "label": "一眨不眨",
+        "wrongWhy": "「一眨不眨」係眼睛望着，不眨眼。"
+      },
+      {
+        "type": "drag",
+        "skill": "詞語運用",
+        "tag": "拖放 Drag & Drop",
+        "q": "分類：把詞語拖入正確的籃。",
+        "chips": [
+          {
+            "ch": "追捕",
+            "cat": "act"
+          },
+          {
+            "ch": "撞",
+            "cat": "act"
+          },
+          {
+            "ch": "幫忙",
+            "cat": "act"
+          },
+          {
+            "ch": "鏡子",
+            "cat": "thing"
+          },
+          {
+            "ch": "浴室",
+            "cat": "thing"
+          }
+        ],
+        "cats": [
+          [
+            "act",
+            "動作"
+          ],
+          [
+            "thing",
+            "地方／東西"
+          ]
+        ],
+        "label": "詞語分類",
+        "wrongWhy": "詞語分類要睇詞語嘅意思。"
       }
     ]
   },
@@ -4674,6 +4671,51 @@ const QZ_L7 = {
         "why": "勸朋友要講出鬍子嘅用處，對方才明白。",
         "wrongWhy": "要講出鬍子嘅用處，唔好只說唔好刮。",
         "label": "挑戰思考：勸小花貓"
+      },
+      {
+        "type": "mc",
+        "skill": "課文內容",
+        "tag": "點選題 MC",
+        "q": "鬍子怎樣幫小花貓量一量？",
+        "opts": [
+          "量一下自己有多重",
+          "量一下能不能通過那個洞",
+          "量一下老鼠跑多快",
+          "量一下那個洞有多深"
+        ],
+        "ans": 1,
+        "why": "課文話「你能不能從洞裏鑽過去，先要用尺子量一量」。",
+        "label": "鬍子量洞",
+        "wrongWhy": "鬍子用來量度，能唔能夠通過嗰個洞。"
+      },
+      {
+        "type": "order",
+        "skill": "課文內容",
+        "tag": "句子重組 Order",
+        "q": "按課文次序排好：把句子放入框中。",
+        "parts": [
+          "你的鬍子好比一把尺子",
+          "先要用尺子量一量",
+          "鬍子被你刮掉了",
+          "會碰得頭破血流"
+        ],
+        "shuffled": [
+          "鬍子被你刮掉了",
+          "你的鬍子好比一把尺子",
+          "會碰得頭破血流",
+          "先要用尺子量一量"
+        ],
+        "label": "課文句重組",
+        "wrongWhy": "先說鬍子像尺子，再說量度，最後說後果。"
+      },
+      {
+        "type": "reveal",
+        "skill": "思考與理解",
+        "tag": "諗深一層",
+        "q": "為什麼小花貓以後不再刮鬍子？",
+        "answer": "因為鬍子好比一把尺子，幫佢量一量自己過唔過到個洞。刮掉鬍子，就會碰得頭破血流，所以佢以後都唔再刮鬍子了。",
+        "label": "不再刮鬍子",
+        "wrongWhy": "刮掉鬍子會撞傷，所以唔再刮鬍子。"
       }
     ]
   }
@@ -4849,95 +4891,6 @@ const QZ_ENG = {
   "normal": {
     "label": "正常版",
     "items": [
-      {
-        "type": "mc",
-        "skill": "U3 位置",
-        "tag": "MC・Preview",
-        "q": "___ is the library?",
-        "opts": [
-          "What",
-          "Where",
-          "Who",
-          "When"
-        ],
-        "ans": 1,
-        "why": "Preview: We ask about places with Where.",
-        "label": "Preview: Where",
-        "wrongWhy": "問地方要用 Where，唔好用 What。"
-      },
-      {
-        "type": "mc",
-        "skill": "U2 現在進行式",
-        "tag": "MC・Preview",
-        "q": "She is ___ a song now.",
-        "opts": [
-          "singing",
-          "sing a song",
-          "sings songs",
-          "sang a song"
-        ],
-        "ans": 0,
-        "why": "Preview: She is singing a song.（正在唱歌）",
-        "label": "Preview: is singing",
-        "wrongWhy": "She is 現在進行式，要用 singing。"
-      },
-      {
-        "type": "mc",
-        "skill": "U3 序數詞",
-        "tag": "MC・Preview",
-        "q": "哪個是序數詞（表示第幾）？",
-        "opts": [
-          "five",
-          "fiveth",
-          "fifth",
-          "fives"
-        ],
-        "ans": 2,
-        "why": "Preview: fifth = 第五。Dict 3 範圍有 fourth, fifth, sixth。",
-        "label": "Preview: fifth",
-        "wrongWhy": "序數詞第五係 fifth，唔係 fiveth。"
-      },
-      {
-        "type": "mc",
-        "skill": "U4 問句",
-        "tag": "MC・Preview",
-        "q": "___ she have a ruler?",
-        "opts": [
-          "Do",
-          "Does",
-          "Is",
-          "Are"
-        ],
-        "ans": 1,
-        "why": "Preview: She → Does she have...? Yes, she does.",
-        "label": "Preview: Does she",
-        "wrongWhy": "She 配 Does，唔好用 Do。"
-      },
-      {
-        "type": "mc",
-        "skill": "U2 規則",
-        "tag": "MC・Preview",
-        "q": "We ___ keep the classroom clean.",
-        "opts": [
-          "must not",
-          "never must",
-          "not must",
-          "must"
-        ],
-        "ans": 3,
-        "why": "Preview: We must keep clean.（要保持清潔）",
-        "label": "Preview: must keep",
-        "wrongWhy": "要保持清潔，用 must，唔係 must not。"
-      },
-      {
-        "type": "reveal",
-        "skill": "U3 運用",
-        "tag": "Think・Preview",
-        "q": "說一句英文：你在學校哪裡上課？",
-        "answer": "Example: I have lessons in the classroom.（我喺課室上堂。）也可以用其他課室詞彙，例如 music room, art room。",
-        "label": "Preview: my classroom",
-        "wrongWhy": "說出你在學校邊度上課嘅英文句子。"
-      },
       {
         "type": "order",
         "skill": "U4 所有格",
@@ -5127,6 +5080,54 @@ const QZ_ENG = {
         "why": "Behind 係後面，in front of 係前面。",
         "wrongWhy": "Behind 同 in front of 意思相反，唔好弄混。",
         "label": "應用配對：介詞"
+      },
+      {
+        "type": "mc",
+        "skill": "U3 位置",
+        "tag": "MC・Preview",
+        "q": "___ is the library?",
+        "opts": [
+          "What",
+          "Where",
+          "Who",
+          "When"
+        ],
+        "ans": 1,
+        "why": "Preview: We ask about places with Where.",
+        "label": "Preview: Where",
+        "wrongWhy": "問地方要用 Where，唔好用 What。"
+      },
+      {
+        "type": "mc",
+        "skill": "U2 現在進行式",
+        "tag": "MC・Preview",
+        "q": "She is ___ a song now.",
+        "opts": [
+          "singing",
+          "sing a song",
+          "sings songs",
+          "sang a song"
+        ],
+        "ans": 0,
+        "why": "Preview: She is singing a song.（正在唱歌）",
+        "label": "Preview: is singing",
+        "wrongWhy": "She is 現在進行式，要用 singing。"
+      },
+      {
+        "type": "mc",
+        "skill": "U4 問句",
+        "tag": "MC・Preview",
+        "q": "___ she have a ruler?",
+        "opts": [
+          "Do",
+          "Does",
+          "Is",
+          "Are"
+        ],
+        "ans": 1,
+        "why": "Preview: She → Does she have...? Yes, she does.",
+        "label": "Preview: Does she",
+        "wrongWhy": "She 配 Does，唔好用 Do。"
       }
     ]
   },
@@ -5289,6 +5290,47 @@ const QZ_ENG = {
         "why": "I 配 am，He、She、It 配 is，They、We 配 are。",
         "wrongWhy": "He、She 配 is，唔好配 are。",
         "label": "挑戰拖放：be 動詞"
+      },
+      {
+        "type": "reveal",
+        "skill": "U3 運用",
+        "tag": "Think・Preview",
+        "q": "說一句英文：你在學校哪裡上課？",
+        "answer": "Example: I have lessons in the classroom.（我喺課室上堂。）也可以用其他課室詞彙，例如 music room, art room。",
+        "label": "Preview: my classroom",
+        "wrongWhy": "說出你在學校邊度上課嘅英文句子。"
+      },
+      {
+        "type": "mc",
+        "skill": "U3 序數詞",
+        "tag": "MC・Preview",
+        "q": "哪個是序數詞（表示第幾）？",
+        "opts": [
+          "five",
+          "fiveth",
+          "fifth",
+          "fives"
+        ],
+        "ans": 2,
+        "why": "Preview: fifth = 第五。Dict 3 範圍有 fourth, fifth, sixth。",
+        "label": "Preview: fifth",
+        "wrongWhy": "序數詞第五係 fifth，唔係 fiveth。"
+      },
+      {
+        "type": "mc",
+        "skill": "U2 規則",
+        "tag": "MC・Preview",
+        "q": "We ___ keep the classroom clean.",
+        "opts": [
+          "must not",
+          "never must",
+          "not must",
+          "must"
+        ],
+        "ans": 3,
+        "why": "Preview: We must keep clean.（要保持清潔）",
+        "label": "Preview: must keep",
+        "wrongWhy": "要保持清潔，用 must，唔係 must not。"
       }
     ]
   }
@@ -5466,70 +5508,6 @@ const QZ_MATH = {
     "items": [
       {
         "type": "mc",
-        "skill": "三位數",
-        "tag": "點選題 MC",
-        "q": "608 裡面，「6」代表什麼？",
-        "opts": [
-          "600",
-          "60",
-          "6",
-          "68"
-        ],
-        "ans": 0,
-        "why": "6 在百位，代表 6 個百，即 600。",
-        "label": "6 的數值",
-        "wrongWhy": "6 在百位，代表 600。"
-      },
-      {
-        "type": "mc",
-        "skill": "加減應用",
-        "tag": "點選題 MC",
-        "q": "姐姐有 365 張貼紙，送走 128 張，還剩下多少？",
-        "opts": [
-          "247 張",
-          "237 張",
-          "227 張",
-          "493 張"
-        ],
-        "ans": 1,
-        "why": "365 − 128 = 237。送走咗，要用減法。",
-        "label": "貼紙應用題",
-        "wrongWhy": "送走了要用減法，365 − 128 = 237。"
-      },
-      {
-        "type": "mc",
-        "skill": "角",
-        "tag": "點選題 MC",
-        "q": "直角是怎樣的？",
-        "opts": [
-          "尖尖小小那一種",
-          "好像書角那樣方正",
-          "比方角大的那一種",
-          "圓圓的、沒有角的那種"
-        ],
-        "ans": 1,
-        "why": "直角好似書本、方枱嘅角咁方正。",
-        "label": "直角",
-        "wrongWhy": "直角像書角嗰樣方正。"
-      },
-      {
-        "type": "mc",
-        "skill": "米",
-        "tag": "點選題 MC",
-        "q": "一支鉛筆長約 1 米，對不對？",
-        "opts": [
-          "對，鉛筆有 1 米",
-          "不對，鉛筆長很多",
-          "對，剛好 1 米",
-          "不對，鉛筆短很多"
-        ],
-        "ans": 3,
-        "why": "1 米大約係課室門一半高度，鉛筆短好多。",
-        "label": "1 米有多長",
-        "wrongWhy": "鉛筆比 1 米短很多，唔係一米。"
-      },
-      {
-        "type": "mc",
         "skill": "乘法",
         "tag": "點選題 MC",
         "q": "5 × 4 = ?",
@@ -5552,48 +5530,6 @@ const QZ_MATH = {
         "answer": "用直角做標準去比：比直角細嘅係銳角，比直角大嘅係鈍角。可以用一本書嘅角嚟量一量。",
         "label": "分銳角鈍角",
         "wrongWhy": "銳角比直角小，鈍角比直角大。"
-      },
-      {
-        "type": "order",
-        "skill": "三位數",
-        "tag": "句子重組 Order",
-        "q": "由小到大排好這些數：按數字放入框。",
-        "parts": [
-          "506",
-          "560",
-          "605",
-          "650"
-        ],
-        "shuffled": [
-          "605",
-          "506",
-          "650",
-          "560"
-        ],
-        "ans": "506、560、605、650",
-        "why": "由小到大：506 < 560 < 605 < 650。",
-        "wrongWhy": "先比百位，百位小嘅排前面。",
-        "label": "由小到大"
-      },
-      {
-        "type": "order",
-        "skill": "角",
-        "tag": "句子重組 Order",
-        "q": "由小到大排好這些角：按詞語放入框。",
-        "parts": [
-          "銳角",
-          "直角",
-          "鈍角"
-        ],
-        "shuffled": [
-          "鈍角",
-          "銳角",
-          "直角"
-        ],
-        "ans": "銳角直角鈍角",
-        "why": "銳角比直角小，直角比鈍角小。",
-        "wrongWhy": "銳角最小，鈍角最大，唔好排錯。",
-        "label": "角由小到大"
       }
     ]
   },
@@ -5740,6 +5676,54 @@ const QZ_MATH = {
         "why": "米同厘米量長度，公斤同克量重量。",
         "wrongWhy": "公斤係量重量，唔係量長度。",
         "label": "應用拖放：長度重量"
+      },
+      {
+        "type": "mc",
+        "skill": "三位數",
+        "tag": "點選題 MC",
+        "q": "608 裡面，「6」代表什麼？",
+        "opts": [
+          "600",
+          "60",
+          "6",
+          "68"
+        ],
+        "ans": 0,
+        "why": "6 在百位，代表 6 個百，即 600。",
+        "label": "6 的數值",
+        "wrongWhy": "6 在百位，代表 600。"
+      },
+      {
+        "type": "mc",
+        "skill": "加減應用",
+        "tag": "點選題 MC",
+        "q": "姐姐有 365 張貼紙，送走 128 張，還剩下多少？",
+        "opts": [
+          "247 張",
+          "237 張",
+          "227 張",
+          "493 張"
+        ],
+        "ans": 1,
+        "why": "365 − 128 = 237。送走咗，要用減法。",
+        "label": "貼紙應用題",
+        "wrongWhy": "送走了要用減法，365 − 128 = 237。"
+      },
+      {
+        "type": "mc",
+        "skill": "角",
+        "tag": "點選題 MC",
+        "q": "直角是怎樣的？",
+        "opts": [
+          "尖尖小小那一種",
+          "好像書角那樣方正",
+          "比方角大的那一種",
+          "圓圓的、沒有角的那種"
+        ],
+        "ans": 1,
+        "why": "直角好似書本、方枱嘅角咁方正。",
+        "label": "直角",
+        "wrongWhy": "直角像書角嗰樣方正。"
       }
     ]
   },
@@ -5861,6 +5845,64 @@ const QZ_MATH = {
         "why": "大嘅東西用米量，小嘅東西用厘米量。",
         "wrongWhy": "大嘅東西用米，小嘅東西用厘米。",
         "label": "挑戰思考：米和厘米"
+      },
+      {
+        "type": "mc",
+        "skill": "米",
+        "tag": "點選題 MC",
+        "q": "一支鉛筆長約 1 米，對不對？",
+        "opts": [
+          "對，鉛筆有 1 米",
+          "不對，鉛筆長很多",
+          "對，剛好 1 米",
+          "不對，鉛筆短很多"
+        ],
+        "ans": 3,
+        "why": "1 米大約係課室門一半高度，鉛筆短好多。",
+        "label": "1 米有多長",
+        "wrongWhy": "鉛筆比 1 米短很多，唔係一米。"
+      },
+      {
+        "type": "order",
+        "skill": "三位數",
+        "tag": "句子重組 Order",
+        "q": "由小到大排好這些數：按數字放入框。",
+        "parts": [
+          "506",
+          "560",
+          "605",
+          "650"
+        ],
+        "shuffled": [
+          "605",
+          "506",
+          "650",
+          "560"
+        ],
+        "ans": "506、560、605、650",
+        "why": "由小到大：506 < 560 < 605 < 650。",
+        "wrongWhy": "先比百位，百位小嘅排前面。",
+        "label": "由小到大"
+      },
+      {
+        "type": "order",
+        "skill": "角",
+        "tag": "句子重組 Order",
+        "q": "由小到大排好這些角：按詞語放入框。",
+        "parts": [
+          "銳角",
+          "直角",
+          "鈍角"
+        ],
+        "shuffled": [
+          "鈍角",
+          "銳角",
+          "直角"
+        ],
+        "ans": "銳角直角鈍角",
+        "why": "銳角比直角小，直角比鈍角小。",
+        "wrongWhy": "銳角最小，鈍角最大，唔好排錯。",
+        "label": "角由小到大"
       }
     ]
   }
@@ -7001,7 +7043,7 @@ const QZ_ENGPAPER = {
 };
 const QZ_LESSONS = { chi_l3: QZ_L3, chi_l4: QZ_L4, chi_l5: QZ_L5, chi_l6: QZ_L6, chi_l7: QZ_L7, eng_u14: QZ_ENG, eng_paper: QZ_ENGPAPER, math_a1: QZ_MATH, sci_a1: QZ_SCI };
 let QZ = QZ_LESSONS.chi_l3;
-let qzSetName = "textbook", qzIdx = 0, qzBuilt = false, qzStreak = 0, qzLocked = false, qzPraiseIx = 0, qzEncIx = 0, qzBreakFor = -1;
+let qzSetName = "textbook", qzIdx = 0, qzBuilt = false, qzStreak = 0, qzLocked = false, qzPraiseIx = 0, qzEncIx = 0, qzBreakFor = -1, qzAutoTimer = 0;
 
 function qzItems() { return (QZ[qzSetName] || QZ.textbook || { items: [] }).items; }
 let qzCtx = { itemKey: "CHI_PROGRESS_1", lessonId: "chi_l3" };
@@ -7026,7 +7068,7 @@ function qzScoreUpd() {
   document.getElementById("qzScore").textContent = "⭐ " + qzStars() + " / " + t[1];
   const st = document.getElementById("qzStreak");
   if (st) st.textContent = qzStreak >= 2 ? "🔥 連續啱 ×" + qzStreak : "";
-  qzRenderDots();
+  qzProgLineUpd();
   qzTopLineUpd();
 }
 function qzEl(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
@@ -7089,9 +7131,25 @@ function qzDispOpts(item) {
   item._shuf = perm;
   return { order: perm, dispAns: perm.indexOf(item.ans), shuffled: true };
 }
+/* Finish-review wrong-pick capture: stored alongside _wrongKeys as
+   item._wrongPick (last wrong pick per item; match/drag accumulate the
+   wrong attempts). Old saved progress has no _wrongPick -> finish review
+   falls back to correct answer only, never a fabricated pick. Draw/reveal
+   never set a pick: they show the correct guide only. Persisted via
+   qzPackState rec.wp (backward compatible: absent = null). */
+function qzNoteWrongPick(item, pick) {
+  if (!pick) return;
+  if ((pick.type === "match" || pick.type === "drag") && item._wrongPick && item._wrongPick.type === pick.type) {
+    const into = pick.type === "match" ? item._wrongPick.pairs : item._wrongPick.placed;
+    const from = pick.type === "match" ? pick.pairs : pick.placed;
+    Object.keys(from || {}).forEach(k => { into[k] = from[k]; });
+    item._wrongPick.at = pick.at;
+  } else item._wrongPick = pick;
+}
 function qzWrong(item, sub) {
   const key = item.label + (sub ? "：" + sub : "");
-  const S = QZ[qzSetName];
+  const S = QZ[qzSetName] || QZ.textbook;
+  if (!S) return 0;
   S._wrong = S._wrong || [];
   if (!item._wrongKeys) item._wrongKeys = {};
   if (!item._wrongKeys[key]) { item._wrongKeys[key] = true; S._wrong.push(key); }
@@ -7132,13 +7190,29 @@ function qzShowWrongImg(fb, item) {
   fb.appendChild(d);
 }
 function qzWrongNote(item) { return item.wrongWhy ? " " + item.wrongWhy : ""; }  // 答錯解釋：有專屬 wrongWhy 就出，否則只出鼓勵句（已符合「爭少少」底線）
+let qzSpeakGen = 0;
 function qzSpeak(text) {
   try {
     if (!("speechSynthesis" in window)) return;
+    const gen = ++qzSpeakGen;
     speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text.replace(/[💡🔊・（）「」＿\s]+/g, " "));
-    u.lang = "zh-HK"; u.rate = 0.92;
-    speechSynthesis.speak(u);
+    // Round 15 #9: split on fill-in blanks (empty parens / corner brackets /
+    // underscore runs) so each blank gets a ~150 ms comma-length pause.
+    // Content parens (e.g. （音樂室）) are NOT split — only empty ones are.
+    const parts = String(text).split(/(?:（\s*）|「」|＿+|\(\s*\))/).map(s => s.replace(/[💡🔊・（）「」＿\s]+/g, " ").trim()).filter(Boolean);
+    if (!parts.length) return;
+    const mk = t => { const u = new SpeechSynthesisUtterance(t); u.lang = "zh-HK"; u.rate = 0.92; return u; };
+    if (parts.length === 1) { speechSynthesis.speak(mk(parts[0])); return; }
+    let i = 0;
+    const step = () => {
+      if (gen !== qzSpeakGen) return;
+      if (i >= parts.length) return;
+      const u = mk(parts[i++]);
+      u.onend = () => { if (gen !== qzSpeakGen) return; setTimeout(step, 150); };
+      u.onerror = () => { if (gen !== qzSpeakGen) return; setTimeout(step, 150); };
+      speechSynthesis.speak(u);
+    };
+    step();
   } catch (e) {}
 }
 // 解釋專用 🔊：只准撳先讀，永不自動讀
@@ -7150,6 +7224,16 @@ function qzSpeakBtn(text) {
   return b;
 }
 function qzStars() { let n = 0; qzItems().forEach(it => { n += it._stars || 0; }); return n; }
+/* Next2 auto-advance (correct answers only): 5s fallback, manual tap wins.
+   The footer next button stays enabled immediately after a correct answer
+   (qzLocked blocks only answering, never the footer). Timer is cleared on
+   any navigation (qzGo), on reset, on back-to-summary and on quiz close;
+   the callback re-checks qzLocked and the question index, so a stale timer
+   can never advance twice or advance a different question. Wrong answers
+   never arm this timer: only qzGain's completion branch below does, and
+   the wrong-answer ladder / reveal path does not call qzGain. */
+function qzClearAutoAdvance() { if (qzAutoTimer) { clearTimeout(qzAutoTimer); qzAutoTimer = 0; } }
+function qzArmAutoAdvance() { qzClearAutoAdvance(); const _ai = qzIdx; qzAutoTimer = setTimeout(() => { qzAutoTimer = 0; if (qzLocked && qzIdx === _ai) qzGo(qzIdx + 1); }, 5000); }
 function qzGain(item, sub) {
   item._earned = qzEarned(item) + 1;
   const wk = item._wrongKeys || {};
@@ -7162,16 +7246,17 @@ function qzGain(item, sub) {
     qzLocked = true;
     if (!item._wrongKeys || !Object.keys(item._wrongKeys).length) qzStreak++; else qzStreak = 0;
     qzScoreUpd();
-    /* Batch A manual advance: no auto-advance timer — the user advances with 下一題. */
+    /* Next2: correct-answer completion arms the 5s auto-advance; tapping 下一題 first cancels it via qzGo. */
+    qzArmAutoAdvance();
   }
 }
 function qzGo(i) {
+  qzClearAutoAdvance();
   /* Break-next: any real navigation clears the double-tap guard, so a
      legitimate back-then-forward (which routes through qzGo) is never
      swallowed — the guard blocks only a rapid 2nd footer-next tap. */
   qzBreakNextGuard = 0;
   qzScratchPeekReset();
-  qzJumpToggle(false);
   const items = qzItems();
   const was = qzIdx;
   const target = Math.max(0, Math.min(i, items.length));
@@ -7179,7 +7264,7 @@ function qzGo(i) {
   qzLocked = false;
   /* Batch A atomic break: a forward step (+1) into a 4-boundary sets qzIdx AND
      qzBreakFor together, so qzRender shows the break card at once. Backward,
-     jump-panel and finish navigation never trigger a break card. */
+     finish navigation never triggers a break card. */
   if (target > 0 && target < items.length && target % 4 === 0 && target === was + 1) qzBreakFor = target;
   else if (qzBreakFor !== qzIdx) qzBreakFor = -1;
   qzRender();
@@ -7197,14 +7282,14 @@ function qzRender() {
   if (qzBreakFor === qzIdx && qzIdx > 0 && qzIdx < items.length) {
     prev.disabled = true; next.disabled = false;
     next.textContent = "下一題 →";
-    stage.appendChild(qzProgBar(true));
     stage.appendChild(qzBreakCard());
-    qzRenderDots();
+    qzProgLineUpd();
     return;
   }
   prev.disabled = qzIdx === 0; next.disabled = false;
   next.textContent = qzIdx >= items.length ? "🏁 已到成績頁" : "下一題 →";
-  if (qzIdx >= items.length) { stage.appendChild(qzFinishCard()); const fr = qzFinishReview(); if (fr) stage.appendChild(fr); qzRenderDots(); return; }
+  if (items.length === 0) return;
+  if (qzIdx >= items.length) { stage.appendChild(qzFinishCard()); const fr = qzFinishReview(); if (fr) stage.appendChild(fr); return; }
   const item = items[qzIdx];
   const card = qzEl("div", "qz-card qz-enter" + (item.img ? " qz-card-hasimg" : ""));
   /* Grid v2 header: tag pill + buttons share one row (.qz-headrow); the stem
@@ -7213,7 +7298,7 @@ function qzRender() {
      procedural/category wording, e.g. 「先按左邊的字，再按右邊它的詞語」,
      and the 🔊 button still reads item.q aloud). Banks untouched. */
   const head = qzEl("div", "qz-headrow");
-  head.appendChild(qzEl("span", "qz-tag", item.tag + " ・ 第 " + (qzIdx + 1) + " / " + items.length + " 題"));
+  head.appendChild(qzEl("span", "qz-tag", item.tag));
   card.appendChild(head);
   if (item.img) { const im = qzEl("div", "qz-img"); im.innerHTML = item.img; im.title = "㩒圖放大／縮細"; im.addEventListener("click", () => im.classList.toggle("qz-imgbig")); card.appendChild(im); }
   const hbtns = qzEl("div", "qz-headbtns");
@@ -7249,42 +7334,25 @@ function qzRender() {
   const fb = qzEl("div", "qz-fb");
   ({ mc: qzRenderMC, imgmc: qzRenderImgMC, match: qzRenderMatch, drag: qzRenderDrag, order: qzRenderOrder, fill: qzRenderFill, draw: qzRenderDraw, reveal: qzRenderReveal })[item.type](item, card, fb);
   card.appendChild(fb);
-  stage.appendChild(qzProgBar(false));
   stage.appendChild(card);
   qzScoreUpd();
-  qzRenderDots();
 }
-/* Batch B #11 question-count progress bar: denominator is the QUESTION count
-   (items.length), never the star total. Width is pure CSS from qzIdx — no new
-   state. The bar is a navigation aid only: no prize wording anywhere near it. */
-function qzProgBar(isBreak) {
+/* Round 15 #4: ONE integrated chrome — the footer holds prev/next plus a
+   thin UNNUMBERED progress line (pure visual fill, no numbers). Denominator
+   is still the QUESTION count (items.length), never the star total; width is
+   pure CSS from qzIdx. The old top progress bar (numbers + break countdown)
+   and the dots strip + jump panel are gone. */
+function qzProgLineUpd() {
+  const fill = document.getElementById("qzProgFill"); if (!fill) return;
   const items = qzItems(), total = items.length;
-  const wrap = qzEl("div", "qz-prog");
-  const fill = qzEl("div", "qz-progfill");
   fill.style.width = (total ? Math.round(qzIdx / total * 100) : 0) + "%";
-  wrap.appendChild(fill);
-  const txt = qzEl("div", "qz-progtxt");
-  if (isBreak) {
-    txt.textContent = "休息中・已經完成 " + qzIdx + " / " + total + " 題";
-  } else {
-    const n = qzIdx + 1;
-    let nb = null;
-    for (let b = 4; b < total; b += 4) { if (b >= n) { nb = b; break; } }
-    if (nb === null) txt.textContent = "第 " + n + " / " + total + " 題・最後 " + (total - n + 1) + " 題";
-    else if (nb === n) txt.textContent = "第 " + n + " / " + total + " 題・做完呢題就休息";
-    else txt.textContent = "第 " + n + " / " + total + " 題・再 " + (nb - n) + " 題就休息";
-  }
-  txt.title = "㩒呢度跳題";
-  txt.addEventListener("click", () => qzJumpToggle());
-  wrap.appendChild(txt);
-  return wrap;
 }
 
 /* ---- Quiz redesign batch (2026-10-25) helpers ---- */
-/* #2 entry-first chrome: the set is chosen on an entry screen, then started.
-   While answering, .qz-tabs are hidden (CSS) and the bar shows only the thin
-   #qzTopLine display (progress / X/Y / stars / break) plus the close button.
-   Footer controls (prev / dots / next + jump panel) are unchanged. */
+/* Round 15 #4 entry-first chrome: the set is chosen on an entry screen, then
+   started at once on tap. While answering, .qz-tabs are hidden (CSS) and the
+   bar shows only the set name plus the close button (no numbers, no stars).
+   Footer controls are prev / next + one thin unnumbered progress line. */
 let qzEntryMode = false;
 let qzEntrySel = "textbook";
 function qzTopLineUpd() {
@@ -7292,41 +7360,47 @@ function qzTopLineUpd() {
   if (qzEntryMode) { tl.textContent = "揀一份練習"; return; }
   const items = qzItems(), total = items.length;
   if (qzIdx >= total) { tl.textContent = "🏁 成績頁 ・ ⭐ " + qzStars(); return; }
-  if (qzBreakFor === qzIdx && qzIdx > 0 && qzIdx < total) { tl.textContent = "休息中 ・ 第 " + qzIdx + " / " + total + " 題 ・ ⭐ " + qzStars(); return; }
-  tl.textContent = "第 " + (qzIdx + 1) + " / " + total + " 題 ・ ⭐ " + qzStars() + (qzStreak >= 2 ? " ・ 🔥 ×" + qzStreak : "");
+  if (qzBreakFor === qzIdx && qzIdx > 0 && qzIdx < total) { tl.textContent = "休息中"; return; }
+  tl.textContent = (QZ[qzSetName] && QZ[qzSetName].label) || "";
 }
-/* #10 difficulty marker: 🔥×1–3 + short text, NEVER ⭐ (⭐ means earned stars
-   only). Size shown plainly; the 10–15 / ≤5-difference rule governs the choice
-   UI and any new sets — existing banks are NOT rewritten in this batch. */
-function qzSetDiff(name) { return name === "textbook" ? { fire: "🔥×1", txt: "基礎" } : name === "apply" ? { fire: "🔥×2", txt: "應用" } : name === "challenge" ? { fire: "🔥×3", txt: "挑戰" } : { fire: "", txt: "" }; }
+/* Round 15 #2 difficulty marker: 5-star row (filled = level, hollow =
+   remainder) + short text. Difficulty stars are DISPLAY-ONLY and never the
+   earned ⭐ count. Size shown plainly; the 10–15 / ≤5-difference rule governs
+   the choice UI — Round 15 audit left bank counts unchanged (see report). */
+function qzSetDiff(name) { return name === "textbook" ? { fire: "⭐☆☆☆☆", txt: "基礎" } : name === "apply" ? { fire: "⭐⭐☆☆☆", txt: "應用" } : name === "challenge" ? { fire: "⭐⭐⭐☆☆", txt: "挑戰" } : { fire: "", txt: "" }; }
 function qzSetSizeOk(name) { const n = (QZ[name] && QZ[name].items || []).length; return n >= 10 && n <= 15; }
 function qzShowEntry() {
   qzEntryMode = true;
   const modal = document.getElementById("quizModal");
   if (modal) { modal.classList.add("qz-entry"); modal.classList.remove("qz-answering"); }
   const foot = document.querySelector(".qz-footer"); if (foot) foot.style.display = "none";
-  qzJumpToggle(false);
   const stage = document.getElementById("qzStage"); stage.innerHTML = "";
   const card = qzEl("div", "qz-card qz-enter");
+  /* F-D: the lesson title is the FIRST line of the learning (entry) view,
+     above the set choices. Previously no lesson title was shown here at
+     all — only the generic heading below (plus the modal bar chrome above
+     the stage, which is not lesson content). Title comes from the review
+     map (same source as the 📖 panel title) with the trailing 重點 dropped. */
+  const _lt = (QZ_REVIEW[qzCtx.lessonId] && QZ_REVIEW[qzCtx.lessonId].title || "").replace(/重點$/, "");
+  if (_lt) card.appendChild(qzEl("div", "qz-lessontitle", _lt));
   card.appendChild(qzEl("div", "qz-q", "🎮 揀一份練習"));
   ["textbook", "apply", "challenge"].forEach(name => {
     const S = QZ[name]; if (!S) return;
     const d = qzSetDiff(name);
-    const b = qzEl("button", "qz-entryset" + (qzEntrySel === name ? " sel" : ""));
+    const b = qzEl("button", "qz-entryset");
     b.dataset.size = S.items.length; b.dataset.diff = d.fire; b.dataset.sizeok = qzSetSizeOk(name) ? "1" : "0";
     b.appendChild(qzEl("div", "qz-entrysett", S.label));
     b.appendChild(qzEl("div", "qz-entrysub", d.fire + " " + d.txt + " ・ " + S.items.length + " 題"));
-    b.addEventListener("click", () => { qzEntrySel = name; stage.querySelectorAll(".qz-entryset").forEach(x => x.classList.remove("sel")); b.classList.add("sel"); });
+    b.addEventListener("click", () => { qzEntryMode = false; if (modal) modal.classList.remove("qz-entry"); qzSwitchSet(name); });
     card.appendChild(b);
   });
-  const start = qzEl("button", "qz-btn qz-startbtn", "▶️ 開始練習");
-  start.addEventListener("click", () => { qzEntryMode = false; if (modal) modal.classList.remove("qz-entry"); qzSwitchSet(qzEntrySel); });
-  card.appendChild(start);
+
   stage.appendChild(card);
   qzTopLineUpd();
 }
 function qzBackToSummary(name) {
   if (!QZ[name]) name = "textbook";
+  qzClearAutoAdvance();
   qzSetName = name; qzIdx = qzItems().length; qzLocked = false; qzEntryMode = false;
   const modal = document.getElementById("quizModal"); if (modal) { modal.classList.add("qz-answering"); modal.classList.remove("qz-entry"); }
   qzRender();
@@ -7356,7 +7430,7 @@ function qzOrderSplitGroups(item) {
 function qzStartSingleRetry(orig) {
   const from = qzSetName;
   const c = Object.assign({}, orig);
-  c._earned = 0; c._done = false; c._stars = 0; c._matched = {}; c._placed = {}; c._wrongKeys = {}; c._wrongCount = 0; c._revealed = false; c._hintShown = false; c._drawn = false; c._viewed = false; c._skipped = false; c._selfRate = null; c._orig = orig;
+  c._earned = 0; c._done = false; c._stars = 0; c._matched = {}; c._placed = {}; c._wrongKeys = {}; c._wrongCount = 0; c._revealed = false; c._hintShown = false; c._drawn = false; c._viewed = false; c._skipped = false; c._selfRate = null; c._wrongPick = null; c._orig = orig;
   const n = (orig.opts || orig.imgs || []).length;
   const prev = qzShufCache[from + ":" + qzItems().indexOf(orig)] || orig._shuf;
   if (qzPermValid(prev, n)) c._prevShuf = prev.slice();
@@ -7388,7 +7462,7 @@ function qzFinishUnfinished() {
    rate ≥50% AND errors ≥3; 1–2 errors = 「留意」 only, NEVER labelled weak.
    Diagnosis UI ships behind qzDiagOn (default OFF); enable for pilot/UAT via
    window.qzDiagEnable(true). */
-let qzDiagOn = false;
+let qzDiagOn = true;
 window.qzDiagEnable = function (v) { qzDiagOn = !!v; };
 const QZ_VARIANTS_ON = false;
 const QZ_PILOT_SKILL_MAP = {
@@ -7450,7 +7524,7 @@ function qzStartPractice(skill) {
   if (!picks.length) return;
   const clones = picks.map(it => {
     const c = Object.assign({}, it);
-    c._earned = 0; c._done = false; c._stars = 0; c._matched = {}; c._placed = {}; c._wrongKeys = {}; c._wrongCount = 0; c._revealed = false; c._hintShown = false; c._drawn = false; c._viewed = false; c._skipped = false; c._selfRate = null; c._orig = it;
+    c._earned = 0; c._done = false; c._stars = 0; c._matched = {}; c._placed = {}; c._wrongKeys = {}; c._wrongCount = 0; c._revealed = false; c._hintShown = false; c._drawn = false; c._viewed = false; c._skipped = false; c._selfRate = null; c._wrongPick = null; c._orig = it;
     return c;
   });
   QZ.practice = { label: "練同類：" + skill, items: clones, _wrong: [], _from: from };
@@ -7488,7 +7562,7 @@ function qzRenderMC(item, card, fb) {
     b.addEventListener("click", () => {
       if (item._done || qzLocked) return;
       if (di === disp.dispAns) { item._done = true; b.classList.add("right"); fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + item.why; const sb = qzSpeakBtn(item.why || ""); if (sb) fb.insertBefore(sb, fb.firstChild); qzGain(item); }
-      else { b.classList.add("wrong"); const wc = qzWrong(item); qzWrongFb(item, fb, wc, "💪 " + qzEncourage(), () => { opts.children[disp.dispAns].classList.add("right"); qzReveal(item, fb, "正確答案：「" + item.opts[item.ans] + "」"); }); setTimeout(() => b.classList.remove("wrong"), 900); }
+      else { qzNoteWrongPick(item, { type: "mc", picked: item.opts[orig], at: Date.now() }); b.classList.add("wrong"); const wc = qzWrong(item); qzWrongFb(item, fb, wc, "💪 " + qzEncourage(), () => { opts.children[disp.dispAns].classList.add("right"); qzReveal(item, fb, "正確答案：「" + item.opts[item.ans] + "」"); }); setTimeout(() => b.classList.remove("wrong"), 900); }
     });
     opts.appendChild(b);
   });
@@ -7508,7 +7582,7 @@ function qzRenderImgMC(item, card, fb) {
     b.addEventListener("click", () => {
       if (item._done || qzLocked) return;
       if (di === disp.dispAns) { item._done = true; b.classList.add("right"); fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + item.why; const sb = qzSpeakBtn(item.why || ""); if (sb) fb.insertBefore(sb, fb.firstChild); qzGain(item); }
-      else { b.classList.add("wrong"); const wc = qzWrong(item); qzWrongFb(item, fb, wc, "💪 " + qzEncourage(), () => { grid.children[disp.dispAns].classList.add("right"); qzReveal(item, fb, "正確答案係第 " + (disp.dispAns + 1) + " 幅圖。"); }); setTimeout(() => b.classList.remove("wrong"), 900); }
+      else { qzNoteWrongPick(item, { type: "imgmc", picked: "第" + (di + 1) + "幅圖", at: Date.now() }); b.classList.add("wrong"); const wc = qzWrong(item); qzWrongFb(item, fb, wc, "💪 " + qzEncourage(), () => { grid.children[disp.dispAns].classList.add("right"); qzReveal(item, fb, "正確答案係第 " + (disp.dispAns + 1) + " 幅圖。"); }); setTimeout(() => b.classList.remove("wrong"), 900); }
     });
     grid.appendChild(b);
   });
@@ -7555,7 +7629,7 @@ function qzRenderMatch(item, card, fb) {
       fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + leftChar + " → " + rightWord + "，配對成功！";
       drawLines();
       const c = leftChar; selChar = null; selBtn = null; qzGain(item, c);
-    } else { const wc = qzWrong(item, leftChar); const _sc = leftChar; qzWrongFb(item, fb, wc, "💪 " + qzEncourage() + "「" + _sc + "」唔係配「" + rightWord + "」。", () => { item._matched = {}; item.pairs.forEach(pr => { item._matched[pr[0]] = pr[1]; }); colL.querySelectorAll(".qz-chip").forEach(c => c.classList.add("done")); colR.querySelectorAll(".qz-chip").forEach(c => c.classList.add("done")); drawLines(); selChar = null; selBtn = null; qzReveal(item, fb, "正確配對：" + item.pairs.map(pr => pr[0] + "→" + pr[1]).join("， ")); }); }
+    } else { const _wp = {}; _wp[leftChar] = rightWord; qzNoteWrongPick(item, { type: "match", pairs: _wp, at: Date.now() }); const wc = qzWrong(item, leftChar); const _sc = leftChar; qzWrongFb(item, fb, wc, "💪 " + qzEncourage() + "「" + _sc + "」唔係配「" + rightWord + "」。", () => { item._matched = {}; item.pairs.forEach(pr => { item._matched[pr[0]] = pr[1]; }); colL.querySelectorAll(".qz-chip").forEach(c => c.classList.add("done")); colR.querySelectorAll(".qz-chip").forEach(c => c.classList.add("done")); drawLines(); selChar = null; selBtn = null; qzReveal(item, fb, "正確配對：" + item.pairs.map(pr => pr[0] + "→" + pr[1]).join("， ")); }); }
   }
   item.pairs.forEach(pr => {
     const b = qzEl("button", "qz-chip", pr[0]);
@@ -7644,6 +7718,7 @@ function qzRenderDrag(item, card, fb) {
       qzGain(item, id);
     } else {
       chip.classList.add("wrongin");
+      const _wcat = (item.cats || []).find(cfg => cfg[0] === basket.dataset.cat); const _wp2 = {}; _wp2[id] = _wcat ? _wcat[1] : basket.dataset.cat; qzNoteWrongPick(item, { type: "drag", placed: _wp2, at: Date.now() });
       const wc = qzWrong(item, id);
       qzWrongFb(item, fb, wc, "💪 " + qzEncourage() + "「" + id + "」上下邊部分大啲，再諗諗！", () => {
         item._placed = {};
@@ -7824,7 +7899,7 @@ function qzRenderOrder(item, card, fb) {
       }
       item._done = true; fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + "「" + item.parts.join("") + (/[。？！.!?]$/.test(item.parts.join("")) ? "" : "。") + "」"; const sb = qzSpeakBtn(item.parts.join("")); if (sb) fb.insertBefore(sb, fb.firstChild);
       line.querySelectorAll(".qz-chip").forEach(c => c.classList.add("done")); qzGain(item);
-    } else { const wc = qzWrong(item); qzWrongFb(item, fb, wc, "💪 " + qzEncourage() + "邊句是原因、邊句是結果？㩒句子框的詞語可以放回下面。", () => { line.innerHTML = ""; item.parts.forEach(t => { const c = qzEl("div", "qz-chip done", t); line.appendChild(c); }); qzRegroupOrderLine(line); qzReveal(item, fb, "正確次序：「" + item.parts.join("") + "」"); }); }
+    } else { qzNoteWrongPick(item, { type: "order", placed: placed.slice(), at: Date.now() }); const wc = qzWrong(item); qzWrongFb(item, fb, wc, "💪 " + qzEncourage() + "邊句是原因、邊句是結果？㩒句子框的詞語可以放回下面。", () => { line.innerHTML = ""; item.parts.forEach(t => { const c = qzEl("div", "qz-chip done", t); line.appendChild(c); }); qzRegroupOrderLine(line); qzReveal(item, fb, "正確次序：「" + item.parts.join("") + "」"); }); }
   });
   const clr = qzEl("button", "qz-btn", "↺ 重新排");
   clr.addEventListener("click", () => {
@@ -7892,6 +7967,7 @@ function qzRenderFill(item, card, fb) {
       if (sb) fb.insertBefore(sb, fb.firstChild);
       qzGain(item);
     } else {
+      qzNoteWrongPick(item, { type: "fill", filled: cur.slice(), at: Date.now() });
       let newlyLocked = 0;
       slots.forEach((s, i) => {
         if (s.classList.contains("done")) return;
@@ -8061,6 +8137,58 @@ function qzCorrectResult(item) {
   if (item.type === "reveal") return qzEl("div", "qz-finrev-ans", item.answer || "");
   return null;
 }
+function qzFinrevTag(item) { return (item.tag || "").replace(/ MC$/, ""); }
+/* Finish-review "your answer" renderer. Returns null whenever there is no
+   captured pick (old saved progress) -> caller shows the correct answer
+   only, never a fabricated pick. Draw/reveal always return null: they show
+   the correct guide only. Match/drag/order show what was actually
+   paired/placed/ordered wrong, never a fake MC answer. */
+function qzYourAnswer(item) {
+  const wp = item._wrongPick; if (!wp) return null;
+  if (item.type === "draw" || item.type === "reveal") return null;
+  if (wp.type === "mc") return qzEl("div", "qz-finrev-wrong", "❌ 你的答案：「" + wp.picked + "」");
+  if (wp.type === "imgmc") return qzEl("div", "qz-finrev-wrong", "❌ 你的答案：" + wp.picked);
+  if (wp.type === "match" && wp.pairs) {
+    const box = qzEl("div", "qz-finrev-wrongbox");
+    box.appendChild(qzEl("div", "qz-finrev-head", "你曾經配錯："));
+    Object.keys(wp.pairs).forEach(k => {
+      const row = qzEl("div", "qz-finrev-pair");
+      row.appendChild(qzEl("span", "qz-finrev-box", k));
+      row.appendChild(qzEl("span", "qz-finrev-arrow", "→"));
+      row.appendChild(qzEl("span", "qz-finrev-box", wp.pairs[k]));
+      box.appendChild(row);
+    });
+    return box;
+  }
+  if (wp.type === "drag" && wp.placed) {
+    const box = qzEl("div", "qz-finrev-wrongbox");
+    box.appendChild(qzEl("div", "qz-finrev-head", "你曾經放錯："));
+    Object.keys(wp.placed).forEach(k => {
+      const row = qzEl("div", "qz-finrev-pair");
+      row.appendChild(qzEl("span", "qz-finrev-box", k));
+      row.appendChild(qzEl("span", "qz-finrev-arrow", "→"));
+      row.appendChild(qzEl("span", "qz-finrev-box", wp.placed[k]));
+      box.appendChild(row);
+    });
+    return box;
+  }
+  if (wp.type === "order" && wp.placed) {
+    const box = qzEl("div", "qz-finrev-wrongbox");
+    box.appendChild(qzEl("div", "qz-finrev-head", "你曾經排錯："));
+    wp.placed.forEach((p, i) => {
+      const row = qzEl("div", "qz-finrev-ord");
+      row.appendChild(qzEl("span", "qz-finrev-num", String(i + 1)));
+      row.appendChild(qzEl("span", "qz-finrev-box", String(p).trim()));
+      box.appendChild(row);
+    });
+    return box;
+  }
+  if (wp.type === "fill" && wp.filled) {
+    const sent = item.segs.map((t, i) => t + (i < wp.filled.length ? wp.filled[i] : "")).join("");
+    return qzEl("div", "qz-finrev-wrong", "❌ 你的答案：「" + sent + "」");
+  }
+  return null;
+}
 function qzFinishReview() {
   const rev = qzItems().filter(it => {
     if (it._wrongKeys && Object.keys(it._wrongKeys).length) return true;
@@ -8073,29 +8201,97 @@ function qzFinishReview() {
   if (!rev.length) return null;
   const sec = qzEl("div", "qz-finrev");
   sec.appendChild(qzEl("h4", null, "📖 錯題同未完成題目回顧"));
-  rev.forEach(it => {
-    const box = qzEl("div", "qz-finrev-item qz-retryable");
-    box.title = "㩒呢度逐題重做";
-    box.addEventListener("click", () => qzStartSingleRetry(it));
-    const title = (it.tag ? it.tag + "・" : "") + (it.q || "練習題");
-    box.appendChild(qzEl("div", "qz-finrev-q", title));
+  const scored = qzItems().filter(it => qzMax(it) > 0);
+  const firstOk = scored.filter(it => qzComplete(it) && !(it._wrongKeys && Object.keys(it._wrongKeys).length)).length;
+  const sum = qzEl("div", "qz-finrev-sum");
+  sum.appendChild(qzEl("div", "qz-finrev-sumline", "✅ 第一次就答啱 " + firstOk + " 題 / 總共 " + scored.length + " 題"));
+  sum.appendChild(qzEl("div", null, "下面只係錯題同未完成題目（" + rev.length + " 題），唔係全部題目。"));
+  if (qzSetName === "single" || qzSetName === "practice" || qzSetName === "retry") sum.appendChild(qzEl("div", null, "練習模式：呢版唔計首次星星，⭐ 0 唔代表全部錯。"));
+  sec.appendChild(sum);
+  const sel = new Set(rev.map((it, i) => i));
+  const allRow = qzEl("div", "qz-finrev-allrow");
+  const allBtn = qzEl("button", "qz-btn alt", "取消全選");
+  allRow.appendChild(allBtn);
+  allRow.appendChild(qzEl("div", "qz-finrev-allnote", "預設全部已選，剔走唔想重做嘅題，再㩒「重做已選」。"));
+  sec.appendChild(allRow);
+  const bulkBtn = qzEl("button", "qz-btn", "重做已選（" + rev.length + " 題）");
+  const revBoxes = [];
+  function sync() {
+    allBtn.textContent = sel.size === rev.length ? "取消全選" : "全選";
+    bulkBtn.textContent = "重做已選（" + sel.size + " 題）";
+    bulkBtn.disabled = sel.size === 0;
+    revBoxes.forEach((b, i) => {
+      const on = sel.has(i);
+      b.classList.toggle("sel", on);
+      const cb = b.querySelector(".qz-finrev-chk"); if (cb) cb.checked = on;
+      const st = b.querySelector(".qz-finrev-selstate"); if (st) st.textContent = on ? "✓ 已選" : "未選";
+    });
+  }
+  allBtn.addEventListener("click", () => { if (sel.size === rev.length) sel.clear(); else rev.forEach((it, i) => sel.add(i)); sync(); });
+  rev.forEach((it, ri) => {
+    const box = qzEl("div", "qz-finrev-item qz-retryable sel");
+    box.title = "㩒呢度揀／取消揀呢題重做";
+    const head = qzEl("div", "qz-finrev-headrow");
+    const cb = qzEl("input", "qz-finrev-chk"); cb.type = "checkbox"; cb.checked = true; cb.setAttribute("aria-label", "揀呢題重做");
+    cb.addEventListener("click", (e) => { e.stopPropagation(); });
+    cb.addEventListener("change", () => { if (cb.checked) sel.add(ri); else sel.delete(ri); sync(); });
+    head.appendChild(cb);
+    head.appendChild(qzEl("span", "qz-finrev-qnum", "第 " + (qzItems().indexOf(it) + 1) + " 題"));
+    const tg = qzFinrevTag(it); if (tg) head.appendChild(qzEl("span", "qz-finrev-tag", tg));
+    box.appendChild(head);
+    box.appendChild(qzEl("div", "qz-finrev-q", it.q || "練習題"));
+    const ya = qzYourAnswer(it); if (ya) box.appendChild(ya);
+    const cr = qzCorrectResult(it); if (cr) box.appendChild(cr);
     if (it.why) {
       const exp = qzEl("div", "qz-finrev-exp");
-      exp.textContent = it.why;
-      const sb = qzSpeakBtn(it.why);
-      if (sb) exp.insertBefore(sb, exp.firstChild);
+      const sb = qzSpeakBtn(it.why); if (sb) exp.appendChild(sb);
+      const tx = qzEl("span", "qz-finrev-exptxt"); tx.textContent = it.why; exp.appendChild(tx);
       box.appendChild(exp);
-    } else {
-      const cr = qzCorrectResult(it);
-      if (cr) box.appendChild(cr);
     }
-    box.appendChild(qzEl("span", "qz-redopill", "↻ 重做呢題"));
+    const foot = qzEl("div", "qz-finrev-foot");
+    foot.appendChild(qzEl("span", "qz-finrev-selstate", "✓ 已選"));
+    const pill = qzEl("button", "qz-redopill", "↻ 重做呢題");
+    pill.addEventListener("click", (e) => { e.stopPropagation(); qzStartSingleRetry(it); });
+    foot.appendChild(pill);
+    box.appendChild(foot);
+    box.addEventListener("click", (e) => {
+      if (e.target.closest && (e.target.closest("button") || e.target.closest("input"))) return;
+      if (sel.has(ri)) sel.delete(ri); else sel.add(ri);
+      sync();
+    });
     sec.appendChild(box);
+    revBoxes.push(box);
   });
+  const bulkBar = qzEl("div", "qz-finrev-bar");
+  bulkBtn.addEventListener("click", () => { const chosen = rev.filter((it, i) => sel.has(i)); if (chosen.length) qzStartBulkRetry(chosen); });
+  bulkBar.appendChild(bulkBtn);
+  sec.appendChild(bulkBar);
+  sync();
   return sec;
 }
+/* Bulk redo for the finish-review multi-select: same clone rules as
+   qzStartRetry (fresh shuffle inheritance, no retroactive first-try star,
+   _orig flip on completion), but only for the selected items. */
+function qzStartBulkRetry(items) {
+  const from = qzSetName, src = QZ[from]; if (!src || !items.length) return;
+  const clones = [];
+  items.forEach(it => {
+    const oi = src.items.indexOf(it);
+    const c = Object.assign({}, it); c._earned = 0; c._done = false; c._stars = 0; c._matched = {}; c._placed = {}; c._wrongKeys = {}; c._wrongCount = 0; c._revealed = false; c._hintShown = false; c._drawn = false; c._viewed = false; c._wrongPick = null; c._orig = it;
+    const perm = qzShufCache[from + ":" + oi];
+    if (qzPermValid(perm, (it.opts || it.imgs || []).length)) c._shuf = perm.slice();
+    else if (qzPermValid(it._shuf, (it.opts || it.imgs || []).length)) c._shuf = it._shuf.slice();
+    clones.push(c);
+  });
+  QZ.retry = { label: "錯題再練", items: clones, _wrong: [], _from: from };
+  qzSetName = "retry";
+  ["qzTabTextbook", "qzTabChallenge", "qzTabApply"].forEach(id => { const t = document.getElementById(id); if (t) t.classList.remove("on"); });
+  qzGo(0);
+}
 function qzFinishCard() {
-  const S = QZ[qzSetName], t = qzTotals();
+  const S = QZ[qzSetName] || QZ.textbook;
+  if (!S) return qzEl("div");
+  const t = qzTotals();
   const card = qzEl("div", "qz-summary qz-enter");
   const doneCount = qzItems().filter(it => qzMax(it) > 0 && qzComplete(it)).length;
   const scoredCount = qzItems().filter(it => qzMax(it) > 0).length;
@@ -8161,14 +8357,15 @@ function qzFinishCard() {
   return card;
 }
 function qzWrongItemCount() {
-  return QZ[qzSetName].items.filter(it => it._wrongKeys && Object.keys(it._wrongKeys).length).length;
+  if (!(QZ[qzSetName] || QZ.textbook)) return 0;
+  return (QZ[qzSetName] || QZ.textbook).items.filter(it => it._wrongKeys && Object.keys(it._wrongKeys).length).length;
 }
 function qzStartRetry() {
   const from = qzSetName, src = QZ[from];
   const clones = [];
   src.items.forEach((it, oi) => {
     if (!(it._wrongKeys && Object.keys(it._wrongKeys).length)) return;
-    const c = Object.assign({}, it); c._earned = 0; c._done = false; c._stars = 0; c._matched = {}; c._placed = {}; c._wrongKeys = {}; c._wrongCount = 0; c._revealed = false; c._hintShown = false; c._drawn = false; c._viewed = false; c._orig = it;
+    const c = Object.assign({}, it); c._earned = 0; c._done = false; c._stars = 0; c._matched = {}; c._placed = {}; c._wrongKeys = {}; c._wrongCount = 0; c._revealed = false; c._hintShown = false; c._drawn = false; c._viewed = false; c._wrongPick = null; c._orig = it;
     /* Batch B #3: the retry clone inherits the original's shuffle permutation
        (cached by set+index, else the item's _shuf carrier), so retry shows the
        same option order as the first playthrough. */
@@ -8186,12 +8383,14 @@ function qzStartRetry() {
   qzGo(0);
 }
 function qzResetSet(name) {
+  if (!QZ[name]) return;
+  qzClearAutoAdvance();
   qzScratchClear();
   const S = QZ[name]; S._wrong = [];
   /* Batch B #3: set reset clears the shuffle cache for this set (next
      playthrough re-shuffles) and the _shuf carriers on its items. */
   Object.keys(qzShufCache).forEach(k => { if (k.indexOf(name + ":") === 0) delete qzShufCache[k]; });
-  S.items.forEach(it => { it._earned = 0; it._done = false; it._stars = 0; it._retried = false; it._matched = {}; it._placed = {}; it._wrongKeys = {}; it._wrongCount = 0; it._revealed = false; it._hintShown = false; delete it._shuf; it._drawn = false; it._viewed = false; });
+  S.items.forEach(it => { it._earned = 0; it._done = false; it._stars = 0; it._retried = false; it._matched = {}; it._placed = {}; it._wrongKeys = {}; it._wrongCount = 0; it._revealed = false; it._hintShown = false; delete it._shuf; it._drawn = false; it._viewed = false; it._wrongPick = null; });
 }
 function qzPackState() {
   function pack(name) {
@@ -8206,6 +8405,7 @@ function qzPackState() {
       const mk = it._matched ? Object.keys(it._matched) : [];
       if (mk.length) rec.m = mk;
       if (it._placed && Object.keys(it._placed).length) rec.p = it._placed;
+      if (it._wrongPick) rec.wp = it._wrongPick;
       return rec;
     });
   }
@@ -8234,72 +8434,14 @@ function qzApplyState(data) {
         it._wrongKeys = {}; (rec.w || []).forEach(sub => { const k = sub === "" ? it.label : (sub.indexOf(it.label) === 0 ? sub : it.label + "：" + sub); it._wrongKeys[k] = true; S._wrong.push(k); });
         it._matched = {}; if (rec.m) rec.m.forEach(ch => { const pr = (it.pairs || []).find(p => p[0] === ch); if (pr) it._matched[ch] = pr[1]; });
         it._placed = rec.p || {};
+        it._wrongPick = rec.wp || null;
       });
     });
     qzScoreUpd();
     return true;
   } catch (e) { return false; }
 }
-function qzRenderDots() {
-  const box = document.getElementById("qzDots");
-  if (!box) return;
-  box.innerHTML = "";
-  qzItems().forEach((it, i) => {
-    const b = qzEl("span", "qz-dot", String(i + 1));
-    if (i === qzIdx) b.classList.add("cur");
-    if (qzComplete(it)) b.classList.add("done");
-    else if (it._wrongKeys && Object.keys(it._wrongKeys).length) b.classList.add("tried");
-    box.appendChild(b);
-  });
-  const fin = qzEl("span", "qz-dot", "🏁");
-  if (qzIdx >= qzItems().length) fin.classList.add("cur");
-  box.appendChild(fin);
-  /* Batch A footer: keep the active dot visible inside the scrollable dots strip. */
-  const cur = box.querySelector(".qz-dot.cur");
-  if (cur) cur.scrollIntoView({ block: "nearest", inline: "nearest" });
-  if (!box.dataset.jumpBound) { box.dataset.jumpBound = "1"; box.addEventListener("click", () => qzJumpToggle()); }
-  qzRenderJump();
-}
-function qzJumpEl() {
-  let p = document.getElementById("qzJump");
-  if (p) return p;
-  p = qzEl("div"); p.id = "qzJump";
-  const head = qzEl("div", "qz-jhead");
-  head.appendChild(qzEl("span", null, (window.T ? T("qzJump") : "🔍 跳去邊一題？")));
-  const x = qzEl("button", "qz-jclose", "✕");
-  x.addEventListener("click", () => qzJumpToggle(false));
-  head.appendChild(x);
-  p.appendChild(head);
-  p.appendChild(qzEl("div", "qz-jgrid"));
-  const foot = document.querySelector(".qz-footer");
-  if (foot && foot.parentNode) foot.parentNode.insertBefore(p, foot);
-  return p;
-}
-function qzJumpToggle(force) {
-  const p = qzJumpEl();
-  const open = force !== undefined ? !!force : !p.classList.contains("open");
-  p.classList.toggle("open", open);
-  if (open) qzRenderJump();
-}
-function qzRenderJump() {
-  const p = document.getElementById("qzJump");
-  if (!p) return;
-  const grid = p.querySelector(".qz-jgrid");
-  if (!grid) return;
-  grid.innerHTML = "";
-  qzItems().forEach((it, i) => {
-    const b = qzEl("button", "qz-jbtn", String(i + 1));
-    if (i === qzIdx) b.classList.add("cur");
-    if (qzComplete(it)) b.classList.add("done");
-    else if (it._wrongKeys && Object.keys(it._wrongKeys).length) b.classList.add("tried");
-    b.addEventListener("click", () => qzGo(i));
-    grid.appendChild(b);
-  });
-  const fin = qzEl("button", "qz-jbtn", "🏁");
-  if (qzIdx >= qzItems().length) fin.classList.add("cur");
-  fin.addEventListener("click", () => qzGo(qzItems().length));
-  grid.appendChild(fin);
-}
+
 /* ---- Scratch pad 草稿板：quiz 層通用，轉題保留，關閉／reset 即清，唔寫入進度儲存；擦膠 48px＋虛線範圍圈，空白畫布顯示提示字 ---- */
 const QZ_SCRATCH_ERASE = 48;
 let qzScStrokes = [];
@@ -8319,7 +8461,9 @@ function qzScratchEl() {
   p.appendChild(stg);
   const row = qzEl("div", "qz-scrow");
   const pen = qzEl("button", "qz-scbtn on", "✏️");
-  const ers = qzEl("button", "qz-scbtn qz-scers", "🧹 擦膠");
+  const ers = qzEl("button", "qz-scbtn qz-scers");
+  ers.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" style="vertical-align:middle" aria-hidden="true"><rect x="2" y="7.5" width="20" height="11" rx="2.5" fill="#F9A8D4" stroke="#9D174D" stroke-width="1.2"/><rect x="2" y="7.5" width="8" height="11" rx="2.5" fill="#60A5FA" stroke="#1E40AF" stroke-width="1.2"/><rect x="13" y="10" width="7" height="2" rx="1" fill="#FBCFE8"/></svg>';
+  ers.title = "擦膠"; ers.setAttribute("aria-label", "擦膠");
   const und = qzEl("button", "qz-scbtn", "↩️");
   const red = qzEl("button", "qz-scbtn", "↪️");
   const clr = qzEl("button", "qz-scbtn qz-scclear", "🗑️");
@@ -8328,9 +8472,9 @@ function qzScratchEl() {
   und.addEventListener("click", () => { if (!qzScStrokes.length) return; qzScUndone.push(qzScStrokes.pop()); p._paint(); p._btns(); });
   red.addEventListener("click", () => { if (!qzScUndone.length) return; qzScStrokes.push(qzScUndone.pop()); p._paint(); p._btns(); });
   clr.addEventListener("click", () => {
-    if (p._clearArm) { clearTimeout(p._clearArm); p._clearArm = null; clr.classList.remove("warn"); qzScStrokes = []; qzScUndone = []; qzScTool = "pen"; pen.classList.add("on"); ers.classList.remove("on"); ring.style.display = "none"; p._paint(); p._btns(); return; }
-    clr.classList.add("warn");
-    p._clearArm = setTimeout(() => { p._clearArm = null; clr.classList.remove("warn"); }, 3000);
+    if (p._clearArm) { clearTimeout(p._clearArm); p._clearArm = null; clr.classList.remove("warn"); clr.textContent = "🗑️"; qzScStrokes = []; qzScUndone = []; qzScTool = "pen"; pen.classList.add("on"); ers.classList.remove("on"); ring.style.display = "none"; p._paint(); p._btns(); return; }
+    clr.classList.add("warn"); clr.textContent = "🗑️ 確定清除？";
+    p._clearArm = setTimeout(() => { p._clearArm = null; clr.classList.remove("warn"); clr.textContent = "🗑️"; }, 3000);
   });
   [pen, ers, und, red, clr].forEach(b => row.appendChild(b));
   const cls = qzEl("button", "qz-scclose-top", "✕ 關閉");
@@ -8392,7 +8536,7 @@ function qzScratchPeekReset() {
   if (p._close) p._close.style.display = "";
   if (p._peek) p._peek.textContent = "👀 睇題目";
 }
-function qzScratchToggle() { const p = qzScratchEl(); const wasOpen = qzScratchOpen(); p.style.display = wasOpen ? "none" : "block"; if (wasOpen) qzScratchPeekReset(); if (!wasOpen) qzScratchScrollRowIntoView(); if (!wasOpen && p._ring) p._ring.style.display = "none"; if (!wasOpen) qzScratchRailCheck(); }
+function qzScratchToggle() { const p = qzScratchEl(); const wasOpen = qzScratchOpen(); p.style.display = wasOpen ? "none" : "block"; if (wasOpen) qzScratchPeekReset(); if (!wasOpen) qzScratchScrollStageIntoView(); if (!wasOpen && p._ring) p._ring.style.display = "none"; if (!wasOpen) qzScratchRailCheck(); }
 /* Redesign #1 (peek, shared): hides canvas+hint+ring+close-pill, keeps the
    tools row, scrolls the stage into view; toggling back restores the draft
    pixel-identical (strokes live only in module vars + the canvas bitmap;
@@ -8467,6 +8611,9 @@ window.qzOpen = function (id, itemKey) {
 const _qzOb = document.getElementById("quizOpenBtn");
 if (_qzOb) _qzOb.addEventListener("click", () => window.qzOpen("chi_l3", "CHI_PROGRESS_1"));
 document.getElementById("quizCloseBtn").addEventListener("click", () => {
+  if (!qzEntryMode && !confirm("確定要離開測驗嗎？")) return;
+  qzClearAutoAdvance();
+  qzSpeakGen++;
   qzScratchClear();
   document.getElementById("quizModal").style.display = "none";
   document.body.style.overflow = "";
@@ -8524,6 +8671,7 @@ function qzToggleReview() {
     }
   }
   panel.style.display = "block";
+  panel.scrollIntoView({ block: "nearest" });
   document.querySelectorAll(".qz-reviewbtn").forEach(b => b.classList.add("on"));
 }
 const _qzTt = document.getElementById("qzTabTextbook"); if (_qzTt) _qzTt.addEventListener("click", () => qzSwitchSet("textbook"));
