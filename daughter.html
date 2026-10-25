@@ -6822,7 +6822,7 @@ function qzMigrateLegacy() {
     });
   } catch (e) {}
 }
-function qzMax(item) { return item.type === "mc" || item.type === "order" || item.type === "fill" ? 1 : item.type === "match" ? item.pairs.length : item.type === "drag" ? item.chips.length : 0; }
+function qzMax(item) { return item.type === "mc" || item.type === "imgmc" || item.type === "order" || item.type === "fill" ? 1 : item.type === "match" ? item.pairs.length : item.type === "drag" ? item.chips.length : 0; }
 function qzEarned(item) { return item._earned || 0; }
 function qzComplete(item) { const m = qzMax(item); return m > 0 && qzEarned(item) >= m; }
 function qzTotals() { let e = 0, t = 0; qzItems().forEach(it => { e += qzEarned(it); t += qzMax(it); }); return [e, t]; }
@@ -7524,9 +7524,8 @@ function qzSkillSummary(cardEl) {
    new page. Included iff the child got the item wrong at least once
    (non-empty _wrongKeys, even if later corrected) OR never finished it.
    Finished is judged per type, NOT via qzMax/qzComplete for single-answer
-   types: live daughter.html qzMax lacks imgmc (known drift, Eddie's decision
-   pending, deliberately untouched), so qzComplete(imgmc) is always false
-   there — using it would wrongly include every first-try-correct imgmc.
+   types: qzMax now includes imgmc (fixed 2026-10-25, Eddie approved), so
+   qzComplete(imgmc) works; the per-type rule below is kept unchanged.
    Rule: mc/imgmc/order/fill → included iff !_done; match/drag → included
    iff !qzComplete (their live qzMax is correct); draw → !_drawn; reveal →
    !_viewed. Read-only: never changes stars, scores or retry behaviour.
