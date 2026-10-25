@@ -1,7 +1,7 @@
 {
   "service": "daughter-school-detail",
   "student": "琳琳 2A",
-  "updated": "2026-10-25T01:45:27.130418+00:00",
+  "updated": "2026-10-25T02:35:00.584131+00:00",
   "homework": [
     {
       "key": "HUM_VIDEO_1",
@@ -85,6 +85,22 @@
         "Camera presence scores marks: eye contact with the lens, facial expressions and natural gestures; one prop used well (a friend's photo or a drawing) can add marks.",
         "Deadline: the worksheet says upload on or before Sat 31 Oct (Classroom shows 1 Nov) — safest to submit on 31 Oct, right after filming."
       ]
+    }
+  ],
+  "homework_done": [
+    {
+      "key": "MATH_VIDEO_1",
+      "subject": "數學",
+      "title": "數學視訊一",
+      "due": "2026-10-25",
+      "status": "submitted",
+      "subject_en": "Mathematics",
+      "title_en": "Maths Video Task 1",
+      "due_display": "10月25日 (日)",
+      "days_left": 0,
+      "detail": "「2026-27 年度 二年級 數學科 第一學段視訊功課(1)」（甘麗姸老師，10月9日發佈）｜題目：利用數卡排出兩組三位數後，比較這兩個三位數的大小｜形式：錄影（約1分鐘）｜繳交狀態：已繳交（上星期經 Google Classroom）｜截止日期：10月25日（星期六）",
+      "source_tier": "verified_capture",
+      "source": "Google Classroom 檢查 2026-10-25（狀態：已繳交）＋ Eddie 確認截止日期 10月25日"
     }
   ],
   "upcoming": [
