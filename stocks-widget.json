@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T13:32:47.671121+00:00",
+ "updated": "2026-10-25T13:33:50.199476+00:00",
  "technical": {
   "status": "ok",
   "data_date": "2026-10-23",
@@ -331,30 +331,47 @@
   }
  },
  "sentiment": {
-  "as_of": "2026-10-21",
+  "as_of": "2026-10-25",
+  "note": "2026-10-25 週報首次正式採集：wishlist 三組為本週實測；Mag7 市場組仍沿用 2026-10-21 種子值（週報 Mag7 只做簡表，不做輿情深挖）",
   "states": {
    "SPCX": {
     "market": {
-     "state": "偏好",
+     "state": "中性",
      "conf": "低信心",
-     "neg_rate": null,
-     "driver": "Q3 收入 +161%、首次季度盈利；與 Tesla 探討合併；多家投行上調目標價（種子）"
-    }
-   },
-   "TSLA": {
-    "market": {
-     "state": "偏好",
+     "neg_rate": 0.4,
+     "driver": "Q3 大勝（收入+161%、EPS $0.45勝預期）vs 10-22 約13億股解禁拋售 -9.1%，兩股力拉鋸；AltIndex Reddit 情緒 64/100 中性（種子）"
+    },
+    "employee": {
+     "state": "中性",
      "conf": "低信心",
-     "neg_rate": null,
-     "driver": "與 SpaceX 各設獨立委員會探討合併（種子）"
+     "neg_rate": 0.4,
+     "driver": "Glassdoor 3.8星、70%推薦、前景樂觀80%；工時2.5星與中層管理為持續扣分項"
+    },
+    "customer": {
+     "state": "中性",
+     "conf": "低信心",
+     "neg_rate": 0.38,
+     "driver": "Starlink 滿意度76/100高於行均73；擁擠附加費（最高$1,500）與客服難聯絡為主訴，本週無新事故"
     }
    },
    "SNDK": {
     "market": {
      "state": "中性",
      "conf": "低信心",
-     "neg_rate": null,
-     "driver": "未有重大消息；NAND 價格平穩（種子）"
+     "neg_rate": 0.46,
+     "driver": "10-22 半導體拋售跟跌8.5%；分析師仍普遍看好（15 Buy/2 Hold，均值目標$2,206，+75%），StockTwits 週五轉回偏好區（種子）"
+    },
+    "employee": {
+     "state": "中性",
+     "conf": "低信心",
+     "neg_rate": 0.5,
+     "driver": "本週無新帖；Glassdoor 累計3.4星、62%推薦，好同事/薪酬 vs 裁員重組/工時拉鋸"
+    },
+    "customer": {
+     "state": "中性",
+     "conf": "低信心",
+     "neg_rate": 0.5,
+     "driver": "本週無新產品事件；舊 Extreme 系列2023故障信任問題仍是主旋律，2026評測認為速度/做工仍可"
     }
    },
    "AAPL": {
@@ -394,7 +411,7 @@
      "state": "中性",
      "conf": "低信心",
      "neg_rate": null,
-     "driver": "今晚盤後公佈業績（種子）"
+     "driver": "Q3 勝預期但自由現金流轉負，10-22 跌 7%（週報簡表用，輿情未正式採集）（種子）"
     }
    },
    "NVDA": {
@@ -404,8 +421,15 @@
      "neg_rate": null,
      "driver": ""
     }
+   },
+   "TSLA": {
+    "market": {
+     "state": "偏好",
+     "conf": "低信心",
+     "neg_rate": null,
+     "driver": "與 SpaceX 各設獨立委員會探討合併（種子）"
+    }
    }
-  },
-  "note": "種子狀態（2026-10-21 晚間新聞）；正式三組採集由星期日週報開始"
+  }
  }
 }
