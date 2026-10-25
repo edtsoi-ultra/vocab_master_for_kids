@@ -182,7 +182,7 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .updmini { order: 99; flex: 1 1 100%; font-size: 10px; color: #64748B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right; margin: 1px 2px 0 0; }
 #collapseAll { flex: 0 0 auto; }
 #collapseAll { flex: 0 0 auto; }
-#quizModal { display: none; position: fixed; inset: 0; background: rgba(2,6,23,.97); z-index: 1100; flex-direction: column; overscroll-behavior: contain; }
+#quizModal { display: none; position: fixed; inset: 0; background: #020617; z-index: 1100; flex-direction: column; overscroll-behavior: contain; }
 .qz-bar { width: 100%; max-width: 720px; margin: 0 auto; padding: 10px; display: flex; gap: 8px; justify-content: space-between; align-items: center; flex-wrap: wrap; flex: none; }
 .qz-tabs { display: flex; gap: 6px; }
 .qz-tab { border: 2px solid #64748B; background: #0F172A; color: #CBD5E1; border-radius: 20px; padding: 7px 15px; font-size: 14.5px; font-weight: 900; cursor: pointer; }
@@ -214,7 +214,7 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-review li { margin-bottom: 5px; font-size: 15px; line-height: 1.55; color: #E2E8F0; }
 .qz-fb .qz-revealbtn { margin-top: 10px; }
 .qz-spk { margin-right: 8px; border: 1.5px solid #38BDF8; background: #0C4A6E; color: #E0F2FE; border-radius: 8px; padding: 2px 8px; font-size: 15px; cursor: pointer; }
-.qz-reviewbtn { flex: none; border: 2px solid #F59E0B; background: #451A03; color: #FDE68A; border-radius: 50%; width: 44px; height: 44px; font-size: 19px; cursor: pointer; margin-left: 6px; }
+.qz-reviewbtn { flex: none; border: 2px solid #F59E0B; background: #451A03; color: #FDE68A; border-radius: 50%; width: 40px; height: 40px; font-size: 19px; cursor: pointer; margin-left: 6px; }
 .qz-reviewbtn.on { background: #F59E0B; color: #451A03; }
 .qz-revtabs { display: flex; gap: 8px; margin-bottom: 10px; }
 .qz-revtab { border: 1.5px solid #F59E0B; background: transparent; color: #FDE68A; border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 800; cursor: pointer; }
@@ -223,44 +223,99 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-gap { width: 22px; min-height: 52px; flex: none; background: rgba(245,158,11,.28); border: 3px dashed #F59E0B; border-radius: 8px; box-shadow: 0 0 0 2px rgba(245,158,11,.55); align-self: stretch; }
 .qz-ghost { position: fixed; z-index: 9999; opacity: .85; pointer-events: none; box-shadow: 0 8px 24px rgba(0,0,0,.45); }
 .qz-chip.dragsrc { opacity: .35; }
-.qz-imggrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+/* Answer-cell token system (grid redesign trial, 2026-10-25; CSS only).
+   One set of tokens across matching / MC / imgmc / drag / order cells:
+   - font: 24px phone, 26px wide (>=820px). Grid v2: the MC wide rule
+     moved from the >=900px block into the >=820px block, alongside the
+     matching-chip 26px rule, so the comment and the CSS now agree.
+     24px is chosen over the 22px
+     wide override because stems are 18.5px phone / 26px wide: cells must
+     never look smaller than the stem, and 24px keeps phone cells clearly
+     larger than the stem without exceeding the wide stem size.
+   - padding: 14px 12px (matching chips: 20px on the dot side, so text
+     clears the 6px of visible dot circle intruding over the chip edge).
+   - min-height: 60px (basket chips 56px: denser stacked container).
+   - radius: 14px; border: 2px (imgmc image buttons keep 3px: image cells
+     need the stronger frame; their right state already uses a shadow).
+   - gaps: matching columns 28px, matching rows 20px, MC/imgmc grids,
+     tray, baskets and orderline 12px, phrase+punctuation units 2px
+     (grouping must stay tight; check logic reads the flat sequence).
+   Why 28px for matching columns: each match dot is a 28px hit box
+     centred on its chip edge (padding-box origin, so it intrudes 12px
+     into the gap past the 2px border); a 28px gap leaves 4px clearance
+     between the two hit boxes -- no overlap (tap ambiguity) and no
+     wasted width. Smaller gaps would overlap the hit boxes; larger
+     gaps only stretch the connecting lines. Measured (390px and
+     820px): chip-edge gap exactly 28px; dot-centre gap 32px, because
+     each dot centre sits 2px inside its chip edge (pre-existing
+     border-box vs padding-box offset, dot CSS untouched); the ctr()
+     lines land on the chip edges, 2px from the dot centres, well
+     inside the 12px visible dot circle.
+   States use border + background + shadow/opacity together, never
+     colour alone (selected/done/wrong/snap each gain a shadow or an
+     opacity change in addition to the border/background change).
+   Long-option fall: no 1-column fall is implemented -- it would need
+     JS or per-item classes to detect length. Instead the grids use
+     repeat(2, minmax(0,1fr)) plus min-width:0 and overflow-wrap, so
+     CJK text (which wraps per character) can never push the card
+     off-screen; a long option wraps to more lines inside its column. */
+.qz-imggrid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; margin-top: 14px; }
 .qz-imgbtn { position: relative; border: 3px solid #64748B; border-radius: 14px; overflow: hidden; padding: 0; cursor: pointer; background: #0F172A; }
 .qz-imgbtn img, .qz-imgbtn .qz-img svg { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
 .qz-imgbtn.right { border-color: #22C55E; box-shadow: 0 0 0 3px #22C55E; }
-.qz-imgbtn.wrong { border-color: #EF4444; }
-.qz-imgnum { position: absolute; top: 8px; left: 8px; background: rgba(9,13,22,.88); color: #fff; border-radius: 50%; width: 30px; height: 30px; line-height: 30px; font-size: 17px; font-weight: 800; z-index: 2; }
+.qz-imgbtn.wrong { border-color: #EF4444; box-shadow: 0 0 0 3px #EF4444; }
+.qz-imgnum { position: absolute; top: 8px; left: 8px; background: rgba(9,13,22,.88); color: #fff; border-radius: 50%; width: 34px; height: 34px; line-height: 34px; font-size: 19px; font-weight: 800; z-index: 2; }
 .qz-enter { animation: qzSlide .35s ease; }
 @keyframes qzSlide { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
-.qz-tag { display: inline-block; background: #7C2D12; color: #FED7AA; font-size: 12px; font-weight: 800; border-radius: 20px; padding: 2px 10px; margin-bottom: 8px; }
+/* Grid v2 header: tag pill + buttons share one row (.qz-headrow, pill left,
+   button group right via margin-left:auto, vertically centred); the stem
+   gets its own full-width row below (.qz-qrow, stem only). Unified height
+   40px: the old pill was 21px (too small to tap beside), the old round
+   buttons were 44px, so 40px keeps a kid-sized tap target while giving
+   the pill real height (explicit height + flex centring, not padding
+   guesswork). At 390px with the peek button visible the row wraps as
+   two units (pill line 1, button group line 2, still right-aligned) —
+   the only width where pill + 3 buttons + peek exceed the card. */
+.qz-headrow { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
+.qz-tag { display: inline-flex; align-items: center; background: #7C2D12; color: #FED7AA; font-size: 12px; font-weight: 800; border-radius: 20px; padding: 0 12px; height: 40px; box-sizing: border-box; margin-bottom: 0; flex: 0 1 auto; min-width: 0; }
+.qz-headbtns { display: flex; gap: 6px; align-items: center; margin-left: auto; flex: none; }
+.qz-headbtns .qz-speak, .qz-headbtns .qz-reviewbtn, .qz-headbtns .qz-scratchbtn, .qz-headbtns .qz-peekbtn { margin-left: 0; }
 .qz-qrow { display: flex; gap: 8px; align-items: flex-start; }
 .qz-q { color: #F1F5F9; font-size: 18.5px; font-weight: 800; line-height: 1.6; flex: 1; }
-.qz-speak { flex: none; border: 2px solid #38BDF8; background: #082F49; border-radius: 50%; width: 44px; height: 44px; font-size: 19px; cursor: pointer; }
+.qz-speak { flex: none; border: 2px solid #38BDF8; background: #082F49; border-radius: 50%; width: 40px; height: 40px; font-size: 19px; cursor: pointer; }
 .qz-hint { color: #FCD34D; font-size: 14.5px; margin: 8px 0 10px; }
 .qz-img { text-align: center; margin: 4px 0 12px; }
 .qz-img svg { max-width: 300px; width: 80%; height: auto; }
-.qz-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 10px; }
-.qz-opt { background: #0F172A; color: #F1F5F9; border: 2px solid #64748B; border-radius: 11px; padding: 13px 8px; font-size: 18px; font-weight: 800; cursor: pointer; min-height: 54px; }
-.qz-opt.right { border-color: #22C55E; background: #14532D; }
-.qz-opt.wrong { border-color: #F97316; background: #431407; }
+/* Grid v2 orphan fix (CSS only): balance MC option lines so a single CJK
+   character never orphans onto the last line. Verified: 29 orphans across
+   all banks at 390px -> 0 (644 MC options scanned), no new orphans.
+   Scoped to .qz-opt only; matching/drag/order chips are untouched. */
+.qz-opts { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; margin-top: 10px; }
+.qz-opt { background: #0F172A; color: #F1F5F9; border: 2px solid #64748B; border-radius: 14px; padding: 14px 12px; font-size: 24px; font-weight: 800; cursor: pointer; min-height: 60px; line-height: 1.35; box-sizing: border-box; min-width: 0; overflow-wrap: break-word; text-wrap: balance; }
+.qz-opt.right { border-color: #22C55E; background: #14532D; box-shadow: 0 0 0 3px #22C55E; }
+.qz-opt.wrong { border-color: #F97316; background: #431407; box-shadow: 0 0 0 3px rgba(249,115,22,.45); }
 .qz-fb { margin-top: 10px; font-size: 15px; font-weight: 800; min-height: 22px; }
 .qz-fb.ok { color: #4ADE80; } .qz-fb.no { color: #FB923C; }
-.qz-pairs { display: flex; gap: 40px; flex-wrap: wrap; margin-top: 10px; position: relative; }
+.qz-pairs { display: flex; gap: 28px; flex-wrap: wrap; justify-content: center; max-width: 560px; margin: 10px auto 0; position: relative; }
 .qz-lines { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
 .qz-pairs .qz-chip { position: relative; z-index: 1; }
-.qz-col { flex: 1; min-width: 130px; display: flex; flex-direction: column; gap: 20px; }
-.qz-chip { background: #0F172A; color: #F1F5F9; border: 2px solid #64748B; border-radius: 11px; padding: 11px 8px; font-size: 18px; font-weight: 800; cursor: pointer; text-align: center; user-select: none; -webkit-user-select: none; touch-action: none; }
-.qz-chip.sel { border-color: #F59E0B; background: #451A03; }
+.qz-col { flex: 1 1 0; min-width: 0; max-width: 200px; display: flex; flex-direction: column; gap: 20px; }
+.qz-chip { background: #0F172A; color: #F1F5F9; border: 2px solid #64748B; border-radius: 14px; padding: 14px 12px; font-size: 24px; font-weight: 800; cursor: pointer; text-align: center; user-select: none; -webkit-user-select: none; touch-action: none; min-height: 60px; line-height: 1.35; box-sizing: border-box; overflow-wrap: break-word; }
+.qz-chip.sel { border-color: #F59E0B; background: #451A03; box-shadow: 0 0 0 3px rgba(245,158,11,.55); }
 .qz-chip.done { border-color: #22C55E; background: #14532D; opacity: .75; pointer-events: none; }
 .qz-chip.dragging { opacity: .92; box-shadow: 0 8px 22px rgba(0,0,0,.5); }
 /* Match endpoint dots (matchdots batch): inner-side dot per match box; 28px
    hit box centred on the box edge, 12px visible circle (16px when snapped).
    Colour only assists: box border+bg, dot fill and line together carry state. */
-/* Matchdots2 refinement (2026-10-25): smaller match boxes (7px vertical
-   padding, was 11px; font stays 18px) + wider inter-column gap (40px, was
-   14px) so paired dots separate, + wider row gap (20px, was 8px) so the
-   smaller boxes do not pull neighbouring rows' dots closer together. */
-.qz-col-l .qz-chip { padding: 7px 16px 7px 8px; }
-.qz-col-r .qz-chip { padding: 7px 8px 7px 16px; }
+/* Grid redesign (2026-10-25): replaces the matchdots2 sizing. Matching
+   chips now fill their column (width:100% in the .qz-col rule below),
+   so the inter-column gap is the real 28px gap, not card-width minus
+   chip-width; chip edges face each other across exactly 28px at every
+   viewport width (dot centres 32px apart, see the token note above).
+   Vertical padding returns to the 14px token (was 7px) so tap height
+   reaches 60px at the 24px token font; row gap stays 20px. */
+.qz-col-l .qz-chip { padding: 14px 20px 14px 12px; }
+.qz-col-r .qz-chip { padding: 14px 12px 14px 20px; }
 .qz-matchdot { position: absolute; top: 50%; width: 28px; height: 28px; margin-top: -14px; border-radius: 50%; pointer-events: none; z-index: 2; }
 .qz-col-l .qz-matchdot { right: -14px; }
 .qz-col-r .qz-matchdot { left: -14px; }
@@ -268,14 +323,14 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-chip.sel .qz-matchdot::before, .qz-chip.snap .qz-matchdot::before { background: #F59E0B; border-color: #F59E0B; inset: 6px; }
 .qz-chip.done .qz-matchdot::before { background: #22C55E; border-color: #22C55E; }
 .qz-chip.snap { border-color: #F59E0B; background: #451A03; box-shadow: 0 0 0 3px rgba(245,158,11,.35); }
-.qz-tray { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 12px; }
-.qz-baskets { display: flex; gap: 10px; flex-wrap: wrap; }
-.qz-basket { flex: 1; min-width: 140px; min-height: 96px; border: 2px dashed #64748B; border-radius: 12px; padding: 9px; }
+.qz-tray { display: flex; gap: 12px; flex-wrap: wrap; margin: 10px 0 12px; }
+.qz-baskets { display: flex; gap: 12px; flex-wrap: wrap; }
+.qz-basket { flex: 1; min-width: 140px; min-height: 96px; border: 2px dashed #64748B; border-radius: 14px; padding: 12px; }
 .qz-basket.over { border-color: #F59E0B; background: rgba(245,158,11,.12); }
 .qz-basket h4 { color: #FDE68A; font-size: 15px; margin: 0 0 8px; text-align: center; }
-.qz-basket .qz-chip { margin-bottom: 7px; padding: 8px 4px; font-size: 16.5px; }
-.qz-basket .qz-chip.wrongin { border-color: #F97316; background: #431407; }
-.qz-orderline { min-height: 58px; border: 2px dashed #64748B; border-radius: 12px; padding: 8px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 10px 0 12px; }
+.qz-basket .qz-chip { margin-bottom: 12px; padding: 12px 10px; font-size: 22px; min-height: 56px; }
+.qz-basket .qz-chip.wrongin { border-color: #F97316; background: #431407; box-shadow: 0 0 0 3px rgba(249,115,22,.45); }
+.qz-orderline { min-height: 60px; border: 2px dashed #64748B; border-radius: 14px; padding: 12px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin: 10px 0 12px; }
 .qz-orderline .qz-chip { border-color: #38BDF8; }
 /* Punctuation-chip uniform size (背默句重組 fix): width floor so single-char ，/。 chips are not tiny; applies to all order items (tray + line), not just this item. */
 .qz-orderline .qz-chip, .qz-orderline ~ .qz-tray .qz-chip { min-width: 72px; }
@@ -340,7 +395,6 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
   .qz-bar { max-width: 980px; }
   .qz-card { padding: 28px 32px; }
   .qz-q { font-size: 26px; }
-  .qz-opt { font-size: 24px; min-height: 78px; padding: 18px 12px; }
   .qz-fb { font-size: 20px; }
   .qz-tab { font-size: 17px; padding: 10px 18px; }
 }
@@ -374,7 +428,7 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-slot.filled { color: #F1F5F9; border-bottom-style: solid; border-bottom-color: #38BDF8; }
 .qz-slot.done { border-bottom-color: #22C55E; color: #BBF7D0; pointer-events: none; }
 
-.qz-scratchbtn { flex: none; border: 2px solid #F59E0B; background: #451A03; color: #FDE68A; border-radius: 50%; width: 44px; height: 44px; font-size: 19px; cursor: pointer; margin-left: 6px; }
+.qz-scratchbtn { flex: none; border: 2px solid #F59E0B; background: #451A03; color: #FDE68A; border-radius: 50%; width: 40px; height: 40px; font-size: 19px; cursor: pointer; margin-left: 6px; }
 .qz-scratchbtn.on { background: #F59E0B; color: #451A03; }
 #qzScratch { display: none; margin-top: 12px; position: relative; }
 #qzScratchCv { width: 100%; aspect-ratio: 720 / 520; background: #1E293B; border: 2px solid #F59E0B; border-radius: 12px; touch-action: none; display: block; }
@@ -429,7 +483,7 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-entrysett { font-size: 18px; font-weight: 900; }
 .qz-entrysub { font-size: 14.5px; color: #FDE68A; margin-top: 4px; font-weight: 800; }
 .qz-startbtn { width: 100%; margin-top: 12px; padding: 14px; font-size: 17px; }
-.qz-peekbtn { flex: none; border: 2px solid #F59E0B; background: #451A03; color: #FDE68A; border-radius: 999px; padding: 0 12px; height: 44px; font-size: 15px; font-weight: 800; cursor: pointer; margin-left: 6px; white-space: nowrap; }
+.qz-peekbtn { flex: none; border: 2px solid #F59E0B; background: #451A03; color: #FDE68A; border-radius: 999px; padding: 0 12px; height: 40px; font-size: 15px; font-weight: 800; cursor: pointer; margin-left: 6px; white-space: nowrap; }
 .qz-scstage { position: relative; flex: 1 1 auto; min-width: 0; }
 .qz-scrow .qz-scclear { margin-left: auto; }
 @media (min-width: 820px) and (orientation: landscape) {
@@ -439,7 +493,7 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 }
 @media (max-width: 819px) {
   .qz-card-hasimg { display: flex; flex-direction: column; }
-  .qz-card-hasimg .qz-tag { order: 0; }
+  .qz-card-hasimg .qz-headrow { order: 0; }
   .qz-card-hasimg .qz-qrow { order: 1; }
   .qz-card-hasimg .qz-img { order: 2; max-height: 35vh; overflow: hidden; cursor: zoom-in; }
   .qz-card-hasimg .qz-img svg { max-height: 35vh; width: auto; max-width: 100%; }
@@ -448,19 +502,28 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 }
 @media (min-width: 820px) {
   .qz-card-hasimg { display: grid; grid-template-columns: minmax(0, 45%) 1fr; column-gap: 16px; }
-  .qz-card-hasimg .qz-tag { grid-column: 1 / -1; }
+  .qz-card-hasimg .qz-headrow { grid-column: 1 / -1; }
   .qz-card-hasimg .qz-img { grid-column: 1; grid-row: 2 / span 3; cursor: zoom-in; }
   .qz-card-hasimg .qz-qrow { grid-column: 2; }
   .qz-card-hasimg .qz-opts, .qz-card-hasimg .qz-imggrid { grid-column: 2; }
   .qz-card-hasimg .qz-fb { grid-column: 2; }
-  .qz-col .qz-chip, .qz-tray .qz-chip, .qz-basket .qz-chip, .qz-orderline .qz-chip { font-size: 22px; }
+  .qz-col .qz-chip, .qz-tray .qz-chip, .qz-orderline .qz-chip { font-size: 26px; }
+  /* Grid v2: MC wide rule moved here from the >=900px block, so MC options
+     are 26px at 820px exactly like matching chips (one unified system). */
+  .qz-opt { font-size: 26px; min-height: 78px; padding: 18px 14px; }
+  .qz-basket .qz-chip { font-size: 24px; }
 }
 .qz-img.qz-imgbig { position: fixed; inset: 0; z-index: 2000; background: rgba(2,6,23,.95); display: flex; align-items: center; justify-content: center; margin: 0; max-height: none; overflow: visible; cursor: zoom-out; }
 .qz-img.qz-imgbig svg { max-width: 92vw; max-height: 92vh; width: auto; }
-.qz-col .qz-chip { width: fit-content; max-width: 85%; }
-.qz-col-r .qz-chip { margin-left: auto; }
-.qz-tray .qz-chip { width: fit-content; max-width: 85%; }
-.qz-basket .qz-chip { font-size: 18px; }
+/* Grid redesign (2026-10-25): matching chips fill their column. This
+   replaces the old fit-content + margin-left:auto rules, which shrank
+   chips to content width and left the gap at card-width minus
+   chip-width. The tray keeps fit-content (correct in a wrapping row)
+   but the arbitrary 85% cap is lifted to 100%. Basket base font lives
+   in the .qz-basket .qz-chip rule above (22px); the wide 24px rule is
+   in the >=820px media block, so no later base rule overrides it. */
+.qz-col .qz-chip { width: 100%; max-width: none; margin-left: 0; }
+.qz-tray .qz-chip { width: fit-content; max-width: 100%; }
 .qz-bslots { display: flex; flex-direction: column; gap: 7px; }
 .qz-bslot { min-height: 44px; border: 2px dashed #475569; border-radius: 10px; }
 .qz-bslot .qz-chip { margin-bottom: 0; width: 100%; max-width: 100%; box-sizing: border-box; }
@@ -7146,20 +7209,29 @@ function qzRender() {
   if (qzIdx >= items.length) { stage.appendChild(qzFinishCard()); const fr = qzFinishReview(); if (fr) stage.appendChild(fr); qzRenderDots(); return; }
   const item = items[qzIdx];
   const card = qzEl("div", "qz-card qz-enter" + (item.img ? " qz-card-hasimg" : ""));
-  card.appendChild(qzEl("span", "qz-tag", item.tag + " ・ 第 " + (qzIdx + 1) + " / " + items.length + " 題"));
+  /* Grid v2 header: tag pill + buttons share one row (.qz-headrow); the stem
+     gets its own full-width row below. Match items render NO visual stem:
+     the pairs alone carry the item (audited all 13 match items; stems are
+     procedural/category wording, e.g. 「先按左邊的字，再按右邊它的詞語」,
+     and the 🔊 button still reads item.q aloud). Banks untouched. */
+  const head = qzEl("div", "qz-headrow");
+  head.appendChild(qzEl("span", "qz-tag", item.tag + " ・ 第 " + (qzIdx + 1) + " / " + items.length + " 題"));
+  card.appendChild(head);
   if (item.img) { const im = qzEl("div", "qz-img"); im.innerHTML = item.img; im.title = "㩒圖放大／縮細"; im.addEventListener("click", () => im.classList.toggle("qz-imgbig")); card.appendChild(im); }
+  const hbtns = qzEl("div", "qz-headbtns");
+  head.appendChild(hbtns);
   const qrow = qzEl("div", "qz-qrow");
-  qrow.appendChild(qzEl("div", "qz-q", item.q));
+  if (item.type !== "match") qrow.appendChild(qzEl("div", "qz-q", item.q));
   const spk = qzEl("button", "qz-speak", "🔊");
   spk.title = "讀出題目";
   spk.addEventListener("click", () => qzSpeak(item.q));
-  qrow.appendChild(spk);
+  hbtns.appendChild(spk);
   const rvb = qzEl("button", "qz-reviewbtn", "📖");
   rvb.title = "睇重點";
   const _rvp = document.getElementById("qzReview");
   if (_rvp && _rvp.style.display !== "none" && _rvp.style.display !== "") rvb.classList.add("on");
   rvb.addEventListener("click", qzToggleReview);
-  qrow.appendChild(rvb);
+  hbtns.appendChild(rvb);
   /* Redesign #1: peek is a standalone button at the question-card top-right
      (not in the scratch tools row). Visible only while the scratch panel is
      open; its label flips on peek/restore, and qzScratchPeekReset (question /
@@ -7172,10 +7244,10 @@ function qzRender() {
   scb.title = "開草稿";
   if (qzScratchOpen()) scb.classList.add("on");
   scb.addEventListener("click", () => { qzScratchToggle(); scb.classList.toggle("on", qzScratchOpen()); pkb.style.display = qzScratchOpen() ? "" : "none"; if (qzScratchOpen()) qzScratchRailCheck(); });
-  qrow.appendChild(scb);
-  qrow.appendChild(pkb);
+  hbtns.appendChild(scb);
+  hbtns.appendChild(pkb);
   const _sp = document.getElementById("qzScratch"); if (_sp) _sp._peek = pkb;
-  card.appendChild(qrow);
+  if (item.type !== "match") card.appendChild(qrow);
   const fb = qzEl("div", "qz-fb");
   ({ mc: qzRenderMC, imgmc: qzRenderImgMC, match: qzRenderMatch, drag: qzRenderDrag, order: qzRenderOrder, fill: qzRenderFill, draw: qzRenderDraw, reveal: qzRenderReveal })[item.type](item, card, fb);
   card.appendChild(fb);
