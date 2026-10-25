@@ -7807,7 +7807,8 @@ function qzRenderJump() {
   fin.addEventListener("click", () => qzGo(qzItems().length));
   grid.appendChild(fin);
 }
-/* ---- Scratch pad 草稿板：quiz 層通用，轉題保留，關閉／reset 即清，唔寫入進度儲存；擦膠 36px＋虛線範圍圈，空白畫布顯示提示字 ---- */
+/* ---- Scratch pad 草稿板：quiz 層通用，轉題保留，關閉／reset 即清，唔寫入進度儲存；擦膠 48px＋虛線範圍圈，空白畫布顯示提示字 ---- */
+const QZ_SCRATCH_ERASE = 48;
 let qzScStrokes = [];
 let qzScUndone = [];
 let qzScTool = "pen";
@@ -7831,7 +7832,7 @@ function qzScratchEl() {
   und.addEventListener("click", () => { if (!qzScStrokes.length) return; qzScUndone.push(qzScStrokes.pop()); p._paint(); p._btns(); });
   red.addEventListener("click", () => { if (!qzScUndone.length) return; qzScStrokes.push(qzScUndone.pop()); p._paint(); p._btns(); });
   clr.addEventListener("click", () => {
-    if (p._clearArm) { clearTimeout(p._clearArm); p._clearArm = null; clr.classList.remove("warn"); qzScStrokes = []; qzScUndone = []; p._paint(); p._btns(); return; }
+    if (p._clearArm) { clearTimeout(p._clearArm); p._clearArm = null; clr.classList.remove("warn"); qzScStrokes = []; qzScUndone = []; qzScTool = "pen"; pen.classList.add("on"); ers.classList.remove("on"); ring.style.display = "none"; p._paint(); p._btns(); return; }
     clr.classList.add("warn");
     p._clearArm = setTimeout(() => { p._clearArm = null; clr.classList.remove("warn"); }, 3000);
   });
@@ -7846,7 +7847,7 @@ function qzScratchEl() {
   function seg(a, b, erase) {
     ctx.save();
     ctx.lineCap = "round"; ctx.lineJoin = "round";
-    if (erase) { ctx.globalCompositeOperation = "destination-out"; ctx.strokeStyle = "rgba(0,0,0,1)"; ctx.lineWidth = 36; }
+    if (erase) { ctx.globalCompositeOperation = "destination-out"; ctx.strokeStyle = "rgba(0,0,0,1)"; ctx.lineWidth = QZ_SCRATCH_ERASE; }
     else { ctx.globalCompositeOperation = "source-over"; ctx.strokeStyle = "#FDE68A"; ctx.lineWidth = 4; }
     ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
     ctx.restore();
@@ -7859,7 +7860,7 @@ function qzScratchEl() {
   p._hint = () => { hint.style.display = (qzScStrokes.length === 0 && !drawing) ? "flex" : "none"; };
   let drawing = false, cur = null;
   function ptOf(e) { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * (cv.width / r.width), (e.clientY - r.top) * (cv.height / r.height)]; }
-  function ringAt(e) { const r = cv.getBoundingClientRect(); const pr = p.getBoundingClientRect(); const s = 36 * (r.width / cv.width); ring.style.width = s + "px"; ring.style.height = s + "px"; ring.style.left = (e.clientX - pr.left - s / 2) + "px"; ring.style.top = (e.clientY - pr.top - s / 2) + "px"; ring.style.display = "block"; }
+  function ringAt(e) { const r = cv.getBoundingClientRect(); const pr = p.getBoundingClientRect(); const s = QZ_SCRATCH_ERASE * (r.width / cv.width); ring.style.width = s + "px"; ring.style.height = s + "px"; ring.style.left = (e.clientX - pr.left - s / 2) + "px"; ring.style.top = (e.clientY - pr.top - s / 2) + "px"; ring.style.display = "block"; }
   cv.addEventListener("pointerdown", e => { e.preventDefault(); drawing = true; cur = { e: qzScTool === "erase", pts: [ptOf(e)] }; if (qzScTool === "erase") ringAt(e); p._hint(); try { cv.setPointerCapture(e.pointerId); } catch (err) {} });
   cv.addEventListener("pointermove", e => { if (qzScTool === "erase") ringAt(e); else ring.style.display = "none"; if (!drawing || !cur) return; const p2 = ptOf(e); const p1 = cur.pts[cur.pts.length - 1]; seg(p1, p2, cur.e); cur.pts.push(p2); });
   ["pointerup", "pointercancel"].forEach(t => cv.addEventListener(t, () => { if (!drawing) return; drawing = false; ring.style.display = "none"; if (cur && cur.pts.length > 1) { qzScStrokes.push(cur); qzScUndone = []; p._btns(); } cur = null; p._hint(); }));
