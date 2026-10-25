@@ -416,6 +416,74 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
    selectable. No inputs/textareas exist inside the quiz, so nothing editable
    is affected. */
 #quizModal { touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+
+/* Quiz redesign batch (2026-10-25) */
+#quizModal.qz-answering .qz-tabs, #quizModal.qz-entry .qz-tabs { display: none !important; }
+#quizModal.qz-answering #qzScore, #quizModal.qz-answering #qzStreak { display: none !important; }
+#quizModal.qz-entry .qz-footer, #quizModal.qz-entry #qzJump { display: none !important; }
+.qz-topline { color: #E2E8F0; font-size: 14.5px; font-weight: 800; }
+#quizModal.qz-entry .qz-topline { color: #FDE68A; }
+.qz-entryset { display: block; width: 100%; box-sizing: border-box; text-align: left; background: #0F172A; border: 2px solid #64748B; color: #F1F5F9; border-radius: 12px; padding: 14px; margin: 10px 0; cursor: pointer; }
+.qz-entryset.sel { border-color: #F59E0B; background: #451A03; }
+.qz-entrysett { font-size: 18px; font-weight: 900; }
+.qz-entrysub { font-size: 14.5px; color: #FDE68A; margin-top: 4px; font-weight: 800; }
+.qz-startbtn { width: 100%; margin-top: 12px; padding: 14px; font-size: 17px; }
+.qz-peekbtn { flex: none; border: 2px solid #F59E0B; background: #451A03; color: #FDE68A; border-radius: 999px; padding: 0 12px; height: 44px; font-size: 15px; font-weight: 800; cursor: pointer; margin-left: 6px; white-space: nowrap; }
+.qz-scstage { position: relative; flex: 1 1 auto; min-width: 0; }
+.qz-scrow .qz-scclear { margin-left: auto; }
+@media (min-width: 820px) and (orientation: landscape) {
+  #qzScratch.qz-rail { align-items: flex-start; gap: 10px; }
+  #qzScratch.qz-rail .qz-scrow { flex-direction: column; margin-top: 0; flex: 0 0 auto; align-self: stretch; }
+  #qzScratch.qz-rail .qz-scrow .qz-scclear { margin-left: 0; margin-top: auto; }
+}
+@media (max-width: 819px) {
+  .qz-card-hasimg { display: flex; flex-direction: column; }
+  .qz-card-hasimg .qz-tag { order: 0; }
+  .qz-card-hasimg .qz-qrow { order: 1; }
+  .qz-card-hasimg .qz-img { order: 2; max-height: 35vh; overflow: hidden; cursor: zoom-in; }
+  .qz-card-hasimg .qz-img svg { max-height: 35vh; width: auto; max-width: 100%; }
+  .qz-card-hasimg .qz-opts, .qz-card-hasimg .qz-imggrid { order: 3; }
+  .qz-card-hasimg .qz-fb { order: 4; }
+}
+@media (min-width: 820px) {
+  .qz-card-hasimg { display: grid; grid-template-columns: minmax(0, 45%) 1fr; column-gap: 16px; }
+  .qz-card-hasimg .qz-tag { grid-column: 1 / -1; }
+  .qz-card-hasimg .qz-img { grid-column: 1; grid-row: 2 / span 3; cursor: zoom-in; }
+  .qz-card-hasimg .qz-qrow { grid-column: 2; }
+  .qz-card-hasimg .qz-opts, .qz-card-hasimg .qz-imggrid { grid-column: 2; }
+  .qz-card-hasimg .qz-fb { grid-column: 2; }
+  .qz-col .qz-chip, .qz-tray .qz-chip, .qz-basket .qz-chip, .qz-orderline .qz-chip { font-size: 22px; }
+}
+.qz-img.qz-imgbig { position: fixed; inset: 0; z-index: 2000; background: rgba(2,6,23,.95); display: flex; align-items: center; justify-content: center; margin: 0; max-height: none; overflow: visible; cursor: zoom-out; }
+.qz-img.qz-imgbig svg { max-width: 92vw; max-height: 92vh; width: auto; }
+.qz-col .qz-chip { width: fit-content; max-width: 85%; }
+.qz-col-r .qz-chip { margin-left: auto; }
+.qz-tray .qz-chip { width: fit-content; max-width: 85%; }
+.qz-basket .qz-chip { font-size: 18px; }
+.qz-bslots { display: flex; flex-direction: column; gap: 7px; }
+.qz-bslot { min-height: 44px; border: 2px dashed #475569; border-radius: 10px; }
+.qz-bslot .qz-chip { margin-bottom: 0; width: 100%; max-width: 100%; box-sizing: border-box; }
+.qz-bbadge { display: inline-block; font-size: 13px; font-weight: 800; color: #FDE68A; background: #451A03; border: 1.5px solid #F59E0B; border-radius: 999px; padding: 2px 10px; margin: 0 0 8px; }
+.qz-bbadge.done { color: #BBF7D0; background: #14532D; border-color: #22C55E; }
+.qz-orderlabel { font-size: 15px; font-weight: 800; color: #FDE68A; margin: 10px 0 2px; }
+.qz-orderline.qz-timeline { flex-direction: column; align-items: stretch; counter-reset: qzstep; }
+.qz-orderline.qz-timeline .qz-unit { counter-increment: qzstep; }
+.qz-orderline.qz-timeline .qz-unit::before { content: counter(qzstep); flex: none; width: 28px; height: 28px; border-radius: 50%; background: #334155; color: #FDE68A; font-size: 16px; font-weight: 900; display: inline-flex; align-items: center; justify-content: center; margin-right: 2px; }
+.qz-btn.sel { background: #14532D; box-shadow: 0 0 0 3px #22C55E; }
+.qz-finrev-item.qz-retryable { cursor: pointer; }
+.qz-finrev-item.qz-retryable:hover { border-color: #F59E0B; }
+.qz-redopill { float: right; font-size: 13px; font-weight: 800; color: #FDE68A; border: 1.5px solid #F59E0B; border-radius: 999px; padding: 2px 10px; margin-left: 8px; }
+.qz-diag { margin-top: 12px; border-top: 1.5px solid #334155; padding-top: 10px; }
+.qz-diag-head { font-weight: 900; margin-bottom: 6px; }
+.qz-diag-row { font-size: 15px; font-weight: 800; margin: 6px 0; }
+.qz-diag-row.weak { color: #FED7AA; }
+.qz-diag-row.watch { color: #E2E8F0; }
+.qz-diag .qz-btn { margin: 4px 0 10px; }
+.qz-progtxt { cursor: pointer; }
+@media (max-width: 480px) {
+  .qz-card { padding: 14px; }
+  .qz-prog { margin: 6px 2px 8px; }
+}
 </style>
 <script data-goatcounter="https://2a-study.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -425,7 +493,7 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 <nav id="topnav"><button class="navbtn on" data-filter="all">全部</button><button class="navbtn" data-filter="exam">⏰ 測驗 <span id="cntExam"></span></button><button class="navbtn" data-filter="hw">📝 功課 <span id="cntHw"></span></button><button class="navbtn" data-filter="notice">📢 通告 <span id="cntNotice"></span></button><span id="upd" class="updmini">…</span><button class="navbtn collapseall" id="collapseAll">⏬ Expand</button></nav>
 <div id="actionBanner"></div>
 <div id="app"></div>
-<div id="quizModal"><div class="qz-bar"><div class="qz-tabs"><button id="qzTabTextbook" class="qz-tab on">課文題</button><button id="qzTabApply" class="qz-tab">應用題一</button><button id="qzTabChallenge" class="qz-tab">應用題二</button></div><span id="qzScore">⭐ 0 / 13</span><span id="qzStreak"></span><button class="ws-close" id="quizCloseBtn">✕ 關閉</button></div><div class="qz-wrap"><div id="qzReview" class="qz-review" style="display:none"></div><div id="qzStage"></div></div><div class="qz-footer"><button id="qzPrev" class="qz-btn alt">← 上一題</button><div id="qzDots"></div><button id="qzNext" class="qz-btn">下一題 →</button></div></div>
+<div id="quizModal"><div class="qz-bar"><div class="qz-tabs"><button id="qzTabTextbook" class="qz-tab on">課文題</button><button id="qzTabApply" class="qz-tab">應用題一</button><button id="qzTabChallenge" class="qz-tab">應用題二</button></div><span id="qzTopLine" class="qz-topline">揀一份練習</span><span id="qzScore">⭐ 0 / 13</span><span id="qzStreak"></span><button class="ws-close" id="quizCloseBtn">✕ 關閉</button></div><div class="qz-wrap"><div id="qzReview" class="qz-review" style="display:none"></div><div id="qzStage"></div></div><div class="qz-footer"><button id="qzPrev" class="qz-btn alt">← 上一題</button><div id="qzDots"></div><button id="qzNext" class="qz-btn">下一題 →</button></div></div>
 <div id="wsModal"><div class="ws-bar"><button class="ws-print" id="wsPrintBtn">🖨️ 列印 / 儲存 PDF</button><button class="ws-close" id="wsCloseBtn">✕ 關閉</button></div><div id="wsSheet"></div></div>
 <footer>資料來源：學校 eClass 通告及通告附頁、Google Classroom 功課指示、課本/默書紙拍攝內容。<br>「學校原文」為官方內容；「AI 輔助」提示同練習由 Muse 生成，練習答案只供家長核對。</footer>
 <script>
@@ -6832,6 +6900,7 @@ function qzScoreUpd() {
   const st = document.getElementById("qzStreak");
   if (st) st.textContent = qzStreak >= 2 ? "🔥 連續啱 ×" + qzStreak : "";
   qzRenderDots();
+  qzTopLineUpd();
 }
 function qzEl(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
 /* Batch B #3 PARTIAL shuffle: runtime-only permutation for mc/imgmc.
@@ -6876,6 +6945,18 @@ function qzDispOpts(item) {
   if (!qzPermValid(perm, n)) {
     perm = ident.slice();
     for (let i = perm.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = perm[i]; perm[i] = perm[j]; perm[j] = t; }
+  }
+  /* Redesign #11: per-row (single) retry MUST use a fresh shuffle different
+     from the previous permutation; two-option items: forced swap. The
+     「第三幅圖」 imgmc item keeps its shuffle exemption (it returns early
+     above via qzShuffleExempt). Bulk 再練錯題 keeps the old same-perm rule. */
+  if (qzSetName === "single" && qzPermValid(item._prevShuf, n) && JSON.stringify(perm) === JSON.stringify(item._prevShuf)) {
+    if (n === 2) { const _t = perm[0]; perm[0] = perm[1]; perm[1] = _t; }
+    else {
+      let _tries = 0, _found = false;
+      while (_tries < 20 && !_found) { const _p = ident.slice(); for (let i = _p.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const _tt = _p[i]; _p[i] = _p[j]; _p[j] = _tt; } if (JSON.stringify(_p) !== JSON.stringify(item._prevShuf)) { perm = _p; _found = true; } _tries++; }
+      if (!_found) { const _t = perm[0]; perm[0] = perm[1]; perm[1] = _t; }
+    }
   }
   qzShufCache[key] = perm;
   item._shuf = perm;
@@ -6977,6 +7058,9 @@ function qzGo(i) {
   qzRender();
 }
 function qzRender() {
+  const _qm = document.getElementById("quizModal"); if (_qm) { _qm.classList.add("qz-answering"); _qm.classList.remove("qz-entry"); }
+  qzEntryMode = false;
+  qzTopLineUpd();
   const stage = document.getElementById("qzStage");
   stage.innerHTML = "";
   const items = qzItems();
@@ -6995,9 +7079,9 @@ function qzRender() {
   next.textContent = qzIdx >= items.length ? "🏁 已到成績頁" : "下一題 →";
   if (qzIdx >= items.length) { stage.appendChild(qzFinishCard()); const fr = qzFinishReview(); if (fr) stage.appendChild(fr); qzRenderDots(); return; }
   const item = items[qzIdx];
-  const card = qzEl("div", "qz-card qz-enter");
+  const card = qzEl("div", "qz-card qz-enter" + (item.img ? " qz-card-hasimg" : ""));
   card.appendChild(qzEl("span", "qz-tag", item.tag + " ・ 第 " + (qzIdx + 1) + " / " + items.length + " 題"));
-  if (item.img) { const im = qzEl("div", "qz-img"); im.innerHTML = item.img; card.appendChild(im); }
+  if (item.img) { const im = qzEl("div", "qz-img"); im.innerHTML = item.img; im.title = "㩒圖放大／縮細"; im.addEventListener("click", () => im.classList.toggle("qz-imgbig")); card.appendChild(im); }
   const qrow = qzEl("div", "qz-qrow");
   qrow.appendChild(qzEl("div", "qz-q", item.q));
   const spk = qzEl("button", "qz-speak", "🔊");
@@ -7010,11 +7094,21 @@ function qzRender() {
   if (_rvp && _rvp.style.display !== "none" && _rvp.style.display !== "") rvb.classList.add("on");
   rvb.addEventListener("click", qzToggleReview);
   qrow.appendChild(rvb);
+  /* Redesign #1: peek is a standalone button at the question-card top-right
+     (not in the scratch tools row). Visible only while the scratch panel is
+     open; its label flips on peek/restore, and qzScratchPeekReset (question /
+     set change, quiz close/open) re-creates it in the default state. */
+  const pkb = qzEl("button", "qz-peekbtn", "👀 睇題目");
+  pkb.title = "睇題目／出返草稿";
+  pkb.style.display = qzScratchOpen() ? "" : "none";
+  pkb.addEventListener("click", () => { qzScratchPeekToggle(); pkb.textContent = qzScPeek ? "✏️ 出返草稿" : "👀 睇題目"; });
   const scb = qzEl("button", "qz-scratchbtn", "✏️");
   scb.title = "開草稿";
   if (qzScratchOpen()) scb.classList.add("on");
-  scb.addEventListener("click", () => { qzScratchToggle(); scb.classList.toggle("on", qzScratchOpen()); });
+  scb.addEventListener("click", () => { qzScratchToggle(); scb.classList.toggle("on", qzScratchOpen()); pkb.style.display = qzScratchOpen() ? "" : "none"; if (qzScratchOpen()) qzScratchRailCheck(); });
   qrow.appendChild(scb);
+  qrow.appendChild(pkb);
+  const _sp = document.getElementById("qzScratch"); if (_sp) _sp._peek = pkb;
   card.appendChild(qrow);
   const fb = qzEl("div", "qz-fb");
   ({ mc: qzRenderMC, imgmc: qzRenderImgMC, match: qzRenderMatch, drag: qzRenderDrag, order: qzRenderOrder, fill: qzRenderFill, draw: qzRenderDraw, reveal: qzRenderReveal })[item.type](item, card, fb);
@@ -7044,8 +7138,187 @@ function qzProgBar(isBreak) {
     else if (nb === n) txt.textContent = "第 " + n + " / " + total + " 題・做完呢題就休息";
     else txt.textContent = "第 " + n + " / " + total + " 題・再 " + (nb - n) + " 題就休息";
   }
+  txt.title = "㩒呢度跳題";
+  txt.addEventListener("click", () => qzJumpToggle());
   wrap.appendChild(txt);
   return wrap;
+}
+
+/* ---- Quiz redesign batch (2026-10-25) helpers ---- */
+/* #2 entry-first chrome: the set is chosen on an entry screen, then started.
+   While answering, .qz-tabs are hidden (CSS) and the bar shows only the thin
+   #qzTopLine display (progress / X/Y / stars / break) plus the close button.
+   Footer controls (prev / dots / next + jump panel) are unchanged. */
+let qzEntryMode = false;
+let qzEntrySel = "textbook";
+function qzTopLineUpd() {
+  const tl = document.getElementById("qzTopLine"); if (!tl) return;
+  if (qzEntryMode) { tl.textContent = "揀一份練習"; return; }
+  const items = qzItems(), total = items.length;
+  if (qzIdx >= total) { tl.textContent = "🏁 成績頁 ・ ⭐ " + qzStars(); return; }
+  if (qzBreakFor === qzIdx && qzIdx > 0 && qzIdx < total) { tl.textContent = "休息中 ・ 第 " + qzIdx + " / " + total + " 題 ・ ⭐ " + qzStars(); return; }
+  tl.textContent = "第 " + (qzIdx + 1) + " / " + total + " 題 ・ ⭐ " + qzStars() + (qzStreak >= 2 ? " ・ 🔥 ×" + qzStreak : "");
+}
+/* #10 difficulty marker: 🔥×1–3 + short text, NEVER ⭐ (⭐ means earned stars
+   only). Size shown plainly; the 10–15 / ≤5-difference rule governs the choice
+   UI and any new sets — existing banks are NOT rewritten in this batch. */
+function qzSetDiff(name) { return name === "textbook" ? { fire: "🔥×1", txt: "基礎" } : name === "apply" ? { fire: "🔥×2", txt: "應用" } : name === "challenge" ? { fire: "🔥×3", txt: "挑戰" } : { fire: "", txt: "" }; }
+function qzSetSizeOk(name) { const n = (QZ[name] && QZ[name].items || []).length; return n >= 10 && n <= 15; }
+function qzShowEntry() {
+  qzEntryMode = true;
+  const modal = document.getElementById("quizModal");
+  if (modal) { modal.classList.add("qz-entry"); modal.classList.remove("qz-answering"); }
+  const foot = document.querySelector(".qz-footer"); if (foot) foot.style.display = "none";
+  qzJumpToggle(false);
+  const stage = document.getElementById("qzStage"); stage.innerHTML = "";
+  const card = qzEl("div", "qz-card qz-enter");
+  card.appendChild(qzEl("div", "qz-q", "🎮 揀一份練習"));
+  ["textbook", "apply", "challenge"].forEach(name => {
+    const S = QZ[name]; if (!S) return;
+    const d = qzSetDiff(name);
+    const b = qzEl("button", "qz-entryset" + (qzEntrySel === name ? " sel" : ""));
+    b.dataset.size = S.items.length; b.dataset.diff = d.fire; b.dataset.sizeok = qzSetSizeOk(name) ? "1" : "0";
+    b.appendChild(qzEl("div", "qz-entrysett", S.label));
+    b.appendChild(qzEl("div", "qz-entrysub", d.fire + " " + d.txt + " ・ " + S.items.length + " 題"));
+    b.addEventListener("click", () => { qzEntrySel = name; stage.querySelectorAll(".qz-entryset").forEach(x => x.classList.remove("sel")); b.classList.add("sel"); });
+    card.appendChild(b);
+  });
+  const start = qzEl("button", "qz-btn qz-startbtn", "▶️ 開始練習");
+  start.addEventListener("click", () => { qzEntryMode = false; if (modal) modal.classList.remove("qz-entry"); qzSwitchSet(qzEntrySel); });
+  card.appendChild(start);
+  stage.appendChild(card);
+  qzTopLineUpd();
+}
+function qzBackToSummary(name) {
+  if (!QZ[name]) name = "textbook";
+  qzSetName = name; qzIdx = qzItems().length; qzLocked = false; qzEntryMode = false;
+  const modal = document.getElementById("quizModal"); if (modal) { modal.classList.add("qz-answering"); modal.classList.remove("qz-entry"); }
+  qzRender();
+}
+/* #7 ordering vs sentence assembly. Timeline (排先後） = sequence kinds:
+   skill 故事順序／故事結構, or label/q mentioning 次序／步驟／順序, or a
+   由…到… ordering label. Everything else is sentence assembly （砌句子）.
+   #7 cap: v1 cap = 4 items; over-long sets are SPLIT, never scrolled. The
+   split path runs ONLY for items explicitly flagged split:true (new sets);
+   existing over-4 items are NOT rebuilt — they render as before and carry
+   data-overcap="1" so the count stays visible (6 items, see build report). */
+function qzOrderKind(item) {
+  const s = item.skill || "";
+  const hay = (item.label || "") + " " + (item.q || "");
+  if (s === "故事順序" || s === "故事結構" || /次序|步驟|順序/.test(hay) || /^由/.test(item.label || "") || /由.+到/.test(hay)) return "timeline";
+  return "sentence";
+}
+function qzOrderSplitGroups(item) {
+  if (!item.split) return null;
+  const groups = [], parts = item.parts || [];
+  for (let i = 0; i < parts.length; i += 4) groups.push(parts.slice(i, i + 4));
+  return groups;
+}
+/* #11 per-row retry: redo ONE question, then return to the summary.
+   Retry correct earns NO retroactive first-try star (the clone's stars never
+   touch the original). */
+function qzStartSingleRetry(orig) {
+  const from = qzSetName;
+  const c = Object.assign({}, orig);
+  c._earned = 0; c._done = false; c._stars = 0; c._matched = {}; c._placed = {}; c._wrongKeys = {}; c._wrongCount = 0; c._revealed = false; c._hintShown = false; c._drawn = false; c._viewed = false; c._skipped = false; c._selfRate = null; c._orig = orig;
+  const n = (orig.opts || orig.imgs || []).length;
+  const prev = qzShufCache[from + ":" + qzItems().indexOf(orig)] || orig._shuf;
+  if (qzPermValid(prev, n)) c._prevShuf = prev.slice();
+  QZ.single = { label: "逐題重做", items: [c], _wrong: [], _from: from };
+  qzSetName = "single";
+  qzGo(0);
+}
+/* #9 finish-card unfinished list (same per-type rule as the review section,
+   but unfinished only — wrong-then-corrected items are NOT listed here). */
+function qzFinishUnfinished() {
+  return qzItems().filter(it => {
+    if (it.type === "mc" || it.type === "imgmc" || it.type === "order" || it.type === "fill") return !it._done;
+    if (it.type === "match" || it.type === "drag") return !qzComplete(it);
+    if (it.type === "draw") return !it._drawn;
+    if (it.type === "reveal") return !it._viewed;
+    return false;
+  });
+}
+/* #12 pilot skill variants + weak-area diagnosis (PILOT ONLY, flag-gated).
+   Variant GENERATION stays flag-OFF (QZ_VARIANTS_ON = false): no new content
+   in this batch — 「練同類」 draws ONLY from existing same-skill items.
+   Pilot tagging = the map below over the banks' EXISTING skill values
+   (no bank content changed): Chinese lessons only, 3 broad skills.
+   課文理解 = 課文內容／思考與理解／故事順序／故事結構／背默句子 (67 items);
+   詞語運用 = 詞語運用／形近字辨析／詞語意思／量詞 (31);
+   句式修辭 = 因果句式／假設句式／比喻／擬人法／動詞重疊／語法／標點符號／標點 (54).
+   Unmapped (6 items: 上下結構／字形結構／描字練習） belong to a future 字形 skill.
+   Diagnosis: scored items only; weak iff same skill attempted ≥4 AND error
+   rate ≥50% AND errors ≥3; 1–2 errors = 「留意」 only, NEVER labelled weak.
+   Diagnosis UI ships behind qzDiagOn (default OFF); enable for pilot/UAT via
+   window.qzDiagEnable(true). */
+let qzDiagOn = false;
+window.qzDiagEnable = function (v) { qzDiagOn = !!v; };
+const QZ_VARIANTS_ON = false;
+const QZ_PILOT_SKILL_MAP = {
+  "課文內容": "課文理解", "思考與理解": "課文理解", "故事順序": "課文理解", "故事結構": "課文理解", "背默句子": "課文理解",
+  "詞語運用": "詞語運用", "形近字辨析": "詞語運用", "詞語意思": "詞語運用", "量詞": "詞語運用",
+  "因果句式": "句式修辭", "假設句式": "句式修辭", "比喻": "句式修辭", "擬人法": "句式修辭", "動詞重疊": "句式修辭", "語法": "句式修辭", "標點符號": "句式修辭", "標點": "句式修辭"
+};
+function qzPilotSkill(item) {
+  if (!/^chi_l[3-7]$/.test(qzCtx.lessonId || "")) return null;
+  return QZ_PILOT_SKILL_MAP[item.skill] || null;
+}
+function qzSkillDiag() {
+  const agg = {};
+  qzItems().forEach(it => {
+    const ps = qzPilotSkill(it); if (!ps) return;
+    if (qzMax(it) <= 0) return;
+    const attempted = !!it._done || qzComplete(it) || (it._wrongKeys && Object.keys(it._wrongKeys).length > 0);
+    if (!attempted) return;
+    agg[ps] = agg[ps] || { att: 0, err: 0 };
+    agg[ps].att++;
+    if (it._wrongKeys && Object.keys(it._wrongKeys).length) agg[ps].err++;
+  });
+  return Object.keys(agg).map(s => {
+    const a = agg[s];
+    const rate = a.att ? a.err / a.att : 0;
+    return { skill: s, att: a.att, err: a.err, rate: rate, weak: a.att >= 4 && rate >= 0.5 && a.err >= 3 };
+  });
+}
+function qzSkillDiagEl() {
+  const rows = qzSkillDiag().filter(r => r.err > 0);
+  if (!rows.length) return null;
+  const wrap = qzEl("div", "qz-diag");
+  wrap.appendChild(qzEl("div", "qz-diag-head", "本事診斷（試驗版）："));
+  rows.forEach(r => {
+    const line = qzEl("div", "qz-diag-row " + (r.weak ? "weak" : "watch"));
+    line.textContent = r.weak ? "要加強：" + r.skill + "（" + r.err + "/" + r.att + " 題出錯）" : "留意：" + r.skill + "（錯 " + r.err + " 題）";
+    wrap.appendChild(line);
+    if (r.weak) {
+      const b = qzEl("button", "qz-btn", "練同類：" + r.skill + " ▶");
+      b.addEventListener("click", () => qzStartPractice(r.skill));
+      wrap.appendChild(b);
+    }
+  });
+  return wrap;
+}
+function qzStartPractice(skill) {
+  const from = qzSetName;
+  const seen = {}, pool = [];
+  ["textbook", "apply", "challenge"].forEach(sn => {
+    const S = QZ[sn]; if (!S) return;
+    S.items.forEach(it => {
+      if (QZ_PILOT_SKILL_MAP[it.skill] !== skill) return;
+      const k = it.label + "||" + it.q; if (seen[k]) return; seen[k] = 1; pool.push(it);
+    });
+  });
+  const curLabels = {}; qzItems().forEach(it => { curLabels[it.label + "||" + it.q] = 1; });
+  const ordered = pool.filter(it => !curLabels[it.label + "||" + it.q]).concat(pool.filter(it => curLabels[it.label + "||" + it.q]));
+  const picks = ordered.slice(0, 10);
+  if (!picks.length) return;
+  const clones = picks.map(it => {
+    const c = Object.assign({}, it);
+    c._earned = 0; c._done = false; c._stars = 0; c._matched = {}; c._placed = {}; c._wrongKeys = {}; c._wrongCount = 0; c._revealed = false; c._hintShown = false; c._drawn = false; c._viewed = false; c._skipped = false; c._selfRate = null; c._orig = it;
+    return c;
+  });
+  QZ.practice = { label: "練同類：" + skill, items: clones, _wrong: [], _from: from };
+  qzSetName = "practice"; qzGo(0);
 }
 /* Break-next: footer 下一題 and card-tap converge on qzBreakDismiss —
    show the pending boundary question, never advance past it. The guard
@@ -7229,7 +7502,7 @@ function qzRenderDrag(item, card, fb) {
     const id = chip.dataset.ch;
     if (basket.dataset.cat === chip.dataset.cat) {
       item._placed[id] = basket.dataset.cat;
-      basket.appendChild(chip); chip.classList.add("done"); chip.classList.remove("sel");
+      qzBasketPlace(basket, chip); chip.classList.add("done"); chip.classList.remove("sel");
       fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + "「" + id + "」放啱咗！";
       if (selChip === chip) selChip = null;
       qzGain(item, id);
@@ -7239,7 +7512,7 @@ function qzRenderDrag(item, card, fb) {
       qzWrongFb(item, fb, wc, "💪 " + qzEncourage() + "「" + id + "」上下邊部分大啲，再諗諗！", () => {
         item._placed = {};
         const root = tray.parentElement;
-        root.querySelectorAll(".qz-chip").forEach(c => { const bk = basketEls[c.dataset.cat]; if (bk) bk.appendChild(c); c.classList.add("done"); c.classList.remove("sel"); });
+        root.querySelectorAll(".qz-chip").forEach(c => { const bk = basketEls[c.dataset.cat]; if (bk) qzBasketPlace(bk, c); c.classList.add("done"); c.classList.remove("sel"); });
         item.chips.forEach(d => { item._placed[d.ch] = d.cat; });
         selChip = null;
         qzReveal(item, fb, "正確分類：" + item.cats.map(cfg => cfg[1] + "：" + item.chips.filter(d => d.cat === cfg[0]).map(d => d.ch).join("、")).join("； "));
@@ -7247,17 +7520,40 @@ function qzRenderDrag(item, card, fb) {
       setTimeout(() => { chip.classList.remove("wrongin"); if (chip.parentElement !== tray) tray.appendChild(chip); }, 950);
     }
   }
+  /* Redesign #6: each basket pre-draws one dashed EMPTY SLOT per expected
+     chip, PLUS a 「仲差 N 個」 badge (both from day one). Expected counts come
+     from the item's own chips/cats data; if chips data is missing, slots are
+     absent and the badge alone shows the placed count (degraded mode). */
+  function qzBasketExpected(cat) { return (item.chips || []).filter(d => d.cat === cat).length; }
+  function qzBasketBadgeUpd(bk) {
+    const bd = bk._badge; if (!bd) return;
+    const placed = bk.querySelectorAll(".qz-chip").length;
+    if (!item.chips || !item.chips.length) { bd.textContent = placed ? "已放 " + placed + " 個" : "未放"; bd.classList.remove("done"); return; }
+    const left = qzBasketExpected(bk.dataset.cat) - placed;
+    if (left > 0) { bd.textContent = "仲差 " + left + " 個"; bd.classList.remove("done"); }
+    else { bd.textContent = "齊晒 ✓"; bd.classList.add("done"); }
+  }
+  function qzBasketPlace(bk, chip) {
+    const sl = bk.querySelector(".qz-bslot:not(.filled)");
+    if (sl) { sl.appendChild(chip); sl.classList.add("filled"); }
+    else bk.appendChild(chip);
+    qzBasketBadgeUpd(bk);
+  }
   const basketEls = {};
   item.cats.forEach(cfg => {
     const bk = qzEl("div", "qz-basket"); bk.dataset.cat = cfg[0];
     bk.appendChild(qzEl("h4", null, cfg[1]));
+    const bd = qzEl("span", "qz-bbadge", ""); bk.appendChild(bd); bk._badge = bd;
+    const slots = qzEl("div", "qz-bslots");
+    for (let i = 0; i < qzBasketExpected(cfg[0]); i++) slots.appendChild(qzEl("div", "qz-bslot"));
+    bk.appendChild(slots);
     bk.addEventListener("click", () => { if (selChip && selChip.parentElement === tray && !qzLocked) placeChip(selChip, bk); });
     baskets.appendChild(bk); basketEls[cfg[0]] = bk;
   });
   item.chips.forEach(d => {
     const chip = qzEl("div", "qz-chip", d.ch);
     chip.dataset.ch = d.ch; chip.dataset.cat = d.cat;
-    if (item._placed[d.ch]) { basketEls[d.cat].appendChild(chip); chip.classList.add("done"); }
+    if (item._placed[d.ch]) { qzBasketPlace(basketEls[d.cat], chip); chip.classList.add("done"); }
     else tray.appendChild(chip);
     chip.addEventListener("pointerdown", ev => {
       if (chip.classList.contains("done") || qzLocked) return;
@@ -7286,6 +7582,7 @@ function qzRenderDrag(item, card, fb) {
       chip.addEventListener("pointermove", mv); chip.addEventListener("pointerup", up); chip.addEventListener("pointercancel", up);
     });
   });
+  Object.values(basketEls).forEach(qzBasketBadgeUpd);
   card.appendChild(tray); card.appendChild(baskets);
 }
 function qzIsPunctChip(txt) { return /^[\u3001\uFF0C\u3002\uFF1F\uFF01\uFF1B\uFF1A,.?!;:]$/.test((txt || "").trim()); }
@@ -7305,6 +7602,13 @@ function qzRenderOrder(item, card, fb) {
   const line = qzEl("div", "qz-orderline");
   const tray = qzEl("div", "qz-tray");
   const placed = [];
+  const qzOrdKind = qzOrderKind(item);
+  const qzOrdGroups = qzOrderSplitGroups(item);
+  const qzOrdChunk = qzOrdGroups ? (item._chunk || 0) : 0;
+  const qzOrdParts = qzOrdGroups ? qzOrdGroups[qzOrdChunk] : item.parts;
+  const qzOrdShuffled = qzOrdGroups ? (item.shuffled || []).filter(t => qzOrdParts.indexOf(t) >= 0) : item.shuffled;
+  line.classList.add(qzOrdKind === "timeline" ? "qz-timeline" : "qz-sentence");
+  if ((item.parts || []).length > 4 && !item.split) line.dataset.overcap = "1";
   function syncPlaced() { placed.length = 0; line.querySelectorAll(".qz-chip").forEach(c => placed.push(c.textContent)); }
   function mkChip(txt) {
     const c = qzEl("div", "qz-chip", txt);
@@ -7369,13 +7673,19 @@ function qzRenderOrder(item, card, fb) {
     });
     return c;
   }
-  item.shuffled.forEach(t => tray.appendChild(mkChip(t)));
+  qzOrdShuffled.forEach(t => tray.appendChild(mkChip(t)));
   const row = qzEl("div", "qz-row");
   const chk = qzEl("button", "qz-btn", "✔️ 檢查");
   chk.addEventListener("click", () => {
     if (item._done || qzLocked) return;
-    if (placed.length < item.parts.length) { fb.className = "qz-fb no"; fb.textContent = "仲未排完呀，把所有詞語放上句子框先！"; return; }
-    if (JSON.stringify(placed) === JSON.stringify(item.parts)) {
+    if (placed.length < qzOrdParts.length) { fb.className = "qz-fb no"; fb.textContent = "仲未排完呀，把所有詞語放上句子框先！"; return; }
+    if (JSON.stringify(placed) === JSON.stringify(qzOrdParts)) {
+      if (qzOrdGroups && qzOrdChunk < qzOrdGroups.length - 1) {
+        item._chunk = qzOrdChunk + 1;
+        fb.className = "qz-fb ok"; fb.textContent = "✅ 呢部分啱晒，繼續下一部分！";
+        qzRender();
+        return;
+      }
       item._done = true; fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + "「" + item.parts.join("") + (/[。？！.!?]$/.test(item.parts.join("")) ? "" : "。") + "」"; const sb = qzSpeakBtn(item.parts.join("")); if (sb) fb.insertBefore(sb, fb.firstChild);
       line.querySelectorAll(".qz-chip").forEach(c => c.classList.add("done")); qzGain(item);
     } else { const wc = qzWrong(item); qzWrongFb(item, fb, wc, "💪 " + qzEncourage() + "邊句是原因、邊句是結果？㩒句子框的詞語可以放回下面。", () => { line.innerHTML = ""; item.parts.forEach(t => { const c = qzEl("div", "qz-chip done", t); line.appendChild(c); }); qzRegroupOrderLine(line); qzReveal(item, fb, "正確次序：「" + item.parts.join("") + "」"); }); }
@@ -7388,7 +7698,8 @@ function qzRenderOrder(item, card, fb) {
   });
   row.appendChild(chk); row.appendChild(clr);
   if (item._done) { item.parts.forEach(t => { const c = qzEl("div", "qz-chip done", t); line.appendChild(c); }); qzRegroupOrderLine(line); fb.className = "qz-fb ok"; fb.textContent = "✅ 已完成"; }
-  card.appendChild(line); card.appendChild(tray); card.appendChild(row);
+  const olabel = qzEl("div", "qz-orderlabel", qzOrdKind === "timeline" ? "🕐 排先後" : "✏️ 砌句子");
+  card.appendChild(olabel); card.appendChild(line); card.appendChild(tray); card.appendChild(row);
 }
 function qzRenderFill(item, card, fb) {
   const gaps = item.ans.length;
@@ -7489,14 +7800,39 @@ function qzRenderDraw(item, card, fb) {
   ["pointerup", "pointercancel"].forEach(t => cv.addEventListener(t, () => { drawing = false; }));
   fb.className = "qz-fb"; fb.textContent = "自由練習，唔計分 — 畫完㩒「下一題」繼續。隨時可以㩒右上角 ✕ 停低，進度已經存好。";
 }
+/* Redesign #9: reveal questions need a commitment step first. Tap
+   「我諗到啦」 to reveal, then self-rate 諗啱／差唔多／未諗到 — offered
+   ONLY, never gates the next question, never enters score/diagnosis; no star
+   lost, no wrong recorded. Direct skip = 「未練」 (goes into the finish-card
+   unfinished list for retry). */
 function qzRenderReveal(item, card, fb) {
   const row = qzEl("div", "qz-row");
-  const b = qzEl("button", "qz-btn", "👀 睇參考答案");
   const ans = qzEl("div", "qz-answer", item.answer);
   const sb = qzSpeakBtn(item.answer || "");
   if (sb) ans.insertBefore(sb, ans.firstChild);
-  b.addEventListener("click", () => { const show = ans.style.display !== "block"; ans.style.display = show ? "block" : "none"; if (show) item._viewed = true; });
-  row.appendChild(b); card.appendChild(row); card.appendChild(ans);
+  const rateRow = qzEl("div", "qz-row");
+  ["諗啱", "差唔多", "未諗到"].forEach(r => {
+    const rb = qzEl("button", "qz-btn" + (item._selfRate === r ? " sel" : ""), r);
+    rb.addEventListener("click", () => {
+      item._selfRate = r;
+      rateRow.querySelectorAll(".qz-btn").forEach(x => x.classList.remove("sel"));
+      rb.classList.add("sel");
+      fb.className = "qz-fb ok"; fb.textContent = "收到！繼續啦！";
+    });
+    rateRow.appendChild(rb);
+  });
+  rateRow.style.display = "none";
+  function showAnswer() { ans.style.display = "block"; rateRow.style.display = "flex"; item._viewed = true; }
+  const commit = qzEl("button", "qz-btn", "我諗到啦");
+  const skip = qzEl("button", "qz-btn alt", "⏭️ 跳過（未練）");
+  commit.addEventListener("click", () => { showAnswer(); commit.style.display = "none"; skip.style.display = "none"; });
+  skip.addEventListener("click", () => {
+    item._skipped = true; item._viewed = false;
+    fb.className = "qz-fb"; fb.textContent = "記低咗做「未練」，去成績頁可以再練。";
+  });
+  if (item._viewed) { showAnswer(); commit.style.display = "none"; skip.style.display = "none"; }
+  row.appendChild(commit); row.appendChild(skip); card.appendChild(row); card.appendChild(ans); card.appendChild(rateRow);
+  if (item._skipped && !item._viewed) { fb.className = "qz-fb"; fb.textContent = "上次跳過咗（未練）。"; }
 }
 function qzSkillSummary(cardEl) {
   const bySkill = {};
@@ -7602,7 +7938,9 @@ function qzFinishReview() {
   const sec = qzEl("div", "qz-finrev");
   sec.appendChild(qzEl("h4", null, "📖 錯題同未完成題目回顧"));
   rev.forEach(it => {
-    const box = qzEl("div", "qz-finrev-item");
+    const box = qzEl("div", "qz-finrev-item qz-retryable");
+    box.title = "㩒呢度逐題重做";
+    box.addEventListener("click", () => qzStartSingleRetry(it));
     const title = (it.tag ? it.tag + "・" : "") + (it.q || "練習題");
     box.appendChild(qzEl("div", "qz-finrev-q", title));
     if (it.why) {
@@ -7615,6 +7953,7 @@ function qzFinishReview() {
       const cr = qzCorrectResult(it);
       if (cr) box.appendChild(cr);
     }
+    box.appendChild(qzEl("span", "qz-redopill", "↻ 重做呢題"));
     sec.appendChild(box);
   });
   return sec;
@@ -7624,7 +7963,13 @@ function qzFinishCard() {
   const card = qzEl("div", "qz-summary qz-enter");
   const doneCount = qzItems().filter(it => qzMax(it) > 0 && qzComplete(it)).length;
   const scoredCount = qzItems().filter(it => qzMax(it) > 0).length;
-  if (qzSetName === "retry") {
+  if (qzSetName === "single") {
+    card.appendChild(qzEl("div", null, "🏁 逐題重做完成！（唔加首次星星）"));
+    card.appendChild(qzEl("div", null, "完成咗 " + doneCount + " / " + scoredCount + " 題 — 返去成績頁繼續。"));
+  } else if (qzSetName === "practice") {
+    card.appendChild(qzEl("div", null, "🏁 練同類完成！（練習模式，唔再加星）"));
+    card.appendChild(qzEl("div", null, "完成咗 " + doneCount + " / " + scoredCount + " 題 — 返去成績頁繼續。"));
+  } else if (qzSetName === "retry") {
     card.appendChild(qzEl("div", null, "🏁 錯題再練完成！（練習模式，唔再加星）"));
     card.appendChild(qzEl("div", null, "完成咗 " + doneCount + " / " + scoredCount + " 題錯題 — 返去原本嗰版，錯題會標住「已再練 ✓」。"));
   } else {
@@ -7634,6 +7979,7 @@ function qzFinishCard() {
   const wrong = S._wrong || [];
   try { localStorage.setItem(qzBase() + ":" + qzSetName, JSON.stringify({ stars: qzStars(), score: t[0], total: t[1], wrong: wrong, at: new Date().toISOString() })); } catch (e) {}
   qzSkillSummary(card);
+  if (qzDiagOn) { const _dg = qzSkillDiagEl(); if (_dg) card.appendChild(_dg); }
   if (wrong.length) {
     card.appendChild(qzEl("div", null, "首次答錯（之後改啱都好叻）— 呢啲係「要再練」清單："));
     wrong.forEach(w => {
@@ -7641,11 +7987,21 @@ function qzFinishCard() {
       card.appendChild(qzEl("div", null, "・" + w + (it && it._retried ? "（已再練 ✓）" : "")));
     });
   } else card.appendChild(qzEl("div", null, "🎉 全部第一次就答啱，勁！"));
+  const _unf = qzFinishUnfinished();
+  if (_unf.length && qzSetName !== "single" && qzSetName !== "practice") {
+    card.appendChild(qzEl("div", null, "未完成（跳過／未做完）— 下面回顧列㩒入去可以逐題重做："));
+    _unf.forEach(it => { card.appendChild(qzEl("div", null, "・" + (it.label || it.q || "練習題") + (it.type === "reveal" && it._skipped ? "（未練）" : ""))); });
+  }
   const row = qzEl("div", "qz-row");
   if (wrong.length && qzSetName !== "retry") {
     const rb = qzEl("button", "qz-btn", "🔁 再練錯題（" + qzWrongItemCount() + " 題）");
     rb.addEventListener("click", qzStartRetry);
     row.appendChild(rb);
+  }
+  if (qzSetName === "single" || qzSetName === "practice") {
+    const back2 = qzEl("button", "qz-btn", "↩️ 返去成績頁");
+    back2.addEventListener("click", () => qzBackToSummary(S._from || "textbook"));
+    row.appendChild(back2);
   }
   if (qzSetName === "retry") {
     const back = qzEl("button", "qz-btn", "↩️ 返去" + (QZ[S._from] ? QZ[S._from].label : "課文題"));
@@ -7820,37 +8176,17 @@ function qzScratchEl() {
   const wrap = document.querySelector(".qz-wrap");
   p = qzEl("div"); p.id = "qzScratch";
   const cv = document.createElement("canvas"); cv.id = "qzScratchCv"; cv.width = 720; cv.height = 520;
-  p.appendChild(cv);
-  const hint = document.createElement("div"); hint.id = "qzScratchHint"; hint.textContent = "✏️ 喺呢度畫草稿"; p.appendChild(hint);
-  const ring = document.createElement("div"); ring.id = "qzScratchRing"; p.appendChild(ring);
+  const stg = qzEl("div", "qz-scstage");
+  stg.appendChild(cv);
+  const hint = document.createElement("div"); hint.id = "qzScratchHint"; hint.textContent = "✏️ 喺呢度畫草稿"; stg.appendChild(hint);
+  const ring = document.createElement("div"); ring.id = "qzScratchRing"; stg.appendChild(ring);
+  p.appendChild(stg);
   const row = qzEl("div", "qz-scrow");
   const pen = qzEl("button", "qz-scbtn on", "✏️");
-  const ers = qzEl("button", "qz-scbtn", "🧹");
+  const ers = qzEl("button", "qz-scbtn qz-scers", "🧹 擦膠");
   const und = qzEl("button", "qz-scbtn", "↩️");
   const red = qzEl("button", "qz-scbtn", "↪️");
-  const clr = qzEl("button", "qz-scbtn", "🗑️");
-  const peek = qzEl("button", "qz-scbtn qz-scpeek", "👀 睇題目");
-  peek.addEventListener("click", () => {
-    const cv = document.getElementById("qzScratchCv");
-    const hint = document.getElementById("qzScratchHint");
-    const ring = document.getElementById("qzScratchRing");
-    qzScPeek = !qzScPeek;
-    if (qzScPeek) {
-      if (cv) cv.style.display = "none";
-      if (hint) hint.style.display = "none";
-      if (ring) ring.style.display = "none";
-      if (p._close) p._close.style.display = "none";
-      peek.textContent = "✏️ 出返草稿";
-      qzScratchScrollStageIntoView();
-    } else {
-      if (cv) cv.style.display = "";
-      if (p._hint) p._hint();
-      if (ring) ring.style.display = "none";
-      if (p._close) p._close.style.display = "";
-      peek.textContent = "👀 睇題目";
-      qzScratchScrollRowIntoView();
-    }
-  });
+  const clr = qzEl("button", "qz-scbtn qz-scclear", "🗑️");
   pen.addEventListener("click", () => { qzScTool = "pen"; pen.classList.add("on"); ers.classList.remove("on"); ring.style.display = "none"; });
   ers.addEventListener("click", () => { qzScTool = "erase"; ers.classList.add("on"); pen.classList.remove("on"); });
   und.addEventListener("click", () => { if (!qzScStrokes.length) return; qzScUndone.push(qzScStrokes.pop()); p._paint(); p._btns(); });
@@ -7860,12 +8196,12 @@ function qzScratchEl() {
     clr.classList.add("warn");
     p._clearArm = setTimeout(() => { p._clearArm = null; clr.classList.remove("warn"); }, 3000);
   });
-  [pen, ers, und, red, clr, peek].forEach(b => row.appendChild(b));
+  [pen, ers, und, red, clr].forEach(b => row.appendChild(b));
   const cls = qzEl("button", "qz-scclose-top", "✕ 關閉");
-  cls.addEventListener("click", () => { p.style.display = "none"; if (p._ring) p._ring.style.display = "none"; const t = document.querySelector(".qz-scratchbtn"); if (t) t.classList.remove("on"); });
+  cls.addEventListener("click", () => { p.style.display = "none"; if (p._ring) p._ring.style.display = "none"; const t = document.querySelector(".qz-scratchbtn"); if (t) t.classList.remove("on"); const pk = document.querySelector(".qz-peekbtn"); if (pk) pk.style.display = "none"; });
   p.appendChild(cls);
   p.appendChild(row);
-  p._pen = pen; p._ers = ers; p._und = und; p._red = red; p._clr = clr; p._close = cls; p._peek = peek; p._row = row; p._clearArm = null; p._ring = ring;
+  p._pen = pen; p._ers = ers; p._und = und; p._red = red; p._clr = clr; p._close = cls; p._peek = null; p._stage = stg; p._row = row; p._clearArm = null; p._ring = ring;
   p._btns = () => { und.disabled = qzScStrokes.length === 0; red.disabled = qzScUndone.length === 0; };
   const ctx = cv.getContext("2d");
   function seg(a, b, erase) {
@@ -7884,7 +8220,7 @@ function qzScratchEl() {
   p._hint = () => { hint.style.display = (qzScStrokes.length === 0 && !drawing && !qzScPeek) ? "flex" : "none"; };
   let drawing = false, cur = null;
   function ptOf(e) { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * (cv.width / r.width), (e.clientY - r.top) * (cv.height / r.height)]; }
-  function ringAt(e) { const r = cv.getBoundingClientRect(); const pr = p.getBoundingClientRect(); const s = QZ_SCRATCH_ERASE * (r.width / cv.width); ring.style.width = s + "px"; ring.style.height = s + "px"; ring.style.left = (e.clientX - pr.left - s / 2) + "px"; ring.style.top = (e.clientY - pr.top - s / 2) + "px"; ring.style.display = "block"; }
+  function ringAt(e) { const r = cv.getBoundingClientRect(); const pr = (p._stage || p).getBoundingClientRect(); const s = QZ_SCRATCH_ERASE * (r.width / cv.width); ring.style.width = s + "px"; ring.style.height = s + "px"; ring.style.left = (e.clientX - pr.left - s / 2) + "px"; ring.style.top = (e.clientY - pr.top - s / 2) + "px"; ring.style.display = "block"; }
   cv.addEventListener("pointerdown", e => { e.preventDefault(); drawing = true; cur = { e: qzScTool === "erase", pts: [ptOf(e)] }; if (qzScTool === "erase") ringAt(e); p._hint(); try { cv.setPointerCapture(e.pointerId); } catch (err) {} });
   cv.addEventListener("pointermove", e => { if (qzScTool === "erase") ringAt(e); else ring.style.display = "none"; if (!drawing || !cur) return; const p2 = ptOf(e); const p1 = cur.pts[cur.pts.length - 1]; seg(p1, p2, cur.e); cur.pts.push(p2); });
   ["pointerup", "pointercancel"].forEach(t => cv.addEventListener(t, () => { if (!drawing) return; drawing = false; ring.style.display = "none"; if (cur && cur.pts.length > 1) { qzScStrokes.push(cur); qzScUndone = []; p._btns(); } cur = null; p._hint(); }));
@@ -7920,7 +8256,45 @@ function qzScratchPeekReset() {
   if (p._close) p._close.style.display = "";
   if (p._peek) p._peek.textContent = "👀 睇題目";
 }
-function qzScratchToggle() { const p = qzScratchEl(); const wasOpen = qzScratchOpen(); p.style.display = wasOpen ? "none" : "block"; if (wasOpen) qzScratchPeekReset(); if (!wasOpen) qzScratchScrollRowIntoView(); if (!wasOpen && p._ring) p._ring.style.display = "none"; }
+function qzScratchToggle() { const p = qzScratchEl(); const wasOpen = qzScratchOpen(); p.style.display = wasOpen ? "none" : "block"; if (wasOpen) qzScratchPeekReset(); if (!wasOpen) qzScratchScrollRowIntoView(); if (!wasOpen && p._ring) p._ring.style.display = "none"; if (!wasOpen) qzScratchRailCheck(); }
+/* Redesign #1 (peek, shared): hides canvas+hint+ring+close-pill, keeps the
+   tools row, scrolls the stage into view; toggling back restores the draft
+   pixel-identical (strokes live only in module vars + the canvas bitmap;
+   nothing is erased or re-painted). Label flips are done by the card button;
+   qzScratchPeekReset flips it back on question/set change and quiz close/open. */
+function qzScratchPeekToggle() {
+  const p = document.getElementById("qzScratch"); if (!p) return;
+  const cv = document.getElementById("qzScratchCv");
+  const hint = document.getElementById("qzScratchHint");
+  const ring = document.getElementById("qzScratchRing");
+  qzScPeek = !qzScPeek;
+  if (qzScPeek) {
+    if (cv) cv.style.display = "none";
+    if (hint) hint.style.display = "none";
+    if (ring) ring.style.display = "none";
+    if (p._close) p._close.style.display = "none";
+    qzScratchScrollStageIntoView();
+  } else {
+    if (cv) cv.style.display = "";
+    if (p._hint) p._hint();
+    if (ring) ring.style.display = "none";
+    if (p._close) p._close.style.display = "";
+    qzScratchScrollRowIntoView();
+  }
+}
+/* Redesign #3 (iPad rail): the SAME tools-row component, moved by CSS to a
+   single right rail at >=820px landscape. If the panel would get too narrow
+   for a usable canvas (<520px panel width) it auto-falls-back to the bottom
+   row. Phone bottom row unchanged. */
+function qzScratchRailCheck() {
+  const p = document.getElementById("qzScratch"); if (!p || !qzScratchOpen()) return;
+  const wideLandscape = window.matchMedia && window.matchMedia("(min-width: 820px) and (orientation: landscape)").matches;
+  const rail = wideLandscape && (p.clientWidth || 0) >= 520;
+  p.classList.toggle("qz-rail", rail);
+  p.style.display = rail ? "flex" : "block";
+}
+window.qzRailCheck = qzScratchRailCheck;
+if (!window._qzRailBound) { window._qzRailBound = true; window.addEventListener("resize", () => { if (qzScratchOpen()) qzScratchRailCheck(); }); }
 function qzScratchClear() {
   qzScStrokes = []; qzScUndone = []; qzScTool = "pen"; qzScratchPeekReset();
   const p = document.getElementById("qzScratch");
@@ -7947,7 +8321,8 @@ window.qzOpen = function (id, itemKey) {
   qzRestoreProgress();
   const _at3 = document.getElementById("qzTabApply"); if (_at3) _at3.style.display = QZ.apply ? "" : "none";
   const _ct3 = document.getElementById("qzTabChallenge"); if (_ct3) _ct3.style.display = QZ.challenge ? "" : "none";
-  qzSwitchSet("textbook");
+  qzEntrySel = "textbook";
+  qzShowEntry();
   const _rv = document.getElementById("qzReview"); if (_rv) _rv.style.display = "none";
   qzScratchClear();
   document.getElementById("quizModal").style.display = "flex";
@@ -8020,6 +8395,8 @@ const _qzAt = document.getElementById("qzTabApply"); if (_qzAt) _qzAt.addEventLi
 const _qzCt = document.getElementById("qzTabChallenge"); if (_qzCt) _qzCt.addEventListener("click", () => qzSwitchSet("challenge"));
 function qzSwitchSet(name) {
   if (!QZ[name]) name = "textbook";
+  qzEntryMode = false;
+  const _qm2 = document.getElementById("quizModal"); if (_qm2) { _qm2.classList.add("qz-answering"); _qm2.classList.remove("qz-entry"); }
   qzScratchPeekReset();
   qzSetName = name;
   const _tt2 = document.getElementById("qzTabTextbook"); if (_tt2) _tt2.classList.toggle("on", name === "textbook");
