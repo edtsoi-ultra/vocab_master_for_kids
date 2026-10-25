@@ -377,19 +377,14 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-scratchbtn.on { background: #F59E0B; color: #451A03; }
 #qzScratch { display: none; margin-top: 12px; position: relative; }
 #qzScratchCv { width: 100%; aspect-ratio: 720 / 440; background: #1E293B; border: 2px solid #F59E0B; border-radius: 12px; touch-action: none; display: block; }
-#qzScratchHint { position: absolute; top: 60px; left: 0; width: 100%; aspect-ratio: 720 / 440; display: flex; align-items: center; justify-content: center; color: #94A3B8; font-size: 18px; font-weight: 800; pointer-events: none; }
+#qzScratchHint { position: absolute; top: 0; left: 0; width: 100%; aspect-ratio: 720 / 440; display: flex; align-items: center; justify-content: center; color: #94A3B8; font-size: 18px; font-weight: 800; pointer-events: none; }
 #qzScratchRing { position: absolute; border: 2px dashed #FDE68A; background: rgba(253,230,138,0.18); border-radius: 50%; pointer-events: none; display: none; z-index: 2; }
-/* Scratch scroll strip (scratchscroll batch): full-width drag-to-scroll row at the
-   TOP of the panel, above the canvas. touch-action: pan-y lets a vertical finger
-drag scroll .qz-wrap; the canvas keeps touch-action: none for drawing. Height
-   52px (>=48px finger target) + 8px margin = 60px, which is why #qzScratchHint
-   below is offset top: 60px so it stays exactly over the canvas. */
-#qzScrScroll { display: flex; align-items: center; justify-content: center; gap: 8px; height: 52px; margin-bottom: 8px; background: #0F172A; border: 2px dashed #38BDF8; border-radius: 12px; color: #E0F2FE; font-size: 17px; font-weight: 900; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
-.qz-scrow { display: flex; gap: 6px; margin-top: 8px; flex-wrap: nowrap; }
-.qz-scbtn { border: 2px solid #F59E0B; background: #451A03; color: #FDE68A; border-radius: 999px; padding: 10px 2px; font-size: 15px; font-weight: 800; cursor: pointer; flex: 1 1 0; min-width: 0; white-space: nowrap; }
+.qz-scrow { display: flex; gap: 6px; margin-top: 8px; flex-wrap: nowrap; align-items: center; }
+.qz-scbtn { border: 2px solid #F59E0B; background: #451A03; color: #FDE68A; border-radius: 999px; padding: 8px 10px; font-size: 17px; font-weight: 800; cursor: pointer; flex: 0 0 auto; min-width: 44px; height: 44px; text-align: center; white-space: nowrap; }
 .qz-scbtn.on { background: #F59E0B; color: #451A03; }
-.qz-scbtn.warn { background: #B91C1C; border-color: #FCA5A5; color: #FEE2E2; flex: 2 1 0; }
+.qz-scbtn.warn { background: #B91C1C; border-color: #FCA5A5; color: #FEE2E2; }
 .qz-scbtn:disabled { opacity: .4; cursor: default; }
+.qz-scclose { flex: 0 0 auto; height: 44px; min-width: 44px; margin-left: 6px; border: 2px solid #FCA5A5; background: #7F1D1D; color: #FEE2E2; border-radius: 999px; padding: 8px 12px; font-size: 15px; font-weight: 800; cursor: pointer; white-space: nowrap; }
 /* Batch B: question-count progress bar + finish wrong-only review */
 .qz-prog { margin: 10px 2px 12px; background: linear-gradient(#334155, #334155) top / 100% 10px no-repeat; }
 .qz-progfill { height: 10px; border-radius: 6px; background: #22C55E; }
@@ -7819,29 +7814,31 @@ function qzScratchEl() {
   if (p) return p;
   const wrap = document.querySelector(".qz-wrap");
   p = qzEl("div"); p.id = "qzScratch";
-  const scr = qzEl("div", "qz-scrscroll", "↕ 拖住呢度碌上碌落"); scr.id = "qzScrScroll"; p.appendChild(scr);
   const cv = document.createElement("canvas"); cv.id = "qzScratchCv"; cv.width = 720; cv.height = 440;
   p.appendChild(cv);
   const hint = document.createElement("div"); hint.id = "qzScratchHint"; hint.textContent = "✏️ 喺呢度畫草稿"; p.appendChild(hint);
   const ring = document.createElement("div"); ring.id = "qzScratchRing"; p.appendChild(ring);
   const row = qzEl("div", "qz-scrow");
-  const pen = qzEl("button", "qz-scbtn on", "✏️ 筆");
-  const ers = qzEl("button", "qz-scbtn", "🧹 擦膠");
-  const und = qzEl("button", "qz-scbtn", "↩️ 復原");
-  const red = qzEl("button", "qz-scbtn", "↪️ 重做");
-  const clr = qzEl("button", "qz-scbtn", "🗑️ 清除");
+  const pen = qzEl("button", "qz-scbtn on", "✏️");
+  const ers = qzEl("button", "qz-scbtn", "🧹");
+  const und = qzEl("button", "qz-scbtn", "↩️");
+  const red = qzEl("button", "qz-scbtn", "↪️");
+  const clr = qzEl("button", "qz-scbtn", "🗑️");
   pen.addEventListener("click", () => { qzScTool = "pen"; pen.classList.add("on"); ers.classList.remove("on"); ring.style.display = "none"; });
   ers.addEventListener("click", () => { qzScTool = "erase"; ers.classList.add("on"); pen.classList.remove("on"); });
   und.addEventListener("click", () => { if (!qzScStrokes.length) return; qzScUndone.push(qzScStrokes.pop()); p._paint(); p._btns(); });
   red.addEventListener("click", () => { if (!qzScUndone.length) return; qzScStrokes.push(qzScUndone.pop()); p._paint(); p._btns(); });
   clr.addEventListener("click", () => {
-    if (p._clearArm) { clearTimeout(p._clearArm); p._clearArm = null; clr.textContent = "🗑️ 清除"; clr.classList.remove("warn"); qzScStrokes = []; qzScUndone = []; p._paint(); p._btns(); return; }
-    clr.textContent = "真係清除？"; clr.classList.add("warn");
-    p._clearArm = setTimeout(() => { p._clearArm = null; clr.textContent = "🗑️ 清除"; clr.classList.remove("warn"); }, 3000);
+    if (p._clearArm) { clearTimeout(p._clearArm); p._clearArm = null; clr.classList.remove("warn"); qzScStrokes = []; qzScUndone = []; p._paint(); p._btns(); return; }
+    clr.classList.add("warn");
+    p._clearArm = setTimeout(() => { p._clearArm = null; clr.classList.remove("warn"); }, 3000);
   });
   [pen, ers, und, red, clr].forEach(b => row.appendChild(b));
+  const cls = qzEl("button", "qz-scclose", "✕ 關閉");
+  cls.addEventListener("click", () => { p.style.display = "none"; if (p._ring) p._ring.style.display = "none"; const t = document.querySelector(".qz-scratchbtn"); if (t) t.classList.remove("on"); });
+  row.appendChild(cls);
   p.appendChild(row);
-  p._pen = pen; p._ers = ers; p._und = und; p._red = red; p._clr = clr; p._clearArm = null; p._ring = ring;
+  p._pen = pen; p._ers = ers; p._und = und; p._red = red; p._clr = clr; p._close = cls; p._clearArm = null; p._ring = ring;
   p._btns = () => { und.disabled = qzScStrokes.length === 0; red.disabled = qzScUndone.length === 0; };
   const ctx = cv.getContext("2d");
   function seg(a, b, erase) {
@@ -7876,7 +7873,7 @@ function qzScratchClear() {
   const p = document.getElementById("qzScratch");
   if (!p) return;
   if (p._clearArm) { clearTimeout(p._clearArm); p._clearArm = null; }
-  if (p._clr) { p._clr.textContent = "🗑️ 清除"; p._clr.classList.remove("warn"); }
+  if (p._clr) { p._clr.textContent = "🗑️"; p._clr.classList.remove("warn"); }
   if (p._pen) p._pen.classList.add("on");
   if (p._ers) p._ers.classList.remove("on");
   if (p._paint) p._paint();
