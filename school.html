@@ -385,6 +385,7 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-scbtn.on { background: #F59E0B; color: #451A03; }
 .qz-scbtn.warn { background: #B91C1C; border-color: #FCA5A5; color: #FEE2E2; }
 .qz-scbtn:disabled { opacity: .4; cursor: default; }
+.qz-scpeek { padding: 8px 6px; font-size: 16px; }
 .qz-scclose-top { position: absolute; top: 8px; right: 8px; z-index: 3; height: 44px; min-width: 44px; border: 2px solid #FCA5A5; background: #7F1D1D; color: #FEE2E2; border-radius: 999px; padding: 8px 12px; font-size: 15px; font-weight: 800; cursor: pointer; white-space: nowrap; }
 /* Batch B: question-count progress bar + finish wrong-only review */
 .qz-prog { margin: 10px 2px 12px; background: linear-gradient(#334155, #334155) top / 100% 10px no-repeat; }
@@ -6961,6 +6962,7 @@ function qzGo(i) {
      legitimate back-then-forward (which routes through qzGo) is never
      swallowed — the guard blocks only a rapid 2nd footer-next tap. */
   qzBreakNextGuard = 0;
+  qzScratchPeekReset();
   qzJumpToggle(false);
   const items = qzItems();
   const was = qzIdx;
@@ -7812,6 +7814,7 @@ const QZ_SCRATCH_ERASE = 48;
 let qzScStrokes = [];
 let qzScUndone = [];
 let qzScTool = "pen";
+let qzScPeek = false;
 function qzScratchEl() {
   let p = document.getElementById("qzScratch");
   if (p) return p;
@@ -7827,6 +7830,28 @@ function qzScratchEl() {
   const und = qzEl("button", "qz-scbtn", "↩️");
   const red = qzEl("button", "qz-scbtn", "↪️");
   const clr = qzEl("button", "qz-scbtn", "🗑️");
+  const peek = qzEl("button", "qz-scbtn qz-scpeek", "👀 睇題目");
+  peek.addEventListener("click", () => {
+    const cv = document.getElementById("qzScratchCv");
+    const hint = document.getElementById("qzScratchHint");
+    const ring = document.getElementById("qzScratchRing");
+    qzScPeek = !qzScPeek;
+    if (qzScPeek) {
+      if (cv) cv.style.display = "none";
+      if (hint) hint.style.display = "none";
+      if (ring) ring.style.display = "none";
+      if (p._close) p._close.style.display = "none";
+      peek.textContent = "✏️ 出返草稿";
+      qzScratchScrollStageIntoView();
+    } else {
+      if (cv) cv.style.display = "";
+      if (p._hint) p._hint();
+      if (ring) ring.style.display = "none";
+      if (p._close) p._close.style.display = "";
+      peek.textContent = "👀 睇題目";
+      qzScratchScrollRowIntoView();
+    }
+  });
   pen.addEventListener("click", () => { qzScTool = "pen"; pen.classList.add("on"); ers.classList.remove("on"); ring.style.display = "none"; });
   ers.addEventListener("click", () => { qzScTool = "erase"; ers.classList.add("on"); pen.classList.remove("on"); });
   und.addEventListener("click", () => { if (!qzScStrokes.length) return; qzScUndone.push(qzScStrokes.pop()); p._paint(); p._btns(); });
@@ -7836,12 +7861,12 @@ function qzScratchEl() {
     clr.classList.add("warn");
     p._clearArm = setTimeout(() => { p._clearArm = null; clr.classList.remove("warn"); }, 3000);
   });
-  [pen, ers, und, red, clr].forEach(b => row.appendChild(b));
+  [pen, ers, und, red, clr, peek].forEach(b => row.appendChild(b));
   const cls = qzEl("button", "qz-scclose-top", "✕ 關閉");
   cls.addEventListener("click", () => { p.style.display = "none"; if (p._ring) p._ring.style.display = "none"; const t = document.querySelector(".qz-scratchbtn"); if (t) t.classList.remove("on"); });
   p.appendChild(cls);
   p.appendChild(row);
-  p._pen = pen; p._ers = ers; p._und = und; p._red = red; p._clr = clr; p._close = cls; p._clearArm = null; p._ring = ring;
+  p._pen = pen; p._ers = ers; p._und = und; p._red = red; p._clr = clr; p._close = cls; p._peek = peek; p._row = row; p._clearArm = null; p._ring = ring;
   p._btns = () => { und.disabled = qzScStrokes.length === 0; red.disabled = qzScUndone.length === 0; };
   const ctx = cv.getContext("2d");
   function seg(a, b, erase) {
@@ -7857,7 +7882,7 @@ function qzScratchEl() {
     qzScStrokes.forEach(st => { for (let i = 1; i < st.pts.length; i++) seg(st.pts[i - 1], st.pts[i], st.e); });
     p._hint();
   };
-  p._hint = () => { hint.style.display = (qzScStrokes.length === 0 && !drawing) ? "flex" : "none"; };
+  p._hint = () => { hint.style.display = (qzScStrokes.length === 0 && !drawing && !qzScPeek) ? "flex" : "none"; };
   let drawing = false, cur = null;
   function ptOf(e) { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * (cv.width / r.width), (e.clientY - r.top) * (cv.height / r.height)]; }
   function ringAt(e) { const r = cv.getBoundingClientRect(); const pr = p.getBoundingClientRect(); const s = QZ_SCRATCH_ERASE * (r.width / cv.width); ring.style.width = s + "px"; ring.style.height = s + "px"; ring.style.left = (e.clientX - pr.left - s / 2) + "px"; ring.style.top = (e.clientY - pr.top - s / 2) + "px"; ring.style.display = "block"; }
@@ -7870,9 +7895,35 @@ function qzScratchEl() {
   return p;
 }
 function qzScratchOpen() { const p = document.getElementById("qzScratch"); return !!(p && p.style.display !== "none" && p.style.display !== ""); }
-function qzScratchToggle() { const p = qzScratchEl(); const wasOpen = qzScratchOpen(); p.style.display = wasOpen ? "none" : "block"; if (!wasOpen) p.scrollIntoView({ block: "nearest" }); if (!wasOpen && p._ring) p._ring.style.display = "none"; }
+function qzScratchScrollRowIntoView() {
+  const p = document.getElementById("qzScratch");
+  const wrap = document.querySelector(".qz-wrap");
+  const row = p ? (p._row || p.querySelector(".qz-scrow")) : null;
+  if (!p || !wrap || !row || p.style.display === "none" || p.style.display === "") return;
+  const wr = wrap.getBoundingClientRect(), rr = row.getBoundingClientRect();
+  if (rr.bottom > wr.bottom) wrap.scrollTop += (rr.bottom - wr.bottom) + 4;
+  else if (rr.top < wr.top) wrap.scrollTop -= (wr.top - rr.top) + 4;
+}
+function qzScratchScrollStageIntoView() {
+  const stage = document.getElementById("qzStage");
+  const wrap = document.querySelector(".qz-wrap");
+  if (!stage || !wrap) return;
+  wrap.scrollTop += stage.getBoundingClientRect().top - wrap.getBoundingClientRect().top;
+}
+function qzScratchPeekReset() {
+  qzScPeek = false;
+  const p = document.getElementById("qzScratch");
+  if (!p) return;
+  const cv = document.getElementById("qzScratchCv");
+  if (cv) cv.style.display = "";
+  if (p._hint) p._hint();
+  if (p._ring) p._ring.style.display = "none";
+  if (p._close) p._close.style.display = "";
+  if (p._peek) p._peek.textContent = "👀 睇題目";
+}
+function qzScratchToggle() { const p = qzScratchEl(); const wasOpen = qzScratchOpen(); p.style.display = wasOpen ? "none" : "block"; if (wasOpen) qzScratchPeekReset(); if (!wasOpen) qzScratchScrollRowIntoView(); if (!wasOpen && p._ring) p._ring.style.display = "none"; }
 function qzScratchClear() {
-  qzScStrokes = []; qzScUndone = []; qzScTool = "pen";
+  qzScStrokes = []; qzScUndone = []; qzScTool = "pen"; qzScratchPeekReset();
   const p = document.getElementById("qzScratch");
   if (!p) return;
   if (p._clearArm) { clearTimeout(p._clearArm); p._clearArm = null; }
@@ -7970,6 +8021,7 @@ const _qzAt = document.getElementById("qzTabApply"); if (_qzAt) _qzAt.addEventLi
 const _qzCt = document.getElementById("qzTabChallenge"); if (_qzCt) _qzCt.addEventListener("click", () => qzSwitchSet("challenge"));
 function qzSwitchSet(name) {
   if (!QZ[name]) name = "textbook";
+  qzScratchPeekReset();
   qzSetName = name;
   const _tt2 = document.getElementById("qzTabTextbook"); if (_tt2) _tt2.classList.toggle("on", name === "textbook");
   const _ct2 = document.getElementById("qzTabChallenge"); if (_ct2) _ct2.classList.toggle("on", name === "challenge");
