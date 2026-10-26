@@ -58,6 +58,8 @@ h2.sec { font-size: 16.5px; font-weight: 900; margin: 20px 0 10px; }
 .words .word .syl { color: #93C5FD; font-weight: 600; margin-left: 7px; font-size: 12.5px; }
 .words, .sent { background: rgba(30,58,138,.30); }
 .hints { background: rgba(20,83,45,.38); color: #DCFCE7; }
+.hint-en { font-weight: 800; }
+.hint-zh { font-size: 13px; opacity: .85; margin-top: 2px; }
 .practice { background: rgba(6,78,59,.42); color: #ECFDF5; }
 .practice h5 { font-size: 13.5px; font-weight: 900; color: #6EE7B7; margin: 8px 0 3px; }
 .practice h5:first-of-type { margin-top: 2px; }
@@ -181,6 +183,7 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .iconbtn { width: 36px; height: 36px; border-radius: 50%; background: #1E293B; border: 1.5px solid #38BDF8; font-size: 15px; cursor: pointer; padding: 0; flex: 0 0 auto; }
 .updmini { order: 99; flex: 1 1 100%; font-size: 10px; color: #64748B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right; margin: 1px 2px 0 0; }
 #collapseAll { flex: 0 0 auto; }
+body.kid #expandAllBtn { display: none; }
 #collapseAll { flex: 0 0 auto; }
 #quizModal { display: none; position: fixed; inset: 0; background: #020617; z-index: 1100; flex-direction: column; overscroll-behavior: contain; }
 .qz-bar { width: 100%; max-width: 720px; margin: 0 auto; padding: 10px; display: flex; gap: 8px; justify-content: space-between; align-items: center; flex-wrap: wrap; flex: none; }
@@ -195,6 +198,11 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-footer .qz-btn { flex: none; width: 104px; box-sizing: border-box; padding: 10px 6px; font-size: 14px; white-space: nowrap; }
 #qzProgLine { flex: 1 1 auto; min-width: 0; display: flex; align-items: center; padding: 0 10px; }
 #qzProgFill { height: 8px; border-radius: 6px; background: #22C55E; width: 0%; transition: width .25s; }
+.qz-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.qz-pillbtn { width: 30px; height: 30px; border-radius: 8px; border: 1.5px solid #475569; background: #0F172A; color: #94A3B8; font-size: 13px; font-weight: 800; cursor: pointer; padding: 0; }
+.qz-pillbtn.done { background: #2563EB; border-color: #2563EB; color: #fff; }
+.qz-pillbtn.part { border-style: dashed; border-color: #38BDF8; color: #BFDBFE; background: transparent; }
+.qz-pillbtn.cur { transform: scale(1.2); border-color: #fff; color: #fff; }
 
 
 .qz-jclose { width: 36px; height: 36px; border-radius: 50%; border: 2px solid #475569; background: #334155; color: #F1F5F9; font-size: 15px; font-weight: 900; cursor: pointer; line-height: 1; }
@@ -275,7 +283,7 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
    shrinks and truncates with an ellipsis, so the 3 round buttons stay
    flush top-right on the same row and never wrap to a second row. */
 .qz-headrow { display: flex; gap: 8px; align-items: center; flex-wrap: nowrap; margin-bottom: 10px; }
-.qz-tag { display: inline-flex; align-items: center; background: #7C2D12; color: #FED7AA; font-size: 12px; font-weight: 800; border-radius: 20px; padding: 0 12px; height: 40px; box-sizing: border-box; margin-bottom: 0; flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.qz-tag { display: inline-flex; align-items: center; background: #7C2D12; color: #FED7AA; font-size: 12px; font-weight: 800; border-radius: 20px; padding: 6px 12px; min-height: 40px; box-sizing: border-box; margin-bottom: 0; flex: 0 1 auto; min-width: 0; overflow: visible; text-overflow: clip; white-space: normal; line-height: 1.4; text-align: center; }
 .qz-headbtns { display: flex; gap: 6px; align-items: center; margin-left: auto; flex: none; }
 .qz-headbtns .qz-speak, .qz-headbtns .qz-reviewbtn, .qz-headbtns .qz-scratchbtn, .qz-headbtns .qz-peekbtn { margin-left: 0; }
 .qz-qrow { display: flex; gap: 8px; align-items: flex-start; }
@@ -364,8 +372,10 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-skills { margin-top: 10px; font-size: 15.5px; line-height: 1.7; }
 .qz-pill { display: inline-block; border-radius: 20px; padding: 5px 12px; margin: 3px 5px 3px 0; font-size: 14px; font-weight: 800; border: 1.5px solid #64748B; color: #E2E8F0; background: #1E293B; }
 .qz-pill.ok { border-color: #22C55E; color: #BBF7D0; background: #14532D; }
+.qz-pill.todo { border-style: dashed; border-color: #64748B; color: #94A3B8; background: #0F172A; }
 .qz-pill.bad { border-color: #F97316; color: #FED7AA; background: #431407; }
-.qz-summary { background: #422006; border: 2px solid #F59E0B; border-radius: 14px; padding: 18px; color: #FEF3C7; font-size: 16.5px; line-height: 1.75; }
+.qz-summary .qz-row .qz-btn { width: auto; min-width: 104px; }
+  .qz-summary { background: #0F172A; border: 2px solid #38BDF8; border-radius: 14px; padding: 18px; color: #F1F5F9; font-size: 16.5px; line-height: 1.75; }
 /* ===== Worksheet modal ===== */
 #wsModal { display: none; position: fixed; inset: 0; background: rgba(2,6,23,.88); z-index: 1000; overflow-y: auto; padding: 14px 8px 40px; overscroll-behavior: contain; }
 #wsPick { display: none; position: fixed; inset: 0; background: rgba(2,6,23,.97); z-index: 1150; overflow-y: auto; padding: 18px 14px 40px; }
@@ -541,7 +551,7 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-entrysub { font-size: 14.5px; color: #FDE68A; margin-top: 4px; font-weight: 800; }
 
 /* Bug 6 fix (fix1b): peek pill has a FIXED width (118px total, border-box)
-   covering both labels (「👀 睇題目」96px / 「✏️ 出返草稿」111px measured
+   covering both labels (「👀 看題目」96px / 「✏️ 顯示草稿」111px measured
    at 390px), so flipping the label never shifts the pencil button. The pill
    is layout-reserved at all times (visibility, never display:none) — see
    qzRender / scratch-toggle / panel-close — so the 3 round buttons keep
@@ -644,16 +654,16 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 <body class="edition-school">
 <script>window.__EDITION = "school";</script>
 <header><h1>🎒 2A 學習專頁</h1><span class="modesw"><button id="modeParent" class="modebtn on">👨‍👩‍👧 家長</button><button id="modeKid" class="modebtn">👧 溫書</button></span><button id="langToggle" class="modebtn">EN</button><button id="forceReload" class="iconbtn" aria-label="reload">🔄</button></header>
-<nav id="topnav"><button class="navbtn on" data-filter="all">全部</button><button class="navbtn" data-filter="exam">⏰ 測驗 <span id="cntExam"></span></button><button class="navbtn" data-filter="hw">📝 功課 <span id="cntHw"></span></button><button class="navbtn" data-filter="notice">📢 通告 <span id="cntNotice"></span></button><span id="upd" class="updmini">…</span><button class="navbtn collapseall" id="collapseAll">⏬ Expand</button></nav>
+<nav id="topnav"><button class="navbtn on" data-filter="all">全部</button><button class="navbtn" data-filter="exam">⏰ 測驗 <span id="cntExam"></span></button><button class="navbtn" data-filter="hw">📝 功課 <span id="cntHw"></span></button><button class="navbtn" data-filter="notice">📢 通告 <span id="cntNotice"></span></button><span id="upd" class="updmini">…</span><button class="navbtn collapseall" id="collapseAll">⏬ Expand</button><button class="navbtn" id="expandAllBtn">全部展開</button></nav>
 <div id="actionBanner"></div>
 <div id="app"></div>
-<div id="quizModal"><div class="qz-bar"><div class="qz-tabs"><button id="qzTabTextbook" class="qz-tab on">課文題</button><button id="qzTabApply" class="qz-tab">應用題一</button><button id="qzTabChallenge" class="qz-tab">應用題二</button></div><span id="qzTopLine" class="qz-topline">揀一份練習</span><span id="qzScore">⭐ 0 / 13</span><span id="qzStreak"></span><button class="ws-close" id="quizCloseBtn">✕ 關閉</button></div><div class="qz-wrap"><div id="qzReview" class="qz-review" style="display:none"></div><div id="qzStage"></div></div><div class="qz-footer"><button id="qzPrev" class="qz-btn alt">← 上一題</button><div id="qzProgLine"><div id="qzProgFill"></div></div><button id="qzNext" class="qz-btn">下一題 →</button></div></div>
+<div id="quizModal"><div class="qz-bar"><div class="qz-tabs"><button id="qzTabTextbook" class="qz-tab on">課文題</button><button id="qzTabApply" class="qz-tab">應用題一</button><button id="qzTabChallenge" class="qz-tab">應用題二</button></div><span id="qzTopLine" class="qz-topline">選擇一份練習</span><span id="qzScore">⭐ 0 / 13</span><span id="qzStreak"></span><button class="ws-close" id="quizCloseBtn">✕ 關閉</button></div><div class="qz-wrap"><div id="qzReview" class="qz-review" style="display:none"></div><div id="qzStage"></div></div><div class="qz-footer"><button id="qzPrev" class="qz-btn alt">← 上一題</button><div id="qzProgLine"><div id="qzProgFill"></div></div><button id="qzNext" class="qz-btn">下一題 →</button></div></div>
 <div id="wsModal"><div class="ws-bar"><button class="ws-print" id="wsPrintBtn">🖨️ 列印 / 儲存 PDF</button><button class="ws-close" id="wsCloseBtn">✕ 關閉</button></div><div id="wsSheet"></div></div>
 <footer>資料來源：學校 eClass 通告及通告附頁、Google Classroom 功課指示、課本/默書紙拍攝內容。<br>「學校原文」為官方內容；「AI 輔助」提示同練習由 Muse 生成，練習答案只供家長核對。</footer>
 <script>
 const $app = document.getElementById("app");
 const STR = {
-  zh: { title: "🎒 2A 學習專頁", modeParent: "👨‍👩‍👧 家長", modeKid: "👧 溫書", nav_all: "全部", nav_exam: "⏰ 測驗", nav_hw: "📝 功課", nav_notice: "📢 通告", easy: "簡易版", normal: "正常版", textbook: "課文題", apply: "應用題一", challenge: "應用題二", reviewBtn: "📖 重點", prev: "← 上一題", next: "下一題 →", close: "✕", wsPrint: "🖨️ 列印 / 儲存 PDF", updated: "最後更新：", updSuffix: "", loadFail: "⚠️ 資料載入失敗，請稍後再開", secExam: "⏰ 測驗・默書・評估", secHw: "📚 功課", secHwDone: "✅ 已完成功課", secNotice: "📢 通告", emptyExam: "暫時冇測驗／默書／評估", emptyHw: "暫時冇功課", emptyNotice: "暫時冇新通告", doneItems: "✅ 已完成項目", done: "已完成", today: "今日！", tmr: "聽日！", duePrefix: "📅 截止：", unsigned: "✍️ 設有回條", replyBy: "｜回條死線：", scope: "範圍：", startRevise: "▶️ 開始溫習", closeUp: "收起 ▲", hwOpen: "📋 睇指示 / 提示 ▼", origText: "睇學校原文", blkDetail: "📋 內容／指示（學校原文）", blkPoints: "📌 要點", blkFocus: "🎯 重點注意", blkWords: "📝 字詞表", wordsLegend: "每組：字詞 + 🔊（只讀嗰個，讀兩次）", speakWords: "🔊 讀默字詞", blkSent: "🗣 讀默句子", sentLegend: "每句有自己嘅 🔊 掣（只讀嗰句，讀兩次）", blkRecite: "🎒 背默（遮住先，背完先好開嚟對）", reciteLegend: "背默段落預設遮住：背完撳 👁 開嚟對；🔊 只讀嗰段兩次", blkHints: "💡 點樣幫佢做（AI 輔助）", blkPractice: "✏️ 練習題（AI 生成）", ansCheck: "🔑 家長核對答案", ansKey: "🔑 家長核對（問功課紀錄）", blkQuiz: "🎮 互動練習", qzPreview: "👀 㩒入去玩", qzSets: "課文題／應用題一／應用題二・㩒入去玩", qzAwait: "等課文入庫", qzSoon: "準備中", ptools: "🧰 家長工具／選項", wsPreview: "🖨️ 工作紙 / 列印", wsWord: "📄 下載 Word", qaBtn: "📋 題目與答案", print: "🖨️ 印工作紙", teview: "📋 題目與答案（教師版）", objTitle: "🎯 溫習目標", kidQuiz: "🎮 互動練習 ▶", folder: "🗓️ 評估一預習（共{n}科）", inDays: " · {d} 日後", verified: "✅ 資料已核實", bankReady: "✅ 題庫已齊", stepsDone: "📋 完成步驟", learned: "✅ 已識", gotIt: "✅識咗", reset: "↺ 重置進度", flagT: "⚠️ 未上傳相片", flagS: "請家長上傳課本／默書紙相片，以生成精準字表。", tierVerified: "✅ 已核實內容", tierKb: "📚 按課本內容生成", tierGuessC: "⚠️ 待傳相片", tierGuess: "⚠️ 基礎範圍練習", expand: "⏬ 展開", qzJump: "🔍 跳去邊一題？", qzJumpClose: "✕", pickTitle: "📝 揀練習工作紙", pickLesson: "① 揀課", pickSet: "② 揀份（可多選）", pickAll: "三份全選", pickPrint: "🖨️ 列印工作紙", pickWord: "📄 下載 Word", setNames: "練習一（基礎）|練習二（應用）|練習三（進階）", wsFor: "工作紙", ansHead: "🔑 家長核對答案（列印時自動另開一頁）", collapse: "⏫ 收起", remainToday: "今日到期！", remainTmr: "聽日到期" },
+  zh: { title: "🎒 2A 學習專頁", modeParent: "👨‍👩‍👧 家長", modeKid: "👧 溫書", nav_all: "全部", nav_exam: "⏰ 測驗", nav_hw: "📝 功課", nav_notice: "📢 通告", easy: "簡易版", normal: "正常版", textbook: "課文題", apply: "應用題一", challenge: "應用題二", reviewBtn: "📖 重點", prev: "← 上一題", next: "下一題 →", close: "✕", wsPrint: "🖨️ 列印 / 儲存 PDF", updated: "最後更新：", updSuffix: "", loadFail: "⚠️ 資料載入失敗，請稍後再開", secExam: "⏰ 測驗・默書・評估", secHw: "📚 功課", secHwDone: "✅ 已完成功課", secNotice: "📢 通告", emptyExam: "暫時沒有測驗／默書／評估", emptyHw: "暫時冇功課", emptyNotice: "暫時冇新通告", doneItems: "✅ 已完成項目", done: "已完成", today: "今日！", tmr: "明日！", duePrefix: "📅 截止：", unsigned: "✍️ 設有回條", replyBy: "｜回條死線：", scope: "範圍：", startRevise: "▶️ 開始溫習", closeUp: "收起 ▲", hwOpen: "📋 看指示 / 提示 ▼", origText: "看學校原文", blkDetail: "📋 內容／指示（學校原文）", blkPoints: "📌 要點", blkFocus: "🎯 重點注意", blkWords: "📝 字詞表", wordsLegend: "每組：字詞 + 🔊（只讀嗰個，讀兩次）", speakWords: "🔊 讀默字詞", blkSent: "🗣 讀默句子", sentLegend: "每句有自己嘅 🔊 掣（只讀嗰句，讀兩次）", blkRecite: "🎒 背默（先遮住，背完後再打開來對照）", reciteLegend: "背默段落預設遮住：背完撳 👁 開嚟對；🔊 只讀嗰段兩次", blkHints: "💡 點樣幫他做（AI 輔助）", blkPractice: "✏️ 練習題（AI 生成）", ansCheck: "🔑 家長核對答案", ansKey: "🔑 家長核對（問功課紀錄）", blkQuiz: "🎮 互動練習", qzPreview: "👀 進入練習", qzSets: "課文題／應用題一／應用題二・進入練習", qzAwait: "等課文入庫", qzSoon: "準備中", ptools: "🧰 家長工具／選項", wsPreview: "🖨️ 工作紙 / 列印", wsWord: "📄 下載 Word", qaBtn: "📋 題目與答案", print: "🖨️ 印工作紙", teview: "📋 題目與答案（教師版）", objTitle: "🎯 溫習目標", kidQuiz: "🎮 互動練習 ▶", folder: "🗓️ 評估一預習（共{n}科）", inDays: " · {d} 日後", verified: "✅ 資料已核實", bankReady: "✅ 題庫已齊", stepsDone: "📋 完成步驟", learned: "✅ 已識", gotIt: "✅已學會", reset: "↺ 重置進度", flagT: "⚠️ 未上傳相片", flagS: "請家長上傳課本／默書紙相片，以生成精準字表。", tierVerified: "✅ 已核實內容", tierKb: "📚 按課本內容生成", tierGuessC: "⚠️ 待傳相片", tierGuess: "⚠️ 基礎範圍練習", expand: "⏬ 展開", qzJump: "🔍 跳去邊一題？", qzJumpClose: "✕", pickTitle: "📝 選擇練習工作紙", pickLesson: "① 選擇課", pickSet: "② 選擇份（可多選）", pickAll: "三份全選", pickPrint: "🖨️ 列印工作紙", pickWord: "📄 下載 Word", setNames: "練習一（基礎）|練習二（應用）|練習三（進階）", wsFor: "工作紙", ansHead: "🔑 家長核對答案（列印時自動另開一頁）", collapse: "⏫ 收起", remainToday: "今日到期！", remainTmr: "明日到期" },
   en: { title: "🎒 2A Study Page", modeParent: "👨‍👩‍👧 Parents", modeKid: "👧 Study", nav_all: "All", nav_exam: "⏰ Tests", nav_hw: "📝 Homework", nav_notice: "📢 Notices", easy: "Easy", normal: "Normal", textbook: "Textbook", apply: "Practice 1", challenge: "Practice 2", reviewBtn: "📖 Key points", prev: "← Prev", next: "Next →", close: "✕", wsPrint: "🖨️ Print / Save PDF", updated: "Updated: ", updSuffix: "", loadFail: "⚠️ Could not load data, please reopen later", secExam: "⏰ Tests · Dictations · Assessments", secHw: "📚 Homework", secHwDone: "✅ Completed homework", secNotice: "📢 Notices", emptyExam: "No tests / dictations / assessments for now", emptyHw: "No homework right now", emptyNotice: "No new notices", doneItems: "✅ Completed items", done: "Done", today: "Today!", tmr: "Tomorrow!", duePrefix: "📅 Due: ", unsigned: "✍️ Reply slip", replyBy: " | Reply deadline: ", scope: "Scope: ", startRevise: "▶️ Start revising", closeUp: "Close ▲", hwOpen: "📋 Instructions / Tips ▼", origText: "School original text", blkDetail: "📋 Instructions (school original)", blkPoints: "📌 Key points", blkFocus: "🎯 Focus", blkWords: "📝 Word list", wordsLegend: "Each item: word + 🔊 (reads that word twice)", speakWords: "🔊 Play dictation words", blkSent: "🗣 Dictation sentences", sentLegend: "Each sentence has its own 🔊 button (reads twice)", blkRecite: "🎒 Recitation (covered — recite first, then peek)", reciteLegend: "Covered by default: recite, tap 👁 to check; 🔊 reads it twice", blkHints: "💡 How to help (AI tips)", blkPractice: "✏️ Practice (AI-generated)", ansCheck: "🔑 Answers (parents)", ansKey: "🔑 Answer key (homework record)", blkQuiz: "🎮 Interactive practice", qzPreview: "👀 Tap to play", qzSets: "Textbook / Practice 1 / Practice 2 · tap to play", qzAwait: "Waiting for textbook", qzSoon: "Coming soon", ptools: "🧰 Parent tools", wsPreview: "🖨️ Worksheet preview / print", wsWord: "📄 Download Word", qaBtn: "📋 Questions & Answers", print: "🖨️ Print worksheet", teview: "📋 Questions & Answers (Teacher's Edition)", objTitle: "🎯 Study goals", kidQuiz: "🎮 Interactive practice ▶", folder: "🗓️ Assessment 1 prep ({n} subjects)", inDays: " · in {d} days", verified: "✅ Content verified", bankReady: "✅ Question bank ready", stepsDone: "📋 Steps done", learned: "✅ Learned", gotIt: "✅ Got it", reset: "↺ Reset progress", flagT: "⚠️ Photos not uploaded yet", flagS: "Please upload textbook / dictation sheet photos to generate an accurate word list.", tierVerified: "✅ Verified content", tierKb: "📚 Built from textbook", tierGuessC: "⚠️ Photos needed", tierGuess: "⚠️ Based on scope only", expand: "⏬ Expand", qzJump: "🔍 Jump to question", qzJumpClose: "✕", pickTitle: "📝 Choose a worksheet", pickLesson: "1. Lesson", pickSet: "2. Sets (tap to toggle)", pickAll: "All 3 sets", pickPrint: "🖨️ Print worksheet", pickWord: "📄 Download Word", setNames: "Set 1 (Basics)|Set 2 (Practice)|Set 3 (Challenge)", wsFor: "Worksheet", ansHead: "🔑 Answer key (prints on a separate page)", collapse: "⏫ Collapse", remainToday: "Due today!", remainTmr: "Due tomorrow" }
 };
 let LANG = "zh";
@@ -694,7 +704,7 @@ function tierBadge(item, compactGuess) {
   if (item.source_tier === "curriculum_kb") return el("span", "tier kb", T("tierKb"));
   return el("span", "tier guess", compactGuess ? T("tierGuessC") : T("tierGuess"));
 }
-/* ---------- 日期重算（前端，香港時間；唔信後端靜態 days_left） ---------- */
+/* ---------- 日期重算（前端，香港時間；不信後端靜態 days_left） ---------- */
 function hkTodayStr() {
   const parts = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Hong_Kong", year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(new Date());
   const o = {};
@@ -747,7 +757,7 @@ function checkLabel(cardKey, itemId, labelText) {
     refreshProgCounts();
   });
   lab.appendChild(cb);
-  if (labelText !== "") lab.appendChild(document.createTextNode(labelText || "✅識咗"));
+  if (labelText !== "") lab.appendChild(document.createTextNode(labelText || "✅已學會"));
   return lab;
 }
 function refreshProgCounts() {
@@ -766,7 +776,7 @@ function refreshProgCounts() {
   });
   document.querySelectorAll("[data-pbar-for]").forEach(elm => {
     const s = totals[elm.getAttribute("data-pbar-for")];
-    if (s && s.t > 0) { elm.style.display = ""; const f = elm.firstChild; if (s.d === 0) { f.style.width = "100%"; f.style.background = "#475569"; } else { f.style.width = Math.round(100 * s.d / s.t) + "%"; f.style.background = ""; } }
+    if (s && s.t > 0) { elm.style.display = ""; const f = elm.firstChild; if (s.d === 0) { f.style.width = "0%"; f.style.background = ""; } else { f.style.width = Math.round(100 * s.d / s.t) + "%"; f.style.background = ""; } }
     else elm.style.display = "none";
   });
   document.querySelectorAll("[data-prog-wrap]").forEach(elm => {
@@ -825,7 +835,7 @@ function speakSeq(texts, lang, btn, prog) {
   }
   playItem();
 }
-/* 單項讀默：只讀嗰一項，讀兩次（逐句/逐字用，唔使成串聽晒） */
+/* 單項讀默：只讀那一項，讀兩次（逐句/逐字用，不用成串聽完） */
 let tapSeq = 0;
 function sayTwice(text, lang, isAlive, onDone) {
   const say = (t, cb) => { const u = new SpeechSynthesisUtterance(t); u.lang = lang; u.rate = 0.78; u.onend = cb; u.onerror = cb; speechSynthesis.speak(u); };
@@ -842,6 +852,7 @@ function speakSingle(text, lang, btn) {
   btn.textContent = "⏹";
   sayTwice(text, lang, () => speakingBtn === btn, () => { if (speakingBtn !== btn) return; speakingBtn = null; btn.textContent = btn.dataset.label; });
 }
+function speakWordOnce(text, lang) { if (!("speechSynthesis" in window)) return; speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = lang; u.rate = 0.78; speechSynthesis.speak(u); }
 function speakTap(text, lang) {
   if (!("speechSynthesis" in window)) return;
   if (speakingBtn) { speakingBtn.textContent = speakingBtn.dataset.label; speakingBtn = null; }
@@ -925,12 +936,11 @@ function enrichmentHTML(card, item, opts) {
       const s = el("span", "word", w.text);
       if (w.meaning) s.appendChild(el("span", "mean", w.meaning));
       if (w.syllables) s.appendChild(el("span", "syl", w.syllables));
-      s.title = "撳一下聽讀音（讀兩次）";
-      s.addEventListener("click", () => speakTap(w.text, langOf(item)));
+      s.title = "按一下聽讀音";
       unit.appendChild(s);
       const wb = el("button", "speak1", "🔊");
-      wb.addEventListener("click", () => speakSingle(w.text, langOf(item), wb));
       unit.appendChild(wb);
+      unit.addEventListener("click", (e) => { if (e.target.closest(".lchk") || e.target.closest("label") || e.target.tagName === "INPUT") return; e.stopPropagation(); speakWordOnce(w.text, langOf(item)); });
       if (checkable) unit.appendChild(checkLabel(ck, "w" + wIdx.get(w) + "-" + hashStr(w.text), ""));
       return unit;
     };
@@ -978,6 +988,8 @@ function enrichmentHTML(card, item, opts) {
       const li = el("li");
       const row = el("div", "sentrow");
       const txt = el("span", "senttext covered", s);
+      txt.style.cursor = "pointer";
+      txt.addEventListener("click", (e) => { e.stopPropagation(); const covered = txt.classList.toggle("covered"); rb.textContent = covered ? "👁" : "🙈"; });
       row.appendChild(txt);
       const rb = el("button", "speak1", "👁");
       rb.addEventListener("click", () => { const covered = txt.classList.toggle("covered"); rb.textContent = covered ? "👁" : "🙈"; });
@@ -992,7 +1004,7 @@ function enrichmentHTML(card, item, opts) {
     b.appendChild(ol);
     card.appendChild(b);
   }
-  if (item.hints && item.hints.length && !isDict) { const b = block("hints", T("blkHints")); const ul = el("ul"); item.hints.forEach((h, i) => { const li = el("li", null, h); if (opts.hintsCheck) li.appendChild(checkLabel(ck, "h" + i + "-" + hashStr(h), "✅識咗")); ul.appendChild(li); }); b.appendChild(ul); card.appendChild(b); }
+  if (item.hints && item.hints.length && !isDict) { const b = block("hints", T("blkHints")); const ul = el("ul"); item.hints.forEach((h, i) => { const li = el("li"); const _hen = (item.hints_en && item.hints_en[i] && item.hints_en[i] !== h) ? item.hints_en[i] : null; if (_hen) { const _e = el("div", "hint-en", _hen); const _z = el("div", "hint-zh", h); li.appendChild(_e); li.appendChild(_z); } else { li.textContent = h; } if (opts.hintsCheck) li.appendChild(checkLabel(ck, "h" + i + "-" + hashStr(h), "✅已學會")); ul.appendChild(li); }); b.appendChild(ul); card.appendChild(b); }
   if (item.practice && item.practice.length) {
     const b = block("practice", T("blkPractice"));
     const groups = {};
@@ -1104,7 +1116,7 @@ function enrichmentHTML(card, item, opts) {
   }
   if (checkable && !(item.practice && item.practice.length) && !(item.words && item.words.length) && !(item.hints && item.hints.length) && item.detail) {
     const b = block("hints", "✅ 進度");
-    b.appendChild(checkLabel(ck, "task", "✅ 完成／學識咗"));
+    b.appendChild(checkLabel(ck, "task", "✅ 完成／已學會"));
     card.appendChild(b);
   }
   if (card._applyTab && card._defaultTab) card._applyTab(card._defaultTab);
@@ -1129,7 +1141,7 @@ function buildSheet(item) {
   h += '<div class="wsmeta"><span>姓名：____________</span><span>日期：____________</span><span>成績：________</span></div>';
   if (item.scope) h += '<div style="font-size:13.5px;color:#444;margin-bottom:6px">範圍：' + esc(item.scope) + "</div>";
   if (item.words && item.words.length) {
-    h += "<h3>一、字詞練寫（先讀一次，再喺格仔度寫）</h3>";
+    h += "<h3>一、字詞練寫（先讀一次，再在格子裏寫）</h3>";
     item.words.forEach(w => {
       const t = w.text || "";
       let practiceArea;
@@ -1309,7 +1321,7 @@ const SUBJ_STYLE = [
   [/中文|中國語文/, "chi", "📖 中文", "#EF4444", "📖 Chinese"],
   [/英文|英語|English/i, "eng", "🔤 英文", "#3B82F6", "🔤 English"],
   [/數學|Maths/i, "math", "🔢 數學", "#10B981", "🔢 Mathematics"],
-  [/科學/, "hum", "🔬 科學", "#F59E0B", "🔬 Science"],
+  [/科學/, "sci", "🔬 科學", "#06B6D4", "🔬 Science"],
   [/人文|常識|社會/, "hum", "🌍 人文", "#F59E0B", "🌍 Humanities"]
 ];
 function subjOf(item) {
@@ -1495,7 +1507,8 @@ document.getElementById("langToggle").addEventListener("click", () => { try { lo
 try { if (new URLSearchParams(location.search).get("mode") === "kid") setMode("kid"); } catch (e) {}
 applyStaticI18n();
 document.getElementById("collapseAll").addEventListener("click", toggleAllCards);
-function remainText(dl) { return dl === 0 ? T("remainToday") : dl === 1 ? T("remainTmr") : (LANG === "en" ? dl + " days left" : "仲有 " + dl + " 日"); }
+{ const _eab = document.getElementById("expandAllBtn"); if (_eab) { _eab.textContent = LANG === "en" ? "Expand all" : "全部展開"; _eab.addEventListener("click", () => { visibleCards().forEach(expandCard); updateToggleBtn(); }); } }
+function remainText(dl) { return dl === 0 ? T("remainToday") : dl === 1 ? T("remainTmr") : (LANG === "en" ? dl + " days left" : "尚有 " + dl + " 日"); }
 function buildBanner(d) {
   const banner = document.getElementById("actionBanner");
   const rows = [];
@@ -1585,7 +1598,7 @@ fetch("school-detail.json?t=" + Date.now())
     refreshProgCounts();
     _lastData = d;
     applyAssessFolder();
-    if (!document.body.classList.contains("kid")) document.querySelectorAll(".card").forEach(c => c.classList.add("open"));
+    if (!document.body.classList.contains("kid")) { const _soon = new Set(); [...(d.upcoming || []), ...(d.homework || []), ...((d.notices && d.notices.items) || [])].forEach(it => { if (it._cid && it.days_left != null && it.days_left >= 0 && it.days_left <= 3) _soon.add(it._cid); }); document.querySelectorAll(".card").forEach(c => { if (_soon.has(c.id)) c.classList.add("open"); }); }
     updateToggleBtn();
     const hk = (location.hash || "").replace(/^#/, "");
     if (hk) { const allItems = [...(d.upcoming || []), ...(d.homework || [])]; const hit = allItems.find(x => x.key === hk); if (hit && hit._cid) openCardById(hit._cid); }
@@ -1597,8 +1610,8 @@ fetch("school-detail.json?t=" + Date.now())
 <script>
 /* ===== Interactive quiz player v2.2: 第3課《心中的鈴鐺》 (trial; content from curriculum_kb) ===== */
 const QZ_BELL_SVG = '<svg viewBox="0 0 200 190" xmlns="http://www.w3.org/2000/svg"><circle cx="170" cy="26" r="13" fill="#E2E8F0"/><circle cx="163" cy="22" r="11" fill="#0F172A" opacity="0.25"/><path d="M30 62 q-16 26 0 52" stroke="#38BDF8" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M170 62 q16 26 0 52" stroke="#38BDF8" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="100" cy="36" r="10" fill="#F59E0B"/><path d="M100 46 C 68 46 58 82 58 106 L 50 136 L 150 136 L 142 106 C 142 82 132 46 100 46 Z" fill="#FBBF24" stroke="#B45309" stroke-width="4"/><rect x="44" y="136" width="112" height="10" rx="5" fill="#B45309"/><circle cx="100" cy="160" r="11" fill="#92400E"/><text x="100" y="104" font-size="26" text-anchor="middle" fill="#92400E" font-weight="bold">叮噹</text></svg>';
-const QZ_PRAISE = ["好嘢！", "叻叻！", "做得好！", "勁呀！", "啱晒，犀利！"];
-const QZ_ENCOURAGE = ["差少少咋，再諗多步！", "唔緊要，慢慢嚟，再試下！", "好接近喇，再睇清楚啲！"];
+const QZ_PRAISE = ["做得好！", "很棒！", "做得好！", "太厲害了！", "完全正確，太厲害了！"];
+const QZ_ENCOURAGE = ["差一點，再想一步！", "不要緊，慢慢來，再試一次！", "很接近了，再看清楚一些！"];
 const QZ_L3 = {
   "easy": {
     "label": "簡易版",
@@ -1615,10 +1628,10 @@ const QZ_L3 = {
           "齡"
         ],
         "ans": 1,
-        "why": "「鈴」有金字邊，因為鈴鐺係金屬做嘅。",
+        "why": "「鈴」有金字邊，因為鈴鐺是由金屬製成的。",
         "hint": "💡 鈴鐺是金屬做的，想想哪個字有金字部。",
         "label": "選擇：鈴鐺的「鈴」",
-        "wrongWhy": "鈴鐺係金屬做嘅，要用金字邊。"
+        "wrongWhy": "鈴鐺是由金屬製成的，要用金字邊。"
       },
       {
         "type": "mc",
@@ -1634,9 +1647,9 @@ const QZ_L3 = {
         ],
         "ans": 1,
         "why": "課文第②段：小熊「便邊走邊搖着鈴鐺」。",
-        "hint": "💡 睇吓圖入面金色、會發出「叮噹」聲嘅係咩。",
+        "hint": "💡 看看圖裏面金色、會發出「叮噹」聲的是甚麼。",
         "label": "圖片題：鈴鐺",
-        "wrongWhy": "小熊搖着嘅係鈴鐺，唔係雨傘。"
+        "wrongWhy": "小熊搖着的是鈴鐺，不是雨傘。"
       },
       {
         "type": "mc",
@@ -1653,7 +1666,7 @@ const QZ_L3 = {
         "why": "課文第③段：小熊說「我很害怕，所以讓鈴聲陪我上廁所。」",
         "hint": "💡 「所以」後面要接結果：害怕之後他做了甚麼？",
         "label": "選擇：所以句式",
-        "wrongWhy": "害怕嘅結果，係讓鈴聲陪佢上廁所。"
+        "wrongWhy": "害怕的結果，是讓鈴聲陪他上廁所。"
       },
       {
         "type": "mc",
@@ -1668,9 +1681,9 @@ const QZ_L3 = {
         ],
         "ans": 2,
         "why": "課文第⑤段：「這樣不會吵醒媽媽。」",
-        "hint": "💡 鈴聲好嘈，會令媽媽點樣？",
+        "hint": "💡 鈴聲好嘈，會令媽媽怎樣？",
         "label": "選擇：不想吵醒媽媽",
-        "wrongWhy": "小熊唔想吵醒媽媽，才放下鈴鐺。"
+        "wrongWhy": "小熊不想吵醒媽媽，才放下鈴鐺。"
       },
       {
         "type": "match",
@@ -1701,9 +1714,9 @@ const QZ_L3 = {
           "吵醒",
           "拍手"
         ],
-        "hint": "💡 睇偏旁：怕是心字部，同心情有關。",
+        "hint": "💡 看偏旁：怕是心字部，同心情有關。",
         "label": "配對：形近字",
-        "wrongWhy": "睇偏旁配詞語，唔好只睇字形相像。"
+        "wrongWhy": "看偏旁配詞語，不要只看字形相像。"
       },
       {
         "type": "drag",
@@ -1742,9 +1755,9 @@ const QZ_L3 = {
             "上小下大"
           ]
         ],
-        "hint": "💡 睇吓個字上半部同下半部邊個大啲。",
+        "hint": "💡 看看個字上半部同下半部哪一個大些。",
         "label": "拖放：上下結構",
-        "wrongWhy": "睇字上下兩部分嘅結構來分類。"
+        "wrongWhy": "看字上下兩部分的結構來分類。"
       },
       {
         "type": "draw",
@@ -1758,11 +1771,11 @@ const QZ_L3 = {
       {
         "type": "reveal",
         "skill": "思考與理解",
-        "tag": "諗深一層・自我核對",
+        "tag": "深層思考・自我核對",
         "q": "為甚麼小熊在第二天晚上，拿起鈴鐺後又把它放下？（先自己講出來，再看答案）",
         "answer": "因為他想到媽媽會被鈴聲吵醒。他體貼媽媽，所以放下鈴鐺，改在心中搖鈴鐺 — 這樣不會吵醒媽媽，自己也不會害怕。",
         "label": "思考題：放下鈴鐺",
-        "wrongWhy": "唔好大聲叫，會吵醒媽媽。"
+        "wrongWhy": "不要大聲叫，會吵醒媽媽。"
       },
       {
         "type": "order",
@@ -1782,8 +1795,8 @@ const QZ_L3 = {
           "邊走邊搖着鈴鐺"
         ],
         "ans": "晚上小熊很害怕邊走邊搖着鈴鐺第二天放下鈴鐺第三天不用搖鈴鐺",
-        "why": "小熊先害怕搖鈴鐺，後來在心中搖，最後唔使搖都唔害怕了。",
-        "wrongWhy": "次序錯了，先害怕，後來才唔害怕。",
+        "why": "小熊先害怕搖鈴鐺，後來在心中搖，最後不用搖都不害怕了。",
+        "wrongWhy": "次序錯了，先害怕，後來才不害怕。",
         "label": "重組：小熊的改變",
         "hint": "由第一晚排到第三晚。"
       },
@@ -1807,8 +1820,8 @@ const QZ_L3 = {
           "所以"
         ],
         "ans": "想到媽媽會被吵醒，所以小熊放下鈴鐺",
-        "why": "想到媽媽會被吵醒係原因，放下鈴鐺係結果。",
-        "wrongWhy": "「所以」前面係原因，後面係結果。",
+        "why": "想到媽媽會被吵醒是原因，放下鈴鐺是結果。",
+        "wrongWhy": "「所以」前面是原因，後面是結果。",
         "label": "重組：放下鈴鐺",
         "hint": "先想原因，再想結果。"
       }
@@ -1824,7 +1837,7 @@ const QZ_L3 = {
         "q": "媽媽對小熊搖鈴鐺的做法有甚麼反應？從課文哪一句看得出來？（先自己講，再看答案）",
         "answer": "媽媽說：「非常好，你不用害怕呀。」— 她支持和安慰小熊，沒有責備他。",
         "label": "思考題：媽媽的反應",
-        "wrongWhy": "從課文找媽媽嘅反應，唔好猜。"
+        "wrongWhy": "從課文找媽媽的反應，不要猜。"
       }
     ]
   },
@@ -1843,8 +1856,8 @@ const QZ_L3 = {
           "口渴"
         ],
         "ans": 0,
-        "why": "黑黑嘅房間令人害怕，同課文小熊一樣。",
-        "wrongWhy": "黑黑嘅房間唔會令人肚餓。",
+        "why": "黑黑的房間令人害怕，同課文小熊一樣。",
+        "wrongWhy": "黑黑的房間不會令人肚餓。",
         "label": "應用：害怕"
       },
       {
@@ -1859,7 +1872,7 @@ const QZ_L3 = {
           "如果"
         ],
         "ans": 0,
-        "why": "練習係原因，拉得好係結果，中間用所以。",
+        "why": "練習是原因，拉得好是結果，中間用所以。",
         "wrongWhy": "原因在前，結果在後，中間用所以。",
         "label": "應用：所以"
       },
@@ -1875,8 +1888,8 @@ const QZ_L3 = {
           "火"
         ],
         "ans": 0,
-        "why": "鈴鐺係金屬做嘅，所以用金字邊。",
-        "wrongWhy": "鈴鐺係金屬做嘅，唔係木做嘅。",
+        "why": "鈴鐺是由金屬製成的，所以用金字邊。",
+        "wrongWhy": "鈴鐺是由金屬製成的，不是木做的。",
         "label": "應用：鈴的部首"
       },
       {
@@ -1891,8 +1904,8 @@ const QZ_L3 = {
           "鬧鐘把小鳥吵醒了。"
         ],
         "ans": 0,
-        "why": "吵醒係把睡着嘅人弄醒，只有第一句正確。",
-        "wrongWhy": "吵醒係把睡着嘅人弄醒，唔係花同樹。",
+        "why": "吵醒是把睡着的人弄醒，只有第一句正確。",
+        "wrongWhy": "吵醒是把睡着的人弄醒，不是花同樹。",
         "label": "應用：吵醒"
       },
       {
@@ -1915,8 +1928,8 @@ const QZ_L3 = {
           "所以"
         ],
         "ans": "天黑了，所以媽媽開了燈",
-        "why": "天黑係原因，開燈係結果。",
-        "wrongWhy": "「所以」前面係原因，後面係結果。",
+        "why": "天黑是原因，開燈是結果。",
+        "wrongWhy": "「所以」前面是原因，後面是結果。",
         "label": "應用重組：天黑了"
       },
       {
@@ -1937,8 +1950,8 @@ const QZ_L3 = {
           "在心中"
         ],
         "ans": "小熊在心中搖鈴鐺",
-        "why": "在心中搖鈴鐺，就係想像鈴聲陪自己。",
-        "wrongWhy": "先說誰，再說在邊度，最後說做咩。",
+        "why": "在心中搖鈴鐺，就是想像鈴聲陪自己。",
+        "wrongWhy": "先說誰，再說在哪裏，最後說做甚麼。",
         "label": "應用重組：在心中"
       },
       {
@@ -1970,8 +1983,8 @@ const QZ_L3 = {
           "害怕",
           "鈴鐺"
         ],
-        "why": "怕同害怕係一組，拍同拍手係一組。",
-        "wrongWhy": "睇偏旁配詞語，唔好只睇字形相像。",
+        "why": "怕同害怕是一組，拍同拍手是一組。",
+        "wrongWhy": "看偏旁配詞語，不要只看字形相像。",
         "label": "應用配對：形近字"
       },
       {
@@ -1986,9 +1999,9 @@ const QZ_L3 = {
           "真的聽到鈴聲"
         ],
         "ans": 1,
-        "why": "小熊想像有鈴聲陪着自己，令自己唔再害怕 — 係給自己勇氣嘅方法。",
+        "why": "小熊想像有鈴聲陪着自己，令自己不再害怕 — 是給自己勇氣的方法。",
         "label": "選擇：心中的鈴鐺",
-        "wrongWhy": "「在心中搖鈴鐺」係想像，唔係真嘅搖。"
+        "wrongWhy": "「在心中搖鈴鐺」是想像，不是真的搖。"
       },
       {
         "type": "order",
@@ -2010,7 +2023,7 @@ const QZ_L3 = {
           "，"
         ],
         "label": "重組：美美溫習",
-        "wrongWhy": "「所以」前面係原因，後面係結果。"
+        "wrongWhy": "「所以」前面是原因，後面是結果。"
       },
       {
         "type": "order",
@@ -2032,7 +2045,7 @@ const QZ_L3 = {
           "所以"
         ],
         "label": "重組：下雨了",
-        "wrongWhy": "下雨係原因，留在家中係結果。"
+        "wrongWhy": "下雨是原因，留在家中是結果。"
       }
     ]
   },
@@ -2051,8 +2064,8 @@ const QZ_L3 = {
           "小熊夢見了鈴鐺。"
         ],
         "ans": 1,
-        "why": "在心中搖係想像，唔係真嘅搖。",
-        "wrongWhy": "唔係真嘅搖，係想像鈴聲安慰自己。",
+        "why": "在心中搖是想像，不是真的搖。",
+        "wrongWhy": "不是真的搖，是想像鈴聲安慰自己。",
         "label": "挑戰：在心中搖"
       },
       {
@@ -2063,12 +2076,12 @@ const QZ_L3 = {
         "opts": [
           "大聲叫媽媽來陪。",
           "在心中想一件開心的事，給自己勇氣。",
-          "開着大燈睡覺。",
+          "躲在被窩裏發抖。",
           "整晚不睡覺。"
         ],
         "ans": 1,
-        "why": "像小熊一樣，在心中給自己勇氣，又唔會吵醒媽媽。",
-        "wrongWhy": "大聲叫會吵醒媽媽，開燈整晚都唔好。",
+        "why": "像小熊一樣，在心中給自己勇氣，又不會吵醒媽媽。",
+        "wrongWhy": "大聲叫會吵醒媽媽，開燈整晚都不要。",
         "label": "挑戰：怕黑怎麼辦"
       },
       {
@@ -2083,7 +2096,7 @@ const QZ_L3 = {
           "肚餓"
         ],
         "ans": 0,
-        "why": "害怕同擔心都係心裡不安嘅意思。",
+        "why": "害怕同擔心都是心裡不安的意思。",
         "wrongWhy": "開心同害怕意思相反。",
         "label": "挑戰：害怕的近義詞"
       },
@@ -2099,8 +2112,8 @@ const QZ_L3 = {
           "我肚子餓了，所以吃了一個麵包。"
         ],
         "ans": 2,
-        "why": "開心唔會令人哭，所以用得不正確。",
-        "wrongWhy": "「所以」前後要有因果關係，開心同哭冇因果。",
+        "why": "開心不會令人哭，所以用得不正確。",
+        "wrongWhy": "「所以」前後要有因果關係，開心同哭沒有因果。",
         "label": "挑戰：所以對不對"
       },
       {
@@ -2123,7 +2136,7 @@ const QZ_L3 = {
           "所以"
         ],
         "ans": "小熊怕黑，所以想出在心中搖鈴鐺的辦法",
-        "why": "怕黑係原因，想出辦法係結果。",
+        "why": "怕黑是原因，想出辦法是結果。",
         "wrongWhy": "原因在前，結果在後。",
         "label": "挑戰重組：想出辦法"
       },
@@ -2144,17 +2157,17 @@ const QZ_L3 = {
         ],
         "ans": "第二天晚上小熊拿起鈴鐺又把它放下",
         "why": "第二天晚上小熊拿起鈴鐺，又因為怕吵醒媽媽而放下。",
-        "wrongWhy": "先拿起，後放下，次序唔好調轉。",
+        "wrongWhy": "先拿起，後放下，次序不要調轉。",
         "label": "挑戰重組：拿起又放下"
       },
       {
         "type": "reveal",
         "skill": "思考與理解",
-        "tag": "諗深一層・自我核對",
+        "tag": "深層思考・自我核對",
         "q": "如果你晚上怕黑，又不想吵醒家人，你會用什麼辦法給自己勇氣？先自己想一想，再看提示。",
         "answer": "可以像小熊一樣，在心中想一件開心的事，或者想像有鈴聲陪自己，慢慢就不害怕了。",
-        "why": "像小熊一樣在心中給自己勇氣，就唔會吵醒家人。",
-        "wrongWhy": "唔好大聲叫，都唔好整晚開燈。",
+        "why": "像小熊一樣在心中給自己勇氣，就不會吵醒家人。",
+        "wrongWhy": "不要大聲叫，都不要整晚開燈。",
         "label": "挑戰思考：怕黑的辦法"
       },
       {
@@ -2169,9 +2182,9 @@ const QZ_L3 = {
           "因為他不想上廁所"
         ],
         "ans": 2,
-        "why": "課文第⑥段：第三晚小熊起身上廁所，「不用在心中搖鈴鐺了」 — 佢已經克服了害怕。",
+        "why": "課文第⑥段：第三晚小熊起身上廁所，「不用在心中搖鈴鐺了」 — 他已經克服了害怕。",
         "label": "選擇：第三晚",
-        "wrongWhy": "第三天晚上，小熊已經唔再害怕了。"
+        "wrongWhy": "第三天晚上，小熊已經不再害怕了。"
       },
       {
         "type": "drag",
@@ -2285,7 +2298,7 @@ const QZ_L3 = {
           "吵醒"
         ],
         "label": "配對：形近字進階",
-        "wrongWhy": "怕同拍偏旁不同，唔好弄混。"
+        "wrongWhy": "怕同拍偏旁不同，不要弄混。"
       }
     ]
   }
@@ -2309,7 +2322,7 @@ const QZ_L4 = {
         "why": "課文第①段：小老虎畢業前，必須填寫一份成長紀錄。",
         "hint": "💡 紀錄上面要寫身高同尾巴長。",
         "label": "選擇：成長紀錄",
-        "wrongWhy": "畢業前要填嘅係成長紀錄。"
+        "wrongWhy": "畢業前要填的是成長紀錄。"
       },
       {
         "type": "mc",
@@ -2323,10 +2336,10 @@ const QZ_L4 = {
           "裁縫的家裏"
         ],
         "ans": 0,
-        "why": "課文第②段：小老虎決定到人類嘅村子去借尺子。",
-        "hint": "💡 佢去咗一個有人住嘅地方。",
+        "why": "課文第②段：小老虎決定到人類的村子去借尺子。",
+        "hint": "💡 他去了一個有人住的地方。",
         "label": "選擇：借尺子的地方",
-        "wrongWhy": "小老虎去了人類嘅村子借尺子。"
+        "wrongWhy": "小老虎去了人類的村子借尺子。"
       },
       {
         "type": "mc",
@@ -2343,7 +2356,7 @@ const QZ_L4 = {
         "why": "課文第④段：裁縫說「我只給人量身高，從不給動物量的。」",
         "hint": "💡 裁縫平時只幫邊種「客」量？",
         "label": "選擇：裁縫拒絕的原因",
-        "wrongWhy": "裁縫只幫人量身高，唔幫動物量。"
+        "wrongWhy": "裁縫只幫人量身高，不幫動物量。"
       },
       {
         "type": "mc",
@@ -2357,10 +2370,10 @@ const QZ_L4 = {
           "睡覺和曬太陽"
         ],
         "ans": 0,
-        "why": "課文第⑤段：一隻青蛙在跳遠，另一隻在做紀錄，量泥坑嘅長度。",
-        "hint": "💡 同「跳」同「量嘢」有關。",
+        "why": "課文第⑤段：一隻青蛙在跳遠，另一隻在做紀錄，量泥坑的長度。",
+        "hint": "💡 同「跳」同「量東西」有關。",
         "label": "選擇：青蛙做什麼",
-        "wrongWhy": "青蛙在跳遠，都在量泥坑嘅長度。"
+        "wrongWhy": "青蛙在跳遠，都在量泥坑的長度。"
       },
       {
         "type": "mc",
@@ -2375,9 +2388,9 @@ const QZ_L4 = {
         ],
         "ans": 0,
         "why": "課文第⑧段：身高：三個青蛙跳；尾巴長：一個青蛙跳。",
-        "hint": "💡 身高比尾巴長，所以數目大啲。",
+        "hint": "💡 身高比尾巴長，所以數目大些。",
         "label": "選擇：身高幾跳",
-        "wrongWhy": "唔好弄錯，身高係三個青蛙跳。"
+        "wrongWhy": "不要弄錯，身高是三個青蛙跳。"
       },
       {
         "type": "match",
@@ -2408,18 +2421,18 @@ const QZ_L4 = {
           "宣佈畢業消息",
           "幫人量身高"
         ],
-        "hint": "💡邊個平時成日幫人量衫？",
+        "hint": "💡哪一個平時成日幫人量衫？",
         "label": "配對：人物與事情",
-        "wrongWhy": "人物同事情要一一對應，唔好弄混。"
+        "wrongWhy": "人物同事情要一一對應，不要弄混。"
       },
       {
         "type": "reveal",
         "skill": "思考與理解",
-        "tag": "諗深一層・自我核對",
+        "tag": "深層思考・自我核對",
         "q": "為什麼要用「青蛙跳」來量身高？",
-        "answer": "因為佢借唔到尺子，青蛙就用自己跳遠的方法幫佢量。雖然唔係用尺，但都量得出身高同尾巴有幾長。",
+        "answer": "因為他借不到尺子，青蛙就用自己跳遠的方法幫他量。雖然不是用尺，但都量得出身高同尾巴有幾長。",
         "label": "思考題：青蛙跳量身高",
-        "wrongWhy": "冇尺子，才用青蛙跳來量。"
+        "wrongWhy": "沒有尺子，才用青蛙跳來量。"
       },
       {
         "type": "order",
@@ -2427,12 +2440,12 @@ const QZ_L4 = {
         "tag": "句子重組 Order",
         "q": "按故事次序排好：把句子放入框中。",
         "parts": [
-          "填成長紀錄",
-          "向裁縫借尺",
-          "幫青蛙填泥坑",
-          "青蛙幫牠量身",
-          "交紀錄畢業"
-        ],
+           "向裁縫借尺",
+           "幫青蛙填泥坑",
+           "青蛙幫牠量身",
+           "填成長紀錄",
+           "交紀錄畢業"
+         ],
         "shuffled": [
           "幫青蛙填泥坑",
           "填成長紀錄",
@@ -2441,7 +2454,7 @@ const QZ_L4 = {
           "青蛙幫牠量身"
         ],
         "label": "重組：故事次序",
-        "wrongWhy": "次序錯了，先借尺，後量身高。"
+        "wrongWhy": "正確的故事次序是：向裁縫借尺，幫青蛙填泥坑，青蛙幫牠量身，填成長紀錄，交紀錄畢業。先借尺，填平泥坑後請青蛙量身，量完才在成長紀錄上寫下身高和尾巴長，最後把紀錄交給老師。"
       },
       {
         "type": "order",
@@ -2481,9 +2494,9 @@ const QZ_L4 = {
           "交不到紀錄"
         ],
         "ans": 0,
-        "why": "小老虎要借尺子量身高，但裁縫拒絕，呢個係第一個難題。",
+        "why": "小老虎要借尺子量身高，但裁縫拒絕，這個是第一個難題。",
         "label": "選擇：第一個難題",
-        "wrongWhy": "第一個難題係借唔到尺子。"
+        "wrongWhy": "第一個難題是借不到尺子。"
       },
       {
         "type": "mc",
@@ -2497,9 +2510,9 @@ const QZ_L4 = {
           "送了把尺給他"
         ],
         "ans": 0,
-        "why": "課文第②段：裁縫睇見小老虎，嚇得手都抖了。",
+        "why": "課文第②段：裁縫看見小老虎，嚇得手都抖了。",
         "label": "選擇：裁縫的反應",
-        "wrongWhy": "裁縫嚇得手都抖了，唔係開心迎接。"
+        "wrongWhy": "裁縫嚇得手都抖了，不是開心迎接。"
       },
       {
         "type": "mc",
@@ -2513,7 +2526,7 @@ const QZ_L4 = {
           "填紀錄表"
         ],
         "ans": 0,
-        "why": "課文第⑦段：小老虎替青蛙填平了泥坑後，請青蛙量一量自己嘅身高同尾巴。",
+        "why": "課文第⑦段：小老虎替青蛙填平了泥坑後，請青蛙量一量自己的身高同尾巴。",
         "label": "選擇：先幫青蛙做什麼",
         "wrongWhy": "先幫青蛙填平泥坑，才請牠量身高。"
       },
@@ -2529,9 +2542,9 @@ const QZ_L4 = {
           "想在心裡面"
         ],
         "ans": 0,
-        "why": "老師笑着宣佈小老虎成為畢業生，係當眾公開講出嚟。",
+        "why": "老師笑着宣佈小老虎成為畢業生，是當眾公開講出來。",
         "label": "選擇：宣佈的意思",
-        "wrongWhy": "宣佈係公開說出來，唔係小聲說。"
+        "wrongWhy": "宣佈是公開說出來，不是小聲說。"
       },
       {
         "type": "mc",
@@ -2547,7 +2560,7 @@ const QZ_L4 = {
         "ans": 0,
         "why": "課文第⑧段：尾巴長：一個青蛙跳。",
         "label": "選擇：尾巴長",
-        "wrongWhy": "唔好弄錯，尾巴長係一個青蛙跳。"
+        "wrongWhy": "不要弄錯，尾巴長是一個青蛙跳。"
       },
       {
         "type": "reveal",
@@ -2556,7 +2569,7 @@ const QZ_L4 = {
         "q": "借不到尺子，還有什麼辦法量身高？",
         "answer": "可以用繩、樹枝或者自己的腳步來量，再記下用了多少；也可以和同學背靠背比較。重點是：沒有尺子，也可以想辦法量度。",
         "label": "思考題：沒有尺子怎麼辦",
-        "wrongWhy": "借唔到尺子，仲可以請青蛙幫忙。"
+        "wrongWhy": "借不到尺子，還可以請青蛙幫忙。"
       },
       {
         "type": "order",
@@ -2598,8 +2611,8 @@ const QZ_L4 = {
           "所以"
         ],
         "ans": "裁縫不幫動物量身高，所以小老虎想別的辦法",
-        "why": "裁縫拒絕係原因，想別嘅辦法係結果。",
-        "wrongWhy": "「所以」前面係原因，後面係結果。",
+        "why": "裁縫拒絕是原因，想別的辦法是結果。",
+        "wrongWhy": "「所以」前面是原因，後面是結果。",
         "label": "重組：想別的辦法"
       }
     ]
@@ -2619,8 +2632,8 @@ const QZ_L4 = {
           "不用量也可以。"
         ],
         "ans": 0,
-        "why": "冇尺子，可以用身邊嘅東西來量，像青蛙跳一樣。",
-        "wrongWhy": "只用眼睛睇，量不出長度。",
+        "why": "沒有尺子，可以用身邊的東西來量，像青蛙跳一樣。",
+        "wrongWhy": "只用眼睛看，量不出長度。",
         "label": "應用：沒有尺子"
       },
       {
@@ -2635,7 +2648,7 @@ const QZ_L4 = {
           "書包宣佈要回家了。"
         ],
         "ans": 0,
-        "why": "宣佈係人公開說出消息。",
+        "why": "宣佈是人公開說出消息。",
         "wrongWhy": "只有人才可以宣佈消息。",
         "label": "應用：宣佈"
       },
@@ -2651,8 +2664,8 @@ const QZ_L4 = {
           "請他吃東西。"
         ],
         "ans": 0,
-        "why": "青蛙用跳遠嘅方法幫小老虎量身高同尾巴。",
-        "wrongWhy": "青蛙冇尺子，用跳遠來量。",
+        "why": "青蛙用跳遠的方法幫小老虎量身高同尾巴。",
+        "wrongWhy": "青蛙沒有尺子，用跳遠來量。",
         "label": "應用：青蛙報答"
       },
       {
@@ -2667,8 +2680,8 @@ const QZ_L4 = {
           "在"
         ],
         "ans": 0,
-        "why": "把紀錄交給老師，「把」字句係咁樣用嘅。",
-        "wrongWhy": "「把」後面接要交嘅東西。",
+        "why": "把紀錄交給老師，「把」字句是這樣用的。",
+        "wrongWhy": "「把」後面接要交的東西。",
         "label": "應用：把字句"
       },
       {
@@ -2691,7 +2704,7 @@ const QZ_L4 = {
           "所以"
         ],
         "ans": "小貓要填紀錄，所以去借尺子",
-        "why": "要填紀錄係原因，去借尺子係結果。",
+        "why": "要填紀錄是原因，去借尺子是結果。",
         "wrongWhy": "原因在前，結果在後。",
         "label": "應用重組：小貓借尺子"
       },
@@ -2711,7 +2724,7 @@ const QZ_L4 = {
           "再請別人幫忙"
         ],
         "ans": "先幫別人再請別人幫忙事情就做到了",
-        "why": "小老虎先幫青蛙，青蛙才幫佢量身高。",
+        "why": "小老虎先幫青蛙，青蛙才幫他量身高。",
         "wrongWhy": "先幫人，後得人幫。",
         "label": "應用重組：先幫別人"
       },
@@ -2756,8 +2769,8 @@ const QZ_L4 = {
             "動物"
           ]
         ],
-        "why": "裁縫、老師、媽媽係人物；青蛙、小老虎、小鳥係動物。",
-        "wrongWhy": "小老虎係動物，唔係人物。",
+        "why": "裁縫、老師、媽媽是人物；青蛙、小老虎、小鳥是動物。",
+        "wrongWhy": "小老虎是動物，不是人物。",
         "label": "應用拖放：人物動物"
       }
     ]
@@ -2778,7 +2791,7 @@ const QZ_L4 = {
         ],
         "ans": 2,
         "why": "三個加一個，等於四個。",
-        "wrongWhy": "身高加尾巴長，唔係減。",
+        "wrongWhy": "身高加尾巴長，不是減。",
         "label": "挑戰：三加一"
       },
       {
@@ -2793,8 +2806,8 @@ const QZ_L4 = {
           "只要玩。"
         ],
         "ans": 1,
-        "why": "只好係冇其佢辦法嘅意思。",
-        "wrongWhy": "只好唔係喜歡，係冇選擇。",
+        "why": "只好是沒有其他辦法的意思。",
+        "wrongWhy": "只好不是喜歡，是沒有選擇。",
         "label": "挑戰：只好"
       },
       {
@@ -2809,8 +2822,8 @@ const QZ_L4 = {
           "青蛙用跳遠的方法量泥坑。"
         ],
         "ans": 1,
-        "why": "裁縫一開始拒絕，冇幫小老虎量。",
-        "wrongWhy": "裁縫說只幫人量，唔幫動物量。",
+        "why": "裁縫一開始拒絕，沒有幫小老虎量。",
+        "wrongWhy": "裁縫說只幫人量，不幫動物量。",
         "label": "挑戰：哪句不正確"
       },
       {
@@ -2825,8 +2838,8 @@ const QZ_L4 = {
           "放在心裡"
         ],
         "ans": 0,
-        "why": "宣佈就係當眾公開說出來。",
-        "wrongWhy": "宣佈唔係小聲說，係公開說。",
+        "why": "宣佈就是當眾公開說出來。",
+        "wrongWhy": "宣佈不是小聲說，是公開說。",
         "label": "挑戰：宣佈的近義詞"
       },
       {
@@ -2845,7 +2858,7 @@ const QZ_L4 = {
           "小老虎只好想別的辦法"
         ],
         "ans": "裁縫拉下窗簾小老虎只好想別的辦法在河邊看見青蛙",
-        "why": "裁縫拒絕後，小老虎想別嘅辦法，才在河邊睇見青蛙。",
+        "why": "裁縫拒絕後，小老虎想別的辦法，才在河邊看見青蛙。",
         "wrongWhy": "先被拒絕，後想辦法，最後見到青蛙。",
         "label": "挑戰重組：見到青蛙"
       },
@@ -2869,7 +2882,7 @@ const QZ_L4 = {
           "也可以"
         ],
         "ans": "如果沒有尺子也可以用別的東西來量",
-        "why": "冇尺子都可以量，用青蛙跳就係一個辦法。",
+        "why": "沒有尺子都可以量，用青蛙跳就是一個辦法。",
         "wrongWhy": "「如果」講假設，「也可以」講辦法。",
         "label": "挑戰重組：如果沒有尺子"
       },
@@ -2902,8 +2915,8 @@ const QZ_L4 = {
           "想別的辦法",
           "青蛙幫忙量身高"
         ],
-        "why": "借唔到尺子就要想辦法，幫了青蛙才得青蛙幫忙。",
-        "wrongWhy": "原因同結果要配對，唔好調轉。",
+        "why": "借不到尺子就要想辦法，幫了青蛙才得青蛙幫忙。",
+        "wrongWhy": "原因同結果要配對，不要調轉。",
         "label": "挑戰配對：原因結果"
       }
     ]
@@ -2925,10 +2938,10 @@ const QZ_L5 = {
           "一棵樹"
         ],
         "ans": 0,
-        "why": "課文第一段：我嘅爸爸站着嘅時候，就像一座樓。",
-        "hint": "💡 爸爸企喺度好高，腳係第一層。",
+        "why": "課文第一段：我的爸爸站着的時候，就像一座樓。",
+        "hint": "💡 爸爸站在這裏好高，腳是第一層。",
         "label": "選擇：爸爸像一座樓",
-        "wrongWhy": "站着嘅時候，爸爸像一座樓。"
+        "wrongWhy": "站着的時候，爸爸像一座樓。"
       },
       {
         "type": "mc",
@@ -2942,10 +2955,10 @@ const QZ_L5 = {
           "一架車"
         ],
         "ans": 0,
-        "why": "課文第二段：我嘅爸爸躺着嘅時候，就像一條船。",
-        "hint": "💡 呢樣嘢會喺水上面行。",
+        "why": "課文第二段：我的爸爸躺着的時候，就像一條船。",
+        "hint": "💡 這樣東西會在水上面行。",
         "label": "選擇：爸爸像一條船",
-        "wrongWhy": "躺着嘅時候，爸爸像一條船。"
+        "wrongWhy": "躺着的時候，爸爸像一條船。"
       },
       {
         "type": "mc",
@@ -2959,10 +2972,10 @@ const QZ_L5 = {
           "頭髮"
         ],
         "ans": 0,
-        "why": "課文第二段：身體係又寬又大嘅甲板。",
-        "hint": "💡 甲板係又寬又大嗰部分。",
+        "why": "課文第二段：身體是又寬又大的甲板。",
+        "hint": "💡 甲板是又寬又大那部分。",
         "label": "選擇：甲板是身體",
-        "wrongWhy": "身體係又寬又大嘅甲板。"
+        "wrongWhy": "身體是又寬又大的甲板。"
       },
       {
         "type": "mc",
@@ -2976,10 +2989,10 @@ const QZ_L5 = {
           "叫別人去做"
         ],
         "ans": 0,
-        "why": "動詞重疊加「一」表示動作短短哋、試一試，例如摸一摸、睇一睇。",
-        "hint": "💡 「一」即係一次、試吓。",
+        "why": "動詞重疊加「一」表示動作短短哋、試一試，例如摸一摸、看一看。",
+        "hint": "💡 「一」即是一次、試吓。",
         "label": "選擇：按一按的意思",
-        "wrongWhy": "「按一按」係做一次，試一試。"
+        "wrongWhy": "「按一按」是做一次，試一試。"
       },
       {
         "type": "mc",
@@ -2993,8 +3006,8 @@ const QZ_L5 = {
           "笑哈哈"
         ],
         "ans": 0,
-        "why": "課文第二段：佢仲會發出同大輪船一樣嘅汽笛聲。",
-        "hint": "💡 大輪船會出咩聲？",
+        "why": "課文第二段：他還會發出同大輪船一樣的汽笛聲。",
+        "hint": "💡 大輪船會出甚麼聲？",
         "label": "選擇：汽笛聲",
         "wrongWhy": "按鼻子會發出汽笛聲，像大輪船。"
       },
@@ -3022,9 +3035,9 @@ const QZ_L5 = {
           "第三層",
           "第一層"
         ],
-        "hint": "💡 由下而上數：腳喺最底。",
+        "hint": "💡 由下而上數：腳在最底。",
         "label": "配對：樓的層數",
-        "wrongWhy": "由下而上數，腳係第一層。"
+        "wrongWhy": "由下而上數，腳是第一層。"
       },
       {
         "type": "draw",
@@ -3075,8 +3088,8 @@ const QZ_L5 = {
           "，"
         ],
         "ans": "我的爸爸站着的時候就像一座樓腳是第一層",
-        "why": "課文說爸爸站着嘅時候就像一座樓，腳係第一層。",
-        "wrongWhy": "比喻句先說爸爸，再說像咩。",
+        "why": "課文說爸爸站着的時候就像一座樓，腳是第一層。",
+        "wrongWhy": "比喻句先說爸爸，再說像甚麼。",
         "label": "重組：爸爸像樓",
         "hint": "先說爸爸站着，再說像樓。"
       }
@@ -3097,9 +3110,9 @@ const QZ_L5 = {
           "我們今天一起去公園玩。"
         ],
         "ans": 0,
-        "why": "「要是」用嚟講假設嘅情況，例如：你要係唔相信，可以到我家裏來睇一睇佢。",
+        "why": "「要是」用來講假設的情況，例如：你要是不相信，可以到我家裏來看一看他。",
         "label": "選擇：要是句",
-        "wrongWhy": "只有用了「要是」嘅句子才正確。"
+        "wrongWhy": "只有用了「要是」的句子才正確。"
       },
       {
         "type": "mc",
@@ -3113,9 +3126,9 @@ const QZ_L5 = {
           "獨體結構"
         ],
         "ans": 0,
-        "why": "課本指「穩」係左右結構（左小右大），同「像、臉」一組。",
+        "why": "課本指「穩」是左右結構（左小右大），同「像、臉」一組。",
         "label": "選擇：穩的結構",
-        "wrongWhy": "「穩」係左右結構，左小右大。"
+        "wrongWhy": "「穩」是左右結構，左小右大。"
       },
       {
         "type": "mc",
@@ -3129,9 +3142,9 @@ const QZ_L5 = {
           "因為他的衣服有船圖案"
         ],
         "ans": 0,
-        "why": "課文說爸爸呢艘船總係穩穩嘅，小朋友在甲板上翻跟頭、跑步、跳高都唔怕。",
+        "why": "課文說爸爸這艘船總是穩穩的，小朋友在甲板上翻跟頭、跑步、跳高都不怕。",
         "label": "選擇：像船的原因",
-        "wrongWhy": "爸爸像船，因為佢又大又穩。"
+        "wrongWhy": "爸爸像船，因為他又大又穩。"
       },
       {
         "type": "mc",
@@ -3145,9 +3158,9 @@ const QZ_L5 = {
           "不要帶太多東西進來"
         ],
         "ans": 0,
-        "why": "課文第三段：唔好光顧着抬頭睇我爸爸嘅臉，而不當心自己往後倒地。",
+        "why": "課文第三段：不要光顧着抬頭看我爸爸的臉，而不當心自己往後倒地。",
         "label": "選擇：入門要小心",
-        "wrongWhy": "進門時唔好只顧抬頭睇爸爸嘅臉。"
+        "wrongWhy": "進門時不要只顧抬頭看爸爸的臉。"
       },
       {
         "type": "mc",
@@ -3161,9 +3174,9 @@ const QZ_L5 = {
           "船身最高的旗杆"
         ],
         "ans": 0,
-        "why": "甲板係船上面俾人行走嘅平面。課文話爸爸嘅身體係又寬又大嘅甲板。",
+        "why": "甲板是船上面給人行走的平面。課文話爸爸的身體是又寬又大的甲板。",
         "label": "選擇：甲板是什麼",
-        "wrongWhy": "甲板係船面上給人行走嘅板。"
+        "wrongWhy": "甲板是船面上給人行走的板。"
       },
       {
         "type": "match",
@@ -3195,7 +3208,7 @@ const QZ_L5 = {
           "摸一摸"
         ],
         "label": "配對：動詞重疊",
-        "wrongWhy": "動詞重疊要配對正確嘅重疊式。"
+        "wrongWhy": "動詞重疊要配對正確的重疊式。"
       },
       {
         "type": "reveal",
@@ -3204,7 +3217,7 @@ const QZ_L5 = {
         "q": "為什麼可以在爸爸身上翻跟頭、跑步？",
         "answer": "因為爸爸很大很穩，就像一艘大船的甲板，怎樣玩都不會翻側；也表示爸爸很疼愛小朋友，任由他在身上玩。",
         "label": "思考題：在爸爸身上玩",
-        "wrongWhy": "爸爸呢艘船很穩，所以可以在上面玩。"
+        "wrongWhy": "爸爸這艘船很穩，所以可以在上面玩。"
       },
       {
         "type": "order",
@@ -3228,7 +3241,7 @@ const QZ_L5 = {
           "，"
         ],
         "ans": "無論我在甲板上翻跟頭跑步、跳高爸爸這艘船總是穩穩的",
-        "why": "無論怎樣玩，爸爸呢艘船總係穩穩嘅。",
+        "why": "無論怎樣玩，爸爸這艘船總是穩穩的。",
         "wrongWhy": "「無論」放在句首，結果放在最後。",
         "label": "重組：穩穩的船"
       },
@@ -3248,7 +3261,7 @@ const QZ_L5 = {
           "就像一條船"
         ],
         "ans": "我的爸爸躺着的時候就像一條船身體是甲板",
-        "why": "課文說爸爸躺着嘅時候就像一條船，身體係甲板。",
+        "why": "課文說爸爸躺着的時候就像一條船，身體是甲板。",
         "wrongWhy": "先說爸爸躺着，再說像船。",
         "label": "重組：爸爸像船"
       }
@@ -3270,7 +3283,7 @@ const QZ_L5 = {
         ],
         "ans": 0,
         "why": "用「像」來比喻，妹妹像一座小山。",
-        "wrongWhy": "比喻要用「像」，唔係「是」。",
+        "wrongWhy": "比喻要用「像」，不是「是」。",
         "label": "應用：像"
       },
       {
@@ -3286,7 +3299,7 @@ const QZ_L5 = {
         ],
         "ans": 0,
         "why": "「要是」講假設，同課文「你要是不相信」一樣。",
-        "wrongWhy": "假設用「要是」，唔係「因為」。",
+        "wrongWhy": "假設用「要是」，不是「因為」。",
         "label": "應用：要是"
       },
       {
@@ -3301,7 +3314,7 @@ const QZ_L5 = {
           "花"
         ],
         "ans": 0,
-        "why": "「艘」係船嘅量詞，課文說「爸爸這艘船」。",
+        "why": "「艘」是船的量詞，課文說「爸爸這艘船」。",
         "wrongWhy": "「艘」只用來量船。",
         "label": "應用：艘"
       },
@@ -3314,11 +3327,11 @@ const QZ_L5 = {
           "弟弟站在平衡木上，穩穩的。",
           "風把樹吹得東倒西歪，很穩。",
           "小船搖來搖去，很穩。",
-          "我跑得很快，很穩。"
+          "我跑得很快，左搖右擺，很穩。"
         ],
         "ans": 0,
-        "why": "穩穩嘅係站得穩、不搖晃嘅意思。",
-        "wrongWhy": "搖來搖去同東倒西歪都唔係穩。",
+        "why": "穩穩的是站得穩、不搖晃的意思。",
+        "wrongWhy": "搖來搖去同東倒西歪都不是穩。",
         "label": "應用：穩"
       },
       {
@@ -3344,7 +3357,7 @@ const QZ_L5 = {
         ],
         "ans": "妹妹躺着的時候就像一條小船肚子是甲板",
         "why": "妹妹躺着像小船，肚子像甲板。",
-        "wrongWhy": "先說躺着，再說像咩。",
+        "wrongWhy": "先說躺着，再說像甚麼。",
         "label": "應用重組：妹妹像小船"
       },
       {
@@ -3369,8 +3382,8 @@ const QZ_L5 = {
           "，"
         ],
         "ans": "哥哥跑得很快像一陣風一下子就不見了",
-        "why": "哥哥跑得快，像一陣風，一下子就唔見了。",
-        "wrongWhy": "先說誰，再說像咩，最後說結果。",
+        "why": "哥哥跑得快，像一陣風，一下子就不見了。",
+        "wrongWhy": "先說誰，再說像甚麼，最後說結果。",
         "label": "應用重組：哥哥像風"
       },
       {
@@ -3379,8 +3392,8 @@ const QZ_L5 = {
         "tag": "思考題・自我核對",
         "q": "用「像」造一句句子，形容一個家人。先自己想一想，再看例子。",
         "answer": "例如：媽媽笑起來的時候，像一朵花。",
-        "why": "比喻要說出家人像咩，句子才完整。",
-        "wrongWhy": "比喻要說出像咩，唔好只說家人。",
+        "why": "比喻要說出家人像甚麼，句子才完整。",
+        "wrongWhy": "比喻要說出像甚麼，不要只說家人。",
         "label": "應用思考：用像造句"
       }
     ]
@@ -3400,8 +3413,8 @@ const QZ_L5 = {
           "站在船邊搖晃。"
         ],
         "ans": 0,
-        "why": "爸爸呢艘船很穩，在甲板上翻跟頭、跑步、跳高都可以。",
-        "wrongWhy": "船很穩，唔使怕跌下來。",
+        "why": "爸爸這艘船很穩，在甲板上翻跟頭、跑步、跳高都可以。",
+        "wrongWhy": "船很穩，不用怕跌下來。",
         "label": "挑戰：在甲板上玩"
       },
       {
@@ -3416,8 +3429,8 @@ const QZ_L5 = {
           "要是我有翅膀，就可以飛。"
         ],
         "ans": 2,
-        "why": "昨天不可能係明天，呢個假設不合理。",
-        "wrongWhy": "假設要合理，昨天唔會變成明天。",
+        "why": "昨天不可能是明天，這個假設不合理。",
+        "wrongWhy": "假設要合理，昨天不會變成明天。",
         "label": "挑戰：要是不正確"
       },
       {
@@ -3432,8 +3445,8 @@ const QZ_L5 = {
           "按一按"
         ],
         "ans": 2,
-        "why": "「高高的」係形容詞重疊，唔係動詞重疊。",
-        "wrongWhy": "睇、摸、按係動詞，高係形容詞。",
+        "why": "「高高的」是形容詞重疊，不是動詞重疊。",
+        "wrongWhy": "看、摸、按是動詞，高是形容詞。",
         "label": "挑戰：動詞重疊"
       },
       {
@@ -3448,8 +3461,8 @@ const QZ_L5 = {
           "媽媽的笑容像陽光。"
         ],
         "ans": 2,
-        "why": "「像」字出現才係比喻，冇「像」就唔係比喻。",
-        "wrongWhy": "找找邊一句冇「像」字。",
+        "why": "「像」字出現才是比喻，沒有「像」就不是比喻。",
+        "wrongWhy": "找找邊一句沒有「像」字。",
         "label": "挑戰：哪句沒有比喻"
       },
       {
@@ -3479,7 +3492,7 @@ const QZ_L5 = {
         ],
         "ans": "爸爸站着的時候就像一座樓躺着的時候就像一條船",
         "why": "站着像樓，躺着像船，兩個比喻要配對。",
-        "wrongWhy": "站着配樓，躺着配船，唔好調轉。",
+        "wrongWhy": "站着配樓，躺着配船，不要調轉。",
         "label": "挑戰重組：站着躺着"
       },
       {
@@ -3531,8 +3544,8 @@ const QZ_L5 = {
           "溫暖的太陽",
           "一棵樹"
         ],
-        "why": "比喻要找出相似嘅地方來配對。",
-        "wrongWhy": "站着配高嘅東西，躺着配船。",
+        "why": "比喻要找出相似的地方來配對。",
+        "wrongWhy": "站着配高的東西，躺着配船。",
         "label": "挑戰配對：比喻"
       }
     ]
@@ -3554,8 +3567,8 @@ const QZ_L6 = {
           "只有姊姊會"
         ],
         "ans": 0,
-        "why": "詩入面：我、姊姊、哥哥、爸爸回家，都都把鞋脫下。",
-        "hint": "💡 數吓詩入面有幾多人脫鞋。",
+        "why": "詩裏面：我、姊姊、哥哥、爸爸回家，都都把鞋脫下。",
+        "hint": "💡 數吓詩裏面有幾多人脫鞋。",
         "label": "選擇：誰脫鞋",
         "wrongWhy": "全家人回家都會把鞋脫下。"
       },
@@ -3571,10 +3584,10 @@ const QZ_L6 = {
           "睡在門口旁邊休息"
         ],
         "ans": 0,
-        "why": "詩入面：大大小小嘅鞋依偎在一齊，說着一天嘅見聞。",
-        "hint": "💡 鞋好似人一樣，會「講」嘢。",
+        "why": "詩裏面：大大小小的鞋依偎在一齊，說着一天的見聞。",
+        "hint": "💡 鞋好似人一樣，會「講」東西。",
         "label": "選擇：鞋會做什麼",
-        "wrongWhy": "鞋子依偎在一齊，說着一天嘅見聞。"
+        "wrongWhy": "鞋子依偎在一齊，說着一天的見聞。"
       },
       {
         "type": "mc",
@@ -3588,10 +3601,10 @@ const QZ_L6 = {
           "大大小小的魚"
         ],
         "ans": 0,
-        "why": "詩入面：大大小小嘅鞋就像大大小小嘅船。",
-        "hint": "💡 呢樣嘢會返去港灣。",
+        "why": "詩裏面：大大小小的鞋就像大大小小的船。",
+        "hint": "💡 這樣東西會返回港灣。",
         "label": "選擇：鞋像船",
-        "wrongWhy": "鞋子像大大小小嘅船。"
+        "wrongWhy": "鞋子像大大小小的船。"
       },
       {
         "type": "mc",
@@ -3605,10 +3618,10 @@ const QZ_L6 = {
           "高高的山頂"
         ],
         "ans": 0,
-        "why": "詩入面：鞋回到安靜嘅港灣，享受家嘅溫暖 — 家就係港灣。",
-        "hint": "💡 船返到邊度休息？",
+        "why": "詩裏面：鞋回到安靜的港灣，享受家的溫暖 — 家就是港灣。",
+        "hint": "💡 船回到哪裏休息？",
         "label": "選擇：家是港灣",
-        "wrongWhy": "家就係安靜嘅港灣。"
+        "wrongWhy": "家就是安靜的港灣。"
       },
       {
         "type": "mc",
@@ -3622,8 +3635,8 @@ const QZ_L6 = {
           "媽媽回來了，我很開心。"
         ],
         "ans": 0,
-        "why": "蘋果、香蕉、橙係同類詞語，排埋一齊，中間要用頓號分開。",
-        "hint": "💡 一串同類嘅嘢排埋一齊嗰陣用。",
+        "why": "蘋果、香蕉、橙是同類詞語，排在一起，中間要用頓號分開。",
+        "hint": "💡 一串同類的東西排在一起那陣用。",
         "label": "選擇：頓號句子",
         "wrongWhy": "同類詞語排在一齊，中間用頓號。"
       },
@@ -3656,7 +3669,7 @@ const QZ_L6 = {
           "緊靠在一起",
           "看到和聽到的事"
         ],
-        "hint": "💡 「依偎」即係靠到好埋。",
+        "hint": "💡 「依偎」即是靠到好埋。",
         "label": "配對：詞語意思",
         "wrongWhy": "詞語同意思要一一對應。"
       },
@@ -3687,7 +3700,7 @@ const QZ_L6 = {
           "姊姊回家，把鞋脫下"
         ],
         "label": "重組：詩句次序",
-        "wrongWhy": "先係我，再係姊姊，然後係哥哥、爸爸。"
+        "wrongWhy": "先是我，再是姊姊，然後是哥哥、爸爸。"
       },
       {
         "type": "order",
@@ -3707,8 +3720,8 @@ const QZ_L6 = {
           "是一家人"
         ],
         "ans": "大大小小的鞋是一家人依偎在一起說着一天的見聞",
-        "why": "詩說大大小小嘅鞋係一家人，依偎在一齊說見聞。",
-        "wrongWhy": "先說鞋係一家人，再說依偎在一齊。",
+        "why": "詩說大大小小的鞋是一家人，依偎在一齊說見聞。",
+        "wrongWhy": "先說鞋是一家人，再說依偎在一齊。",
         "label": "重組：一家人",
         "hint": "由第一句排到最後一句。"
       }
@@ -3729,9 +3742,9 @@ const QZ_L6 = {
           "這些鞋是一家人買的"
         ],
         "ans": 0,
-        "why": "鞋本來唔識講嘢，詩人寫佢哋「說着見聞」，即係當佢哋係人，係擬人法。",
+        "why": "鞋本來不會說話，詩人寫他們「說着見聞」，即是當他們是人，是擬人法。",
         "label": "選擇：擬人句",
-        "wrongWhy": "鞋子會「說話」，呢就係擬人法。"
+        "wrongWhy": "鞋子會「說話」，這就是擬人法。"
       },
       {
         "type": "mc",
@@ -3745,9 +3758,9 @@ const QZ_L6 = {
           "沒有分別"
         ],
         "ans": 0,
-        "why": "課本指頓號表示句子中短短嘅停頓，停頓比逗號短。",
+        "why": "課本指頓號表示句子中短短的停頓，停頓比逗號短。",
         "label": "選擇：頓號停頓",
-        "wrongWhy": "頓號嘅停頓比逗號短。"
+        "wrongWhy": "頓號的停頓比逗號短。"
       },
       {
         "type": "mc",
@@ -3761,9 +3774,9 @@ const QZ_L6 = {
           "在家裡睡個好覺"
         ],
         "ans": 0,
-        "why": "「享受」即係開心咁感受；返到屋企，感受到屋企人嘅溫暖。",
+        "why": "「享受」即是開心地感受；回到家裏，感受到家裏人的溫暖。",
         "label": "選擇：享受的意思",
-        "wrongWhy": "「享受」係開心地感受家嘅溫暖。"
+        "wrongWhy": "「享受」是開心地感受家的溫暖。"
       },
       {
         "type": "mc",
@@ -3777,7 +3790,7 @@ const QZ_L6 = {
           "見聞"
         ],
         "ans": 0,
-        "why": "鞋像船，船回到港灣休息；港灣就係代表家。",
+        "why": "鞋像船，船回到港灣休息；港灣就是代表家。",
         "label": "選擇：代表家的是港灣",
         "wrongWhy": "港灣代表家，船回到港灣休息。"
       },
@@ -3793,9 +3806,9 @@ const QZ_L6 = {
           "這些鞋全部一樣大小"
         ],
         "ans": 0,
-        "why": "成家人返到屋企脫下鞋，啲鞋大大小小聚埋一齊，好似一家人咁。",
+        "why": "成家人回到家裏脫下鞋，這些鞋大大小小聚在一起，好似一家人一樣。",
         "label": "選擇：鞋是一家人",
-        "wrongWhy": "「一家人」係說全家人嘅鞋聚在一齊。"
+        "wrongWhy": "「一家人」是說全家人的鞋聚在一齊。"
       },
       {
         "type": "drag",
@@ -3839,7 +3852,7 @@ const QZ_L6 = {
           ]
         ],
         "label": "拖放：家人與東西",
-        "wrongWhy": "家人同東西要分清楚，唔好放錯籃子。"
+        "wrongWhy": "家人同東西要分清楚，不要放錯籃子。"
       },
       {
         "type": "reveal",
@@ -3848,7 +3861,7 @@ const QZ_L6 = {
         "q": "回到家裡脫鞋，你會想起什麼開心事？",
         "answer": "可以想想今天在學校學了什麼、和誰玩過、吃了什麼好東西。詩人把一天的經歷叫做「見聞」，和家人分享，就是家的溫暖。",
         "label": "思考題：一天的見聞",
-        "wrongWhy": "想一想回家脫鞋時最開心嘅事。"
+        "wrongWhy": "想一想回家脫鞋時最開心的事。"
       },
       {
         "type": "order",
@@ -3868,7 +3881,7 @@ const QZ_L6 = {
           "就像大大小小的船"
         ],
         "ans": "大大小小的鞋就像大大小小的船回到安靜的港灣享受家的溫暖",
-        "why": "鞋像船，回到港灣享受家嘅溫暖。",
+        "why": "鞋像船，回到港灣享受家的溫暖。",
         "wrongWhy": "先說鞋像船，再說回到港灣。",
         "label": "重組：回到港灣"
       },
@@ -3888,7 +3901,7 @@ const QZ_L6 = {
           "鞋子像一家人"
         ],
         "ans": "家人回家脫鞋鞋子像一家人鞋子像船回港灣",
-        "why": "先係家人回家脫鞋，再說鞋像一家人，最後說鞋像船回港灣。",
+        "why": "先是家人回家脫鞋，再說鞋像一家人，最後說鞋像船回港灣。",
         "wrongWhy": "先脫鞋，再說一家人，最後說回港灣。",
         "label": "重組：全詩次序"
       }
@@ -3910,7 +3923,7 @@ const QZ_L6 = {
         ],
         "ans": 0,
         "why": "同類詞語排在一齊，中間用頓號。",
-        "wrongWhy": "蘋果、香蕉、橙係同類，要用頓號。",
+        "wrongWhy": "蘋果、香蕉、橙是同類，要用頓號。",
         "label": "應用：頓號"
       },
       {
@@ -3925,8 +3938,8 @@ const QZ_L6 = {
           "花兒開了。"
         ],
         "ans": 0,
-        "why": "月亮唔會真嘅笑，寫它笑就係擬人法。",
-        "wrongWhy": "小鳥唱歌、太陽升起、花開都係本來會做嘅事。",
+        "why": "月亮不會真的笑，寫它笑就是擬人法。",
+        "wrongWhy": "小鳥唱歌、太陽升起、花開都是本來會做的事。",
         "label": "應用：擬人法"
       },
       {
@@ -3941,8 +3954,8 @@ const QZ_L6 = {
           "靜靜睡覺"
         ],
         "ans": 0,
-        "why": "依偎就係靠在一齊，像鞋子靠在一齊。",
-        "wrongWhy": "依偎唔係跑，都唔係睡覺。",
+        "why": "依偎就是靠在一齊，像鞋子靠在一齊。",
+        "wrongWhy": "依偎不是跑，都不是睡覺。",
         "label": "應用：依偎"
       },
       {
@@ -3957,8 +3970,8 @@ const QZ_L6 = {
           "書包放在港灣裡。"
         ],
         "ans": 0,
-        "why": "港灣係船停靠休息嘅地方。",
-        "wrongWhy": "港灣係給船休息嘅，唔係給書包嘅。",
+        "why": "港灣是船停靠休息的地方。",
+        "wrongWhy": "港灣是給船休息的，不是給書包的。",
         "label": "應用：港灣"
       },
       {
@@ -4002,7 +4015,7 @@ const QZ_L6 = {
         ],
         "ans": "大大小小的書就像一排士兵站在書架上",
         "why": "書像士兵，站在書架上。",
-        "wrongWhy": "先說書，再說像咩，最後說在邊度。",
+        "wrongWhy": "先說書，再說像甚麼，最後說在哪裏。",
         "label": "應用重組：書像士兵"
       },
       {
@@ -4046,8 +4059,8 @@ const QZ_L6 = {
             "不是擬人"
           ]
         ],
-        "why": "鞋子說話、月亮笑、花兒點頭係把東西當人寫。",
-        "wrongWhy": "小鳥唱歌本來就會做，唔係擬人。",
+        "why": "鞋子說話、月亮笑、花兒點頭是把東西當人寫。",
+        "wrongWhy": "小鳥唱歌本來就會做，不是擬人。",
         "label": "應用拖放：擬人"
       }
     ]
@@ -4067,8 +4080,8 @@ const QZ_L6 = {
           "鞋子一樣大小。"
         ],
         "ans": 1,
-        "why": "鞋子唔係真嘅一家人，係說全家人嘅鞋聚在一齊。",
-        "wrongWhy": "鞋子唔會真嘅係一家人，係比喻。",
+        "why": "鞋子不是真的一家人，是說全家人的鞋聚在一齊。",
+        "wrongWhy": "鞋子不會真的是一家人，是比喻。",
         "label": "挑戰：一家人"
       },
       {
@@ -4083,8 +4096,8 @@ const QZ_L6 = {
           "書包裡有書、筆、尺子。"
         ],
         "ans": 2,
-        "why": "蘋果同跑步唔係同類詞語，唔能夠用頓號分開。",
-        "wrongWhy": "頓號只能分開同類嘅詞語。",
+        "why": "蘋果同跑步不是同類詞語，不能夠用頓號分開。",
+        "wrongWhy": "頓號只能分開同類的詞語。",
         "label": "挑戰：頓號對不對"
       },
       {
@@ -4099,8 +4112,8 @@ const QZ_L6 = {
           "家人"
         ],
         "ans": 0,
-        "why": "說話係人才會做嘅事，所以把鞋子當成人。",
-        "wrongWhy": "會說話嘅係人，唔係船。",
+        "why": "說話是人才會做的事，所以把鞋子當成人。",
+        "wrongWhy": "會說話的是人，不是船。",
         "label": "挑戰：擬人當成人"
       },
       {
@@ -4116,7 +4129,7 @@ const QZ_L6 = {
         ],
         "ans": 1,
         "why": "港灣給船休息，家給人休息同溫暖。",
-        "wrongWhy": "港灣嘅意思係休息嘅地方，唔係大。",
+        "wrongWhy": "港灣的意思是休息的地方，不是大。",
         "label": "挑戰：家是港灣"
       },
       {
@@ -4167,7 +4180,7 @@ const QZ_L6 = {
         "tag": "思考題・自我核對",
         "q": "用擬人法寫一句句子，形容一樣家裡的東西。先自己想一想，再看例子。",
         "answer": "例如：檯燈每天晚上陪我溫習功課。",
-        "why": "擬人法係把東西寫得像人一樣會做事。",
+        "why": "擬人法是把東西寫得像人一樣會做事。",
         "wrongWhy": "要把東西寫得像人一樣會做事。",
         "label": "挑戰思考：擬人造句"
       }
@@ -4186,9 +4199,9 @@ const QZ_L7 = {
         "q": "哪一幅圖的小朋友正在幫忙？",
         "imgs": ["images/imgmc_ball.webp", "images/imgmc_noodle.webp", "images/imgmc_help.webp", "images/imgmc_sleep.webp"],
         "ans": 2,
-        "why": "第三幅圖嘅小朋友幫婆婆拎袋，呢個就係「幫忙」啦！",
-        "wrongWhy": "睇清楚啲，邊幅圖嘅小朋友係幫緊人手？",
-        "hint": "幫忙即係幫人手做嘢，唔係自己一個玩或者食嘢。"
+        "why": "第三幅圖的小朋友幫婆婆拎袋，這個就是「幫忙」！",
+        "wrongWhy": "看清楚些，哪幅圖的小朋友是正在幫人手？",
+        "hint": "幫忙即是幫人手做東西，不是自己一個玩或者吃東西。"
       },
       {
         "type": "mc",
@@ -4202,10 +4215,10 @@ const QZ_L7 = {
           "一支筆杆"
         ],
         "ans": 1,
-        "why": "貓媽媽說鬍子好比一把尺子，用來量一量過唔過到個洞。",
-        "hint": "💡 鬍子用嚟「量」嘢。",
+        "why": "貓媽媽說鬍子好比一把尺子，用來量一量能不能通過個洞。",
+        "hint": "💡 鬍子用來「量」東西。",
         "label": "鬍子像尺子",
-        "wrongWhy": "鬍子像一把尺子，唔像鏡子。"
+        "wrongWhy": "鬍子像一把尺子，不像鏡子。"
       },
       {
         "type": "mc",
@@ -4220,9 +4233,9 @@ const QZ_L7 = {
         ],
         "ans": 0,
         "why": "課文話鬍子被刮掉，就會碰得頭破血流。",
-        "hint": "💡 冇咗尺子量，入洞嗰陣會點？",
+        "hint": "💡 沒有尺子量，入洞那陣會點？",
         "label": "刮鬍子的後果",
-        "wrongWhy": "冇鬍子量度，就會撞得頭破血流。"
+        "wrongWhy": "沒有鬍子量度，就會撞得頭破血流。"
       },
       {
         "type": "mc",
@@ -4236,10 +4249,10 @@ const QZ_L7 = {
           "老鼠"
         ],
         "ans": 2,
-        "why": "係貓媽媽耐心地同小花貓講嘅。",
-        "hint": "💡 邊個最錫小花貓，會教佢？",
+        "why": "是貓媽媽耐心地同小花貓講的。",
+        "hint": "💡 哪一個最錫小花貓，會教他？",
         "label": "誰說的",
-        "wrongWhy": "係貓媽媽說鬍子好比一把尺子。"
+        "wrongWhy": "是貓媽媽說鬍子好比一把尺子。"
       },
       {
         "type": "mc",
@@ -4253,10 +4266,10 @@ const QZ_L7 = {
           "鏡子"
         ],
         "ans": 3,
-        "why": "（默書詞語：鏡子、難睇、樣子）：小花貓照鏡子，覺得鬍子難睇。",
-        "hint": "💡 喺浴室會見到，可以照到自己。",
+        "why": "（默書詞語：鏡子、難看、樣子）：小花貓照鏡子，覺得鬍子難看。",
+        "hint": "💡 在浴室會見到，可以照到自己。",
         "label": "照鏡子",
-        "wrongWhy": "小花貓照鏡子，覺得鬍子難睇。"
+        "wrongWhy": "小花貓照鏡子，覺得鬍子難看。"
       },
       {
         "type": "mc",
@@ -4270,10 +4283,10 @@ const QZ_L7 = {
           "很光亮沒有暗影"
         ],
         "ans": 0,
-        "why": "「乾乾淨淨」即係清潔得好好，冇污糟。",
+        "why": "「乾乾淨淨」即是清潔得好好，沒有污糟。",
         "hint": "💡 同「污糟」相反。",
         "label": "乾乾淨淨",
-        "wrongWhy": "「乾乾淨淨」係說很清潔，冇污垢。"
+        "wrongWhy": "「乾乾淨淨」是說很清潔，沒有污垢。"
       },
       {
         "type": "match",
@@ -4304,7 +4317,7 @@ const QZ_L7 = {
           "不好看",
           "追上去捉"
         ],
-        "hint": "💡 「追捕」即係追住嚟捉。",
+        "hint": "💡 「追捕」即是追着來捉。",
         "label": "詞語配對",
         "wrongWhy": "詞語同意思要一一對應。"
       },
@@ -4330,7 +4343,7 @@ const QZ_L7 = {
           "，"
         ],
         "label": "背默句重組",
-        "wrongWhy": "先係小花貓，再係眼睛，最後係睇着主人。"
+        "wrongWhy": "先是小花貓，再是眼睛，最後是看着主人。"
       },
       {
         "type": "order",
@@ -4348,8 +4361,8 @@ const QZ_L7 = {
           "小花貓照鏡子覺得鬍子難看"
         ],
         "ans": "小花貓照鏡子覺得鬍子難看把鬍子刮掉鑽洞時碰得頭破血流",
-        "why": "小花貓先覺得鬍子難睇，刮掉後鑽洞就撞傷了。",
-        "wrongWhy": "先覺得難睇，再刮掉，最後撞傷。",
+        "why": "小花貓先覺得鬍子難看，刮掉後鑽洞就撞傷了。",
+        "wrongWhy": "先覺得難看，再刮掉，最後撞傷。",
         "label": "重組：刮鬍子的後果",
         "hint": "由照鏡子排到撞傷。"
       }
@@ -4372,7 +4385,7 @@ const QZ_L7 = {
         "ans": 2,
         "why": "背默句寫「碧綠的大眼睛」。",
         "label": "眼睛顏色",
-        "wrongWhy": "小花貓嘅眼睛係碧綠嘅。"
+        "wrongWhy": "小花貓的眼睛是碧綠的。"
       },
       {
         "type": "reveal",
@@ -4401,8 +4414,8 @@ const QZ_L7 = {
           "在浴室裏"
         ],
         "ans": "小花貓在浴室裏照鏡子",
-        "why": "小花貓在浴室裏照鏡子，睇自己嘅樣子。",
-        "wrongWhy": "先說誰，再說在邊度，最後說做咩。",
+        "why": "小花貓在浴室裏照鏡子，看自己的樣子。",
+        "wrongWhy": "先說誰，再說在哪裏，最後說做甚麼。",
         "label": "重組：在浴室照鏡子"
       }
     ]
@@ -4422,8 +4435,8 @@ const QZ_L7 = {
           "撞"
         ],
         "ans": 0,
-        "why": "洗得乾乾淨淨，就係洗得很清潔。",
-        "wrongWhy": "洗臉係為了清潔，唔係為了難睇。",
+        "why": "洗得乾乾淨淨，就是洗得很清潔。",
+        "wrongWhy": "洗臉是為了清潔，不是為了難看。",
         "label": "應用：乾乾淨淨"
       },
       {
@@ -4438,8 +4451,8 @@ const QZ_L7 = {
           "我覺得明天。"
         ],
         "ans": 0,
-        "why": "「覺得」後面要接完整嘅感覺或想法。",
-        "wrongWhy": "「覺得」後面唔能夠只接一個名詞。",
+        "why": "「覺得」後面要接完整的感覺或想法。",
+        "wrongWhy": "「覺得」後面不能夠只接一個名詞。",
         "label": "應用：覺得"
       },
       {
@@ -4454,8 +4467,8 @@ const QZ_L7 = {
           "在"
         ],
         "ans": 0,
-        "why": "「被」用在被動句，小花貓係被抱嘅一個。",
-        "wrongWhy": "被抱嘅係小花貓，要用「被」。",
+        "why": "「被」用在被動句，小花貓是被抱的一個。",
+        "wrongWhy": "被抱的是小花貓，要用「被」。",
         "label": "應用：被字句"
       },
       {
@@ -4470,8 +4483,8 @@ const QZ_L7 = {
           "樣子"
         ],
         "ans": 0,
-        "why": "想一個好辦法，就係想一個好主意。",
-        "wrongWhy": "鏡子同浴室唔係主意。",
+        "why": "想一個好辦法，就是想一個好主意。",
+        "wrongWhy": "鏡子同浴室不是主意。",
         "label": "應用：辦法"
       },
       {
@@ -4490,8 +4503,8 @@ const QZ_L7 = {
           "照鏡子"
         ],
         "ans": "小花貓走進浴室照鏡子覺得鬍子很難看",
-        "why": "先走進浴室，再照鏡子，才覺得鬍子難睇。",
-        "wrongWhy": "先進浴室，再照鏡子，最後覺得難睇。",
+        "why": "先走進浴室，再照鏡子，才覺得鬍子難看。",
+        "wrongWhy": "先進浴室，再照鏡子，最後覺得難看。",
         "label": "應用重組：走進浴室"
       },
       {
@@ -4514,7 +4527,7 @@ const QZ_L7 = {
           "鑽洞的時候"
         ],
         "ans": "如果鬍子被刮掉鑽洞的時候就會撞傷",
-        "why": "冇鬍子量度，鑽洞就會撞傷。",
+        "why": "沒有鬍子量度，鑽洞就會撞傷。",
         "wrongWhy": "先說如果，再說時候，最後說結果。",
         "label": "應用重組：如果刮掉"
       },
@@ -4547,8 +4560,8 @@ const QZ_L7 = {
           "追着去捉",
           "不好看"
         ],
-        "why": "乾乾淨淨係清潔，難睇係唔好睇。",
-        "wrongWhy": "睇詞語嘅意思來配對，唔好只睇字形。",
+        "why": "乾乾淨淨是清潔，難看是不要看。",
+        "wrongWhy": "看詞語的意思來配對，不要只看字形。",
         "label": "應用配對：詞語意思"
       },
       {
@@ -4563,7 +4576,7 @@ const QZ_L7 = {
           "我感到這本書好看。"
         ],
         "ans": 2,
-        "why": "「感到」用嚟講身體同心情嘅感覺，例如感到凍、感到開心。",
+        "why": "「感到」用來講身體同心情的感覺，例如感到凍、感到開心。",
         "label": "感到",
         "wrongWhy": "「感到」講感覺，感到冷才正確。"
       },
@@ -4579,9 +4592,9 @@ const QZ_L7 = {
           "睡覺睡得很沉"
         ],
         "ans": 1,
-        "why": "背默句「一眨不眨地看着主人」，形容眼睛望住一樣嘢，唔眨眼。",
+        "why": "背默句「一眨不眨地看着主人」，形容眼睛望住一樣東西，不眨眼。",
         "label": "一眨不眨",
-        "wrongWhy": "「一眨不眨」係眼睛望着，不眨眼。"
+        "wrongWhy": "「一眨不眨」是眼睛望着，不眨眼。"
       },
       {
         "type": "drag",
@@ -4621,7 +4634,7 @@ const QZ_L7 = {
           ]
         ],
         "label": "詞語分類",
-        "wrongWhy": "詞語分類要睇詞語嘅意思。"
+        "wrongWhy": "詞語分類要看詞語的意思。"
       }
     ]
   },
@@ -4640,8 +4653,8 @@ const QZ_L7 = {
           "眼睛變成碧綠色。"
         ],
         "ans": 1,
-        "why": "冇鬍子量度，鑽洞就會撞傷。",
-        "wrongWhy": "刮掉鬍子唔係變漂亮，係會撞傷。",
+        "why": "沒有鬍子量度，鑽洞就會撞傷。",
+        "wrongWhy": "刮掉鬍子不是變漂亮，是會撞傷。",
         "label": "挑戰：刮掉鬍子後"
       },
       {
@@ -4656,8 +4669,8 @@ const QZ_L7 = {
           "「覺得」只能講身體。"
         ],
         "ans": 1,
-        "why": "感到冷、感到開心係感覺；覺得有趣係想法。",
-        "wrongWhy": "感到講感覺，覺得講想法，唔好弄混。",
+        "why": "感到冷、感到開心是感覺；覺得有趣是想法。",
+        "wrongWhy": "感到講感覺，覺得講想法，不要弄混。",
         "label": "挑戰：感到覺得"
       },
       {
@@ -4673,7 +4686,7 @@ const QZ_L7 = {
         ],
         "ans": 1,
         "why": "刮掉鬍子後鑽洞會撞傷，並不安全。",
-        "wrongWhy": "冇鬍子量度，鑽洞會撞傷。",
+        "wrongWhy": "沒有鬍子量度，鑽洞會撞傷。",
         "label": "挑戰：哪句不正確"
       },
       {
@@ -4688,8 +4701,8 @@ const QZ_L7 = {
           "小花貓被貓媽媽教訓了。"
         ],
         "ans": 2,
-        "why": "鏡子係照東西嘅工具，唔係被照嘅東西。",
-        "wrongWhy": "「被」後面要接動作，照鏡子唔係鏡子被照。",
+        "why": "鏡子是照東西的工具，不是被照的東西。",
+        "wrongWhy": "「被」後面要接動作，照鏡子不是鏡子被照。",
         "label": "挑戰：被用不對"
       },
       {
@@ -4714,7 +4727,7 @@ const QZ_L7 = {
           "，"
         ],
         "ans": "小花貓覺得鬍子難看所以把鬍子刮掉結果鑽洞時撞傷了",
-        "why": "覺得難睇係原因，刮掉係做法，撞傷係結果。",
+        "why": "覺得難看是原因，刮掉是做法，撞傷是結果。",
         "wrongWhy": "先覺得，再刮掉，最後撞傷。",
         "label": "挑戰重組：因果鏈"
       },
@@ -4741,11 +4754,11 @@ const QZ_L7 = {
       {
         "type": "reveal",
         "skill": "思考與理解",
-        "tag": "諗深一層",
+        "tag": "深層思考",
         "q": "如果你是小花貓的朋友，你會怎樣勸牠不要刮鬍子？先自己想一想，再看例子。",
         "answer": "例如：不要刮掉鬍子，鬍子可以幫你量度，鑽洞時就不會撞傷了。",
-        "why": "勸朋友要講出鬍子嘅用處，對方才明白。",
-        "wrongWhy": "要講出鬍子嘅用處，唔好只說唔好刮。",
+        "why": "勸朋友要講出鬍子的用處，對方才明白。",
+        "wrongWhy": "要講出鬍子的用處，不要只說不要刮。",
         "label": "挑戰思考：勸小花貓"
       },
       {
@@ -4762,7 +4775,7 @@ const QZ_L7 = {
         "ans": 1,
         "why": "課文話「你能不能從洞裏鑽過去，先要用尺子量一量」。",
         "label": "鬍子量洞",
-        "wrongWhy": "鬍子用來量度，能唔能夠通過嗰個洞。"
+        "wrongWhy": "鬍子用來量度，能不能夠通過那個洞。"
       },
       {
         "type": "order",
@@ -4787,11 +4800,11 @@ const QZ_L7 = {
       {
         "type": "reveal",
         "skill": "思考與理解",
-        "tag": "諗深一層",
+        "tag": "深層思考",
         "q": "為什麼小花貓以後不再刮鬍子？",
-        "answer": "因為鬍子好比一把尺子，幫佢量一量自己過唔過到個洞。刮掉鬍子，就會碰得頭破血流，所以佢以後都唔再刮鬍子了。",
+        "answer": "因為鬍子好比一把尺子，幫他量一量自己能不能通過個洞。刮掉鬍子，就會碰得頭破血流，所以他以後都不再刮鬍子了。",
         "label": "不再刮鬍子",
-        "wrongWhy": "刮掉鬍子會撞傷，所以唔再刮鬍子。"
+        "wrongWhy": "刮掉鬍子會撞傷，所以不再刮鬍子。"
       }
     ]
   }
@@ -4803,7 +4816,7 @@ const QZ_ENG = {
       {
         "type": "mc",
         "skill": "U3 詞彙",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "Where can we sing songs?",
         "opts": [
           "In the music room.",
@@ -4812,15 +4825,15 @@ const QZ_ENG = {
           "In the sick room."
         ],
         "ans": 0,
-        "why": "Preview: We sing songs in the music room.（音樂室）",
+        "why": "We sing songs in the music room.（音樂室）",
         "hint": "💡 Music = 音樂。",
-        "label": "Preview: music room",
+        "label": "music room",
         "wrongWhy": "Sing songs in the music room, not the art room."
       },
       {
         "type": "mc",
         "skill": "U3 詞彙",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "Where can we draw pictures?",
         "opts": [
           "In the music room.",
@@ -4829,15 +4842,15 @@ const QZ_ENG = {
           "In the corridor."
         ],
         "ans": 1,
-        "why": "Preview: We draw pictures in the art room.（美術室）",
+        "why": "We draw pictures in the art room.（美術室）",
         "hint": "💡 Art = 美術。",
-        "label": "Preview: art room",
+        "label": "art room",
         "wrongWhy": "Draw pictures in the art room, not the music room."
       },
       {
         "type": "mc",
         "skill": "U1 介詞",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "It is ___ the cinema.（在戲院後面）",
         "opts": [
           "next to",
@@ -4846,15 +4859,15 @@ const QZ_ENG = {
           "on the left"
         ],
         "ans": 2,
-        "why": "Preview: behind = 後面。It is behind the cinema.",
+        "why": "behind = 後面。It is behind the cinema.",
         "hint": "💡 後面 = behind。",
-        "label": "Preview: behind",
-        "wrongWhy": "Behind means 後面。唔好選 in front of。"
+        "label": "behind",
+        "wrongWhy": "Behind means 後面。不要選 in front of。"
       },
       {
         "type": "mc",
         "skill": "U2 現在進行式",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "Look! The girls ___ in the pool.",
         "opts": [
           "swims",
@@ -4863,15 +4876,15 @@ const QZ_ENG = {
           "is swimming"
         ],
         "ans": 1,
-        "why": "Preview: The girls are plural, and it is happening now: are swimming.",
-        "hint": "💡 Girls 係多過一個，要用 are。",
-        "label": "Preview: are swimming",
-        "wrongWhy": "Girls 係多數，要用 are swimming。"
+        "why": "The girls are plural, and it is happening now: are swimming.",
+        "hint": "💡 Girls 是多過一個，要用 are。",
+        "label": "are swimming",
+        "wrongWhy": "Girls 是多數，要用 are swimming。"
       },
       {
         "type": "mc",
         "skill": "U2 規則",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "We ___ pick the flowers in the park.",
         "opts": [
           "must",
@@ -4880,15 +4893,15 @@ const QZ_ENG = {
           "are"
         ],
         "ans": 2,
-        "why": "Preview: We must not pick the flowers.（唔可以摘花）",
-        "hint": "💡 摘花係唔啱嘅，要用 must not。",
-        "label": "Preview: must not",
-        "wrongWhy": "摘花係唔可以嘅，要用 must not。"
+        "why": "We must not pick the flowers.（不可以摘花）",
+        "hint": "💡 摘花是不對的，要用 must not。",
+        "label": "must not",
+        "wrongWhy": "摘花是不可以的，要用 must not。"
       },
       {
         "type": "mc",
         "skill": "U4 所有格",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "This watch is ___.（Bob 的）",
         "opts": [
           "Bobs",
@@ -4897,15 +4910,15 @@ const QZ_ENG = {
           "Bob's"
         ],
         "ans": 3,
-        "why": "Preview: Bob's watch — 's after a name shows the owner.",
+        "why": "Bob's watch — 's after a name shows the owner.",
         "hint": "💡 人名後面加 's。",
-        "label": "Preview: Bob's",
-        "wrongWhy": "Bob 嘅東西，要用 Bob's。"
+        "label": "Bob's",
+        "wrongWhy": "Bob 的東西，要用 Bob's。"
       },
       {
         "type": "mc",
         "skill": "U4 問句",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "___ you have hairbands?",
         "opts": [
           "Does",
@@ -4914,15 +4927,15 @@ const QZ_ENG = {
           "Are"
         ],
         "ans": 1,
-        "why": "Preview: Do you have hairbands? Yes, I do.",
+        "why": "Do you have hairbands? Yes, I do.",
         "hint": "💡 You 配 Do。",
-        "label": "Preview: Do you",
-        "wrongWhy": "You 配 Do，唔好用 Does。"
+        "label": "Do you",
+        "wrongWhy": "You 配 Do，不要用 Does。"
       },
       {
         "type": "order",
         "skill": "U1 問句",
-        "tag": "Order・Preview",
+        "tag": "Order",
         "q": "排好句子：把詞語放入框中。",
         "parts": [
           "Is ",
@@ -4936,13 +4949,13 @@ const QZ_ENG = {
           "?",
           "there "
         ],
-        "label": "Preview: Is there",
-        "wrongWhy": "Is there 放在句首，次序唔好錯。"
+        "label": "Is there",
+        "wrongWhy": "Is there 放在句首，次序不要錯。"
       },
       {
         "type": "order",
         "skill": "U1 介詞",
-        "tag": "Order・Preview",
+        "tag": "Order",
         "q": "排好句子：按詞語放入框。",
         "parts": [
           "The book ",
@@ -4959,7 +4972,7 @@ const QZ_ENG = {
         "ans": "The book is next to the bag.",
         "why": "The book is next to the bag. 書在書包旁邊。",
         "wrongWhy": "主語放在最前面，介詞短語放在最後。",
-        "label": "Preview: next to",
+        "label": "next to",
         "hint": "先說書，再說在哪裡。"
       }
     ]
@@ -4970,7 +4983,7 @@ const QZ_ENG = {
       {
         "type": "order",
         "skill": "U4 所有格",
-        "tag": "Order・Preview",
+        "tag": "Order",
         "q": "排好句子：按詞語放入框。",
         "parts": [
           "This ",
@@ -4985,14 +4998,14 @@ const QZ_ENG = {
           "is "
         ],
         "ans": "This is Ann's bag.",
-        "why": "Ann's bag = Ann 嘅書包，'s 表示擁有。",
+        "why": "Ann's bag = Ann 的書包，'s 表示擁有。",
         "wrongWhy": "名字後面加 's 表示擁有。",
-        "label": "Preview: Ann's"
+        "label": "Ann's"
       },
       {
         "type": "order",
         "skill": "U1 問句",
-        "tag": "Order・Preview",
+        "tag": "Order",
         "q": "排好句子：按詞語放入框。",
         "parts": [
           "Is ",
@@ -5007,9 +5020,9 @@ const QZ_ENG = {
           "there "
         ],
         "ans": "Is there a library?",
-        "why": "Is there a library? 問嗰度有冇圖書館。",
-        "wrongWhy": "Is there 放在句首問有冇。",
-        "label": "Preview: Is there a library"
+        "why": "Is there a library? 問那度有沒有圖書館。",
+        "wrongWhy": "Is there 放在句首問有沒有。",
+        "label": "Is there a library"
       }
     ]
   },
@@ -5019,7 +5032,7 @@ const QZ_ENG = {
       {
         "type": "mc",
         "skill": "U1 介詞",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "The ball is ___ the box.（在盒子裡面）",
         "opts": [
           "in",
@@ -5029,13 +5042,13 @@ const QZ_ENG = {
         ],
         "ans": 0,
         "why": "In the box = 在盒子裡面。",
-        "wrongWhy": "在裡面用 in，唔好用 on。",
+        "wrongWhy": "在裡面用 in，不要用 on。",
         "label": "應用：in the box"
       },
       {
         "type": "mc",
         "skill": "U2 現在進行式",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "Look! He ___ a book now.",
         "opts": [
           "is reading",
@@ -5044,14 +5057,14 @@ const QZ_ENG = {
           "is read"
         ],
         "ans": 0,
-        "why": "Now 正在做嘅事，要用 is reading。",
+        "why": "Now 正在做的事，要用 is reading。",
         "wrongWhy": "Now 表示正在做，要用 is + -ing。",
         "label": "應用：is reading"
       },
       {
         "type": "mc",
         "skill": "U3 規則",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "We ___ talk loudly in the library.",
         "opts": [
           "must not",
@@ -5060,14 +5073,14 @@ const QZ_ENG = {
           "may"
         ],
         "ans": 0,
-        "why": "圖書館要安靜，唔可以大聲說話。",
+        "why": "圖書館要安靜，不可以大聲說話。",
         "wrongWhy": "圖書館要安靜，要用 must not。",
         "label": "應用：must not"
       },
       {
         "type": "mc",
         "skill": "U4 所有格",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "This is ___ schoolbag.（Mary 的）",
         "opts": [
           "Mary's",
@@ -5076,14 +5089,14 @@ const QZ_ENG = {
           "of Mary"
         ],
         "ans": 0,
-        "why": "Mary's schoolbag = Mary 嘅書包。",
+        "why": "Mary's schoolbag = Mary 的書包。",
         "wrongWhy": "人名後面加 's 表示擁有。",
         "label": "應用：Mary's"
       },
       {
         "type": "order",
         "skill": "U3 問句",
-        "tag": "Order・Preview",
+        "tag": "Order",
         "q": "排好句子：按詞語放入框。",
         "parts": [
           "Where ",
@@ -5098,14 +5111,14 @@ const QZ_ENG = {
           "is "
         ],
         "ans": "Where is the art room?",
-        "why": "Where is the art room? 問美術室在邊度。",
+        "why": "Where is the art room? 問美術室在哪裏。",
         "wrongWhy": "Where 放在句首問地方。",
         "label": "應用：Where is the art room"
       },
       {
         "type": "order",
         "skill": "U2 現在進行式",
-        "tag": "Order・Preview",
+        "tag": "Order",
         "q": "排好句子：按詞語放入框。",
         "parts": [
           "They ",
@@ -5120,14 +5133,14 @@ const QZ_ENG = {
           "are "
         ],
         "ans": "They are playing football.",
-        "why": "They are playing football. 佢們正在踢足球。",
-        "wrongWhy": "They 係多數，要用 are。",
+        "why": "They are playing football. 他們正在踢足球。",
+        "wrongWhy": "They 是多數，要用 are。",
         "label": "應用：They are playing"
       },
       {
         "type": "match",
         "skill": "U1 介詞",
-        "tag": "Matching・Preview",
+        "tag": "Matching",
         "q": "介詞配意思：先按左邊的介詞，再按右邊的意思。",
         "pairs": [
           [
@@ -5153,14 +5166,14 @@ const QZ_ENG = {
           "後面",
           "旁邊"
         ],
-        "why": "Behind 係後面，in front of 係前面。",
-        "wrongWhy": "Behind 同 in front of 意思相反，唔好弄混。",
+        "why": "Behind 是後面，in front of 是前面。",
+        "wrongWhy": "Behind 同 in front of 意思相反，不要弄混。",
         "label": "應用配對：介詞"
       },
       {
         "type": "mc",
         "skill": "U3 位置",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "___ is the library?",
         "opts": [
           "What",
@@ -5169,14 +5182,14 @@ const QZ_ENG = {
           "When"
         ],
         "ans": 1,
-        "why": "Preview: We ask about places with Where.",
-        "label": "Preview: Where",
-        "wrongWhy": "問地方要用 Where，唔好用 What。"
+        "why": "We ask about places with Where.",
+        "label": "Where",
+        "wrongWhy": "問地方要用 Where，不要用 What。"
       },
       {
         "type": "mc",
         "skill": "U2 現在進行式",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "She is ___ a song now.",
         "opts": [
           "singing",
@@ -5185,14 +5198,14 @@ const QZ_ENG = {
           "sang a song"
         ],
         "ans": 0,
-        "why": "Preview: She is singing a song.（正在唱歌）",
-        "label": "Preview: is singing",
+        "why": "She is singing a song.（正在唱歌）",
+        "label": "is singing",
         "wrongWhy": "She is 現在進行式，要用 singing。"
       },
       {
         "type": "mc",
         "skill": "U4 問句",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "___ she have a ruler?",
         "opts": [
           "Do",
@@ -5201,9 +5214,9 @@ const QZ_ENG = {
           "Are"
         ],
         "ans": 1,
-        "why": "Preview: She → Does she have...? Yes, she does.",
-        "label": "Preview: Does she",
-        "wrongWhy": "She 配 Does，唔好用 Do。"
+        "why": "She → Does she have...? Yes, she does.",
+        "label": "Does she",
+        "wrongWhy": "She 配 Does，不要用 Do。"
       }
     ]
   },
@@ -5213,7 +5226,7 @@ const QZ_ENG = {
       {
         "type": "mc",
         "skill": "U2 現在進行式",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "Amy is in the music room. She ___ songs now.",
         "opts": [
           "sings",
@@ -5222,14 +5235,14 @@ const QZ_ENG = {
           "sing"
         ],
         "ans": 1,
-        "why": "Now 正在做嘅事，要用 is singing。",
-        "wrongWhy": "Now 表示正在做，唔好用 sings。",
+        "why": "Now 正在做的事，要用 is singing。",
+        "wrongWhy": "Now 表示正在做，不要用 sings。",
         "label": "挑戰：is singing"
       },
       {
         "type": "mc",
         "skill": "U1 問句",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "___ is the tuck shop? It is next to the office.",
         "opts": [
           "What",
@@ -5239,13 +5252,13 @@ const QZ_ENG = {
         ],
         "ans": 1,
         "why": "答句講地方，問地方用 Where。",
-        "wrongWhy": "答句講地方，唔係講時間。",
+        "wrongWhy": "答句講地方，不是講時間。",
         "label": "挑戰：Where"
       },
       {
         "type": "mc",
         "skill": "U3 規則",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "Which sentence is NOT correct?",
         "opts": [
           "We must keep quiet in the library.",
@@ -5254,14 +5267,14 @@ const QZ_ENG = {
           "We must be kind to our friends."
         ],
         "ans": 2,
-        "why": "唔可以摘公園嘅花，must pick 係錯嘅。",
-        "wrongWhy": "摘花係唔可以嘅，要用 must not。",
+        "why": "不可以摘公園的花，must pick 是錯的。",
+        "wrongWhy": "摘花是不可以的，要用 must not。",
         "label": "挑戰：NOT correct"
       },
       {
         "type": "mc",
         "skill": "U4 序數",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "Today is Monday. What day is the fifth day of the week?",
         "opts": [
           "Friday",
@@ -5270,14 +5283,14 @@ const QZ_ENG = {
           "Sunday"
         ],
         "ans": 0,
-        "why": "Monday 係第一天，數到第五天係 Friday。",
-        "wrongWhy": "由 Monday 開始數，第五天係 Friday。",
+        "why": "Monday 是第一天，數到第五天是 Friday。",
+        "wrongWhy": "由 Monday 開始數，第五天是 Friday。",
         "label": "挑戰：fifth day"
       },
       {
         "type": "order",
         "skill": "U1 問句",
-        "tag": "Order・Preview",
+        "tag": "Order",
         "q": "排好句子：按詞語放入框。",
         "parts": [
           "Do ",
@@ -5292,14 +5305,14 @@ const QZ_ENG = {
           "you "
         ],
         "ans": "Do you have a ruler?",
-        "why": "Do you have a ruler? 問你有冇尺子。",
+        "why": "Do you have a ruler? 問你有沒有尺子。",
         "wrongWhy": "You 配 Do，放在句首。",
         "label": "挑戰：Do you have"
       },
       {
         "type": "order",
         "skill": "U2 現在進行式",
-        "tag": "Order・Preview",
+        "tag": "Order",
         "q": "排好句子：按詞語放入框。",
         "parts": [
           "She ",
@@ -5314,14 +5327,14 @@ const QZ_ENG = {
           "is "
         ],
         "ans": "She is not singing.",
-        "why": "She is not singing. 佢現在冇唱歌。",
+        "why": "She is not singing. 他現在沒有唱歌。",
         "wrongWhy": "Not 放在 is 後面。",
         "label": "挑戰：is not singing"
       },
       {
         "type": "drag",
         "skill": "U2 主語",
-        "tag": "Drag・Preview",
+        "tag": "Drag",
         "q": "把主語放入正確的籃子：先按主語，再按籃子。",
         "chips": [
           {
@@ -5364,22 +5377,22 @@ const QZ_ENG = {
           ]
         ],
         "why": "I 配 am，He、She、It 配 is，They、We 配 are。",
-        "wrongWhy": "He、She 配 is，唔好配 are。",
+        "wrongWhy": "He、She 配 is，不要配 are。",
         "label": "挑戰拖放：be 動詞"
       },
       {
         "type": "reveal",
         "skill": "U3 運用",
-        "tag": "Think・Preview",
+        "tag": "Think",
         "q": "說一句英文：你在學校哪裡上課？",
-        "answer": "Example: I have lessons in the classroom.（我喺課室上堂。）也可以用其他課室詞彙，例如 music room, art room。",
-        "label": "Preview: my classroom",
-        "wrongWhy": "說出你在學校邊度上課嘅英文句子。"
+        "answer": "Example: I have lessons in the classroom.（我在課室上堂。）也可以用其他課室詞彙，例如 music room, art room。",
+        "label": "my classroom",
+        "wrongWhy": "說出你在學校哪裏上課的英文句子。"
       },
       {
         "type": "mc",
         "skill": "U3 序數詞",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "哪個是序數詞（表示第幾）？",
         "opts": [
           "five",
@@ -5388,14 +5401,14 @@ const QZ_ENG = {
           "fives"
         ],
         "ans": 2,
-        "why": "Preview: fifth = 第五。Dict 3 範圍有 fourth, fifth, sixth。",
-        "label": "Preview: fifth",
-        "wrongWhy": "序數詞第五係 fifth，唔係 fiveth。"
+        "why": "fifth = 第五。Dict 3 範圍有 fourth, fifth, sixth。",
+        "label": "fifth",
+        "wrongWhy": "序數詞第五是 fifth，不是 fiveth。"
       },
       {
         "type": "mc",
         "skill": "U2 規則",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "We ___ keep the classroom clean.",
         "opts": [
           "must not",
@@ -5404,9 +5417,9 @@ const QZ_ENG = {
           "must"
         ],
         "ans": 3,
-        "why": "Preview: We must keep clean.（要保持清潔）",
-        "label": "Preview: must keep",
-        "wrongWhy": "要保持清潔，用 must，唔係 must not。"
+        "why": "We must keep clean.（要保持清潔）",
+        "label": "must keep",
+        "wrongWhy": "要保持清潔，用 must，不是 must not。"
       }
     ]
   }
@@ -5428,9 +5441,9 @@ const QZ_MATH = {
         ],
         "ans": 2,
         "why": "（重用評估練習題庫）：5 在十位，代表 5 個十，即 50。",
-        "hint": "💡 睇吓「5」企喺邊個位。",
+        "hint": "💡 看看「5」站在哪一個位置。",
         "label": "5 的數值",
-        "wrongWhy": "5 在十位，代表 50，唔係 5。"
+        "wrongWhy": "5 在十位，代表 50，不是 5。"
       },
       {
         "type": "mc",
@@ -5444,7 +5457,7 @@ const QZ_MATH = {
           "+"
         ],
         "ans": 1,
-        "why": "（重用題庫）：478 比 487 細，所以係 <。",
+        "why": "（重用題庫）：478 比 487 細，所以是 <。",
         "hint": "💡 百位一樣，比較十位。",
         "label": "比較大小",
         "wrongWhy": "478 比 487 小，所以用 <。"
@@ -5479,7 +5492,7 @@ const QZ_MATH = {
         ],
         "ans": 3,
         "why": "（重用題庫）：502 − 267 = 235，要借位。",
-        "hint": "💡 個位唔夠減，向十位借。",
+        "hint": "💡 個位不夠減，向十位借。",
         "label": "減法",
         "wrongWhy": "502 − 267 = 235，要借位。"
       },
@@ -5495,8 +5508,8 @@ const QZ_MATH = {
           "980"
         ],
         "ans": 3,
-        "why": "先比百位，980 嘅百位係 9，同 908 一樣；再比十位，8 比 0 大。",
-        "hint": "💡 先睇百位，再睇十位。",
+        "why": "先比百位，980 的百位是 9，同 908 一樣；再比十位，8 比 0 大。",
+        "hint": "💡 先看百位，再看十位。",
         "label": "最大數",
         "wrongWhy": "先比百位，再比十位，980 最大。"
       },
@@ -5513,9 +5526,9 @@ const QZ_MATH = {
         ],
         "ans": 3,
         "why": "銳角比直角細，鈍角比直角大。",
-        "hint": "💡 細過直角嗰種，個名有個「銳」字。",
+        "hint": "💡 細過直角那種，個名有個「銳」字。",
         "label": "銳角",
-        "wrongWhy": "比直角小嘅角係銳角。"
+        "wrongWhy": "比直角小的角是銳角。"
       },
       {
         "type": "mc",
@@ -5530,7 +5543,7 @@ const QZ_MATH = {
         ],
         "ans": 1,
         "why": "課室長度以米為單位最合適。",
-        "hint": "💡 量長度，又要夠大嗰個單位。",
+        "hint": "💡 量長度，又要夠大那個單位。",
         "label": "米",
         "wrongWhy": "量課室長度用米最合適。"
       },
@@ -5552,7 +5565,7 @@ const QZ_MATH = {
           "452"
         ],
         "label": "由細到大",
-        "wrongWhy": "由小到大排，百位小嘅排前面。"
+        "wrongWhy": "由小到大排，百位小的排前面。"
       },
       {
         "type": "order",
@@ -5573,7 +5586,7 @@ const QZ_MATH = {
         ],
         "ans": "642、426、264、246",
         "why": "由大到小：642 > 426 > 264 > 246。",
-        "wrongWhy": "先比百位，百位大嘅排前面。",
+        "wrongWhy": "先比百位，百位大的排前面。",
         "label": "由大到小",
         "hint": "先看百位，大的排前面。"
       }
@@ -5596,14 +5609,14 @@ const QZ_MATH = {
         "ans": 2,
         "why": "（重用題庫）：5 × 4 = 20，即 4 個 5。",
         "label": "乘法",
-        "wrongWhy": "5 × 4 = 20，就係 4 個 5。"
+        "wrongWhy": "5 × 4 = 20，就是 4 個 5。"
       },
       {
         "type": "reveal",
         "skill": "角",
         "tag": "思考題",
         "q": "怎樣分銳角和鈍角？",
-        "answer": "用直角做標準去比：比直角細嘅係銳角，比直角大嘅係鈍角。可以用一本書嘅角嚟量一量。",
+        "answer": "用直角做標準去比：比直角細的是銳角，比直角大的是鈍角。可以用一本書的角來量一量。",
         "label": "分銳角鈍角",
         "wrongWhy": "銳角比直角小，鈍角比直角大。"
       }
@@ -5625,7 +5638,7 @@ const QZ_MATH = {
         ],
         "ans": 0,
         "why": "2 在十位，代表 2 個十，即 20。",
-        "wrongWhy": "十位嘅 2 係 20，唔係 2。",
+        "wrongWhy": "十位的 2 是 20，不是 2。",
         "label": "應用：2 的數值"
       },
       {
@@ -5641,7 +5654,7 @@ const QZ_MATH = {
         ],
         "ans": 0,
         "why": "357 + 264 = 621，個位 7+4=11，寫 1 進 1。",
-        "wrongWhy": "個位 7+4=11，要寫 1 進 1，唔好忘記進位。",
+        "wrongWhy": "個位 7+4=11，要寫 1 進 1，不要忘記進位。",
         "label": "應用：357 + 264"
       },
       {
@@ -5656,8 +5669,8 @@ const QZ_MATH = {
           "355"
         ],
         "ans": 0,
-        "why": "613 − 248 = 365，個位唔夠減要借位。",
-        "wrongWhy": "個位 3 唔夠減 8，要向十位借。",
+        "why": "613 − 248 = 365，個位不夠減要借位。",
+        "wrongWhy": "個位 3 不夠減 8，要向十位借。",
         "label": "應用：613 − 248"
       },
       {
@@ -5673,7 +5686,7 @@ const QZ_MATH = {
         ],
         "ans": 0,
         "why": "銳角比直角小。",
-        "wrongWhy": "銳角比直角小，唔係同直角一樣大。",
+        "wrongWhy": "銳角比直角小，不是同直角一樣大。",
         "label": "應用：銳角"
       },
       {
@@ -5692,8 +5705,8 @@ const QZ_MATH = {
           "十位 8 + 2 + 1 = 11，寫 1 進 1"
         ],
         "ans": "個位 5 + 7 = 12，寫 2 進 1十位 8 + 2 + 1 = 11，寫 1 進 1百位 4 + 3 + 1 = 8",
-        "why": "由個位算起，每次記得加上進位嘅 1。",
-        "wrongWhy": "由個位開始算，唔好由百位開始。",
+        "why": "由個位算起，每次記得加上進位的 1。",
+        "wrongWhy": "由個位開始算，不要由百位開始。",
         "label": "應用重組：加法步驟"
       },
       {
@@ -5750,7 +5763,7 @@ const QZ_MATH = {
           ]
         ],
         "why": "米同厘米量長度，公斤同克量重量。",
-        "wrongWhy": "公斤係量重量，唔係量長度。",
+        "wrongWhy": "公斤是量重量，不是量長度。",
         "label": "應用拖放：長度重量"
       },
       {
@@ -5781,7 +5794,7 @@ const QZ_MATH = {
           "493 張"
         ],
         "ans": 1,
-        "why": "365 − 128 = 237。送走咗，要用減法。",
+        "why": "365 − 128 = 237。送走了，要用減法。",
         "label": "貼紙應用題",
         "wrongWhy": "送走了要用減法，365 − 128 = 237。"
       },
@@ -5797,9 +5810,9 @@ const QZ_MATH = {
           "圓圓的、沒有角的那種"
         ],
         "ans": 1,
-        "why": "直角好似書本、方枱嘅角咁方正。",
+        "why": "直角好似書本、方枱的角這樣方正。",
         "label": "直角",
-        "wrongWhy": "直角像書角嗰樣方正。"
+        "wrongWhy": "直角像書角那樣方正。"
       }
     ]
   },
@@ -5819,7 +5832,7 @@ const QZ_MATH = {
         ],
         "ans": 0,
         "why": "先減 136 得 289，再加 58 得 347。",
-        "wrongWhy": "送走要減，買了要加，唔好只算一步。",
+        "wrongWhy": "送走要減，買了要加，不要只算一步。",
         "label": "挑戰：兩步加減"
       },
       {
@@ -5834,7 +5847,7 @@ const QZ_MATH = {
           "900 − 245"
         ],
         "ans": 1,
-        "why": "800 − 132 = 668，係四個算式中最大嘅。",
+        "why": "800 − 132 = 668，是四個算式中最大的。",
         "wrongWhy": "先算出每個答案，再比較大小。",
         "label": "挑戰：哪個最大"
       },
@@ -5850,7 +5863,7 @@ const QZ_MATH = {
           "沒有角。"
         ],
         "ans": 2,
-        "why": "鈍角比直角大，係三種角中最大嘅。",
+        "why": "鈍角比直角大，是三種角中最大的。",
         "wrongWhy": "鈍角比直角大，銳角比直角小。",
         "label": "挑戰：哪個角最大"
       },
@@ -5887,7 +5900,7 @@ const QZ_MATH = {
         ],
         "ans": "個位 0 不夠減十位是 0，向百位借借好後由個位開始減",
         "why": "800 減 367，個位同十位都要借位。",
-        "wrongWhy": "由個位開始算，唔夠減才借位。",
+        "wrongWhy": "由個位開始算，不夠減才借位。",
         "label": "挑戰重組：減法借位"
       },
       {
@@ -5918,8 +5931,8 @@ const QZ_MATH = {
         "tag": "思考題",
         "q": "用米和厘米，說出課室裡兩樣東西的長度。先自己想一想，再看例子。",
         "answer": "例如：課室門高約 2 米，鉛筆長約 18 厘米。",
-        "why": "大嘅東西用米量，小嘅東西用厘米量。",
-        "wrongWhy": "大嘅東西用米，小嘅東西用厘米。",
+        "why": "大的東西用米量，小的東西用厘米量。",
+        "wrongWhy": "大的東西用米，小的東西用厘米。",
         "label": "挑戰思考：米和厘米"
       },
       {
@@ -5934,9 +5947,9 @@ const QZ_MATH = {
           "不對，鉛筆短很多"
         ],
         "ans": 3,
-        "why": "1 米大約係課室門一半高度，鉛筆短好多。",
+        "why": "1 米大約是課室門一半高度，鉛筆短好多。",
         "label": "1 米有多長",
-        "wrongWhy": "鉛筆比 1 米短很多，唔係一米。"
+        "wrongWhy": "鉛筆比 1 米短很多，不是一米。"
       },
       {
         "type": "order",
@@ -5957,7 +5970,7 @@ const QZ_MATH = {
         ],
         "ans": "506、560、605、650",
         "why": "由小到大：506 < 560 < 605 < 650。",
-        "wrongWhy": "先比百位，百位小嘅排前面。",
+        "wrongWhy": "先比百位，百位小的排前面。",
         "label": "由小到大"
       },
       {
@@ -5977,7 +5990,7 @@ const QZ_MATH = {
         ],
         "ans": "銳角直角鈍角",
         "why": "銳角比直角小，直角比鈍角小。",
-        "wrongWhy": "銳角最小，鈍角最大，唔好排錯。",
+        "wrongWhy": "銳角最小，鈍角最大，不要排錯。",
         "label": "角由小到大"
       }
     ]
@@ -6028,9 +6041,9 @@ const QZ_SCI = {
             "非生物"
           ]
         ],
-        "hint": "💡 生物識生長，又要飲水食嘢。",
+        "hint": "💡 生物識生長，又要飲水吃東西。",
         "label": "生物分類",
-        "wrongWhy": "生物會生長，非生物唔會，要分清楚。"
+        "wrongWhy": "生物會生長，非生物不會，要分清楚。"
       },
       {
         "type": "mc",
@@ -6044,10 +6057,10 @@ const QZ_SCI = {
           "紙張"
         ],
         "ans": 1,
-        "why": "小樹苗識生長，係生物。",
-        "hint": "💡 識長大嗰樣。",
-        "label": "邊樣係生物",
-        "wrongWhy": "小樹苗會生長，係生物。"
+        "why": "小樹苗識生長，是生物。",
+        "hint": "💡 識長大那樣。",
+        "label": "哪一樣是生物",
+        "wrongWhy": "小樹苗會生長，是生物。"
       },
       {
         "type": "mc",
@@ -6062,7 +6075,7 @@ const QZ_SCI = {
         ],
         "ans": 1,
         "why": "植物要有陽光同水，先可以生長。",
-        "hint": "💡 種植物嗰陣，每日要俾佢兩樣嘢。",
+        "hint": "💡 種植物那陣，每日要給他兩樣東西。",
         "label": "植物需要",
         "wrongWhy": "植物需要陽光同水才能生長。"
       },
@@ -6078,10 +6091,10 @@ const QZ_SCI = {
           "聽牠叫得多大聲"
         ],
         "ans": 0,
-        "why": "雀仔個嘴嘅形狀，同佢食嘅嘢有關。",
-        "hint": "💡 食嘢用邊個部位？",
+        "why": "雀仔個嘴的形狀，同他吃的東西有關。",
+        "hint": "💡 吃東西用哪一個部位？",
         "label": "觀察雀仔",
-        "wrongWhy": "睇嘴巴嘅形狀，就知道吃咩。"
+        "wrongWhy": "看嘴巴的形狀，就知道吃甚麼。"
       },
       {
         "type": "mc",
@@ -6096,18 +6109,18 @@ const QZ_SCI = {
         ],
         "ans": 1,
         "why": "種子要放入泥土，先可以發芽生長。",
-        "hint": "💡 植物喺邊度生根？",
+        "hint": "💡 植物在哪裏生根？",
         "label": "種子放哪",
         "wrongWhy": "種子要放在泥土裡面才會發芽。"
       },
       {
         "type": "reveal",
         "skill": "生物和非生物",
-        "tag": "諗深一層",
+        "tag": "深層思考",
         "q": "怎樣分生物和非生物？",
-        "answer": "生物識生長，又需要食物同水，例如小狗、花草。非生物唔識生長，例如石頭、木椅。",
+        "answer": "生物識生長，又需要食物同水，例如小狗、花草。非生物不會生長，例如石頭、木椅。",
         "label": "分生物",
-        "wrongWhy": "會生長、需要水同食物嘅才係生物。"
+        "wrongWhy": "會生長、需要水同食物的才是生物。"
       },
       {
         "type": "order",
@@ -6128,7 +6141,7 @@ const QZ_SCI = {
         ],
         "ans": "種子發芽長出葉子開花",
         "why": "植物先由種子發芽，再長出葉子，後來開花。",
-        "wrongWhy": "先係種子，再發芽，最後開花。",
+        "wrongWhy": "先是種子，再發芽，最後開花。",
         "label": "植物生長次序",
         "hint": "由種子開始排。"
       },
@@ -6148,8 +6161,8 @@ const QZ_SCI = {
           "靜靜觀察牠"
         ],
         "ans": "找一隻雀鳥靜靜觀察牠記下牠吃什麼",
-        "why": "先找到雀鳥，再靜靜觀察，最後記下牠吃咩。",
-        "wrongWhy": "先觀察，後記錄，唔好先捉。",
+        "why": "先找到雀鳥，再靜靜觀察，最後記下牠吃甚麼。",
+        "wrongWhy": "先觀察，後記錄，不要先捉。",
         "label": "觀察步驟",
         "hint": "先找，後看，最後記。"
       }
@@ -6170,9 +6183,9 @@ const QZ_SCI = {
           "需要吃物"
         ],
         "ans": 2,
-        "why": "生物先識生長；唔識生長係非生物。",
+        "why": "生物先識生長；不會生長是非生物。",
         "label": "生物特徵",
-        "wrongWhy": "唔會生長唔係生物嘅特徵。"
+        "wrongWhy": "不會生長不是生物的特徵。"
       },
       {
         "type": "mc",
@@ -6186,9 +6199,9 @@ const QZ_SCI = {
           "變成動物"
         ],
         "ans": 1,
-        "why": "植物需要陽光生長，冇陽光會生長得唔好。",
-        "label": "冇陽光",
-        "wrongWhy": "冇陽光，植物會生長得唔好。"
+        "why": "植物需要陽光生長，沒有陽光會生長得不要。",
+        "label": "沒有陽光",
+        "wrongWhy": "沒有陽光，植物會生長得不要。"
       },
       {
         "type": "mc",
@@ -6202,17 +6215,17 @@ const QZ_SCI = {
           "記下牠們去哪裡"
         ],
         "ans": 2,
-        "why": "觀察動物要愛護佢哋，唔好用手捉，靜靜觀察就得。",
+        "why": "觀察動物要愛護他們，不要用手捉，靜靜觀察就得。",
         "label": "觀察螞蟻",
-        "wrongWhy": "觀察動物唔好用手捉，要靜靜觀察。"
+        "wrongWhy": "觀察動物不要用手捉，要靜靜觀察。"
       },
       {
         "type": "reveal",
         "skill": "動手種植物",
         "tag": "思考題",
         "q": "為什麼種植物要淋水？",
-        "answer": "植物需要水先可以生長。冇水，植物會枯乾，慢慢死去。所以種植物要定時淋水。",
-        "label": "點解淋水",
+        "answer": "植物需要水先可以生長。沒有水，植物會枯乾，慢慢死去。所以種植物要定時淋水。",
+        "label": "為什麼淋水",
         "wrongWhy": "植物要喝水才能生長。"
       },
       {
@@ -6251,8 +6264,8 @@ const QZ_SCI = {
           "看看它需不需要水和食物"
         ],
         "ans": "看看它會不會生長看看它需不需要水和食物會生長的就是生物",
-        "why": "先睇會唔會生長，再睇需不需要水同食物，兩樣都有嘅就係生物。",
-        "wrongWhy": "先睇生長，再睇需要，最後判斷。",
+        "why": "先看會不會生長，再看需不需要水同食物，兩樣都有的就是生物。",
+        "wrongWhy": "先看生長，再看需要，最後判斷。",
         "label": "分辨生物步驟"
       }
     ]
@@ -6272,8 +6285,8 @@ const QZ_SCI = {
           "書包"
         ],
         "ans": 0,
-        "why": "小狗會生長、要吃東西，係生物。",
-        "wrongWhy": "石頭唔會生長，唔係生物。",
+        "why": "小狗會生長、要吃東西，是生物。",
+        "wrongWhy": "石頭不會生長，不是生物。",
         "label": "應用：哪樣是生物"
       },
       {
@@ -6288,8 +6301,8 @@ const QZ_SCI = {
           "變成動物"
         ],
         "ans": 0,
-        "why": "植物冇陽光會生長得唔好。",
-        "wrongWhy": "植物需要陽光，冇陽光長唔好。",
+        "why": "植物沒有陽光會生長得不要。",
+        "wrongWhy": "植物需要陽光，沒有陽光長不要。",
         "label": "應用：沒有陽光"
       },
       {
@@ -6304,8 +6317,8 @@ const QZ_SCI = {
           "摸牠的身體"
         ],
         "ans": 0,
-        "why": "嘴巴嘅形狀同吃咩有關。",
-        "wrongWhy": "吃東西用嘴巴，要睇嘴巴。",
+        "why": "嘴巴的形狀同吃甚麼有關。",
+        "wrongWhy": "吃東西用嘴巴，要看嘴巴。",
         "label": "應用：看嘴巴"
       },
       {
@@ -6321,7 +6334,7 @@ const QZ_SCI = {
         ],
         "ans": 0,
         "why": "種植物先把種子放入泥土，再淋水同曬太陽。",
-        "wrongWhy": "仲冇種子，淋水都冇用。",
+        "wrongWhy": "還沒有種子，淋水都沒有用。",
         "label": "應用：種豆子"
       },
       {
@@ -6361,7 +6374,7 @@ const QZ_SCI = {
         ],
         "ans": "泥土乾了淋一點水不要淋太多",
         "why": "泥土乾了才淋水，淋一點就夠了。",
-        "wrongWhy": "泥土乾了才淋水，唔好淋太多。",
+        "wrongWhy": "泥土乾了才淋水，不要淋太多。",
         "label": "應用重組：淋水"
       },
       {
@@ -6397,8 +6410,8 @@ const QZ_SCI = {
             "非生物"
           ]
         ],
-        "why": "小貓同蝴蝶會生長，係生物；椅子同鉛筆唔會生長。",
-        "wrongWhy": "會生長嘅才係生物。",
+        "why": "小貓同蝴蝶會生長，是生物；椅子同鉛筆不會生長。",
+        "wrongWhy": "會生長的才是生物。",
         "label": "應用拖放：生物分類"
       }
     ]
@@ -6418,8 +6431,8 @@ const QZ_SCI = {
           "不用泥土也可以"
         ],
         "ans": 1,
-        "why": "植物需要泥土生長，泥土太少長唔好。",
-        "wrongWhy": "陽光同水夠了，泥土唔夠都不行。",
+        "why": "植物需要泥土生長，泥土太少長不要。",
+        "wrongWhy": "陽光同水夠了，泥土不夠都不行。",
         "label": "挑戰：泥土太少"
       },
       {
@@ -6434,8 +6447,8 @@ const QZ_SCI = {
           "大聲叫螞蟻過來。"
         ],
         "ans": 1,
-        "why": "觀察動物要靜靜地睇同記下來，唔好捉牠。",
-        "wrongWhy": "觀察唔好用手捉，要靜靜地睇。",
+        "why": "觀察動物要靜靜地看同記下來，不要捉牠。",
+        "wrongWhy": "觀察不要用手捉，要靜靜地看。",
         "label": "挑戰：觀察螞蟻"
       },
       {
@@ -6450,8 +6463,8 @@ const QZ_SCI = {
           "會反光的鏡子。"
         ],
         "ans": 3,
-        "why": "鏡子唔會生長，都唔使吃東西，唔係生物。",
-        "wrongWhy": "會反光唔係生物嘅特徵。",
+        "why": "鏡子不會生長，都不用吃東西，不是生物。",
+        "wrongWhy": "會反光不是生物的特徵。",
         "label": "挑戰：哪樣不是生物"
       },
       {
@@ -6466,8 +6479,8 @@ const QZ_SCI = {
           "變成動物。"
         ],
         "ans": 1,
-        "why": "植物冇水會枯萎，生長得唔好。",
-        "wrongWhy": "冇水，植物會枯萎。",
+        "why": "植物沒有水會枯萎，生長得不要。",
+        "wrongWhy": "沒有水，植物會枯萎。",
         "label": "挑戰：沒有水"
       },
       {
@@ -6487,7 +6500,7 @@ const QZ_SCI = {
         ],
         "ans": "種子沒有水就不會發芽所以種植物要淋水",
         "why": "種子要水才發芽，所以要淋水。",
-        "wrongWhy": "先說冇水，再說結果，最後說要淋水。",
+        "wrongWhy": "先說沒有水，再說結果，最後說要淋水。",
         "label": "挑戰重組：種子要水"
       },
       {
@@ -6506,18 +6519,18 @@ const QZ_SCI = {
           "量一量它高了多少"
         ],
         "ans": "每天看一看小樹苗量一量它高了多少記下它的變化",
-        "why": "每天睇、量一量、記下來，就可以知道植物怎樣生長。",
-        "wrongWhy": "先睇，再量，最後記下來。",
+        "why": "每天看、量一量、記下來，就可以知道植物怎樣生長。",
+        "wrongWhy": "先看，再量，最後記下來。",
         "label": "挑戰重組：觀察記錄"
       },
       {
         "type": "reveal",
         "skill": "動手種植物",
-        "tag": "諗深一層",
+        "tag": "深層思考",
         "q": "如果你種了一盆花，可是它長得不好，你會怎樣做？先自己想一想，再看例子。",
         "answer": "例如：先看看泥土乾不乾，有沒有陽光，再淋一點水，放在有陽光的地方。",
         "why": "先找出原因，再對症下藥。",
-        "wrongWhy": "先找出原因，唔好一次淋很多水。",
+        "wrongWhy": "先找出原因，不要一次淋很多水。",
         "label": "挑戰思考：花長不好"
       }
     ]
@@ -6539,10 +6552,10 @@ const QZ_ENGPAPER = {
           "When"
         ],
         "ans": 0,
-        "why": "歷屆卷風格（A 部疑問詞填充）：答「By bus」係講方法，所以用 How。",
-        "hint": "💡 答案講點樣去，問方法用邊個？",
+        "why": "歷屆卷風格（A 部疑問詞填充）：答「By bus」是講方法，所以用 How。",
+        "hint": "💡 答案講怎樣去，問方法用哪一個？",
         "label": "卷風格：How",
-        "wrongWhy": "答 By bus 係講方法，要用 How。"
+        "wrongWhy": "答 By bus 是講方法，要用 How。"
       },
       {
         "type": "mc",
@@ -6573,10 +6586,10 @@ const QZ_ENGPAPER = {
           "We"
         ],
         "ans": 0,
-        "why": "歷屆卷風格（D 部代名詞填充）：Miss Lee 係女老師，用 She。",
-        "hint": "💡 女士用邊個代名詞？",
+        "why": "歷屆卷風格（D 部代名詞填充）：Miss Lee 是女老師，用 She。",
+        "hint": "💡 女士用哪一個代名詞？",
         "label": "卷風格：She",
-        "wrongWhy": "Miss Lee 係女士，要用 She。"
+        "wrongWhy": "Miss Lee 是女士，要用 She。"
       },
       {
         "type": "mc",
@@ -6590,10 +6603,10 @@ const QZ_ENGPAPER = {
           "My"
         ],
         "ans": 0,
-        "why": "歷屆卷風格：Tom 係男仔，「佢嘅」書包用 His。",
-        "hint": "💡 男仔嘅嘢，用 His 定 Her？",
+        "why": "歷屆卷風格：Tom 是男仔，「他的」書包用 His。",
+        "hint": "💡 男仔的東西，用 His 定 Her？",
         "label": "卷風格：His",
-        "wrongWhy": "Tom 係男孩子，佢嘅書包用 His。"
+        "wrongWhy": "Tom 是男孩子，他的書包用 His。"
       },
       {
         "type": "mc",
@@ -6641,10 +6654,10 @@ const QZ_ENGPAPER = {
           "Gary is watches TV now."
         ],
         "ans": 1,
-        "why": "歷屆卷風格（C 部改錯）：now 做緊嘅嘢，要用 is + watching。",
+        "why": "歷屆卷風格（C 部改錯）：now 正在做的東西，要用 is + watching。",
         "hint": "💡 is 後面要加 -ing。",
         "label": "卷風格：改錯 watching",
-        "wrongWhy": "now 正在做嘅事，要用 is watching。"
+        "wrongWhy": "now 正在做的事，要用 is watching。"
       },
       {
         "type": "order",
@@ -6666,7 +6679,7 @@ const QZ_ENGPAPER = {
           "time "
         ],
         "label": "卷風格：What time 句",
-        "wrongWhy": "What time 放在句首，次序唔好錯。"
+        "wrongWhy": "What time 放在句首，次序不要錯。"
       },
       {
         "type": "order",
@@ -6687,7 +6700,7 @@ const QZ_ENGPAPER = {
         ],
         "ans": "They play football on Sundays.",
         "why": "They play football on Sundays. 星期天前面用 on。",
-        "wrongWhy": "星期幾前面用 on，唔好用 in。",
+        "wrongWhy": "星期幾前面用 on，不要用 in。",
         "label": "卷風格：on Sundays",
         "hint": "先說他們，再說做什麼，最後說時間。"
       }
@@ -6740,9 +6753,9 @@ const QZ_ENGPAPER = {
           "She"
         ],
         "ans": 0,
-        "why": "歷屆卷風格：動物嘅名字，「佢嘅」用 Its。",
+        "why": "歷屆卷風格：動物的名字，「他的」用 Its。",
         "label": "卷風格：Its",
-        "wrongWhy": "小貓嘅名字，「牠的」用 Its。"
+        "wrongWhy": "小貓的名字，「牠的」用 Its。"
       },
       {
         "type": "mc",
@@ -6772,9 +6785,9 @@ const QZ_ENGPAPER = {
           "Macy do not lives in Tai Po."
         ],
         "ans": 1,
-        "why": "歷屆卷風格（改錯）：一個人（Macy）要用 does not，後面 live 唔加 s。",
+        "why": "歷屆卷風格（改錯）：一個人（Macy）要用 does not，後面 live 不加 s。",
         "label": "卷風格：改錯 does not",
-        "wrongWhy": "Macy 用 does not，後面 live 唔加 s。"
+        "wrongWhy": "Macy 用 does not，後面 live 不加 s。"
       },
       {
         "type": "mc",
@@ -6799,7 +6812,7 @@ const QZ_ENGPAPER = {
         "q": "用英文答：What do you do on Sundays?",
         "answer": "Example: I play football with my friends on Sundays.（用 I + 活動 + on Sundays 回答就得。）",
         "label": "卷風格：答句",
-        "wrongWhy": "用英文說出星期天你做咩。"
+        "wrongWhy": "用英文說出星期天你做甚麼。"
       },
       {
         "type": "order",
@@ -6820,7 +6833,7 @@ const QZ_ENGPAPER = {
         ],
         "ans": "She goes to school by bus.",
         "why": "She 一個人，go 要變 goes。",
-        "wrongWhy": "一個人做習慣嘅事，動詞要加 s。",
+        "wrongWhy": "一個人做習慣的事，動詞要加 s。",
         "label": "卷風格：goes重組"
       },
       {
@@ -6842,7 +6855,7 @@ const QZ_ENGPAPER = {
         ],
         "ans": "How many apples are there?",
         "why": "How many 問數量，後面加可數名詞。",
-        "wrongWhy": "問數量用 How many，唔好用 How。",
+        "wrongWhy": "問數量用 How many，不要用 How。",
         "label": "卷風格：How many apples"
       }
     ]
@@ -6862,8 +6875,8 @@ const QZ_ENGPAPER = {
           "When"
         ],
         "ans": 0,
-        "why": "答 In Tai Po 係講地方，問地方用 Where。",
-        "wrongWhy": "答句講地方，唔係講時間。",
+        "why": "答 In Tai Po 是講地方，問地方用 Where。",
+        "wrongWhy": "答句講地方，不是講時間。",
         "label": "應用：Where do you live"
       },
       {
@@ -6878,8 +6891,8 @@ const QZ_ENGPAPER = {
           "went"
         ],
         "ans": 0,
-        "why": "Tom 一個人，每天嘅習慣用 goes。",
-        "wrongWhy": "一個人做習慣嘅事，go 要變 goes。",
+        "why": "Tom 一個人，每天的習慣用 goes。",
+        "wrongWhy": "一個人做習慣的事，go 要變 goes。",
         "label": "應用：goes"
       },
       {
@@ -6894,8 +6907,8 @@ const QZ_ENGPAPER = {
           "They"
         ],
         "ans": 0,
-        "why": "Mary 係女孩子，要用 She。",
-        "wrongWhy": "女孩子用 She，唔好用 He。",
+        "why": "Mary 是女孩子，要用 She。",
+        "wrongWhy": "女孩子用 She，不要用 He。",
         "label": "應用：She"
       },
       {
@@ -6911,7 +6924,7 @@ const QZ_ENGPAPER = {
         ],
         "ans": 0,
         "why": "Sunday morning 前面用 on。",
-        "wrongWhy": "星期天早上用 on，唔好用 in。",
+        "wrongWhy": "星期天早上用 on，不要用 in。",
         "label": "應用：on Sunday morning"
       },
       {
@@ -6932,7 +6945,7 @@ const QZ_ENGPAPER = {
           "do you "
         ],
         "ans": "When do you go home?",
-        "why": "When do you go home? 問你咩時候回家。",
+        "why": "When do you go home? 問你甚麼時候回家。",
         "wrongWhy": "When 放在句首問時間。",
         "label": "應用：When do you go home"
       },
@@ -6964,8 +6977,8 @@ const QZ_ENGPAPER = {
         "tag": "Think・歷屆卷風格",
         "q": "用英文答：What do you do after school? 先自己想一想，再看例子。",
         "answer": "例如：I do my homework after school.",
-        "why": "用完整嘅英文句子回答問題。",
-        "wrongWhy": "要用完整嘅英文句子回答。",
+        "why": "用完整的英文句子回答問題。",
+        "wrongWhy": "要用完整的英文句子回答。",
         "label": "應用思考：after school"
       }
     ]
@@ -6986,7 +6999,7 @@ const QZ_ENGPAPER = {
         ],
         "ans": 0,
         "why": "問幾點，What 要配 time。",
-        "wrongWhy": "問時間用 What time，唔好用 Where。",
+        "wrongWhy": "問時間用 What time，不要用 Where。",
         "label": "挑戰：What time"
       },
       {
@@ -7001,8 +7014,8 @@ const QZ_ENGPAPER = {
           "She not like apples."
         ],
         "ans": 2,
-        "why": "She 用 doesn't，後面 like 唔加 s。",
-        "wrongWhy": "Doesn't 後面嘅動詞唔加 s。",
+        "why": "She 用 doesn't，後面 like 不加 s。",
+        "wrongWhy": "Doesn't 後面的動詞不加 s。",
         "label": "挑戰：doesn't like"
       },
       {
@@ -7017,8 +7030,8 @@ const QZ_ENGPAPER = {
           "is play"
         ],
         "ans": 1,
-        "why": "My brother and I 係兩個人，要用 play。",
-        "wrongWhy": "兩個人做習慣嘅事，唔好加 s。",
+        "why": "My brother and I 是兩個人，要用 play。",
+        "wrongWhy": "兩個人做習慣的事，不要加 s。",
         "label": "挑戰：My brother and I"
       },
       {
@@ -7034,7 +7047,7 @@ const QZ_ENGPAPER = {
         ],
         "ans": 1,
         "why": "Saturday afternoon 前面用 on。",
-        "wrongWhy": "星期六下午用 on，唔好用 in。",
+        "wrongWhy": "星期六下午用 on，不要用 in。",
         "label": "挑戰：on Saturday afternoon"
       },
       {
@@ -7077,8 +7090,8 @@ const QZ_ENGPAPER = {
           "does "
         ],
         "ans": "She does not like fish.",
-        "why": "She does not like fish. 佢不喜歡魚。",
-        "wrongWhy": "She 用 does not，後面 like 唔加 s。",
+        "why": "She does not like fish. 他不喜歡魚。",
+        "wrongWhy": "She 用 does not，後面 like 不加 s。",
         "label": "挑戰：does not like"
       },
       {
@@ -7111,7 +7124,7 @@ const QZ_ENGPAPER = {
           "At seven."
         ],
         "why": "Where 配地方，When 配時間，How 配方法。",
-        "wrongWhy": "Where 問地方，When 問時間，唔好調轉。",
+        "wrongWhy": "Where 問地方，When 問時間，不要調轉。",
         "label": "挑戰配對：疑問詞"
       }
     ]
@@ -7267,7 +7280,7 @@ const QZ_L1 = {
         "type": "order",
         "skill": "句子重組",
         "tag": "句子重組 Order",
-        "q": "按次序排好句子：把詞語放入框中。",
+        "q": "請按時間先後順序排列句子：把詞語放入框中。",
         "parts": [
           "星期天",
           "我們一家",
@@ -7283,12 +7296,12 @@ const QZ_L1 = {
         "ans": "星期天我們一家到海邊玩沙",
         "hint": "先說時間，再說人物，最後說做甚麼。",
         "label": "重組：到海邊",
-        "wrongWhy": "時間在前，活動在後。"
+        "wrongWhy": "題目要求按時間先後順序排列，時間要在人物之前，所以人物在前是錯的；正確次序是星期天我們一家到海邊玩沙。"
       },
       {
         "type": "reveal",
         "skill": "思考與理解",
-        "tag": "諗深一層・自我核對",
+        "tag": "深層思考・自我核對",
         "q": "如果你到海邊玩，看見沙灘上有垃圾，你會怎樣做？（先自己說出來，再看答案）",
         "answer": "我會把垃圾拾起來，丟進垃圾桶，保護海灘的環境，讓大家都可以安心地玩。",
         "label": "海邊垃圾",
@@ -7483,7 +7496,7 @@ const QZ_L1 = {
       {
         "type": "reveal",
         "skill": "思考與理解",
-        "tag": "諗深一層・自我核對",
+        "tag": "深層思考・自我核對",
         "q": "為甚麼到海邊玩之後，要把垃圾帶走？（先自己說出來，再看答案）",
         "answer": "因為垃圾會污染沙灘和大海，傷害海洋生物。把垃圾帶走，海灘才會保持清潔。",
         "label": "帶走垃圾",
@@ -7714,7 +7727,7 @@ const QZ_L2 = {
       {
         "type": "reveal",
         "skill": "思考與理解",
-        "tag": "諗深一層・自我核對",
+        "tag": "深層思考・自我核對",
         "q": "種樹之後，除了澆水，還可以怎樣照顧小樹？（先自己說出來，再看答案）",
         "answer": "可以把小樹放在陽光充足的地方，不亂折樹枝，定期看看它有沒有長蟲或枯葉。",
         "label": "照顧小樹",
@@ -7909,7 +7922,7 @@ const QZ_L2 = {
       {
         "type": "reveal",
         "skill": "思考與理解",
-        "tag": "諗深一層・自我核對",
+        "tag": "深層思考・自我核對",
         "q": "為甚麼不可以亂折小樹的樹枝？（先自己說出來，再看答案）",
         "answer": "因為樹枝折斷後，小樹會受傷，長得不好，也不能為大家遮陽。",
         "label": "不可以折樹枝",
@@ -7919,7 +7932,7 @@ const QZ_L2 = {
         "type": "mc",
         "skill": "標點",
         "tag": "點選題 MC",
-        "q": "「小樹需要多少水呢」後面應該用甚麼標點？",
+        "q": "「小樹需要多少水這」後面應該用甚麼標點？",
         "opts": [
           "？",
           "。",
@@ -7976,7 +7989,7 @@ const QZ_ENG_U1 = {
       {
         "type": "mc",
         "skill": "U1 介詞",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "It is ___ the cinema.（在戲院後面）",
         "opts": [
           "next to",
@@ -7985,15 +7998,15 @@ const QZ_ENG_U1 = {
           "on the left"
         ],
         "ans": 2,
-        "why": "Preview: behind = 後面。It is behind the cinema.",
+        "why": "behind = 後面。It is behind the cinema.",
         "hint": "💡 後面 = behind。",
-        "label": "Preview: behind",
-        "wrongWhy": "Behind means 後面。唔好選 in front of。"
+        "label": "behind",
+        "wrongWhy": "Behind means 後面。不要選 in front of。"
       },
       {
         "type": "order",
         "skill": "U1 問句",
-        "tag": "Order・Preview",
+        "tag": "Order",
         "q": "排好句子：把詞語放入框中。",
         "parts": [
           "Is ",
@@ -8007,13 +8020,13 @@ const QZ_ENG_U1 = {
           "?",
           "there "
         ],
-        "label": "Preview: Is there",
-        "wrongWhy": "Is there 放在句首，次序唔好錯。"
+        "label": "Is there",
+        "wrongWhy": "Is there 放在句首，次序不要錯。"
       },
       {
         "type": "order",
         "skill": "U1 介詞",
-        "tag": "Order・Preview",
+        "tag": "Order",
         "q": "排好句子：按詞語放入框。",
         "parts": [
           "The book ",
@@ -8030,7 +8043,7 @@ const QZ_ENG_U1 = {
         "ans": "The book is next to the bag.",
         "why": "The book is next to the bag. 書在書包旁邊。",
         "wrongWhy": "主語放在最前面，介詞短語放在最後。",
-        "label": "Preview: next to",
+        "label": "next to",
         "hint": "先說書，再說在哪裡。"
       },
       {
@@ -8087,7 +8100,7 @@ const QZ_ENG_U1 = {
           "time "
         ],
         "label": "卷風格：What time 句",
-        "wrongWhy": "What time 放在句首，次序唔好錯。"
+        "wrongWhy": "What time 放在句首，次序不要錯。"
       },
       {
         "type": "order",
@@ -8108,7 +8121,7 @@ const QZ_ENG_U1 = {
         ],
         "ans": "They play football on Sundays.",
         "why": "They play football on Sundays. 星期天前面用 on。",
-        "wrongWhy": "星期幾前面用 on，唔好用 in。",
+        "wrongWhy": "星期幾前面用 on，不要用 in。",
         "label": "卷風格：on Sundays",
         "hint": "先說他們，再說做什麼，最後說時間。"
       }
@@ -8120,7 +8133,7 @@ const QZ_ENG_U1 = {
       {
         "type": "order",
         "skill": "U1 問句",
-        "tag": "Order・Preview",
+        "tag": "Order",
         "q": "排好句子：按詞語放入框。",
         "parts": [
           "Is ",
@@ -8135,9 +8148,9 @@ const QZ_ENG_U1 = {
           "there "
         ],
         "ans": "Is there a library?",
-        "why": "Is there a library? 問嗰度有冇圖書館。",
-        "wrongWhy": "Is there 放在句首問有冇。",
-        "label": "Preview: Is there a library"
+        "why": "Is there a library? 問那度有沒有圖書館。",
+        "wrongWhy": "Is there 放在句首問有沒有。",
+        "label": "Is there a library"
       },
       {
         "type": "mc",
@@ -8190,7 +8203,7 @@ const QZ_ENG_U1 = {
         ],
         "ans": "How many apples are there?",
         "why": "How many 問數量，後面加可數名詞。",
-        "wrongWhy": "問數量用 How many，唔好用 How。",
+        "wrongWhy": "問數量用 How many，不要用 How。",
         "label": "卷風格：How many apples"
       }
     ]
@@ -8201,7 +8214,7 @@ const QZ_ENG_U1 = {
       {
         "type": "mc",
         "skill": "U1 介詞",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "The ball is ___ the box.（在盒子裡面）",
         "opts": [
           "in",
@@ -8211,13 +8224,13 @@ const QZ_ENG_U1 = {
         ],
         "ans": 0,
         "why": "In the box = 在盒子裡面。",
-        "wrongWhy": "在裡面用 in，唔好用 on。",
+        "wrongWhy": "在裡面用 in，不要用 on。",
         "label": "應用：in the box"
       },
       {
         "type": "match",
         "skill": "U1 介詞",
-        "tag": "Matching・Preview",
+        "tag": "Matching",
         "q": "介詞配意思：先按左邊的介詞，再按右邊的意思。",
         "pairs": [
           [
@@ -8243,8 +8256,8 @@ const QZ_ENG_U1 = {
           "後面",
           "旁邊"
         ],
-        "why": "Behind 係後面，in front of 係前面。",
-        "wrongWhy": "Behind 同 in front of 意思相反，唔好弄混。",
+        "why": "Behind 是後面，in front of 是前面。",
+        "wrongWhy": "Behind 同 in front of 意思相反，不要弄混。",
         "label": "應用配對：介詞"
       },
       {
@@ -8259,8 +8272,8 @@ const QZ_ENG_U1 = {
           "When"
         ],
         "ans": 0,
-        "why": "答 In Tai Po 係講地方，問地方用 Where。",
-        "wrongWhy": "答句講地方，唔係講時間。",
+        "why": "答 In Tai Po 是講地方，問地方用 Where。",
+        "wrongWhy": "答句講地方，不是講時間。",
         "label": "應用：Where do you live"
       },
       {
@@ -8276,7 +8289,7 @@ const QZ_ENG_U1 = {
         ],
         "ans": 0,
         "why": "Sunday morning 前面用 on。",
-        "wrongWhy": "星期天早上用 on，唔好用 in。",
+        "wrongWhy": "星期天早上用 on，不要用 in。",
         "label": "應用：on Sunday morning"
       },
       {
@@ -8297,7 +8310,7 @@ const QZ_ENG_U1 = {
           "do you "
         ],
         "ans": "When do you go home?",
-        "why": "When do you go home? 問你咩時候回家。",
+        "why": "When do you go home? 問你甚麼時候回家。",
         "wrongWhy": "When 放在句首問時間。",
         "label": "應用：When do you go home"
       },
@@ -8331,7 +8344,7 @@ const QZ_ENG_U1 = {
       {
         "type": "mc",
         "skill": "U1 問句",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "___ is the tuck shop? It is next to the office.",
         "opts": [
           "What",
@@ -8341,7 +8354,7 @@ const QZ_ENG_U1 = {
         ],
         "ans": 1,
         "why": "答句講地方，問地方用 Where。",
-        "wrongWhy": "答句講地方，唔係講時間。",
+        "wrongWhy": "答句講地方，不是講時間。",
         "label": "挑戰：Where"
       },
       
@@ -8358,7 +8371,7 @@ const QZ_ENG_U1 = {
         ],
         "ans": 0,
         "why": "問幾點，What 要配 time。",
-        "wrongWhy": "問時間用 What time，唔好用 Where。",
+        "wrongWhy": "問時間用 What time，不要用 Where。",
         "label": "挑戰：What time"
       },
       {
@@ -8374,7 +8387,7 @@ const QZ_ENG_U1 = {
         ],
         "ans": 1,
         "why": "Saturday afternoon 前面用 on。",
-        "wrongWhy": "星期六下午用 on，唔好用 in。",
+        "wrongWhy": "星期六下午用 on，不要用 in。",
         "label": "挑戰：on Saturday afternoon"
       },
       {
@@ -8409,7 +8422,7 @@ const QZ_ENG_U2 = {
       {
         "type": "mc",
         "skill": "U2 現在進行式",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "Look! The girls ___ in the pool.",
         "opts": [
           "swims",
@@ -8418,15 +8431,15 @@ const QZ_ENG_U2 = {
           "is swimming"
         ],
         "ans": 1,
-        "why": "Preview: The girls are plural, and it is happening now: are swimming.",
-        "hint": "💡 Girls 係多過一個，要用 are。",
-        "label": "Preview: are swimming",
-        "wrongWhy": "Girls 係多數，要用 are swimming。"
+        "why": "The girls are plural, and it is happening now: are swimming.",
+        "hint": "💡 Girls 是多過一個，要用 are。",
+        "label": "are swimming",
+        "wrongWhy": "Girls 是多數，要用 are swimming。"
       },
       {
         "type": "mc",
         "skill": "U2 規則",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "We ___ pick the flowers in the park.",
         "opts": [
           "must",
@@ -8435,10 +8448,10 @@ const QZ_ENG_U2 = {
           "are"
         ],
         "ans": 2,
-        "why": "Preview: We must not pick the flowers.（唔可以摘花）",
-        "hint": "💡 摘花係唔啱嘅，要用 must not。",
-        "label": "Preview: must not",
-        "wrongWhy": "摘花係唔可以嘅，要用 must not。"
+        "why": "We must not pick the flowers.（不可以摘花）",
+        "hint": "💡 摘花是不對的，要用 must not。",
+        "label": "must not",
+        "wrongWhy": "摘花是不可以的，要用 must not。"
       },
       {
         "type": "mc",
@@ -8452,10 +8465,10 @@ const QZ_ENG_U2 = {
           "Gary is watches TV now."
         ],
         "ans": 1,
-        "why": "歷屆卷風格（C 部改錯）：now 做緊嘅嘢，要用 is + watching。",
+        "why": "歷屆卷風格（C 部改錯）：now 正在做的東西，要用 is + watching。",
         "hint": "💡 is 後面要加 -ing。",
         "label": "卷風格：改錯 watching",
-        "wrongWhy": "now 正在做嘅事，要用 is watching。"
+        "wrongWhy": "now 正在做的事，要用 is watching。"
       }
     ]
   },
@@ -8465,7 +8478,7 @@ const QZ_ENG_U2 = {
       {
         "type": "mc",
         "skill": "U2 現在進行式",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "Look! He ___ a book now.",
         "opts": [
           "is reading",
@@ -8474,14 +8487,14 @@ const QZ_ENG_U2 = {
           "is read"
         ],
         "ans": 0,
-        "why": "Now 正在做嘅事，要用 is reading。",
+        "why": "Now 正在做的事，要用 is reading。",
         "wrongWhy": "Now 表示正在做，要用 is + -ing。",
         "label": "應用：is reading"
       },
       {
         "type": "order",
         "skill": "U2 現在進行式",
-        "tag": "Order・Preview",
+        "tag": "Order",
         "q": "排好句子：按詞語放入框。",
         "parts": [
           "They ",
@@ -8496,14 +8509,14 @@ const QZ_ENG_U2 = {
           "are "
         ],
         "ans": "They are playing football.",
-        "why": "They are playing football. 佢們正在踢足球。",
-        "wrongWhy": "They 係多數，要用 are。",
+        "why": "They are playing football. 他們正在踢足球。",
+        "wrongWhy": "They 是多數，要用 are。",
         "label": "應用：They are playing"
       },
       {
         "type": "mc",
         "skill": "U2 現在進行式",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "She is ___ a song now.",
         "opts": [
           "singing",
@@ -8512,15 +8525,15 @@ const QZ_ENG_U2 = {
           "sang a song"
         ],
         "ans": 0,
-        "why": "Preview: She is singing a song.（正在唱歌）",
-        "label": "Preview: is singing",
+        "why": "She is singing a song.（正在唱歌）",
+        "label": "is singing",
         "wrongWhy": "She is 現在進行式，要用 singing。"
       }
     ,
       {
         "type": "mc",
         "skill": "U3 規則",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "We ___ talk loudly in the library.",
         "opts": [
           "must not",
@@ -8529,7 +8542,7 @@ const QZ_ENG_U2 = {
           "may"
         ],
         "ans": 0,
-        "why": "圖書館要安靜，唔可以大聲說話。",
+        "why": "圖書館要安靜，不可以大聲說話。",
         "wrongWhy": "圖書館要安靜，要用 must not。",
         "label": "應用：must not"
       }
@@ -8541,7 +8554,7 @@ const QZ_ENG_U2 = {
       {
         "type": "mc",
         "skill": "U2 現在進行式",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "Amy is in the music room. She ___ songs now.",
         "opts": [
           "sings",
@@ -8550,14 +8563,14 @@ const QZ_ENG_U2 = {
           "sing"
         ],
         "ans": 1,
-        "why": "Now 正在做嘅事，要用 is singing。",
-        "wrongWhy": "Now 表示正在做，唔好用 sings。",
+        "why": "Now 正在做的事，要用 is singing。",
+        "wrongWhy": "Now 表示正在做，不要用 sings。",
         "label": "挑戰：is singing"
       },
       {
         "type": "order",
         "skill": "U2 現在進行式",
-        "tag": "Order・Preview",
+        "tag": "Order",
         "q": "排好句子：按詞語放入框。",
         "parts": [
           "She ",
@@ -8572,14 +8585,14 @@ const QZ_ENG_U2 = {
           "is "
         ],
         "ans": "She is not singing.",
-        "why": "She is not singing. 佢現在冇唱歌。",
+        "why": "She is not singing. 他現在沒有唱歌。",
         "wrongWhy": "Not 放在 is 後面。",
         "label": "挑戰：is not singing"
       },
       {
         "type": "drag",
         "skill": "U2 主語",
-        "tag": "Drag・Preview",
+        "tag": "Drag",
         "q": "把主語放入正確的籃子：先按主語，再按籃子。",
         "chips": [
           {
@@ -8622,13 +8635,13 @@ const QZ_ENG_U2 = {
           ]
         ],
         "why": "I 配 am，He、She、It 配 is，They、We 配 are。",
-        "wrongWhy": "He、She 配 is，唔好配 are。",
+        "wrongWhy": "He、She 配 is，不要配 are。",
         "label": "挑戰拖放：be 動詞"
       },
       {
         "type": "mc",
         "skill": "U2 規則",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "We ___ keep the classroom clean.",
         "opts": [
           "must not",
@@ -8637,15 +8650,15 @@ const QZ_ENG_U2 = {
           "must"
         ],
         "ans": 3,
-        "why": "Preview: We must keep clean.（要保持清潔）",
-        "label": "Preview: must keep",
-        "wrongWhy": "要保持清潔，用 must，唔係 must not。"
+        "why": "We must keep clean.（要保持清潔）",
+        "label": "must keep",
+        "wrongWhy": "要保持清潔，用 must，不是 must not。"
       }
     ,
       {
         "type": "mc",
         "skill": "U3 規則",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "Which sentence is NOT correct?",
         "opts": [
           "We must keep quiet in the library.",
@@ -8654,8 +8667,8 @@ const QZ_ENG_U2 = {
           "We must be kind to our friends."
         ],
         "ans": 2,
-        "why": "唔可以摘公園嘅花，must pick 係錯嘅。",
-        "wrongWhy": "摘花係唔可以嘅，要用 must not。",
+        "why": "不可以摘公園的花，must pick 是錯的。",
+        "wrongWhy": "摘花是不可以的，要用 must not。",
         "label": "挑戰：NOT correct"
       }
     ]
@@ -8668,7 +8681,7 @@ const QZ_ENG_U3 = {
       {
         "type": "mc",
         "skill": "U3 詞彙",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "Where can we sing songs?",
         "opts": [
           "In the music room.",
@@ -8677,15 +8690,15 @@ const QZ_ENG_U3 = {
           "In the sick room."
         ],
         "ans": 0,
-        "why": "Preview: We sing songs in the music room.（音樂室）",
+        "why": "We sing songs in the music room.（音樂室）",
         "hint": "💡 Music = 音樂。",
-        "label": "Preview: music room",
+        "label": "music room",
         "wrongWhy": "Sing songs in the music room, not the art room."
       },
       {
         "type": "mc",
         "skill": "U3 詞彙",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "Where can we draw pictures?",
         "opts": [
           "In the music room.",
@@ -8694,9 +8707,9 @@ const QZ_ENG_U3 = {
           "In the corridor."
         ],
         "ans": 1,
-        "why": "Preview: We draw pictures in the art room.（美術室）",
+        "why": "We draw pictures in the art room.（美術室）",
         "hint": "💡 Art = 美術。",
-        "label": "Preview: art room",
+        "label": "art room",
         "wrongWhy": "Draw pictures in the art room, not the music room."
       }
     ]
@@ -8708,7 +8721,7 @@ const QZ_ENG_U3 = {
       {
         "type": "order",
         "skill": "U3 問句",
-        "tag": "Order・Preview",
+        "tag": "Order",
         "q": "排好句子：按詞語放入框。",
         "parts": [
           "Where ",
@@ -8723,14 +8736,14 @@ const QZ_ENG_U3 = {
           "is "
         ],
         "ans": "Where is the art room?",
-        "why": "Where is the art room? 問美術室在邊度。",
+        "why": "Where is the art room? 問美術室在哪裏。",
         "wrongWhy": "Where 放在句首問地方。",
         "label": "應用：Where is the art room"
       },
       {
         "type": "mc",
         "skill": "U3 位置",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "___ is the library?",
         "opts": [
           "What",
@@ -8739,9 +8752,9 @@ const QZ_ENG_U3 = {
           "When"
         ],
         "ans": 1,
-        "why": "Preview: We ask about places with Where.",
-        "label": "Preview: Where",
-        "wrongWhy": "問地方要用 Where，唔好用 What。"
+        "why": "We ask about places with Where.",
+        "label": "Where",
+        "wrongWhy": "問地方要用 Where，不要用 What。"
       }
     ]
   },
@@ -8752,16 +8765,16 @@ const QZ_ENG_U3 = {
       {
         "type": "reveal",
         "skill": "U3 運用",
-        "tag": "Think・Preview",
+        "tag": "Think",
         "q": "說一句英文：你在學校哪裡上課？",
-        "answer": "Example: I have lessons in the classroom.（我喺課室上堂。）也可以用其他課室詞彙，例如 music room, art room。",
-        "label": "Preview: my classroom",
-        "wrongWhy": "說出你在學校邊度上課嘅英文句子。"
+        "answer": "Example: I have lessons in the classroom.（我在課室上堂。）也可以用其他課室詞彙，例如 music room, art room。",
+        "label": "my classroom",
+        "wrongWhy": "說出你在學校哪裏上課的英文句子。"
       },
       {
         "type": "mc",
         "skill": "U3 序數詞",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "哪個是序數詞（表示第幾）？",
         "opts": [
           "five",
@@ -8770,15 +8783,15 @@ const QZ_ENG_U3 = {
           "fives"
         ],
         "ans": 2,
-        "why": "Preview: fifth = 第五。Dict 3 範圍有 fourth, fifth, sixth。",
-        "label": "Preview: fifth",
-        "wrongWhy": "序數詞第五係 fifth，唔係 fiveth。"
+        "why": "fifth = 第五。Dict 3 範圍有 fourth, fifth, sixth。",
+        "label": "fifth",
+        "wrongWhy": "序數詞第五是 fifth，不是 fiveth。"
       }
     ,
       {
         "type": "mc",
         "skill": "U4 序數",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "Today is Monday. What day is the fifth day of the week?",
         "opts": [
           "Friday",
@@ -8787,8 +8800,8 @@ const QZ_ENG_U3 = {
           "Sunday"
         ],
         "ans": 0,
-        "why": "Monday 係第一天，數到第五天係 Friday。",
-        "wrongWhy": "由 Monday 開始數，第五天係 Friday。",
+        "why": "Monday 是第一天，數到第五天是 Friday。",
+        "wrongWhy": "由 Monday 開始數，第五天是 Friday。",
         "label": "挑戰：fifth day"
       }
     ]
@@ -8801,7 +8814,7 @@ const QZ_ENG_U4 = {
       {
         "type": "mc",
         "skill": "U4 所有格",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "This watch is ___.（Bob 的）",
         "opts": [
           "Bobs",
@@ -8810,15 +8823,15 @@ const QZ_ENG_U4 = {
           "Bob's"
         ],
         "ans": 3,
-        "why": "Preview: Bob's watch — 's after a name shows the owner.",
+        "why": "Bob's watch — 's after a name shows the owner.",
         "hint": "💡 人名後面加 's。",
-        "label": "Preview: Bob's",
-        "wrongWhy": "Bob 嘅東西，要用 Bob's。"
+        "label": "Bob's",
+        "wrongWhy": "Bob 的東西，要用 Bob's。"
       },
       {
         "type": "mc",
         "skill": "U4 問句",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "___ you have hairbands?",
         "opts": [
           "Does",
@@ -8827,10 +8840,10 @@ const QZ_ENG_U4 = {
           "Are"
         ],
         "ans": 1,
-        "why": "Preview: Do you have hairbands? Yes, I do.",
+        "why": "Do you have hairbands? Yes, I do.",
         "hint": "💡 You 配 Do。",
-        "label": "Preview: Do you",
-        "wrongWhy": "You 配 Do，唔好用 Does。"
+        "label": "Do you",
+        "wrongWhy": "You 配 Do，不要用 Does。"
       },
       {
         "type": "mc",
@@ -8844,10 +8857,10 @@ const QZ_ENG_U4 = {
           "We"
         ],
         "ans": 0,
-        "why": "歷屆卷風格（D 部代名詞填充）：Miss Lee 係女老師，用 She。",
-        "hint": "💡 女士用邊個代名詞？",
+        "why": "歷屆卷風格（D 部代名詞填充）：Miss Lee 是女老師，用 She。",
+        "hint": "💡 女士用哪一個代名詞？",
         "label": "卷風格：She",
-        "wrongWhy": "Miss Lee 係女士，要用 She。"
+        "wrongWhy": "Miss Lee 是女士，要用 She。"
       },
       {
         "type": "mc",
@@ -8861,10 +8874,10 @@ const QZ_ENG_U4 = {
           "My"
         ],
         "ans": 0,
-        "why": "歷屆卷風格：Tom 係男仔，「佢嘅」書包用 His。",
-        "hint": "💡 男仔嘅嘢，用 His 定 Her？",
+        "why": "歷屆卷風格：Tom 是男仔，「他的」書包用 His。",
+        "hint": "💡 男仔的東西，用 His 定 Her？",
         "label": "卷風格：His",
-        "wrongWhy": "Tom 係男孩子，佢嘅書包用 His。"
+        "wrongWhy": "Tom 是男孩子，他的書包用 His。"
       },
       {
         "type": "mc",
@@ -8891,7 +8904,7 @@ const QZ_ENG_U4 = {
       {
         "type": "order",
         "skill": "U4 所有格",
-        "tag": "Order・Preview",
+        "tag": "Order",
         "q": "排好句子：按詞語放入框。",
         "parts": [
           "This ",
@@ -8906,9 +8919,9 @@ const QZ_ENG_U4 = {
           "is "
         ],
         "ans": "This is Ann's bag.",
-        "why": "Ann's bag = Ann 嘅書包，'s 表示擁有。",
+        "why": "Ann's bag = Ann 的書包，'s 表示擁有。",
         "wrongWhy": "名字後面加 's 表示擁有。",
-        "label": "Preview: Ann's"
+        "label": "Ann's"
       },
       {
         "type": "mc",
@@ -8938,9 +8951,9 @@ const QZ_ENG_U4 = {
           "She"
         ],
         "ans": 0,
-        "why": "歷屆卷風格：動物嘅名字，「佢嘅」用 Its。",
+        "why": "歷屆卷風格：動物的名字，「他的」用 Its。",
         "label": "卷風格：Its",
-        "wrongWhy": "小貓嘅名字，「牠的」用 Its。"
+        "wrongWhy": "小貓的名字，「牠的」用 Its。"
       },
       {
         "type": "mc",
@@ -8970,9 +8983,9 @@ const QZ_ENG_U4 = {
           "Macy do not lives in Tai Po."
         ],
         "ans": 1,
-        "why": "歷屆卷風格（改錯）：一個人（Macy）要用 does not，後面 live 唔加 s。",
+        "why": "歷屆卷風格（改錯）：一個人（Macy）要用 does not，後面 live 不加 s。",
         "label": "卷風格：改錯 does not",
-        "wrongWhy": "Macy 用 does not，後面 live 唔加 s。"
+        "wrongWhy": "Macy 用 does not，後面 live 不加 s。"
       },
       {
         "type": "reveal",
@@ -8981,7 +8994,7 @@ const QZ_ENG_U4 = {
         "q": "用英文答：What do you do on Sundays?",
         "answer": "Example: I play football with my friends on Sundays.（用 I + 活動 + on Sundays 回答就得。）",
         "label": "卷風格：答句",
-        "wrongWhy": "用英文說出星期天你做咩。"
+        "wrongWhy": "用英文說出星期天你做甚麼。"
       },
       {
         "type": "order",
@@ -9002,7 +9015,7 @@ const QZ_ENG_U4 = {
         ],
         "ans": "She goes to school by bus.",
         "why": "She 一個人，go 要變 goes。",
-        "wrongWhy": "一個人做習慣嘅事，動詞要加 s。",
+        "wrongWhy": "一個人做習慣的事，動詞要加 s。",
         "label": "卷風格：goes重組"
       }
     ]
@@ -9013,7 +9026,7 @@ const QZ_ENG_U4 = {
       {
         "type": "mc",
         "skill": "U4 所有格",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "This is ___ schoolbag.（Mary 的）",
         "opts": [
           "Mary's",
@@ -9022,14 +9035,14 @@ const QZ_ENG_U4 = {
           "of Mary"
         ],
         "ans": 0,
-        "why": "Mary's schoolbag = Mary 嘅書包。",
+        "why": "Mary's schoolbag = Mary 的書包。",
         "wrongWhy": "人名後面加 's 表示擁有。",
         "label": "應用：Mary's"
       },
       {
         "type": "mc",
         "skill": "U4 問句",
-        "tag": "MC・Preview",
+        "tag": "MC",
         "q": "___ she have a ruler?",
         "opts": [
           "Do",
@@ -9038,9 +9051,9 @@ const QZ_ENG_U4 = {
           "Are"
         ],
         "ans": 1,
-        "why": "Preview: She → Does she have...? Yes, she does.",
-        "label": "Preview: Does she",
-        "wrongWhy": "She 配 Does，唔好用 Do。"
+        "why": "She → Does she have...? Yes, she does.",
+        "label": "Does she",
+        "wrongWhy": "She 配 Does，不要用 Do。"
       },
       {
         "type": "mc",
@@ -9054,8 +9067,8 @@ const QZ_ENG_U4 = {
           "went"
         ],
         "ans": 0,
-        "why": "Tom 一個人，每天嘅習慣用 goes。",
-        "wrongWhy": "一個人做習慣嘅事，go 要變 goes。",
+        "why": "Tom 一個人，每天的習慣用 goes。",
+        "wrongWhy": "一個人做習慣的事，go 要變 goes。",
         "label": "應用：goes"
       },
       {
@@ -9070,8 +9083,8 @@ const QZ_ENG_U4 = {
           "They"
         ],
         "ans": 0,
-        "why": "Mary 係女孩子，要用 She。",
-        "wrongWhy": "女孩子用 She，唔好用 He。",
+        "why": "Mary 是女孩子，要用 She。",
+        "wrongWhy": "女孩子用 She，不要用 He。",
         "label": "應用：She"
       },
       {
@@ -9080,8 +9093,8 @@ const QZ_ENG_U4 = {
         "tag": "Think・歷屆卷風格",
         "q": "用英文答：What do you do after school? 先自己想一想，再看例子。",
         "answer": "例如：I do my homework after school.",
-        "why": "用完整嘅英文句子回答問題。",
-        "wrongWhy": "要用完整嘅英文句子回答。",
+        "why": "用完整的英文句子回答問題。",
+        "wrongWhy": "要用完整的英文句子回答。",
         "label": "應用思考：after school"
       }
     ]
@@ -9102,8 +9115,8 @@ const QZ_ENG_U4 = {
           "She not like apples."
         ],
         "ans": 2,
-        "why": "She 用 doesn't，後面 like 唔加 s。",
-        "wrongWhy": "Doesn't 後面嘅動詞唔加 s。",
+        "why": "She 用 doesn't，後面 like 不加 s。",
+        "wrongWhy": "Doesn't 後面的動詞不加 s。",
         "label": "挑戰：doesn't like"
       },
       {
@@ -9118,8 +9131,8 @@ const QZ_ENG_U4 = {
           "is play"
         ],
         "ans": 1,
-        "why": "My brother and I 係兩個人，要用 play。",
-        "wrongWhy": "兩個人做習慣嘅事，唔好加 s。",
+        "why": "My brother and I 是兩個人，要用 play。",
+        "wrongWhy": "兩個人做習慣的事，不要加 s。",
         "label": "挑戰：My brother and I"
       },
       {
@@ -9140,15 +9153,15 @@ const QZ_ENG_U4 = {
           "does "
         ],
         "ans": "She does not like fish.",
-        "why": "She does not like fish. 佢不喜歡魚。",
-        "wrongWhy": "She 用 does not，後面 like 唔加 s。",
+        "why": "She does not like fish. 他不喜歡魚。",
+        "wrongWhy": "She 用 does not，後面 like 不加 s。",
         "label": "挑戰：does not like"
       }
     ,
       {
         "type": "order",
         "skill": "U1 問句",
-        "tag": "Order・Preview",
+        "tag": "Order",
         "q": "排好句子：按詞語放入框。",
         "parts": [
           "Do ",
@@ -9163,7 +9176,7 @@ const QZ_ENG_U4 = {
           "you "
         ],
         "ans": "Do you have a ruler?",
-        "why": "Do you have a ruler? 問你有冇尺子。",
+        "why": "Do you have a ruler? 問你有沒有尺子。",
         "wrongWhy": "You 配 Do，放在句首。",
         "label": "挑戰：Do you have"
       }
@@ -9187,9 +9200,9 @@ const QZ_MATH_U1 = {
         ],
         "ans": 2,
         "why": "（重用評估練習題庫）：5 在十位，代表 5 個十，即 50。",
-        "hint": "💡 睇吓「5」企喺邊個位。",
+        "hint": "💡 看看「5」站在哪一個位置。",
         "label": "5 的數值",
-        "wrongWhy": "5 在十位，代表 50，唔係 5。"
+        "wrongWhy": "5 在十位，代表 50，不是 5。"
       },
       {
         "type": "mc",
@@ -9203,7 +9216,7 @@ const QZ_MATH_U1 = {
           "+"
         ],
         "ans": 1,
-        "why": "（重用題庫）：478 比 487 細，所以係 <。",
+        "why": "（重用題庫）：478 比 487 細，所以是 <。",
         "hint": "💡 百位一樣，比較十位。",
         "label": "比較大小",
         "wrongWhy": "478 比 487 小，所以用 <。"
@@ -9220,8 +9233,8 @@ const QZ_MATH_U1 = {
           "980"
         ],
         "ans": 3,
-        "why": "先比百位，980 嘅百位係 9，同 908 一樣；再比十位，8 比 0 大。",
-        "hint": "💡 先睇百位，再睇十位。",
+        "why": "先比百位，980 的百位是 9，同 908 一樣；再比十位，8 比 0 大。",
+        "hint": "💡 先看百位，再看十位。",
         "label": "最大數",
         "wrongWhy": "先比百位，再比十位，980 最大。"
       },
@@ -9243,7 +9256,7 @@ const QZ_MATH_U1 = {
           "452"
         ],
         "label": "由細到大",
-        "wrongWhy": "由小到大排，百位小嘅排前面。"
+        "wrongWhy": "由小到大排，百位小的排前面。"
       },
       {
         "type": "order",
@@ -9264,7 +9277,7 @@ const QZ_MATH_U1 = {
         ],
         "ans": "642、426、264、246",
         "why": "由大到小：642 > 426 > 264 > 246。",
-        "wrongWhy": "先比百位，百位大嘅排前面。",
+        "wrongWhy": "先比百位，百位大的排前面。",
         "label": "由大到小",
         "hint": "先看百位，大的排前面。"
       }
@@ -9286,7 +9299,7 @@ const QZ_MATH_U1 = {
         ],
         "ans": 0,
         "why": "2 在十位，代表 2 個十，即 20。",
-        "wrongWhy": "十位嘅 2 係 20，唔係 2。",
+        "wrongWhy": "十位的 2 是 20，不是 2。",
         "label": "應用：2 的數值"
       },
       {
@@ -9351,7 +9364,7 @@ const QZ_MATH_U1 = {
         ],
         "ans": "506、560、605、650",
         "why": "由小到大：506 < 560 < 605 < 650。",
-        "wrongWhy": "先比百位，百位小嘅排前面。",
+        "wrongWhy": "先比百位，百位小的排前面。",
         "label": "由小到大"
       }
     ]
@@ -9391,7 +9404,7 @@ const QZ_MATH_U2 = {
         ],
         "ans": 3,
         "why": "（重用題庫）：502 − 267 = 235，要借位。",
-        "hint": "💡 個位唔夠減，向十位借。",
+        "hint": "💡 個位不夠減，向十位借。",
         "label": "減法",
         "wrongWhy": "502 − 267 = 235，要借位。"
       }
@@ -9413,7 +9426,7 @@ const QZ_MATH_U2 = {
         ],
         "ans": 0,
         "why": "357 + 264 = 621，個位 7+4=11，寫 1 進 1。",
-        "wrongWhy": "個位 7+4=11，要寫 1 進 1，唔好忘記進位。",
+        "wrongWhy": "個位 7+4=11，要寫 1 進 1，不要忘記進位。",
         "label": "應用：357 + 264"
       },
       {
@@ -9428,8 +9441,8 @@ const QZ_MATH_U2 = {
           "355"
         ],
         "ans": 0,
-        "why": "613 − 248 = 365，個位唔夠減要借位。",
-        "wrongWhy": "個位 3 唔夠減 8，要向十位借。",
+        "why": "613 − 248 = 365，個位不夠減要借位。",
+        "wrongWhy": "個位 3 不夠減 8，要向十位借。",
         "label": "應用：613 − 248"
       },
       {
@@ -9448,8 +9461,8 @@ const QZ_MATH_U2 = {
           "十位 8 + 2 + 1 = 11，寫 1 進 1"
         ],
         "ans": "個位 5 + 7 = 12，寫 2 進 1十位 8 + 2 + 1 = 11，寫 1 進 1百位 4 + 3 + 1 = 8",
-        "why": "由個位算起，每次記得加上進位嘅 1。",
-        "wrongWhy": "由個位開始算，唔好由百位開始。",
+        "why": "由個位算起，每次記得加上進位的 1。",
+        "wrongWhy": "由個位開始算，不要由百位開始。",
         "label": "應用重組：加法步驟"
       },
       {
@@ -9464,7 +9477,7 @@ const QZ_MATH_U2 = {
           "493 張"
         ],
         "ans": 1,
-        "why": "365 − 128 = 237。送走咗，要用減法。",
+        "why": "365 − 128 = 237。送走了，要用減法。",
         "label": "貼紙應用題",
         "wrongWhy": "送走了要用減法，365 − 128 = 237。"
       }
@@ -9486,7 +9499,7 @@ const QZ_MATH_U2 = {
         ],
         "ans": 0,
         "why": "先減 136 得 289，再加 58 得 347。",
-        "wrongWhy": "送走要減，買了要加，唔好只算一步。",
+        "wrongWhy": "送走要減，買了要加，不要只算一步。",
         "label": "挑戰：兩步加減"
       },
       {
@@ -9501,7 +9514,7 @@ const QZ_MATH_U2 = {
           "900 − 245"
         ],
         "ans": 1,
-        "why": "800 − 132 = 668，係四個算式中最大嘅。",
+        "why": "800 − 132 = 668，是四個算式中最大的。",
         "wrongWhy": "先算出每個答案，再比較大小。",
         "label": "挑戰：哪個最大"
       },
@@ -9522,7 +9535,7 @@ const QZ_MATH_U2 = {
         ],
         "ans": "個位 0 不夠減十位是 0，向百位借借好後由個位開始減",
         "why": "800 減 367，個位同十位都要借位。",
-        "wrongWhy": "由個位開始算，唔夠減才借位。",
+        "wrongWhy": "由個位開始算，不夠減才借位。",
         "label": "挑戰重組：減法借位"
       }
     ]
@@ -9545,9 +9558,9 @@ const QZ_MATH_U3 = {
         ],
         "ans": 3,
         "why": "銳角比直角細，鈍角比直角大。",
-        "hint": "💡 細過直角嗰種，個名有個「銳」字。",
+        "hint": "💡 細過直角那種，個名有個「銳」字。",
         "label": "銳角",
-        "wrongWhy": "比直角小嘅角係銳角。"
+        "wrongWhy": "比直角小的角是銳角。"
       }
     ]
   },
@@ -9559,7 +9572,7 @@ const QZ_MATH_U3 = {
         "skill": "角",
         "tag": "思考題",
         "q": "怎樣分銳角和鈍角？",
-        "answer": "用直角做標準去比：比直角細嘅係銳角，比直角大嘅係鈍角。可以用一本書嘅角嚟量一量。",
+        "answer": "用直角做標準去比：比直角細的是銳角，比直角大的是鈍角。可以用一本書的角來量一量。",
         "label": "分銳角鈍角",
         "wrongWhy": "銳角比直角小，鈍角比直角大。"
       }
@@ -9581,7 +9594,7 @@ const QZ_MATH_U3 = {
         ],
         "ans": 0,
         "why": "銳角比直角小。",
-        "wrongWhy": "銳角比直角小，唔係同直角一樣大。",
+        "wrongWhy": "銳角比直角小，不是同直角一樣大。",
         "label": "應用：銳角"
       },
       {
@@ -9596,9 +9609,9 @@ const QZ_MATH_U3 = {
           "圓圓的、沒有角的那種"
         ],
         "ans": 1,
-        "why": "直角好似書本、方枱嘅角咁方正。",
+        "why": "直角好似書本、方枱的角這樣方正。",
         "label": "直角",
-        "wrongWhy": "直角像書角嗰樣方正。"
+        "wrongWhy": "直角像書角那樣方正。"
       }
     ]
   },
@@ -9617,7 +9630,7 @@ const QZ_MATH_U3 = {
           "沒有角。"
         ],
         "ans": 2,
-        "why": "鈍角比直角大，係三種角中最大嘅。",
+        "why": "鈍角比直角大，是三種角中最大的。",
         "wrongWhy": "鈍角比直角大，銳角比直角小。",
         "label": "挑戰：哪個角最大"
       },
@@ -9638,7 +9651,7 @@ const QZ_MATH_U3 = {
         ],
         "ans": "銳角直角鈍角",
         "why": "銳角比直角小，直角比鈍角小。",
-        "wrongWhy": "銳角最小，鈍角最大，唔好排錯。",
+        "wrongWhy": "銳角最小，鈍角最大，不要排錯。",
         "label": "角由小到大"
       }
     ]
@@ -9661,7 +9674,7 @@ const QZ_MATH_U4 = {
         ],
         "ans": 1,
         "why": "課室長度以米為單位最合適。",
-        "hint": "💡 量長度，又要夠大嗰個單位。",
+        "hint": "💡 量長度，又要夠大那個單位。",
         "label": "米",
         "wrongWhy": "量課室長度用米最合適。"
       }
@@ -9724,7 +9737,7 @@ const QZ_MATH_U4 = {
           ]
         ],
         "why": "米同厘米量長度，公斤同克量重量。",
-        "wrongWhy": "公斤係量重量，唔係量長度。",
+        "wrongWhy": "公斤是量重量，不是量長度。",
         "label": "應用拖放：長度重量"
       }
     ]
@@ -9754,8 +9767,8 @@ const QZ_MATH_U4 = {
         "tag": "思考題",
         "q": "用米和厘米，說出課室裡兩樣東西的長度。先自己想一想，再看例子。",
         "answer": "例如：課室門高約 2 米，鉛筆長約 18 厘米。",
-        "why": "大嘅東西用米量，小嘅東西用厘米量。",
-        "wrongWhy": "大嘅東西用米，小嘅東西用厘米。",
+        "why": "大的東西用米量，小的東西用厘米量。",
+        "wrongWhy": "大的東西用米，小的東西用厘米。",
         "label": "挑戰思考：米和厘米"
       },
       {
@@ -9770,9 +9783,9 @@ const QZ_MATH_U4 = {
           "不對，鉛筆短很多"
         ],
         "ans": 3,
-        "why": "1 米大約係課室門一半高度，鉛筆短好多。",
+        "why": "1 米大約是課室門一半高度，鉛筆短好多。",
         "label": "1 米有多長",
-        "wrongWhy": "鉛筆比 1 米短很多，唔係一米。"
+        "wrongWhy": "鉛筆比 1 米短很多，不是一米。"
       }
     ]
   }
@@ -9822,9 +9835,9 @@ const QZ_SCI_L1 = {
             "非生物"
           ]
         ],
-        "hint": "💡 生物識生長，又要飲水食嘢。",
+        "hint": "💡 生物識生長，又要飲水吃東西。",
         "label": "生物分類",
-        "wrongWhy": "生物會生長，非生物唔會，要分清楚。"
+        "wrongWhy": "生物會生長，非生物不會，要分清楚。"
       },
       {
         "type": "mc",
@@ -9838,19 +9851,19 @@ const QZ_SCI_L1 = {
           "紙張"
         ],
         "ans": 1,
-        "why": "小樹苗識生長，係生物。",
-        "hint": "💡 識長大嗰樣。",
-        "label": "邊樣係生物",
-        "wrongWhy": "小樹苗會生長，係生物。"
+        "why": "小樹苗識生長，是生物。",
+        "hint": "💡 識長大那樣。",
+        "label": "哪一樣是生物",
+        "wrongWhy": "小樹苗會生長，是生物。"
       },
       {
         "type": "reveal",
         "skill": "生物和非生物",
-        "tag": "諗深一層",
+        "tag": "深層思考",
         "q": "怎樣分生物和非生物？",
-        "answer": "生物識生長，又需要食物同水，例如小狗、花草。非生物唔識生長，例如石頭、木椅。",
+        "answer": "生物識生長，又需要食物同水，例如小狗、花草。非生物不會生長，例如石頭、木椅。",
         "label": "分生物",
-        "wrongWhy": "會生長、需要水同食物嘅才係生物。"
+        "wrongWhy": "會生長、需要水同食物的才是生物。"
       }
     ]
   },
@@ -9869,9 +9882,9 @@ const QZ_SCI_L1 = {
           "需要吃物"
         ],
         "ans": 2,
-        "why": "生物先識生長；唔識生長係非生物。",
+        "why": "生物先識生長；不會生長是非生物。",
         "label": "生物特徵",
-        "wrongWhy": "唔會生長唔係生物嘅特徵。"
+        "wrongWhy": "不會生長不是生物的特徵。"
       },
       {
         "type": "order",
@@ -9889,8 +9902,8 @@ const QZ_SCI_L1 = {
           "看看它需不需要水和食物"
         ],
         "ans": "看看它會不會生長看看它需不需要水和食物會生長的就是生物",
-        "why": "先睇會唔會生長，再睇需不需要水同食物，兩樣都有嘅就係生物。",
-        "wrongWhy": "先睇生長，再睇需要，最後判斷。",
+        "why": "先看會不會生長，再看需不需要水同食物，兩樣都有的就是生物。",
+        "wrongWhy": "先看生長，再看需要，最後判斷。",
         "label": "分辨生物步驟"
       }
     ]
@@ -9910,8 +9923,8 @@ const QZ_SCI_L1 = {
           "書包"
         ],
         "ans": 0,
-        "why": "小狗會生長、要吃東西，係生物。",
-        "wrongWhy": "石頭唔會生長，唔係生物。",
+        "why": "小狗會生長、要吃東西，是生物。",
+        "wrongWhy": "石頭不會生長，不是生物。",
         "label": "應用：哪樣是生物"
       },
       {
@@ -9947,8 +9960,8 @@ const QZ_SCI_L1 = {
             "非生物"
           ]
         ],
-        "why": "小貓同蝴蝶會生長，係生物；椅子同鉛筆唔會生長。",
-        "wrongWhy": "會生長嘅才係生物。",
+        "why": "小貓同蝴蝶會生長，是生物；椅子同鉛筆不會生長。",
+        "wrongWhy": "會生長的才是生物。",
         "label": "應用拖放：生物分類"
       }
     ]
@@ -9968,8 +9981,8 @@ const QZ_SCI_L1 = {
           "會反光的鏡子。"
         ],
         "ans": 3,
-        "why": "鏡子唔會生長，都唔使吃東西，唔係生物。",
-        "wrongWhy": "會反光唔係生物嘅特徵。",
+        "why": "鏡子不會生長，都不用吃東西，不是生物。",
+        "wrongWhy": "會反光不是生物的特徵。",
         "label": "挑戰：哪樣不是生物"
       }
     ]
@@ -9991,10 +10004,10 @@ const QZ_SCI_L2 = {
           "聽牠叫得多大聲"
         ],
         "ans": 0,
-        "why": "雀仔個嘴嘅形狀，同佢食嘅嘢有關。",
-        "hint": "💡 食嘢用邊個部位？",
+        "why": "雀仔個嘴的形狀，同他吃的東西有關。",
+        "hint": "💡 吃東西用哪一個部位？",
         "label": "觀察雀仔",
-        "wrongWhy": "睇嘴巴嘅形狀，就知道吃咩。"
+        "wrongWhy": "看嘴巴的形狀，就知道吃甚麼。"
       },
       {
         "type": "order",
@@ -10012,8 +10025,8 @@ const QZ_SCI_L2 = {
           "靜靜觀察牠"
         ],
         "ans": "找一隻雀鳥靜靜觀察牠記下牠吃什麼",
-        "why": "先找到雀鳥，再靜靜觀察，最後記下牠吃咩。",
-        "wrongWhy": "先觀察，後記錄，唔好先捉。",
+        "why": "先找到雀鳥，再靜靜觀察，最後記下牠吃甚麼。",
+        "wrongWhy": "先觀察，後記錄，不要先捉。",
         "label": "觀察步驟",
         "hint": "先找，後看，最後記。"
       }
@@ -10034,9 +10047,9 @@ const QZ_SCI_L2 = {
           "記下牠們去哪裡"
         ],
         "ans": 2,
-        "why": "觀察動物要愛護佢哋，唔好用手捉，靜靜觀察就得。",
+        "why": "觀察動物要愛護他們，不要用手捉，靜靜觀察就得。",
         "label": "觀察螞蟻",
-        "wrongWhy": "觀察動物唔好用手捉，要靜靜觀察。"
+        "wrongWhy": "觀察動物不要用手捉，要靜靜觀察。"
       }
     ]
   },
@@ -10055,8 +10068,8 @@ const QZ_SCI_L2 = {
           "摸牠的身體"
         ],
         "ans": 0,
-        "why": "嘴巴嘅形狀同吃咩有關。",
-        "wrongWhy": "吃東西用嘴巴，要睇嘴巴。",
+        "why": "嘴巴的形狀同吃甚麼有關。",
+        "wrongWhy": "吃東西用嘴巴，要看嘴巴。",
         "label": "應用：看嘴巴"
       }
     ]
@@ -10076,8 +10089,8 @@ const QZ_SCI_L2 = {
           "大聲叫螞蟻過來。"
         ],
         "ans": 1,
-        "why": "觀察動物要靜靜地睇同記下來，唔好捉牠。",
-        "wrongWhy": "觀察唔好用手捉，要靜靜地睇。",
+        "why": "觀察動物要靜靜地看同記下來，不要捉牠。",
+        "wrongWhy": "觀察不要用手捉，要靜靜地看。",
         "label": "挑戰：觀察螞蟻"
       }
     ]
@@ -10100,7 +10113,7 @@ const QZ_SCI_L3 = {
         ],
         "ans": 1,
         "why": "植物要有陽光同水，先可以生長。",
-        "hint": "💡 種植物嗰陣，每日要俾佢兩樣嘢。",
+        "hint": "💡 種植物那陣，每日要給他兩樣東西。",
         "label": "植物需要",
         "wrongWhy": "植物需要陽光同水才能生長。"
       },
@@ -10117,7 +10130,7 @@ const QZ_SCI_L3 = {
         ],
         "ans": 1,
         "why": "種子要放入泥土，先可以發芽生長。",
-        "hint": "💡 植物喺邊度生根？",
+        "hint": "💡 植物在哪裏生根？",
         "label": "種子放哪",
         "wrongWhy": "種子要放在泥土裡面才會發芽。"
       },
@@ -10140,7 +10153,7 @@ const QZ_SCI_L3 = {
         ],
         "ans": "種子發芽長出葉子開花",
         "why": "植物先由種子發芽，再長出葉子，後來開花。",
-        "wrongWhy": "先係種子，再發芽，最後開花。",
+        "wrongWhy": "先是種子，再發芽，最後開花。",
         "label": "植物生長次序",
         "hint": "由種子開始排。"
       }
@@ -10161,17 +10174,17 @@ const QZ_SCI_L3 = {
           "變成動物"
         ],
         "ans": 1,
-        "why": "植物需要陽光生長，冇陽光會生長得唔好。",
-        "label": "冇陽光",
-        "wrongWhy": "冇陽光，植物會生長得唔好。"
+        "why": "植物需要陽光生長，沒有陽光會生長得不要。",
+        "label": "沒有陽光",
+        "wrongWhy": "沒有陽光，植物會生長得不要。"
       },
       {
         "type": "reveal",
         "skill": "動手種植物",
         "tag": "思考題",
         "q": "為什麼種植物要淋水？",
-        "answer": "植物需要水先可以生長。冇水，植物會枯乾，慢慢死去。所以種植物要定時淋水。",
-        "label": "點解淋水",
+        "answer": "植物需要水先可以生長。沒有水，植物會枯乾，慢慢死去。所以種植物要定時淋水。",
+        "label": "為什麼淋水",
         "wrongWhy": "植物要喝水才能生長。"
       },
       {
@@ -10211,8 +10224,8 @@ const QZ_SCI_L3 = {
           "變成動物"
         ],
         "ans": 0,
-        "why": "植物冇陽光會生長得唔好。",
-        "wrongWhy": "植物需要陽光，冇陽光長唔好。",
+        "why": "植物沒有陽光會生長得不要。",
+        "wrongWhy": "植物需要陽光，沒有陽光長不要。",
         "label": "應用：沒有陽光"
       },
       {
@@ -10228,7 +10241,7 @@ const QZ_SCI_L3 = {
         ],
         "ans": 0,
         "why": "種植物先把種子放入泥土，再淋水同曬太陽。",
-        "wrongWhy": "仲冇種子，淋水都冇用。",
+        "wrongWhy": "還沒有種子，淋水都沒有用。",
         "label": "應用：種豆子"
       },
       {
@@ -10268,7 +10281,7 @@ const QZ_SCI_L3 = {
         ],
         "ans": "泥土乾了淋一點水不要淋太多",
         "why": "泥土乾了才淋水，淋一點就夠了。",
-        "wrongWhy": "泥土乾了才淋水，唔好淋太多。",
+        "wrongWhy": "泥土乾了才淋水，不要淋太多。",
         "label": "應用重組：淋水"
       }
     ]
@@ -10288,8 +10301,8 @@ const QZ_SCI_L3 = {
           "不用泥土也可以"
         ],
         "ans": 1,
-        "why": "植物需要泥土生長，泥土太少長唔好。",
-        "wrongWhy": "陽光同水夠了，泥土唔夠都不行。",
+        "why": "植物需要泥土生長，泥土太少長不要。",
+        "wrongWhy": "陽光同水夠了，泥土不夠都不行。",
         "label": "挑戰：泥土太少"
       },
       {
@@ -10304,8 +10317,8 @@ const QZ_SCI_L3 = {
           "變成動物。"
         ],
         "ans": 1,
-        "why": "植物冇水會枯萎，生長得唔好。",
-        "wrongWhy": "冇水，植物會枯萎。",
+        "why": "植物沒有水會枯萎，生長得不要。",
+        "wrongWhy": "沒有水，植物會枯萎。",
         "label": "挑戰：沒有水"
       },
       {
@@ -10325,17 +10338,17 @@ const QZ_SCI_L3 = {
         ],
         "ans": "種子沒有水就不會發芽所以種植物要淋水",
         "why": "種子要水才發芽，所以要淋水。",
-        "wrongWhy": "先說冇水，再說結果，最後說要淋水。",
+        "wrongWhy": "先說沒有水，再說結果，最後說要淋水。",
         "label": "挑戰重組：種子要水"
       },
       {
         "type": "reveal",
         "skill": "動手種植物",
-        "tag": "諗深一層",
+        "tag": "深層思考",
         "q": "如果你種了一盆花，可是它長得不好，你會怎樣做？先自己想一想，再看例子。",
         "answer": "例如：先看看泥土乾不乾，有沒有陽光，再淋一點水，放在有陽光的地方。",
         "why": "先找出原因，再對症下藥。",
-        "wrongWhy": "先找出原因，唔好一次淋很多水。",
+        "wrongWhy": "先找出原因，不要一次淋很多水。",
         "label": "挑戰思考：花長不好"
       }
     ,
@@ -10355,8 +10368,8 @@ const QZ_SCI_L3 = {
           "量一量它高了多少"
         ],
         "ans": "每天看一看小樹苗量一量它高了多少記下它的變化",
-        "why": "每天睇、量一量、記下來，就可以知道植物怎樣生長。",
-        "wrongWhy": "先睇，再量，最後記下來。",
+        "why": "每天看、量一量、記下來，就可以知道植物怎樣生長。",
+        "wrongWhy": "先看，再量，最後記下來。",
         "label": "挑戰重組：觀察記錄"
       }
     ]
@@ -10388,14 +10401,28 @@ function qzScoreUpd() {
   const t = qzTotals();
   document.getElementById("qzScore").textContent = "⭐ " + qzStars() + " / " + t[1];
   const st = document.getElementById("qzStreak");
-  if (st) st.textContent = qzStreak >= 2 ? "🔥 連續啱 ×" + qzStreak : "";
+  if (st) st.textContent = qzStreak >= 2 ? "🔥 連續答對 ×" + qzStreak : "";
   qzProgLineUpd();
   qzTopLineUpd();
+  qzPillsRefresh();
 }
 function qzEl(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
 /* Consolidated trial (2026-10-26, F-Y): preview status is colour only.
    Strip the Preview marker at render time; bank data is untouched. */
 function qzStripPreview(s) { return (s || "").replace(/\s*[•・·]\s*Preview\s*/g, "").replace(/^\s*Preview\s*[:：]\s*/, "").trim(); }
+/* Fix5 display tag (2026-10-26): strip English type abbreviations from
+   DISPLAYED tags only; bank data and the underlying type value are
+   untouched. "點選題 MC" -> "點選題", "句子重組 Order" -> "句子重組",
+   "拖放 Drag & Drop" -> "拖放", "MC・歷屆卷 A 部" -> "歷屆卷 A 部",
+   standalone "MC" -> "點選題" (and likewise Order/Matching/Drag/Think). */
+function qzDisplayTag(s) {
+  let t = qzStripPreview(s);
+  t = t.replace(/^(MC|Order|Matching|Drag|Think)\s*・\s*/, "");
+  t = t.replace(/\s+(MC|Order|Matching|Drag\s*&\s*Drop|Drawing|Image)$/, "");
+  const _solo = { MC: "點選題", Order: "句子重組", Matching: "配對", Drag: "拖放", Think: "思考題", Drawing: "畫畫・寫字", Image: "圖片題" };
+  if (_solo[t]) t = _solo[t];
+  return t.trim();
+}
 /* Batch B #3 PARTIAL shuffle: runtime-only permutation for mc/imgmc.
    The permutation is cached by (set name + question index within that set),
    so redraw, wrong-retry, break-card return and finish review all show the
@@ -10409,11 +10436,11 @@ const QZ_SHUFFLE_EXEMPT = [
 ];
 function qzPosRef(text) {
   if (!text) return false;
-  return /[A-D][係是]/.test(text) || /選項\s*[A-D]/.test(text) || /[A-D]選項/.test(text)
-    || /答案[係是][A-D]/.test(text) || /第[一二三四1234]幅/.test(text)
+  return /[A-D][是是]/.test(text) || /選項\s*[A-D]/.test(text) || /[A-D]選項/.test(text)
+    || /答案[是是][A-D]/.test(text) || /第[一二三四1234]幅/.test(text)
     || /第[一二三四1234]個選項/.test(text)
-    || /第[一二三四1234]個(係|就係|先係|[。！？、，；：\s]|$)/.test(text)
-    || /[左右上下]邊(嗰個|嗰幅|個|幅)/.test(text) || /最[左右]邊/.test(text)
+    || /第[一二三四1234]個(是|就是|先是|[。！？、，；：\s]|$)/.test(text)
+    || /[左右上下]邊(那個|那幅|個|幅)/.test(text) || /最[左右]邊/.test(text)
     || /option [A-D]/i.test(text) || /(first|second|third|fourth) option/i.test(text);
 }
 function qzShuffleExempt(item) {
@@ -10479,19 +10506,20 @@ function qzWrong(item, sub) {
   if (!item._wrongKeys[key]) { item._wrongKeys[key] = true; S._wrong.push(key); }
   item._wrongCount = (item._wrongCount || 0) + 1;
   qzSaveProgress();
+  qzPillsRefresh();
   return item._wrongCount;
 }
 // 第三次答錯：揭曉正確答案＋解釋（不計星星、不計分，錯題再練會再出）
-// 答錯階梯：wc=1 鼓勵+解釋；wc=2 再加提示；wc>=3 再加圖片＋「睇正確答案」掣（學生自己揀，唔自動揭曉）
+// 答錯階梯：wc=1 鼓勵+解釋；wc=2 再加提示；wc>=3 再加圖片＋「看正確答案」按鈕（學生自己選擇，不自動揭曉）
 function qzWrongFb(item, fb, wc, baseText, doReveal) {
   fb.className = "qz-fb no";
-  if (wc === 2 && item.hint && !item._hintShown) { item._hintShown = true; fb.textContent = item.hint + " 再試下！" + qzWrongNote(item); const sb = qzSpeakBtn(item.hint); if (sb) fb.insertBefore(sb, fb.firstChild); return; }
+  if (wc === 2 && item.hint && !item._hintShown) { item._hintShown = true; fb.textContent = item.hint + " 再試一次！" + qzWrongNote(item); const sb = qzSpeakBtn(item.hint); if (sb) fb.insertBefore(sb, fb.firstChild); return; }
   fb.textContent = baseText + qzWrongNote(item);
   if (wc >= 3) qzShowWrongImg(fb, item);
   const sb = qzSpeakBtn(item.wrongWhy || "");
   if (sb) fb.insertBefore(sb, fb.firstChild);
   if (wc >= 3) {
-    const rb = qzEl("button", "qz-btn qz-revealbtn", "👀 睇正確答案");
+    const rb = qzEl("button", "qz-btn qz-revealbtn", "👀 看正確答案");
     rb.addEventListener("click", doReveal);
     fb.appendChild(rb);
   }
@@ -10506,7 +10534,7 @@ function qzReveal(item, fb, answerText) {
 }
 function qzEncourage() { const s = QZ_ENCOURAGE[qzEncIx % QZ_ENCOURAGE.length]; qzEncIx++; return s; }
 function qzShowWrongImg(fb, item) {
-  // 圖片只可以係有意思嘅題目專屬圖（item.wrongImg）；冇就唔出圖，唔再用星星等純裝飾圖。
+  // 圖片只可以是有意思的題目專屬圖（item.wrongImg）；沒有就不出圖，不再用星星等純裝飾圖。
   const old = fb.querySelector(".qz-wrongimg"); if (old) old.remove();
   if (!item || !item.wrongImg) return;
   const d = qzEl("div", "qz-wrongimg");
@@ -10539,10 +10567,10 @@ function qzSpeak(text) {
     step();
   } catch (e) {}
 }
-// 解釋專用 🔊：只准撳先讀，永不自動讀
+// 解釋專用 🔊：只准按先讀，永不自動讀
 // D7: strip the Preview marker here so every explanation speak button
 // (feedback why/wrongWhy, reveal correct-answer spk, finish-review why)
-// never speaks "Preview: …". Question speech qzSpeak(item.q) bypasses
+// never speaks "…". Question speech qzSpeak(item.q) bypasses
 // this helper and is untouched.
 function qzSpeakBtn(text) {
   const clean = qzStripPreview(text);
@@ -10598,6 +10626,37 @@ function qzGo(i) {
   else if (qzBreakFor !== qzIdx) qzBreakFor = -1;
   qzRender();
 }
+function qzItemComplete(it) {
+  if (it.type === "reveal") return !!(it._viewed && it._selfRate);
+  if (it.type === "draw") return !!it._drawn;
+  if (it.type === "match" || it.type === "drag") return qzComplete(it);
+  return !!it._done;
+}
+function qzItemPartial(it) {
+  if (qzItemComplete(it)) return false;
+  if (it.type === "reveal") return !!it._viewed;
+  if (it.type === "draw") return false;
+  if ((it._wrongKeys && Object.keys(it._wrongKeys).length) || (it._earned || 0) > 0) return true;
+  return false;
+}
+function qzPillsEl() {
+  const items = qzItems(); const row = qzEl("div", "qz-pills");
+  items.forEach((it, idx) => {
+    const b = qzEl("button", "qz-pillbtn" + (idx === qzIdx ? " cur" : "") + (qzItemComplete(it) ? " done" : (qzItemPartial(it) ? " part" : "")), String(idx + 1));
+    b.setAttribute("aria-label", "第 " + (idx + 1) + " 題");
+    b.addEventListener("click", () => qzGo(idx));
+    row.appendChild(b);
+  });
+  return row;
+}
+function qzPillsRefresh() {
+  const row = document.querySelector(".qz-pills"); if (!row) return;
+  const items = qzItems();
+  [...row.children].forEach((b, idx) => {
+    const it = items[idx]; if (!it) return;
+    b.className = "qz-pillbtn" + (idx === qzIdx ? " cur" : "") + (qzItemComplete(it) ? " done" : (qzItemPartial(it) ? " part" : ""));
+  });
+}
 function qzRender() {
   const _qm = document.getElementById("quizModal"); if (_qm) { _qm.classList.add("qz-answering"); _qm.classList.remove("qz-entry"); }
   qzEntryMode = false;
@@ -10630,9 +10689,10 @@ function qzRender() {
      Banks untouched; split is render-time only. Audited all 13 match stems:
      each has exactly one 「：」 with a 先按… instruction after it. */
   const head = qzEl("div", "qz-headrow");
-  head.appendChild(qzEl("span", "qz-tag", qzStripPreview(item.tag)));
+  head.appendChild(qzEl("span", "qz-tag", qzDisplayTag(item.tag)));
+  card.appendChild(qzPillsEl());
   card.appendChild(head);
-  if (item.img) { const im = qzEl("div", "qz-img"); im.innerHTML = item.img; im.title = "㩒圖放大／縮細"; im.addEventListener("click", () => im.classList.toggle("qz-imgbig")); card.appendChild(im); }
+  if (item.img) { const im = qzEl("div", "qz-img"); im.innerHTML = item.img; im.title = "按圖放大／縮細"; im.addEventListener("click", () => im.classList.toggle("qz-imgbig")); card.appendChild(im); }
   const hbtns = qzEl("div", "qz-headbtns");
   head.appendChild(hbtns);
   const qrow = qzEl("div", "qz-qrow");
@@ -10643,27 +10703,28 @@ function qzRender() {
   spk.addEventListener("click", () => qzSpeak(item.q));
   hbtns.appendChild(spk);
   const rvb = qzEl("button", "qz-reviewbtn", "📖");
-  rvb.title = "睇重點";
+  rvb.title = "看重點";
   const _rvp = document.getElementById("qzReview");
   if (_rvp && _rvp.style.display !== "none" && _rvp.style.display !== "") rvb.classList.add("on");
   rvb.addEventListener("click", qzToggleReview);
   hbtns.appendChild(rvb);
-  /* Redesign #1: peek is a standalone button at the question-card top-right
-     (not in the scratch tools row). Bug 6 fix (fix1b): it is layout-reserved
-     in BOTH states — visibility:hidden (not display:none) while scratch is
-     closed — so the other 3 buttons never shift; its label flips on
-     peek/restore, and qzScratchPeekReset (question / set change, quiz
-     close/open) re-creates it in the default state. */
-  const pkb = qzEl("button", "qz-peekbtn", "👀 睇題目");
-  pkb.title = "睇題目／出返草稿";
+  /* Fix5 (2026-10-26): peek sits at the LEFT end of .qz-headbtns (left
+     of 🔊), so the 🔊 📖 ✏️ trio is permanently flush with the card's
+     right edge. It is still layout-reserved in BOTH states —
+     visibility:hidden (not display:none) while scratch is closed — so
+     the trio never shifts when peek appears or disappears. Previously
+     peek was at the RIGHT end, and its hidden 118px slot pushed the
+     trio left away from the right edge. */
+  const pkb = qzEl("button", "qz-peekbtn", "👀 看題目");
+  pkb.title = "看題目／顯示草稿";
   pkb.style.visibility = qzScratchOpen() ? "visible" : "hidden"; pkb.disabled = !qzScratchOpen();
-  pkb.addEventListener("click", () => { qzScratchPeekToggle(); pkb.textContent = qzScPeek ? "✏️ 出返草稿" : "👀 睇題目"; });
+  pkb.addEventListener("click", () => { qzScratchPeekToggle(); pkb.textContent = qzScPeek ? "✏️ 顯示草稿" : "👀 看題目"; });
   const scb = qzEl("button", "qz-scratchbtn", "✏️");
   scb.title = "開草稿";
   if (qzScratchOpen()) scb.classList.add("on");
   scb.addEventListener("click", () => { qzScratchToggle(); scb.classList.toggle("on", qzScratchOpen()); pkb.style.visibility = qzScratchOpen() ? "visible" : "hidden"; pkb.disabled = !qzScratchOpen(); if (qzScratchOpen()) qzScratchRailCheck(); });
   hbtns.appendChild(scb);
-  hbtns.appendChild(pkb);
+  hbtns.insertBefore(pkb, hbtns.firstChild);
   const _sp = document.getElementById("qzScratch"); if (_sp) _sp._peek = pkb;
   card.appendChild(qrow);
   const fb = qzEl("div", "qz-fb");
@@ -10690,13 +10751,26 @@ function qzProgLineUpd() {
    Footer controls are prev / next + one thin unnumbered progress line. */
 let qzEntryMode = false;
 let qzEntrySel = "textbook";
+/* Fix5 (2026-10-26): lesson/unit title for the answering topline,
+   taken from the card's own lesson list (TRIAL_QUIZ_ENTRIES) — never
+   invented. Chi: 第N課《title》; ENG/MATH/SCI: the lesson's label.
+   Returns "" when the set has no lesson entry, and the topline then
+   falls back to the set label alone. */
+function qzLessonTitle() {
+  try {
+    const lessons = (TRIAL_QUIZ_ENTRIES[qzCtx.itemKey] || {}).lessons || [];
+    const L = lessons.find(x => x.id === qzCtx.lessonId);
+    if (!L) return "";
+    return L.label || ("第" + L.n + "課" + (L.title ? "《" + L.title + "》" : ""));
+  } catch (e) { return ""; }
+}
 function qzTopLineUpd() {
   const tl = document.getElementById("qzTopLine"); if (!tl) return;
-  if (qzEntryMode) { tl.textContent = "揀一份練習"; return; }
+  if (qzEntryMode) { tl.textContent = "選擇一份練習"; return; }
   const items = qzItems(), total = items.length;
   if (qzIdx >= total) { tl.textContent = "🏁 成績頁 ・ ⭐ " + qzStars(); return; }
   if (qzBreakFor === qzIdx && qzIdx > 0 && qzIdx < total) { tl.textContent = "休息中"; return; }
-  tl.textContent = (QZ[qzSetName] && QZ[qzSetName].label) || "";
+  tl.textContent = (qzLessonTitle() ? qzLessonTitle() + "・" : "") + ((QZ[qzSetName] && QZ[qzSetName].label) || "") + "（第 " + (qzIdx + 1) + " 題／共 " + total + " 題）";
 }
 /* Round 15 #2 difficulty marker: 5-star row (filled = level, hollow =
    remainder) + short text. Difficulty stars are DISPLAY-ONLY and never the
@@ -10719,7 +10793,7 @@ function qzShowEntry() {
      map (same source as the 📖 panel title) with the trailing 重點 dropped. */
   const _lt = (QZ_REVIEW[qzCtx.lessonId] && QZ_REVIEW[qzCtx.lessonId].title || "").replace(/重點$/, "");
   if (_lt) card.appendChild(qzEl("div", "qz-lessontitle", _lt));
-  card.appendChild(qzEl("div", "qz-q", "🎮 揀一份練習"));
+  card.appendChild(qzEl("div", "qz-q", "🎮 選擇一份練習"));
   ["textbook", "apply", "challenge"].forEach(name => {
     const S = QZ[name]; if (!S) return;
     const d = qzSetDiff(name);
@@ -10776,14 +10850,16 @@ function qzStartSingleRetry(orig) {
 }
 /* #9 finish-card unfinished list (same per-type rule as the review section,
    but unfinished only — wrong-then-corrected items are NOT listed here). */
+/* Fix5 counting (2026-10-26): ONE unified definition. Completed =
+   qzItemComplete (scored _done/qzComplete, draw _drawn, reveal _viewed
+   AND _selfRate — including 未能想到, which counts as completed in the
+   summary but still appears in the review list for revisit). Unfinished
+   = total - completed, ALWAYS, so completed + unfinished = total in
+   every finish-page state. Wrong-then-skipped items are unfinished
+   (they were previously filtered out of the unfinished line by the old wrong-item filter
+   while also not counting as completed, so one question vanished). */
 function qzFinishUnfinished() {
-  return qzItems().filter(it => {
-    if (it.type === "mc" || it.type === "imgmc" || it.type === "order" || it.type === "fill") return !it._done;
-    if (it.type === "match" || it.type === "drag") return !qzComplete(it);
-    if (it.type === "draw") return !it._drawn;
-    if (it.type === "reveal") return !it._viewed;
-    return false;
-  });
+  return qzItems().filter(it => !qzItemComplete(it));
 }
 /* #12 pilot skill variants + weak-area diagnosis (PILOT ONLY, flag-gated).
    Variant GENERATION stays flag-OFF (QZ_VARIANTS_ON = false): no new content
@@ -10911,7 +10987,7 @@ function qzBreakCard() {
   const card = qzEl("div", "qz-card qz-enter qz-break");
   card.appendChild(qzEl("div", "qz-break-emoji", "🔔"));
   card.appendChild(qzEl("div", "qz-q", "休息一陣・小知識"));
-  card.appendChild(qzEl("div", "qz-break-text", "鈴鐺入面有一粒小珠，搖嘅時候小珠撞到鈴身，就會發出「叮噹叮噹」嘅聲音！飲啖水，伸個懶腰先。"));
+  card.appendChild(qzEl("div", "qz-break-text", "鈴鐺入面有一粒小珠，搖的時候小珠撞到鈴身，就會發出「叮噹叮噹」的聲音！飲啖水，伸個懶腰先。"));
   const row = qzEl("div", "qz-row");
   const b = qzEl("button", "qz-btn", "休息完，繼續！→");
   b.addEventListener("click", () => qzBreakDismiss());
@@ -10949,7 +11025,7 @@ function qzRenderImgMC(item, card, fb) {
     b.addEventListener("click", () => {
       if (item._done || qzLocked) return;
       if (di === disp.dispAns) { item._done = true; b.classList.add("right"); fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + qzStripPreview(item.why); const sb = qzSpeakBtn(item.why || ""); if (sb) fb.insertBefore(sb, fb.firstChild); qzGain(item); }
-      else { qzNoteWrongPick(item, { type: "imgmc", picked: "第" + (di + 1) + "幅圖", at: Date.now() }); b.classList.add("wrong"); const wc = qzWrong(item); qzWrongFb(item, fb, wc, "💪 " + qzEncourage(), () => { grid.children[disp.dispAns].classList.add("right"); qzReveal(item, fb, "正確答案係第 " + (disp.dispAns + 1) + " 幅圖。"); }); setTimeout(() => b.classList.remove("wrong"), 900); }
+      else { qzNoteWrongPick(item, { type: "imgmc", picked: "第" + (di + 1) + "幅圖", at: Date.now() }); b.classList.add("wrong"); const wc = qzWrong(item); qzWrongFb(item, fb, wc, "💪 " + qzEncourage(), () => { grid.children[disp.dispAns].classList.add("right"); qzReveal(item, fb, "正確答案是第 " + (disp.dispAns + 1) + " 幅圖。"); }); setTimeout(() => b.classList.remove("wrong"), 900); }
     });
     grid.appendChild(b);
   });
@@ -10996,7 +11072,7 @@ function qzRenderMatch(item, card, fb) {
       fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + leftChar + " → " + rightWord + "，配對成功！";
       drawLines();
       const c = leftChar; selChar = null; selBtn = null; qzGain(item, c);
-    } else { const _wp = {}; _wp[leftChar] = rightWord; qzNoteWrongPick(item, { type: "match", pairs: _wp, at: Date.now() }); const wc = qzWrong(item, leftChar); const _sc = leftChar; qzWrongFb(item, fb, wc, "💪 " + qzEncourage() + "「" + _sc + "」唔係配「" + rightWord + "」。", () => { item._matched = {}; item.pairs.forEach(pr => { item._matched[pr[0]] = pr[1]; }); colL.querySelectorAll(".qz-chip").forEach(c => c.classList.add("done")); colR.querySelectorAll(".qz-chip").forEach(c => c.classList.add("done")); drawLines(); selChar = null; selBtn = null; qzReveal(item, fb, "正確配對：" + item.pairs.map(pr => pr[0] + "→" + pr[1]).join("， ")); }); }
+    } else { const _wp = {}; _wp[leftChar] = rightWord; qzNoteWrongPick(item, { type: "match", pairs: _wp, at: Date.now() }); const wc = qzWrong(item, leftChar); const _sc = leftChar; qzWrongFb(item, fb, wc, "💪 " + qzEncourage() + "「" + _sc + "」不是配「" + rightWord + "」。", () => { item._matched = {}; item.pairs.forEach(pr => { item._matched[pr[0]] = pr[1]; }); colL.querySelectorAll(".qz-chip").forEach(c => c.classList.add("done")); colR.querySelectorAll(".qz-chip").forEach(c => c.classList.add("done")); drawLines(); selChar = null; selBtn = null; qzReveal(item, fb, "正確配對：" + item.pairs.map(pr => pr[0] + "→" + pr[1]).join("， ")); }); }
   }
   item.pairs.forEach(pr => {
     const b = qzEl("button", "qz-chip", pr[0]);
@@ -11080,14 +11156,14 @@ function qzRenderDrag(item, card, fb) {
     if (basket.dataset.cat === chip.dataset.cat) {
       item._placed[id] = basket.dataset.cat;
       qzBasketPlace(basket, chip); chip.classList.add("done"); chip.classList.remove("sel");
-      fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + "「" + id + "」放啱咗！";
+      fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + "「" + id + "」放對了！";
       if (selChip === chip) selChip = null;
       qzGain(item, id);
     } else {
       chip.classList.add("wrongin");
       const _wcat = (item.cats || []).find(cfg => cfg[0] === basket.dataset.cat); const _wp2 = {}; _wp2[id] = _wcat ? _wcat[1] : basket.dataset.cat; qzNoteWrongPick(item, { type: "drag", placed: _wp2, at: Date.now() });
       const wc = qzWrong(item, id);
-      qzWrongFb(item, fb, wc, "💪 " + qzEncourage() + "「" + id + "」上下邊部分大啲，再諗諗！", () => {
+      qzWrongFb(item, fb, wc, "💪 " + qzEncourage() + "「" + id + "」上下哪部分大些，再想想！", () => {
         item._placed = {};
         const root = tray.parentElement;
         root.querySelectorAll(".qz-chip").forEach(c => { const bk = basketEls[c.dataset.cat]; if (bk) qzBasketPlace(bk, c); c.classList.add("done"); c.classList.remove("sel"); });
@@ -11099,7 +11175,7 @@ function qzRenderDrag(item, card, fb) {
     }
   }
   /* Redesign #6: each basket pre-draws one dashed EMPTY SLOT per expected
-     chip, PLUS a 「仲差 N 個」 badge (both from day one). Expected counts come
+     chip, PLUS a 「尚差 N 個」 badge (both from day one). Expected counts come
      from the item's own chips/cats data; if chips data is missing, slots are
      absent and the badge alone shows the placed count (degraded mode). */
   function qzBasketExpected(cat) { return (item.chips || []).filter(d => d.cat === cat).length; }
@@ -11108,8 +11184,8 @@ function qzRenderDrag(item, card, fb) {
     const placed = bk.querySelectorAll(".qz-chip").length;
     if (!item.chips || !item.chips.length) { bd.textContent = placed ? "已放 " + placed + " 個" : "未放"; bd.classList.remove("done"); return; }
     const left = qzBasketExpected(bk.dataset.cat) - placed;
-    if (left > 0) { bd.textContent = "仲差 " + left + " 個"; bd.classList.remove("done"); }
-    else { bd.textContent = "齊晒 ✓"; bd.classList.add("done"); }
+    if (left > 0) { bd.textContent = "尚差 " + left + " 個"; bd.classList.remove("done"); }
+    else { bd.textContent = "已完成 ✓"; bd.classList.add("done"); }
   }
   function qzBasketPlace(bk, chip) {
     const sl = bk.querySelector(".qz-bslot:not(.filled)");
@@ -11154,7 +11230,7 @@ function qzRenderDrag(item, card, fb) {
         } else {
           if (selChip) selChip.classList.remove("sel");
           selChip = chip; chip.classList.add("sel");
-          fb.className = "qz-fb"; fb.textContent = "揀咗「" + d.ch + "」，㩒一個籃放佢入去。";
+          fb.className = "qz-fb"; fb.textContent = "選擇了「" + d.ch + "」，按一個籃放他入去。";
         }
       }
       chip.addEventListener("pointermove", mv); chip.addEventListener("pointerup", up); chip.addEventListener("pointercancel", up);
@@ -11256,17 +11332,17 @@ function qzRenderOrder(item, card, fb) {
   const chk = qzEl("button", "qz-btn", "✔️ 檢查");
   chk.addEventListener("click", () => {
     if (item._done || qzLocked) return;
-    if (placed.length < qzOrdParts.length) { fb.className = "qz-fb no"; fb.textContent = "仲未排完呀，把所有詞語放上句子框先！"; return; }
+    if (placed.length < qzOrdParts.length) { fb.className = "qz-fb no"; fb.textContent = "尚未排完，把所有詞語放上句子框先！"; return; }
     if (JSON.stringify(placed) === JSON.stringify(qzOrdParts)) {
       if (qzOrdGroups && qzOrdChunk < qzOrdGroups.length - 1) {
         item._chunk = qzOrdChunk + 1;
-        fb.className = "qz-fb ok"; fb.textContent = "✅ 呢部分啱晒，繼續下一部分！";
+        fb.className = "qz-fb ok"; fb.textContent = "✅ 這部分完全正確，繼續下一部分！";
         qzRender();
         return;
       }
       item._done = true; fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + "「" + item.parts.join("") + (/[。？！.!?]$/.test(item.parts.join("")) ? "" : "。") + "」"; const sb = qzSpeakBtn(item.parts.join("")); if (sb) fb.insertBefore(sb, fb.firstChild);
       line.querySelectorAll(".qz-chip").forEach(c => c.classList.add("done")); qzGain(item);
-    } else { qzNoteWrongPick(item, { type: "order", placed: placed.slice(), at: Date.now() }); const wc = qzWrong(item); qzWrongFb(item, fb, wc, "💪 " + qzEncourage() + "邊句是原因、邊句是結果？㩒句子框的詞語可以放回下面。", () => { line.innerHTML = ""; item.parts.forEach(t => { const c = qzEl("div", "qz-chip done", t); line.appendChild(c); }); qzRegroupOrderLine(line); qzReveal(item, fb, "正確次序：「" + item.parts.join("") + "」"); }); }
+    } else { qzNoteWrongPick(item, { type: "order", placed: placed.slice(), at: Date.now() }); const wc = qzWrong(item); qzWrongFb(item, fb, wc, "💪 " + qzEncourage() + "邊句是原因、邊句是結果？按句子框的詞語可以放回下面。", () => { line.innerHTML = ""; item.parts.forEach(t => { const c = qzEl("div", "qz-chip done", t); line.appendChild(c); }); qzRegroupOrderLine(line); qzReveal(item, fb, "正確次序：「" + item.parts.join("") + "」"); }); }
   });
   const clr = qzEl("button", "qz-btn", "↺ 重新排");
   clr.addEventListener("click", () => {
@@ -11323,7 +11399,7 @@ function qzRenderFill(item, card, fb) {
   const chk = qzEl("button", "qz-btn", "✔️ 檢查");
   chk.addEventListener("click", () => {
     if (item._done || qzLocked) return;
-    if (firstEmpty() >= 0) { fb.className = "qz-fb no"; fb.textContent = "仲有空格未填呀，填晒先檢查！"; return; }
+    if (firstEmpty() >= 0) { fb.className = "qz-fb no"; fb.textContent = "尚有空格未填呀，填晒先檢查！"; return; }
     const cur = slots.map(s => s.textContent);
     if (JSON.stringify(cur) === JSON.stringify(item.ans)) {
       item._done = true;
@@ -11343,8 +11419,8 @@ function qzRenderFill(item, card, fb) {
       });
       const wc = qzWrong(item);
       const baseText = newlyLocked > 0
-        ? "💪 " + qzEncourage() + "啱咗嗰格已經鎖住，錯嗰格返咗落去，再試下！"
-        : "💪 " + qzEncourage() + "錯嗰格返咗落去，再試下！";
+        ? "💪 " + qzEncourage() + "答對的那格已經鎖住，錯的那格返回了下面，再試一次！"
+        : "💪 " + qzEncourage() + "錯的那格返回了下面，再試一次！";
       qzWrongFb(item, fb, wc, baseText, () => {
         slots.forEach((s, i) => { s.textContent = item.ans[i]; s.classList.add("done"); s._chip = null; });
         qzReveal(item, fb, "正確答案：「" + completed() + "」");
@@ -11374,13 +11450,13 @@ function qzRenderDraw(item, card, fb) {
   const ctx = cv.getContext("2d"); ctx.lineWidth = 7; ctx.lineCap = "round"; ctx.strokeStyle = "#FDE68A";
   let drawing = false, lastPt = null;
   function ptOf(e) { const r = cv.getBoundingClientRect(); return { x: (e.clientX - r.left) * (cv.width / r.width), y: (e.clientY - r.top) * (cv.height / r.height) }; }
-  cv.addEventListener("pointerdown", e => { e.preventDefault(); item._drawn = true; drawing = true; lastPt = ptOf(e); cv.setPointerCapture(e.pointerId); });
+  cv.addEventListener("pointerdown", e => { e.preventDefault(); item._drawn = true; qzPillsRefresh(); drawing = true; lastPt = ptOf(e); cv.setPointerCapture(e.pointerId); });
   cv.addEventListener("pointermove", e => { if (!drawing) return; const p = ptOf(e); ctx.beginPath(); ctx.moveTo(lastPt.x, lastPt.y); ctx.lineTo(p.x, p.y); ctx.stroke(); lastPt = p; });
   ["pointerup", "pointercancel"].forEach(t => cv.addEventListener(t, () => { drawing = false; }));
-  fb.className = "qz-fb"; fb.textContent = "自由練習，唔計分 — 畫完㩒「下一題」繼續。隨時可以㩒右上角 ✕ 停低，進度已經存好。";
+  fb.className = "qz-fb"; fb.textContent = "自由練習，不計分 — 畫完按「下一題」繼續。隨時可以按右上角 ✕ 停低，進度已經存好。";
 }
 /* Redesign #9: reveal questions need a commitment step first. Tap
-   「我諗到啦」 to reveal, then self-rate 諗啱／差唔多／未諗到 — offered
+   「核對答案」 to reveal, then self-rate 完全正確／接近正確／未能想到 — offered
    ONLY, never gates the next question, never enters score/diagnosis; no star
    lost, no wrong recorded. Direct skip = 「未練」 (goes into the finish-card
    unfinished list for retry). */
@@ -11390,47 +11466,56 @@ function qzRenderReveal(item, card, fb) {
   const sb = qzSpeakBtn(item.answer || "");
   if (sb) ans.insertBefore(sb, ans.firstChild);
   const rateRow = qzEl("div", "qz-row");
-  ["諗啱", "差唔多", "未諗到"].forEach(r => {
+  ["完全正確", "接近正確", "未能想到"].forEach(r => {
     const rb = qzEl("button", "qz-btn" + (item._selfRate === r ? " sel" : ""), r);
     rb.addEventListener("click", () => {
       item._selfRate = r;
+      qzPillsRefresh();
       rateRow.querySelectorAll(".qz-btn").forEach(x => x.classList.remove("sel"));
       rb.classList.add("sel");
-      fb.className = "qz-fb ok"; fb.textContent = "收到！繼續啦！";
+      fb.className = "qz-fb ok"; fb.textContent = "已記錄，繼續作答。";
     });
     rateRow.appendChild(rb);
   });
   rateRow.style.display = "none";
   function showAnswer() { ans.style.display = "block"; rateRow.style.display = "flex"; item._viewed = true; }
-  const commit = qzEl("button", "qz-btn", "我諗到啦");
+  const commit = qzEl("button", "qz-btn", "核對答案");
   const skip = qzEl("button", "qz-btn alt", "⏭️ 跳過（未練）");
   commit.addEventListener("click", () => { showAnswer(); commit.style.display = "none"; skip.style.display = "none"; });
   skip.addEventListener("click", () => {
     item._skipped = true; item._viewed = false;
-    fb.className = "qz-fb"; fb.textContent = "記低咗做「未練」，去成績頁可以再練。";
+    fb.className = "qz-fb"; fb.textContent = "已記錄為「未練」，去成績頁可以再練。";
   });
   if (item._viewed) { showAnswer(); commit.style.display = "none"; skip.style.display = "none"; }
   row.appendChild(commit); row.appendChild(skip); card.appendChild(row); card.appendChild(ans); card.appendChild(rateRow);
-  if (item._skipped && !item._viewed) { fb.className = "qz-fb"; fb.textContent = "上次跳過咗（未練）。"; }
+  if (item._skipped && !item._viewed) { fb.className = "qz-fb"; fb.textContent = "上次跳過了（未練）。"; }
 }
 function qzSkillSummary(cardEl) {
   const bySkill = {};
   qzItems().forEach(it => {
     const s = it.skill || "其他";
-    bySkill[s] = bySkill[s] || { wrong: false, done: 0, total: 0 };
+    bySkill[s] = bySkill[s] || { wrong: false, done: 0, total: 0, uTotal: 0, uDone: 0, uTouched: false };
     if (it._wrongKeys && Object.keys(it._wrongKeys).length) bySkill[s].wrong = true;
     if (qzMax(it) > 0) { bySkill[s].total++; if (qzComplete(it)) bySkill[s].done++; }
+    else { bySkill[s].uTotal++; const uDone = it.type === "draw" ? !!it._drawn : !!(it._viewed && it._selfRate); if (uDone) bySkill[s].uDone++; if (it.type === "reveal" && it._viewed && !it._selfRate) bySkill[s].uTouched = true; }
   });
   const wrap = qzEl("div", "qz-skills");
-  wrap.appendChild(qzEl("div", null, "今次練咗嘅本事："));
+  wrap.appendChild(qzEl("div", null, "這次練習了的本事："));
   Object.keys(bySkill).forEach(s => {
     const v = bySkill[s];
     let icon, cls;
     if (v.wrong) {
       const wrongItems = qzItems().filter(it => (it.skill || "其他") === s && it._wrongKeys && Object.keys(it._wrongKeys).length);
       const allRetried = wrongItems.length && wrongItems.every(it => it._retried);
-      icon = allRetried ? "✓ 已再練掌握" : "✗ 要再練"; cls = allRetried ? "ok" : "bad";
-    } else { icon = (v.total === 0 || v.done === v.total) ? "✓ 掌握" : "… 練緊"; cls = icon.indexOf("✓") === 0 ? "ok" : ""; }
+      const fullyDone = v.done === v.total && v.uDone === v.uTotal;
+      icon = (allRetried && fullyDone) ? "✓ 已再練掌握" : "✗ 要再練"; cls = (allRetried && fullyDone) ? "ok" : "bad";
+    } else {
+      const mastered = (v.total > 0 && v.done === v.total && v.uDone === v.uTotal) || (v.total === 0 && v.uTotal > 0 && v.uDone === v.uTotal);
+      const anyDone = v.done > 0 || v.uDone > 0;
+      if (mastered) { icon = "✓ 掌握"; cls = "ok"; }
+      else if (!anyDone && !v.uTouched) { icon = "未練"; cls = "todo"; }
+      else { icon = "正在練習"; cls = ""; }
+    }
     wrap.appendChild(qzEl("span", "qz-pill " + cls, s + " " + icon));
   });
   cardEl.appendChild(wrap);
@@ -11499,12 +11584,12 @@ function qzCorrectResult(item) {
     return box;
   }
   if (item.type === "mc") return qzEl("div", "qz-finrev-ans", "正確答案：「" + item.opts[item.ans] + "」");
-  if (item.type === "imgmc") { const d = qzDispOpts(item); return qzEl("div", "qz-finrev-ans", "正確答案係第 " + (d.dispAns + 1) + " 幅圖。"); }
+  if (item.type === "imgmc") { const d = qzDispOpts(item); return qzEl("div", "qz-finrev-ans", "正確答案是第 " + (d.dispAns + 1) + " 幅圖。"); }
   if (item.type === "fill") return qzEl("div", "qz-finrev-ans", "正確答案：「" + item.segs.map((t, i) => t + (i < item.ans.length ? item.ans[i] : "")).join("") + "」");
   if (item.type === "reveal") return qzEl("div", "qz-finrev-ans", item.answer || "");
   return null;
 }
-function qzFinrevTag(item) { return qzStripPreview((item.tag || "").replace(/ MC$/, "")); }
+function qzFinrevTag(item) { return qzDisplayTag(item.tag); }
 /* Finish-review "your answer" renderer. Returns null whenever there is no
    captured pick (old saved progress) -> caller shows the correct answer
    only, never a fabricated pick. Draw/reveal always return null: they show
@@ -11597,26 +11682,29 @@ function qzFinishReview() {
     if (it.type === "mc" || it.type === "imgmc" || it.type === "order" || it.type === "fill") return !it._done;
     if (it.type === "match" || it.type === "drag") return !qzComplete(it);
     if (it.type === "draw") return !it._drawn;
-    if (it.type === "reveal") return !it._viewed;
+    if (it.type === "reveal") return !(it._viewed && it._selfRate) || it._selfRate === "未能想到";
     return false;
   });
   if (!rev.length) return null;
   const sec = qzEl("div", "qz-finrev");
-  sec.appendChild(qzEl("h4", null, "📖 錯題同未完成題目回顧"));
+  sec.appendChild(qzEl("h4", null, "📖 錯題、未完成題目及重溫題目回顧"));
   /* Fix1 counting: the total is ALL items in the set, not scored-only.
      The old scored-only total (16) excluded unscored draw/reveal items
      that the review list DOES include, so first-try (1) + review (17)
      could never equal the shown total (16). Now first-try + done-no-star
-     + review = total, always: review = wrong-or-unfinished (union),
+     + review = total, always, EXCEPT self-rated 未能想到 items, which are
+     counted finished in done-no-star AND listed for revisit, so review =
+     wrong-or-unfinished (union) PLUS 未能想到 revisits; first-try +
+     done-no-star + (review minus 未能想到 count) = total.
      done-no-star = finished unscored items with no wrong history. */
   const firstOk = qzItems().filter(it => qzMax(it) > 0 && qzComplete(it) && !(it._wrongKeys && Object.keys(it._wrongKeys).length)).length;
   const _unfSet = new Set(qzFinishUnfinished());
   const doneNoStar = qzItems().filter(it => qzMax(it) === 0 && !_unfSet.has(it) && !(it._wrongKeys && Object.keys(it._wrongKeys).length)).length;
   const sum = qzEl("div", "qz-finrev-sum");
-  sum.appendChild(qzEl("div", "qz-finrev-sumline", "✅ 第一次就答啱 " + firstOk + " 題 / 總共 " + qzItems().length + " 題"));
+  sum.appendChild(qzEl("div", "qz-finrev-sumline", "✅ 第一次就答對 " + firstOk + " 題 / 總共 " + qzItems().length + " 題"));
   if (doneNoStar) sum.appendChild(qzEl("div", null, "另外 " + doneNoStar + " 題已完成，不計首次星星。"));
-  sum.appendChild(qzEl("div", null, "下面只係錯題同未完成題目（" + rev.length + " 題），唔係全部題目。"));
-  if (qzSetName === "single" || qzSetName === "practice" || qzSetName === "retry") sum.appendChild(qzEl("div", null, "練習模式：呢版唔計首次星星，⭐ 0 唔代表全部錯。"));
+  sum.appendChild(qzEl("div", null, "下面是錯題、未完成題目及自評為未能想到的重溫題目（" + rev.length + " 題），不是全部題目。"));
+  if (qzSetName === "single" || qzSetName === "practice" || qzSetName === "retry") sum.appendChild(qzEl("div", null, "練習模式：這版不計首次星星，⭐ 0 不代表全部錯。"));
   sec.appendChild(sum);
   const sel = new Set(rev.map((it, i) => i));
   const allRow = qzEl("div", "qz-finrev-allrow");
@@ -11742,39 +11830,43 @@ function qzFinishCard() {
   const doneCount = qzItems().length - _unfAll.length;
   const totalCount = qzItems().length;
   if (qzSetName === "single") {
-    card.appendChild(qzEl("div", null, "🏁 逐題重做完成！（唔加首次星星）"));
-    card.appendChild(qzEl("div", null, "完成咗 " + doneCount + " / " + totalCount + " 題 — 返去成績頁繼續。"));
+    card.appendChild(qzEl("div", null, "🏁 逐題重做完成！（不加首次星星）"));
+    card.appendChild(qzEl("div", null, "完成了 " + doneCount + " / " + totalCount + " 題 — 返回成績頁繼續。"));
   } else if (qzSetName === "practice") {
-    card.appendChild(qzEl("div", null, "🏁 練同類完成！（練習模式，唔再加星）"));
-    card.appendChild(qzEl("div", null, "完成咗 " + doneCount + " / " + totalCount + " 題 — 返去成績頁繼續。"));
+    card.appendChild(qzEl("div", null, "🏁 練同類完成！（練習模式，不再加星）"));
+    card.appendChild(qzEl("div", null, "完成了 " + doneCount + " / " + totalCount + " 題 — 返回成績頁繼續。"));
   } else if (qzSetName === "retry") {
-    card.appendChild(qzEl("div", null, "🏁 錯題再練完成！（練習模式，唔再加星）"));
-    card.appendChild(qzEl("div", null, "完成咗 " + doneCount + " / " + totalCount + " 題錯題 — 返去原本嗰版，錯題會標住「已再練 ✓」。"));
+    card.appendChild(qzEl("div", null, "🏁 錯題再練完成！（練習模式，不再加星）"));
+    card.appendChild(qzEl("div", null, "完成了 " + doneCount + " / " + totalCount + " 題錯題 — 返回原本那版，錯題會標住「已再練 ✓」。"));
   } else {
     /* Fix1 wording: "完成" only when nothing is unfinished. A set stopped
        with skipped items says 未做完, never 完成. */
     card.appendChild(qzEl("div", null, _unfAll.length ? "🏁 " + S.label + "未做完" : "🏁 " + S.label + "完成！"));
-    card.appendChild(qzEl("div", null, "⭐ " + qzStars() + " 粒星（首次答啱）・✅ 完成 " + doneCount + " / " + totalCount + " 題"));
+    card.appendChild(qzEl("div", null, "⭐ " + qzStars() + " 粒星（首次答對）・✅ 完成 " + doneCount + " / " + totalCount + " 題"));
   }
   const wrong = S._wrong || [];
   try { localStorage.setItem(qzBase() + ":" + qzSetName, JSON.stringify({ stars: qzStars(), score: t[0], total: t[1], wrong: wrong, at: new Date().toISOString() })); } catch (e) {}
   qzSkillSummary(card);
+  { const _rev = qzItems().filter(it => it.type === "reveal" && it._selfRate); if (_rev.length) { const _c = s => _rev.filter(it => it._selfRate === s).length; card.appendChild(qzEl("div", "qz-selfrate", "💭 思考題自評：完全正確 " + _c("完全正確") + " 題・接近正確 " + _c("接近正確") + " 題・未能想到 " + _c("未能想到") + " 題")); } }
   if (qzDiagOn) { const _dg = qzSkillDiagEl(); if (_dg) card.appendChild(_dg); }
-  /* Fix1 counting: the wrong list is item-based (one line per wrong
-     item, not one line per wrong key — a match item wrong on 2 pairs
-     used to print 2 lines), and the unfinished list below shows only
-     unfinished items that were NEVER wrong. Wrong (W) + unfinished-only
-     (U) = review list length, exactly; the old lists double-counted
-     wrong-and-unfinished items in both lists. */
+  /* Fix5 counting note (2026-10-26, checker round 2): the review
+     list below is the UNION of wrong items, unfinished items, and
+     self-rated 未能想到 revisits. So review length = wrong-or-unfinished
+     PLUS 未能想到 revisits; a 未能想到 item is completed (not
+     unfinished) yet still listed for revisit, so it must not be
+     counted twice in the completed + unfinished = total invariant. */
   const wrongItems = qzItems().filter(it => it._wrongKeys && Object.keys(it._wrongKeys).length);
   /* Fix2: the per-question wrong list is REMOVED from the summary card.
      The review section below is the authoritative wrong + unfinished list.
      (wrongItems is still computed: the next-set button below uses its length.) */
-  if (!wrongItems.length && !_unfAll.length) card.appendChild(qzEl("div", null, "🎉 全部第一次就答啱，勁！"));
-  const _unfOnly = _unfAll.filter(it => !(it._wrongKeys && Object.keys(it._wrongKeys).length));
-  if (_unfOnly.length && qzSetName !== "single" && qzSetName !== "practice") {
-    card.appendChild(qzEl("div", null, "未完成（跳過／未做完，共 " + _unfOnly.length + " 題）— 下面回顧列㩒入去可以逐題重做："));
-    _unfOnly.forEach(it => { card.appendChild(qzEl("div", null, "・" + qzStripPreview(it.label || it.q || "練習題") + (it.type === "reveal" && it._skipped ? "（未練）" : ""))); });
+  if (!wrongItems.length && !_unfAll.length) card.appendChild(qzEl("div", null, "🎉 全部第一次就答對，太厲害了！"));
+  /* Fix5 summary (2026-10-26): single line only, using the unified
+     unfinished count (_unfAll). The per-item bullet loop is deleted
+     from the summary card; the detailed list lives in the review
+     section below (qzFinishReview), which already includes wrong and
+     wrong-then-skipped items. */
+  if (_unfAll.length && qzSetName !== "single" && qzSetName !== "practice") {
+    card.appendChild(qzEl("div", null, "⚠️ 尚有 " + _unfAll.length + " 題未完成，請於下方回顧列表逐題重做。"));
   }
   const row = qzEl("div", "qz-row");
   if (wrong.length && qzSetName !== "retry") {
@@ -11783,27 +11875,27 @@ function qzFinishCard() {
     row.appendChild(rb);
   }
   if (qzSetName === "single" || qzSetName === "practice") {
-    const back2 = qzEl("button", "qz-btn", "↩️ 返去成績頁");
+    const back2 = qzEl("button", "qz-btn", "↩️ 返回成績頁");
     back2.addEventListener("click", () => qzBackToSummary(S._from || "textbook"));
     row.appendChild(back2);
   }
   if (qzSetName === "retry") {
-    const back = qzEl("button", "qz-btn", "↩️ 返去" + (QZ[S._from] ? QZ[S._from].label : "課文題"));
+    const back = qzEl("button", "qz-btn", "↩️ 返回" + (QZ[S._from] ? QZ[S._from].label : "課文題"));
     back.addEventListener("click", () => qzSwitchSet(S._from || "textbook"));
     row.appendChild(back);
   }
-  const again = qzEl("button", "qz-btn alt", "🔄 重新開始呢一版");
+  const again = qzEl("button", "qz-btn alt", "🔄 重新開始這一版");
   again.addEventListener("click", () => { const from = S._from; qzResetSet(qzSetName); if (qzSetName === "retry") qzSwitchSet(from || "textbook"); else qzGo(0); });
   row.appendChild(again);
   if (qzSetName === "textbook" && QZ.apply) {
-    const nx = qzEl("button", "qz-bigbtn", (wrongItems.length === 0 && _unfAll.length === 0) ? "🎉 挑戰成功！去玩應用題一 ▶" : "➡️ 試下應用題一 ▶");
+    const nx = qzEl("button", "qz-btn", (wrongItems.length === 0 && _unfAll.length === 0) ? "🎉 挑戰成功！前往應用題一 ▶" : "➡️ 前往應用題一 ▶");
     nx.addEventListener("click", () => qzSwitchSet("apply"));
-    card.appendChild(nx);
+    row.appendChild(nx);
   }
   if (qzSetName === "apply" && QZ.challenge) {
-    const nx = qzEl("button", "qz-bigbtn", wrong.length === 0 ? "🎉 挑戰成功！去玩應用題二 ▶" : "➡️ 試下應用題二 ▶");
+    const nx = qzEl("button", "qz-btn", (wrong.length === 0 && _unfAll.length === 0) ? "🎉 挑戰成功！前往應用題二 ▶" : "➡️ 前往應用題二 ▶");
     nx.addEventListener("click", () => qzSwitchSet("challenge"));
-    card.appendChild(nx);
+    row.appendChild(nx);
   }
   card.appendChild(row);
   return card;
@@ -11894,7 +11986,7 @@ function qzApplyState(data) {
   } catch (e) { return false; }
 }
 
-/* ---- Scratch pad 草稿板：quiz 層通用，轉題保留，關閉／reset 即清，唔寫入進度儲存；擦膠 48px＋虛線範圍圈，空白畫布顯示提示字 ---- */
+/* ---- Scratch pad 草稿板：quiz 層通用，轉題保留，關閉／reset 即清，不寫入進度儲存；擦膠 48px＋虛線範圍圈，空白畫布顯示提示字 ---- */
 const QZ_SCRATCH_ERASE = 48;
 let qzScStrokes = [];
 let qzScUndone = [];
@@ -11908,7 +12000,7 @@ function qzScratchEl() {
   const cv = document.createElement("canvas"); cv.id = "qzScratchCv"; cv.width = 720; cv.height = 520;
   const stg = qzEl("div", "qz-scstage");
   stg.appendChild(cv);
-  const hint = document.createElement("div"); hint.id = "qzScratchHint"; hint.textContent = "✏️ 喺呢度畫草稿"; stg.appendChild(hint);
+  const hint = document.createElement("div"); hint.id = "qzScratchHint"; hint.textContent = "✏️ 在這裡畫草稿"; stg.appendChild(hint);
   const ring = document.createElement("div"); ring.id = "qzScratchRing"; stg.appendChild(ring);
   p.appendChild(stg);
   const row = qzEl("div", "qz-scrow");
@@ -11986,14 +12078,14 @@ function qzScratchPeekReset() {
   if (p._hint) p._hint();
   if (p._ring) p._ring.style.display = "none";
   if (p._close) p._close.style.display = "";
-  if (p._peek) p._peek.textContent = "👀 睇題目";
+  if (p._peek) p._peek.textContent = "👀 看題目";
 }
 /* Bug 6 fix (fix1b): opening scratch scrolls the WHOLE panel into view
    (canvas + close pill + tools row), not just the question card. The old
    open path called qzScratchScrollStageIntoView, which left the panel
    bottom (tools row) below the fold on a tall match card at 390px. The
    panel stays in flow below the card (never overlaid on it); the card
-   scrolls partly out of view but stays intact above, and peek (睇題目)
+   scrolls partly out of view but stays intact above, and peek (看題目)
    jumps back to it. */
 function qzScratchScrollPanelIntoView() {
   const p = document.getElementById("qzScratch");
@@ -12103,9 +12195,9 @@ document.getElementById("qzStage").addEventListener("click", (e) => {
   if (e.target && e.target.closest && e.target.closest(".qz-break")) return;
   qzBreakNextGuard = 0;
 });
-// 一撳即睇：每課重點回顧（來源：課本 grammar_points、默書範圍、單元概念；唔使開書）
+// 一按即看：每課重點回顧（來源：課本 grammar_points、默書範圍、單元概念；不用開書）
 const QZ_REVIEW = {
-  chi_l3: { title: "《心中的鈴鐺》重點", points: ["句式「……所以……」表示因果", "形近字：鈴鐺／叮噹、怕／拍、吵／沙、陪／部、少／小", "上下結構：分上小下大、上大下小、上下相等", "故事圖式：背景 → 難題 → 解決方法 → 結果"], text: "①心中的鈴鐺\n②晚上，小熊想上廁所，四周黑黑的、靜靜的，沒有媽媽陪着，小熊十分害怕，便邊走邊搖着鈴鐺。「叮噹，叮噹，叮噹……」\n③小熊剛到廁所門口，看見媽媽從臥室裏探出頭來，便說：「媽媽，我很害怕，所以讓鈴聲陪我上廁所。」\n④「非常好，你不用害怕呀。」媽媽回去睡覺了。\n⑤第二天晚上，小熊又想上廁所了。他拿起小鈴鐺，一想到媽媽會被吵醒，便放下鈴鐺說：「讓我在心中搖鈴鐺吧，這樣不會吵醒媽媽，我也不會害怕呢！」\n⑥「叮噹，叮噹，叮噹……」第三天晚上，小熊起身上廁所的時候，不用在心中搖鈴鐺了。" },
+  chi_l3: { title: "《心中的鈴鐺》重點", points: ["句式「……所以……」表示因果", "形近字：鈴鐺／叮噹、怕／拍、吵／沙、陪／部、少／小", "上下結構：分上小下大、上大下小、上下相等", "故事圖式：背景 → 難題 → 解決方法 → 結果"], text: "①心中的鈴鐺\n②晚上，小熊想上廁所，四周黑黑的、靜靜的，沒有媽媽陪着，小熊十分害怕，便邊走邊搖着鈴鐺。「叮噹，叮噹，叮噹……」\n③小熊剛到廁所門口，看見媽媽從臥室裏探出頭來，便說：「媽媽，我很害怕，所以讓鈴聲陪我上廁所。」\n④「非常好，你不用害怕呀。」媽媽回去睡覺了。\n⑤第二天晚上，小熊又想上廁所了。他拿起小鈴鐺，一想到媽媽會被吵醒，便放下鈴鐺說：「讓我在心中搖鈴鐺吧，這樣不會吵醒媽媽，我也不會害怕這！」\n⑥「叮噹，叮噹，叮噹……」第三天晚上，小熊起身上廁所的時候，不用在心中搖鈴鐺了。" },
   chi_l4: { title: "《小老虎的成長紀錄》重點", points: ["故事結構：背景 → 難題 → 解決方法 → 難題 → 解決方法 → 結果", "成長紀錄要填身高和尾巴長", "小老虎到人類的村子借尺子"], text: "①小老虎畢業前，必須填寫一份成長紀錄：身高：＿＿　尾巴長：＿＿\n②小老虎決定到人類的村子去借尺子。牠敲一家裁縫店的窗，裁縫看見小老虎，嚇得手都抖了。小老虎說：「你別怕，我是來請你幫我量一量身體有多長的。」\n⋯（第③段未入庫）⋯\n④裁縫答：「我只給人量身高，從不給動物量的。」說完就拉下了窗簾。\n⑤小老虎只好想別的辦法。牠在河邊看見一隻青蛙在跳遠，旁邊還有一隻青蛙在做紀錄。\n⑥青蛙對小老虎說：「我們在測量這個泥坑的長度，如果泥坑不及＿＿時填平，會影響小昆蟲的生活。」\n⑦小老虎替青蛙填平了泥坑後，請青蛙量一量自己的身高和尾巴。\n⑧小老虎於是在牠的成長紀錄上寫上：身高：三個青蛙跳；尾巴長：一個青蛙跳。\n⑨第二天，小老虎把成長紀錄交給老師。老師笑着宣佈：「小老虎正式成為老虎學校的畢業生！」" },
   chi_l5: { title: "《很大很大的爸爸》重點", points: ["句式「……要是……」表示假設", "動詞重疊加「一」：按一按、摸一摸（動作短、試一試）", "左右結構：左小右大、左大右小、左右相等", "比喻：爸爸像一座樓／一條船"], text: "我的爸爸站着的時候，就像一座樓：腳是第一層，手是第二層，肩是第三層。我要使出爬山的勁，才能爬上爸爸這座樓。\n我的爸爸躺着的時候，就像一條船：腳是船尾，頭是駕駛台，身體是又寬又大的甲板。無論我在甲板上翻跟頭、跑步、跳高，爸爸這艘船總是穩穩的。要是我按一按他的鼻子，他還會發出和大輪船一樣的汽笛聲。\n我的爸爸真的很大很大，你要是不相信，可以到我家裏來看一看他。不過請你進門的時候要千萬小心，不要光顧着抬頭看我爸爸的臉，而不當心自己往後倒地。" },
   chi_l6: { title: "《鞋》重點", points: ["頓號：同類詞語之間的短停頓", "擬人法：鞋子像人一樣說話", "比喻：鞋像船，家是港灣"], text: "我回家，把鞋脫下\n姊姊回家，把鞋脫下\n哥哥、爸爸回家\n也都把鞋脫下\n\n大大小小的鞋\n是一家人\n依偎在一起\n說着一天的見聞\n\n大大小小的鞋\n就像大大小小的船\n回到安靜的港灣\n享受家的溫暖" },
@@ -12137,7 +12229,7 @@ function qzToggleReview() {
     return;
   }
   const r = QZ_REVIEW[qzCtx.lessonId];
-  if (!r) { panel.innerHTML = "<h4>📖 重點</h4><p>呢一課暫時未有重點回顧。</p>"; }
+  if (!r) { panel.innerHTML = "<h4>📖 重點</h4><p>這一課暫時未有重點回顧。</p>"; }
   else {
     const pts = "<ul>" + r.points.map(p => "<li>" + p + "</li>").join("") + "</ul>";
     if (r.text) {
