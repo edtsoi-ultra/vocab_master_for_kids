@@ -267,9 +267,10 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
    40px: the old pill was 21px (too small to tap beside), the old round
    buttons were 44px, so 40px keeps a kid-sized tap target while giving
    the pill real height (explicit height + flex centring, not padding
-   guesswork). At 390px with the peek button visible the row wraps as
-   two units (pill line 1, button group line 2, still right-aligned) —
-   the only width where pill + 3 buttons + peek exceed the card. */
+   guesswork). Bug 6 fix (fix1b): the peek pill is layout-reserved in BOTH
+   states (visibility:hidden when scratch is closed), so at 390px the row
+   wraps the same way open and closed (pill line 1, button group line 2,
+   still right-aligned) and the 3 round buttons never move. */
 .qz-headrow { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
 .qz-tag { display: inline-flex; align-items: center; background: #7C2D12; color: #FED7AA; font-size: 12px; font-weight: 800; border-radius: 20px; padding: 0 12px; height: 40px; box-sizing: border-box; margin-bottom: 0; flex: 0 1 auto; min-width: 0; }
 .qz-headbtns { display: flex; gap: 6px; align-items: center; margin-left: auto; flex: none; }
@@ -328,8 +329,12 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-basket .qz-chip.wrongin { border-color: #F97316; background: #431407; box-shadow: 0 0 0 3px rgba(249,115,22,.45); }
 .qz-orderline { min-height: 60px; border: 2px dashed #64748B; border-radius: 14px; padding: 12px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin: 10px 0 12px; }
 .qz-orderline .qz-chip { border-color: #38BDF8; }
-/* Punctuation-chip uniform size (背默句重組 fix): width floor so single-char ，/。 chips are not tiny; applies to all order items (tray + line), not just this item. */
-.qz-orderline .qz-chip, .qz-orderline ~ .qz-tray .qz-chip { min-width: 72px; }
+/* Fix3 item 6 (B + punctuation narrow): 72px floor REMOVED. Order chips size
+   to content + normal padding; a 48px floor remains ONLY as a tap/drag
+   guarantee (above the 44px tap-width guide) -- in practice it binds only
+   single-char chips, since every phrase chip is wider. Pool and dropped
+   both use it; height is untouched (pool 60px+, dropped 56px). CSS only. */
+.qz-orderline .qz-chip, .qz-orderline ~ .qz-tray .qz-chip { min-width: 48px; }
 /* Order placed-line phrase+punctuation units (layout batch): a phrase chip and its
    following punctuation chip(s) wrap as one unit, so punctuation never dangles at a
    row start. Display grouping only -- check logic still reads the flat chip sequence.
@@ -450,8 +455,9 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 
 .qz-finrev { margin-top: 16px; border-top: 1.5px solid #334155; padding-top: 12px; padding-bottom: 96px; }
 .qz-finrev h4 { margin: 0 0 10px; font-size: 16px; color: #FDE68A; }
-.qz-finrev-item { background: #0F172A; border: 1.5px solid #334155; border-radius: 12px; padding: 12px 14px; margin-bottom: 20px; }
-.qz-finrev-q { font-size: 15px; font-weight: 800; color: #FFFFFF; margin-bottom: 6px; line-height: 1.5; }
+.qz-finrev-item { background: #0F172A; border: 1.5px solid #334155; border-radius: 12px; padding: 8px 10px; margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start; }
+.qz-finrev-main { flex: 1 1 auto; min-width: 0; }
+.qz-finrev-q { font-size: 15px; font-weight: 800; color: #FFFFFF; margin-bottom: 4px; line-height: 1.45; }
 .qz-finrev-exp { font-size: 15px; line-height: 1.55; color: #E2E8F0; display: flex; gap: 8px; align-items: flex-start; }
 .qz-finrev-exp .qz-spk { flex: none; margin-right: 0; }
 .qz-finrev-exptxt { flex: 1 1 auto; min-width: 0; }
@@ -459,17 +465,37 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-finrev-sumline { font-size: 17px; font-weight: 900; color: #BBF7D0; margin-bottom: 4px; }
 .qz-finrev-allrow { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; flex-wrap: wrap; }
 .qz-finrev-allnote { font-size: 13.5px; color: #94A3B8; font-weight: 700; }
-.qz-finrev-headrow { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
-.qz-finrev-chk { width: 24px; height: 24px; min-width: 24px; accent-color: #22C55E; cursor: pointer; margin: 0; }
+.qz-finrev-headrow { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 4px; }
+/* Fix2: multi-select is ONE square checkbox button on the LEFT of each card
+   (56x56 tap target, square glyph). The old green border + bottom "已選" text
+   indicators are removed: the checkbox is the only selection indicator. */
+.qz-finrev-cb { flex: none; width: 56px; height: 56px; min-width: 56px; font-size: 30px; line-height: 1; border: 2px solid #94A3B8; background: #0F172A; color: #E2E8F0; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
+.qz-finrev-cb.on { background: #14532D; border-color: #22C55E; color: #BBF7D0; }
+.qz-finrev-allchk { flex: none; width: 56px; height: 56px; min-width: 56px; font-size: 30px; line-height: 1; border: 2px solid #94A3B8; background: #0F172A; color: #E2E8F0; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
+.qz-finrev-allchk.on { background: #14532D; border-color: #22C55E; color: #BBF7D0; }
+.qz-finrev-alllabel { font-size: 16px; font-weight: 900; color: #F1F5F9; cursor: pointer; }
 .qz-finrev-qnum { background: #334155; color: #FDE68A; border-radius: 999px; padding: 2px 10px; font-size: 13px; font-weight: 900; white-space: nowrap; }
 .qz-finrev-tag { background: #FACC15; color: #1E293B; border-radius: 999px; padding: 2px 10px; font-size: 13px; font-weight: 900; white-space: nowrap; }
-.qz-finrev-item.sel { border-color: #22C55E; }
 .qz-finrev-wrong { font-size: 15px; line-height: 1.55; color: #FCA5A5; font-weight: 800; margin-bottom: 8px; }
+/* Fix3: compact redo-selection cards. Collapsed card = headrow + question +
+   one-line ✗ wrong-pick line (when captured) + compact single-action pill.
+   Correct answer / explanation / full wrong-pair boxes live only in the
+   expandable detail below, hidden by default. */
+.qz-finrev-wrongline { font-size: 14px; line-height: 1.45; color: #FCA5A5; font-weight: 800; margin-bottom: 6px; overflow-wrap: break-word; }
+.qz-finrev-qexp { cursor: pointer; }
+.qz-finrev-qexp::after { content: " ▾"; color: #94A3B8; font-size: 13px; font-weight: 900; }
+.qz-finrev-qexp.on::after { content: " ▴"; }
+.qz-finrev-detail { display: none; margin-top: 8px; border-top: 1px dashed #334155; padding-top: 8px; }
+.qz-finrev-detail.on { display: block; }
 .qz-finrev-wrongbox { margin-bottom: 8px; }
 .qz-finrev-wrongbox .qz-finrev-head { color: #FCA5A5; font-weight: 900; }
-.qz-finrev-foot { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 10px; }
-.qz-finrev-selstate { font-size: 13.5px; font-weight: 800; color: #86EFAC; }
-.qz-finrev-bar { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(72px + env(safe-area-inset-bottom)); width: min(700px, calc(100vw - 20px)); z-index: 5; display: flex; justify-content: center; }
+.qz-finrev-foot { display: flex; justify-content: flex-end; align-items: center; gap: 8px; margin-top: 6px; }
+/* Fix1 (2026-10-26): the finish-review redo bar is modal chrome, NOT a
+   fixed overlay. It is appended to #quizModal (after .qz-wrap) by
+   qzFinishReview, so it sits below the scroll area: no card or summary
+   line can ever scroll underneath it, at any scroll position. The old
+   fixed bottom:72px bar covered whatever scrolled through its band. */
+.qz-finrev-bar { flex: none; width: 100%; max-width: 720px; margin: 0 auto; display: flex; justify-content: center; padding: 10px 10px calc(10px + env(safe-area-inset-bottom)); background: #0B1220; border-top: 1.5px solid #334155; }
 .qz-finrev-bar .qz-btn { width: 100%; padding: 14px; font-size: 17px; }
 .qz-finrev-bar .qz-btn:disabled { opacity: .45; }
 .qz-finrev-ans { font-size: 15px; line-height: 1.55; color: #BBF7D0; font-weight: 700; }
@@ -505,7 +531,13 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-lessontitle { font-size: 20px; font-weight: 900; color: #FDE68A; margin-bottom: 8px; line-height: 1.4; }
 .qz-entrysub { font-size: 14.5px; color: #FDE68A; margin-top: 4px; font-weight: 800; }
 
-.qz-peekbtn { flex: none; border: 2px solid #F59E0B; background: #451A03; color: #FDE68A; border-radius: 999px; padding: 0 12px; height: 40px; font-size: 15px; font-weight: 800; cursor: pointer; margin-left: 6px; white-space: nowrap; }
+/* Bug 6 fix (fix1b): peek pill has a FIXED width (118px total, border-box)
+   covering both labels (「👀 睇題目」96px / 「✏️ 出返草稿」111px measured
+   at 390px), so flipping the label never shifts the pencil button. The pill
+   is layout-reserved at all times (visibility, never display:none) — see
+   qzRender / scratch-toggle / panel-close — so the 3 round buttons keep
+   identical size and position whether scratch is open or closed. */
+.qz-peekbtn { flex: none; border: 2px solid #F59E0B; background: #451A03; color: #FDE68A; border-radius: 999px; padding: 0 6px; width: 118px; height: 40px; font-size: 15px; font-weight: 800; cursor: pointer; margin-left: 6px; white-space: nowrap; text-align: center; overflow: hidden; }
 .qz-scstage { position: relative; flex: 1 1 auto; min-width: 0; }
 .qz-scrow .qz-scclear { margin-left: auto; }
 @media (min-width: 820px) and (orientation: landscape) {
@@ -535,6 +567,19 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
   .qz-opt { font-size: 26px; min-height: 78px; padding: 18px 14px; }
   .qz-basket .qz-chip { font-size: 24px; }
 }
+/* Fix3 item 6 (B ADOPTED, supersedes fix2 item 5 on dropped font): DROPPED
+   chips only. Chips inside the answer line render smaller than pool chips
+   (pool 24px -> dropped 18px; wide 26px -> dropped 20px). Breakpoints are
+   the EXISTING ones -- no new breakpoint added: base (<820px) = 18px, so
+   390px and 768px are both 18px; >=820px = 20px, so 1024px is 20px. Pool
+   (.qz-tray) chips are NOT matched by this selector and keep their size
+   (24px base / 26px wide). Pure CSS state: a chip's parent decides its
+   size, so dragging/clicking it back to the tray restores pool size with
+   ZERO drag-logic changes. Tap height stays >=56px (min-height 56px). */
+.qz-orderline .qz-chip { font-size: 18px; min-height: 56px; padding: 12px 10px; }
+@media (min-width: 820px) {
+  .qz-orderline .qz-chip { font-size: 20px; }
+}
 .qz-img.qz-imgbig { position: fixed; inset: 0; z-index: 2000; background: rgba(2,6,23,.95); display: flex; align-items: center; justify-content: center; margin: 0; max-height: none; overflow: visible; cursor: zoom-out; }
 .qz-img.qz-imgbig svg { max-width: 92vw; max-height: 92vh; width: auto; }
 /* Grid redesign (2026-10-25): matching chips fill their column. This
@@ -558,13 +603,20 @@ details.donedrawer summary { cursor: pointer; font-size: 15px; font-weight: 900;
 .qz-btn.sel { background: #14532D; box-shadow: 0 0 0 3px #22C55E; }
 .qz-finrev-item.qz-retryable { cursor: pointer; }
 @media (hover:hover) { .qz-finrev-item.qz-retryable:hover { border-color: #F59E0B; } }
-.qz-redopill { font-size: 13px; font-weight: 800; color: #FDE68A; background: transparent; border: 1.5px solid #F59E0B; border-radius: 999px; padding: 4px 12px; cursor: pointer; white-space: nowrap; }
+.qz-redopill { font-size: 14px; font-weight: 800; color: #FDE68A; background: transparent; border: 1.5px solid #F59E0B; border-radius: 999px; padding: 7px 14px; min-height: 36px; display: inline-flex; align-items: center; cursor: pointer; white-space: nowrap; }
 .qz-diag { margin-top: 12px; border-top: 1.5px solid #334155; padding-top: 10px; }
+/* Fix2: diagnosis is COLLAPSED by default. The toggle is a full-width
+   56px-min-height button — a visible expand row, never a hidden affordance. */
+.qz-diag-toggle { display: flex; width: 100%; box-sizing: border-box; min-height: 56px; align-items: center; justify-content: space-between; gap: 10px; background: #0F172A; border: 1.5px solid #F59E0B; color: #FDE68A; border-radius: 12px; padding: 12px 14px; font-size: 17px; font-weight: 900; cursor: pointer; text-align: left; }
 .qz-diag-head { font-weight: 900; margin-bottom: 6px; }
-.qz-diag-row { font-size: 15px; font-weight: 800; margin: 6px 0; }
-.qz-diag-row.weak { color: #FED7AA; }
-.qz-diag-row.watch { color: #E2E8F0; }
-.qz-diag .qz-btn { margin: 4px 0 10px; }
+/* Fix3 item 5: one flex row per type — summary text on the left, the
+   練同類 button BESIDE the row (never below it, never a separate section)
+   and only on weak rows. Good rows are summary text only. */
+.qz-diag-row { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 800; margin: 6px 0; }
+.qz-diag-sum { flex: 1 1 auto; min-width: 0; }
+.qz-diag-row.weak .qz-diag-sum { color: #FED7AA; }
+.qz-diag-row.watch .qz-diag-sum { color: #E2E8F0; }
+.qz-diag .qz-diag-practice { flex: none; margin: 0; padding: 10px 14px; white-space: nowrap; }
 
 @media (max-width: 480px) {
   .qz-card { padding: 14px; }
@@ -7277,6 +7329,7 @@ function qzRender() {
   qzTopLineUpd();
   const stage = document.getElementById("qzStage");
   stage.innerHTML = "";
+  qzFinrevBarClear();
   const items = qzItems();
   const prev = document.getElementById("qzPrev"), next = document.getElementById("qzNext");
   const foot = document.querySelector(".qz-footer");
@@ -7295,10 +7348,12 @@ function qzRender() {
   const item = items[qzIdx];
   const card = qzEl("div", "qz-card qz-enter" + (item.img ? " qz-card-hasimg" : ""));
   /* Grid v2 header: tag pill + buttons share one row (.qz-headrow); the stem
-     gets its own full-width row below. Match items render NO visual stem:
-     the pairs alone carry the item (audited all 13 match items; stems are
-     procedural/category wording, e.g. 「先按左邊的字，再按右邊它的詞語」,
-     and the 🔊 button still reads item.q aloud). Banks untouched. */
+     gets its own full-width row below. Bug 5 fix (fix1b): match items show
+     ONLY the title part of the stem — text before the first 「：」 (topic,
+     e.g. 形近字配詞語); the instruction after 「：」 (先按左邊…,
+     procedural) is NOT rendered. Audio still reads the full item.q aloud.
+     Banks untouched; split is render-time only. Audited all 13 match stems:
+     each has exactly one 「：」 with a 先按… instruction after it. */
   const head = qzEl("div", "qz-headrow");
   head.appendChild(qzEl("span", "qz-tag", item.tag));
   card.appendChild(head);
@@ -7306,7 +7361,8 @@ function qzRender() {
   const hbtns = qzEl("div", "qz-headbtns");
   head.appendChild(hbtns);
   const qrow = qzEl("div", "qz-qrow");
-  if (item.type !== "match") qrow.appendChild(qzEl("div", "qz-q", item.q));
+  const qzTitle = item.type === "match" ? (item.q.split("：")[0] || item.q) : item.q;
+  qrow.appendChild(qzEl("div", "qz-q", qzTitle));
   const spk = qzEl("button", "qz-speak", "🔊");
   spk.title = "讀出題目";
   spk.addEventListener("click", () => qzSpeak(item.q));
@@ -7318,21 +7374,23 @@ function qzRender() {
   rvb.addEventListener("click", qzToggleReview);
   hbtns.appendChild(rvb);
   /* Redesign #1: peek is a standalone button at the question-card top-right
-     (not in the scratch tools row). Visible only while the scratch panel is
-     open; its label flips on peek/restore, and qzScratchPeekReset (question /
-     set change, quiz close/open) re-creates it in the default state. */
+     (not in the scratch tools row). Bug 6 fix (fix1b): it is layout-reserved
+     in BOTH states — visibility:hidden (not display:none) while scratch is
+     closed — so the other 3 buttons never shift; its label flips on
+     peek/restore, and qzScratchPeekReset (question / set change, quiz
+     close/open) re-creates it in the default state. */
   const pkb = qzEl("button", "qz-peekbtn", "👀 睇題目");
   pkb.title = "睇題目／出返草稿";
-  pkb.style.display = qzScratchOpen() ? "" : "none";
+  pkb.style.visibility = qzScratchOpen() ? "visible" : "hidden"; pkb.disabled = !qzScratchOpen();
   pkb.addEventListener("click", () => { qzScratchPeekToggle(); pkb.textContent = qzScPeek ? "✏️ 出返草稿" : "👀 睇題目"; });
   const scb = qzEl("button", "qz-scratchbtn", "✏️");
   scb.title = "開草稿";
   if (qzScratchOpen()) scb.classList.add("on");
-  scb.addEventListener("click", () => { qzScratchToggle(); scb.classList.toggle("on", qzScratchOpen()); pkb.style.display = qzScratchOpen() ? "" : "none"; if (qzScratchOpen()) qzScratchRailCheck(); });
+  scb.addEventListener("click", () => { qzScratchToggle(); scb.classList.toggle("on", qzScratchOpen()); pkb.style.visibility = qzScratchOpen() ? "visible" : "hidden"; pkb.disabled = !qzScratchOpen(); if (qzScratchOpen()) qzScratchRailCheck(); });
   hbtns.appendChild(scb);
   hbtns.appendChild(pkb);
   const _sp = document.getElementById("qzScratch"); if (_sp) _sp._peek = pkb;
-  if (item.type !== "match") card.appendChild(qrow);
+  card.appendChild(qrow);
   const fb = qzEl("div", "qz-fb");
   ({ mc: qzRenderMC, imgmc: qzRenderImgMC, match: qzRenderMatch, drag: qzRenderDrag, order: qzRenderOrder, fill: qzRenderFill, draw: qzRenderDraw, reveal: qzRenderReveal })[item.type](item, card, fb);
   card.appendChild(fb);
@@ -7377,6 +7435,7 @@ function qzShowEntry() {
   if (modal) { modal.classList.add("qz-entry"); modal.classList.remove("qz-answering"); }
   const foot = document.querySelector(".qz-footer"); if (foot) foot.style.display = "none";
   const stage = document.getElementById("qzStage"); stage.innerHTML = "";
+  qzFinrevBarClear();
   const card = qzEl("div", "qz-card qz-enter");
   /* F-D: the lesson title is the FIRST line of the learning (entry) view,
      above the set choices. Previously no lesson title was shown here at
@@ -7493,21 +7552,45 @@ function qzSkillDiag() {
     return { skill: s, att: a.att, err: a.err, rate: rate, weak: a.att >= 4 && rate >= 0.5 && a.err >= 3 };
   });
 }
+/* Fix2: diagnosis COLLAPSED by default. Only the toggle row is visible
+   until tapped. Fix3 item 5: expanded state shows one 答對 X/Y summary
+   per type, with a 練同類 side button only on weak rows. No per-question
+   list lives here (see qzFinishCard). */
+/* Fix3 item 5: expanded diagnosis shows ONLY one summary per attempted
+   type — skill + 答對 X/Y computed from actual set results (X = attempted
+   minus items-with-errors, Y = attempted; scored items only, same
+   qzSkillDiag aggregation and weak definition as before). Weak rows carry
+   a 練同類 side button BESIDE the row text; good rows have no button and
+   no extra detail. No wrong-question list, no unfinished list, no
+   要加強/留意 rows here. The button calls the unchanged qzStartPractice
+   (same lesson's sets, same skill, cap 10). Collapsed by default. */
 function qzSkillDiagEl() {
-  const rows = qzSkillDiag().filter(r => r.err > 0);
+  const rows = qzSkillDiag();
   if (!rows.length) return null;
   const wrap = qzEl("div", "qz-diag");
-  wrap.appendChild(qzEl("div", "qz-diag-head", "本事診斷（試驗版）："));
+  const toggle = qzEl("button", "qz-diag-toggle", "本事診斷（試驗版）　展開 ▼");
+  toggle.setAttribute("aria-expanded", "false");
+  const body = qzEl("div", "qz-diag-body");
+  body.style.display = "none";
   rows.forEach(r => {
     const line = qzEl("div", "qz-diag-row " + (r.weak ? "weak" : "watch"));
-    line.textContent = r.weak ? "要加強：" + r.skill + "（" + r.err + "/" + r.att + " 題出錯）" : "留意：" + r.skill + "（錯 " + r.err + " 題）";
-    wrap.appendChild(line);
+    line.appendChild(qzEl("span", "qz-diag-sum", r.skill + "：答對 " + (r.att - r.err) + "/" + r.att));
     if (r.weak) {
-      const b = qzEl("button", "qz-btn", "練同類：" + r.skill + " ▶");
+      const b = qzEl("button", "qz-btn qz-diag-practice", "練同類 ▶");
+      b.setAttribute("aria-label", "練同類：" + r.skill);
       b.addEventListener("click", () => qzStartPractice(r.skill));
-      wrap.appendChild(b);
+      line.appendChild(b);
     }
+    body.appendChild(line);
   });
+  toggle.addEventListener("click", () => {
+    const open = body.style.display === "none";
+    body.style.display = open ? "" : "none";
+    toggle.textContent = open ? "本事診斷（試驗版）　收起 ▲" : "本事診斷（試驗版）　展開 ▼";
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+  wrap.appendChild(toggle);
+  wrap.appendChild(body);
   return wrap;
 }
 function qzStartPractice(skill) {
@@ -8191,6 +8274,41 @@ function qzYourAnswer(item) {
   }
   return null;
 }
+/* Fix3: compact one-line wrong-pick renderer for the collapsed list view.
+   Returns null whenever there is no captured pick: old saved progress and
+   unfinished/skipped items (never wrong) show NO ✗ line and NO fabricated
+   pick. Draw/reveal never set a pick, so they also show no ✗ line.
+   Match/drag/order are summarised on one line here; their full pair boxes
+   (qzYourAnswer) appear only inside the expanded detail. */
+function qzYourAnswerCompact(item) {
+  const wp = item._wrongPick; if (!wp) return null;
+  if (item.type === "draw" || item.type === "reveal") return null;
+  if (wp.type === "mc") return qzEl("div", "qz-finrev-wrongline", "\u2717 \u4f60\u7684\u7b54\u6848\uff1a\u300c" + wp.picked + "\u300d");
+  if (wp.type === "imgmc") return qzEl("div", "qz-finrev-wrongline", "\u2717 \u4f60\u7684\u7b54\u6848\uff1a" + wp.picked);
+  if (wp.type === "match" && wp.pairs) {
+    const parts = Object.keys(wp.pairs).map(k => k + "\u2192" + wp.pairs[k]);
+    if (!parts.length) return null;
+    return qzEl("div", "qz-finrev-wrongline", "\u2717 \u4f60\u7684\u7b54\u6848\uff1a" + parts.join("\uff1b"));
+  }
+  if (wp.type === "drag" && wp.placed) {
+    const parts = Object.keys(wp.placed).map(k => k + "\u2192" + wp.placed[k]);
+    if (!parts.length) return null;
+    return qzEl("div", "qz-finrev-wrongline", "\u2717 \u4f60\u7684\u7b54\u6848\uff1a" + parts.join("\uff1b"));
+  }
+  if (wp.type === "order" && wp.placed) {
+    return qzEl("div", "qz-finrev-wrongline", "\u2717 \u4f60\u7684\u7b54\u6848\uff1a" + wp.placed.map(p => String(p).trim()).join(" \u2192 "));
+  }
+  if (wp.type === "fill" && wp.filled) {
+    const sent = item.segs.map((t, i) => t + (i < wp.filled.length ? wp.filled[i] : "")).join("");
+    return qzEl("div", "qz-finrev-wrongline", "\u2717 \u4f60\u7684\u7b54\u6848\uff1a\u300c" + sent + "\u300d");
+  }
+  return null;
+}
+/* Fix1: the redo bar lives as #quizModal chrome (see .qz-finrev-bar),
+   so it is NOT removed when the stage is cleared. Every render, entry
+   screen and quiz close removes any stale bar first, so exactly one bar
+   exists and it can never show a previous finish page's count. */
+function qzFinrevBarClear() { document.querySelectorAll(".qz-finrev-bar").forEach(b => b.remove()); }
 function qzFinishReview() {
   const rev = qzItems().filter(it => {
     if (it._wrongKeys && Object.keys(it._wrongKeys).length) return true;
@@ -8203,59 +8321,98 @@ function qzFinishReview() {
   if (!rev.length) return null;
   const sec = qzEl("div", "qz-finrev");
   sec.appendChild(qzEl("h4", null, "📖 錯題同未完成題目回顧"));
-  const scored = qzItems().filter(it => qzMax(it) > 0);
-  const firstOk = scored.filter(it => qzComplete(it) && !(it._wrongKeys && Object.keys(it._wrongKeys).length)).length;
+  /* Fix1 counting: the total is ALL items in the set, not scored-only.
+     The old scored-only total (16) excluded unscored draw/reveal items
+     that the review list DOES include, so first-try (1) + review (17)
+     could never equal the shown total (16). Now first-try + done-no-star
+     + review = total, always: review = wrong-or-unfinished (union),
+     done-no-star = finished unscored items with no wrong history. */
+  const firstOk = qzItems().filter(it => qzMax(it) > 0 && qzComplete(it) && !(it._wrongKeys && Object.keys(it._wrongKeys).length)).length;
+  const _unfSet = new Set(qzFinishUnfinished());
+  const doneNoStar = qzItems().filter(it => qzMax(it) === 0 && !_unfSet.has(it) && !(it._wrongKeys && Object.keys(it._wrongKeys).length)).length;
   const sum = qzEl("div", "qz-finrev-sum");
-  sum.appendChild(qzEl("div", "qz-finrev-sumline", "✅ 第一次就答啱 " + firstOk + " 題 / 總共 " + scored.length + " 題"));
+  sum.appendChild(qzEl("div", "qz-finrev-sumline", "✅ 第一次就答啱 " + firstOk + " 題 / 總共 " + qzItems().length + " 題"));
+  if (doneNoStar) sum.appendChild(qzEl("div", null, "另外 " + doneNoStar + " 題已完成，不計首次星星。"));
   sum.appendChild(qzEl("div", null, "下面只係錯題同未完成題目（" + rev.length + " 題），唔係全部題目。"));
   if (qzSetName === "single" || qzSetName === "practice" || qzSetName === "retry") sum.appendChild(qzEl("div", null, "練習模式：呢版唔計首次星星，⭐ 0 唔代表全部錯。"));
   sec.appendChild(sum);
   const sel = new Set(rev.map((it, i) => i));
   const allRow = qzEl("div", "qz-finrev-allrow");
-  const allBtn = qzEl("button", "qz-btn alt", "取消全選");
-  allRow.appendChild(allBtn);
-  allRow.appendChild(qzEl("div", "qz-finrev-allnote", "預設全部已選，剔走唔想重做嘅題，再㩒「重做已選」。"));
+  const allChk = qzEl("button", "qz-finrev-allchk on", "☑");
+  allChk.setAttribute("aria-label", "全選或取消全選");
+  allChk.setAttribute("aria-checked", "true");
+  const allLabel = qzEl("span", "qz-finrev-alllabel", "全選");
+  allRow.appendChild(allChk);
+  allRow.appendChild(allLabel);
+  allRow.appendChild(qzEl("div", "qz-finrev-allnote", "預設已全選，取消不需要重做的題目，再按「重做已選」。"));
   sec.appendChild(allRow);
-  const bulkBtn = qzEl("button", "qz-btn", "重做已選（" + rev.length + " 題）");
+  /* Fix1: the button text is derived from the selection itself, and
+     sync() runs BEFORE the bar is attached to the document, so the first
+     paint already shows the all-selected count — no 0-then-N flip. */
+  const bulkBtn = qzEl("button", "qz-btn", "重做已選（" + sel.size + " 題）");
   const revBoxes = [];
   function sync() {
-    allBtn.textContent = sel.size === rev.length ? "取消全選" : "全選";
+    const allOn = sel.size === rev.length;
+    allChk.textContent = allOn ? "☑" : "☐";
+    allChk.classList.toggle("on", allOn);
+    allChk.setAttribute("aria-checked", allOn ? "true" : "false");
     bulkBtn.textContent = "重做已選（" + sel.size + " 題）";
     bulkBtn.disabled = sel.size === 0;
     revBoxes.forEach((b, i) => {
       const on = sel.has(i);
-      b.classList.toggle("sel", on);
-      const cb = b.querySelector(".qz-finrev-chk"); if (cb) cb.checked = on;
-      const st = b.querySelector(".qz-finrev-selstate"); if (st) st.textContent = on ? "✓ 已選" : "未選";
+      const cb = b.querySelector(".qz-finrev-cb"); if (cb) { cb.textContent = on ? "☑" : "☐"; cb.classList.toggle("on", on); cb.setAttribute("aria-checked", on ? "true" : "false"); }
     });
   }
-  allBtn.addEventListener("click", () => { if (sel.size === rev.length) sel.clear(); else rev.forEach((it, i) => sel.add(i)); sync(); });
+  const _toggleAll = () => { if (sel.size === rev.length) sel.clear(); else rev.forEach((it, i) => sel.add(i)); sync(); };
+  allChk.addEventListener("click", _toggleAll);
+  allLabel.addEventListener("click", _toggleAll);
   rev.forEach((it, ri) => {
-    const box = qzEl("div", "qz-finrev-item qz-retryable sel");
-    box.title = "㩒呢度揀／取消揀呢題重做";
+    const box = qzEl("div", "qz-finrev-item qz-retryable");
+    box.title = "按問題展開詳情，按其他位置選擇或取消選擇此題重做";
+    /* Fix2: ONE square checkbox on the LEFT of the card (56px tap target).
+       Card tap toggles selection; the checkbox reflects it via sync(). */
+    const cb = qzEl("button", "qz-finrev-cb on", "☑");
+    cb.setAttribute("aria-label", "選擇此題重做");
+    cb.setAttribute("aria-checked", "true");
+    cb.addEventListener("click", (e) => { e.stopPropagation(); if (sel.has(ri)) sel.delete(ri); else sel.add(ri); sync(); });
+    box.appendChild(cb);
+    const main = qzEl("div", "qz-finrev-main");
+    box.appendChild(main);
     const head = qzEl("div", "qz-finrev-headrow");
-    const cb = qzEl("input", "qz-finrev-chk"); cb.type = "checkbox"; cb.checked = true; cb.setAttribute("aria-label", "揀呢題重做");
-    cb.addEventListener("click", (e) => { e.stopPropagation(); });
-    cb.addEventListener("change", () => { if (cb.checked) sel.add(ri); else sel.delete(ri); sync(); });
-    head.appendChild(cb);
     head.appendChild(qzEl("span", "qz-finrev-qnum", "第 " + (qzItems().indexOf(it) + 1) + " 題"));
     const tg = qzFinrevTag(it); if (tg) head.appendChild(qzEl("span", "qz-finrev-tag", tg));
-    box.appendChild(head);
-    box.appendChild(qzEl("div", "qz-finrev-q", it.q || "練習題"));
-    const ya = qzYourAnswer(it); if (ya) box.appendChild(ya);
-    const cr = qzCorrectResult(it); if (cr) box.appendChild(cr);
+    main.appendChild(head);
+    /* Fix3: collapsed list shows the question only, plus the one-line ✗
+       wrong-pick line when a wrong pick was actually captured. The correct
+       answer, explanation/speaker line and full wrong-pair boxes move into
+       the expandable detail below (option (a)): tapping the question
+       expands/collapses that card only, with stopPropagation so it never
+       toggles the checkbox; tapping the checkbox or any other part of the
+       card still toggles selection. */
+    const qEl = qzEl("div", "qz-finrev-q qz-finrev-qexp", it.q || "練習題");
+    qEl.setAttribute("role", "button");
+    qEl.setAttribute("aria-expanded", "false");
+    main.appendChild(qEl);
+    const yaC = qzYourAnswerCompact(it); if (yaC) main.appendChild(yaC);
+    const detail = qzEl("div", "qz-finrev-detail");
+    if (it._wrongPick && (it._wrongPick.type === "match" || it._wrongPick.type === "drag" || it._wrongPick.type === "order")) { const yaF = qzYourAnswer(it); if (yaF) detail.appendChild(yaF); }
+    const cr = qzCorrectResult(it); if (cr) detail.appendChild(cr);
     if (it.why) {
       const exp = qzEl("div", "qz-finrev-exp");
       const sb = qzSpeakBtn(it.why); if (sb) exp.appendChild(sb);
       const tx = qzEl("span", "qz-finrev-exptxt"); tx.textContent = it.why; exp.appendChild(tx);
-      box.appendChild(exp);
+      detail.appendChild(exp);
     }
+    main.appendChild(detail);
+    qEl.addEventListener("click", (e) => { e.stopPropagation(); const on = detail.classList.toggle("on"); qEl.classList.toggle("on", on); qEl.setAttribute("aria-expanded", on ? "true" : "false"); });
     const foot = qzEl("div", "qz-finrev-foot");
-    foot.appendChild(qzEl("span", "qz-finrev-selstate", "✓ 已選"));
-    const pill = qzEl("button", "qz-redopill", "↻ 重做呢題");
+    /* Single-question action (NOT a multi-select control): kept on the
+       right, separated from the left checkbox, so its tap target can
+       never be mistaken for the selection toggle. See fix2 report. */
+    const pill = qzEl("button", "qz-redopill", "↻ 重做此題");
     pill.addEventListener("click", (e) => { e.stopPropagation(); qzStartSingleRetry(it); });
     foot.appendChild(pill);
-    box.appendChild(foot);
+    main.appendChild(foot);
     box.addEventListener("click", (e) => {
       if (e.target.closest && (e.target.closest("button") || e.target.closest("input"))) return;
       if (sel.has(ri)) sel.delete(ri); else sel.add(ri);
@@ -8267,8 +8424,8 @@ function qzFinishReview() {
   const bulkBar = qzEl("div", "qz-finrev-bar");
   bulkBtn.addEventListener("click", () => { const chosen = rev.filter((it, i) => sel.has(i)); if (chosen.length) qzStartBulkRetry(chosen); });
   bulkBar.appendChild(bulkBtn);
-  sec.appendChild(bulkBar);
   sync();
+  document.getElementById("quizModal").appendChild(bulkBar);
   return sec;
 }
 /* Bulk redo for the finish-review multi-select: same clone rules as
@@ -8295,36 +8452,47 @@ function qzFinishCard() {
   if (!S) return qzEl("div");
   const t = qzTotals();
   const card = qzEl("div", "qz-summary qz-enter");
-  const doneCount = qzItems().filter(it => qzMax(it) > 0 && qzComplete(it)).length;
-  const scoredCount = qzItems().filter(it => qzMax(it) > 0).length;
+  /* Fix1 counting: done/total count ALL items, not scored-only, so the
+     card total matches the review total (and the review list length).
+     done = finished items (any type, whatever the wrong history);
+     unfinished = qzFinishUnfinished(), computed once and reused below. */
+  const _unfAll = qzFinishUnfinished();
+  const doneCount = qzItems().length - _unfAll.length;
+  const totalCount = qzItems().length;
   if (qzSetName === "single") {
     card.appendChild(qzEl("div", null, "🏁 逐題重做完成！（唔加首次星星）"));
-    card.appendChild(qzEl("div", null, "完成咗 " + doneCount + " / " + scoredCount + " 題 — 返去成績頁繼續。"));
+    card.appendChild(qzEl("div", null, "完成咗 " + doneCount + " / " + totalCount + " 題 — 返去成績頁繼續。"));
   } else if (qzSetName === "practice") {
     card.appendChild(qzEl("div", null, "🏁 練同類完成！（練習模式，唔再加星）"));
-    card.appendChild(qzEl("div", null, "完成咗 " + doneCount + " / " + scoredCount + " 題 — 返去成績頁繼續。"));
+    card.appendChild(qzEl("div", null, "完成咗 " + doneCount + " / " + totalCount + " 題 — 返去成績頁繼續。"));
   } else if (qzSetName === "retry") {
     card.appendChild(qzEl("div", null, "🏁 錯題再練完成！（練習模式，唔再加星）"));
-    card.appendChild(qzEl("div", null, "完成咗 " + doneCount + " / " + scoredCount + " 題錯題 — 返去原本嗰版，錯題會標住「已再練 ✓」。"));
+    card.appendChild(qzEl("div", null, "完成咗 " + doneCount + " / " + totalCount + " 題錯題 — 返去原本嗰版，錯題會標住「已再練 ✓」。"));
   } else {
-    card.appendChild(qzEl("div", null, "🏁 " + S.label + "完成！"));
-    card.appendChild(qzEl("div", null, "⭐ " + qzStars() + " 粒星（首次答啱）・✅ 完成 " + doneCount + " / " + scoredCount + " 題"));
+    /* Fix1 wording: "完成" only when nothing is unfinished. A set stopped
+       with skipped items says 未做完, never 完成. */
+    card.appendChild(qzEl("div", null, _unfAll.length ? "🏁 " + S.label + "未做完" : "🏁 " + S.label + "完成！"));
+    card.appendChild(qzEl("div", null, "⭐ " + qzStars() + " 粒星（首次答啱）・✅ 完成 " + doneCount + " / " + totalCount + " 題"));
   }
   const wrong = S._wrong || [];
   try { localStorage.setItem(qzBase() + ":" + qzSetName, JSON.stringify({ stars: qzStars(), score: t[0], total: t[1], wrong: wrong, at: new Date().toISOString() })); } catch (e) {}
   qzSkillSummary(card);
   if (qzDiagOn) { const _dg = qzSkillDiagEl(); if (_dg) card.appendChild(_dg); }
-  if (wrong.length) {
-    card.appendChild(qzEl("div", null, "首次答錯（之後改啱都好叻）— 呢啲係「要再練」清單："));
-    wrong.forEach(w => {
-      const it = qzItems().find(x => w === x.label || w.indexOf(x.label + "：") === 0);
-      card.appendChild(qzEl("div", null, "・" + w + (it && it._retried ? "（已再練 ✓）" : "")));
-    });
-  } else card.appendChild(qzEl("div", null, "🎉 全部第一次就答啱，勁！"));
-  const _unf = qzFinishUnfinished();
-  if (_unf.length && qzSetName !== "single" && qzSetName !== "practice") {
-    card.appendChild(qzEl("div", null, "未完成（跳過／未做完）— 下面回顧列㩒入去可以逐題重做："));
-    _unf.forEach(it => { card.appendChild(qzEl("div", null, "・" + (it.label || it.q || "練習題") + (it.type === "reveal" && it._skipped ? "（未練）" : ""))); });
+  /* Fix1 counting: the wrong list is item-based (one line per wrong
+     item, not one line per wrong key — a match item wrong on 2 pairs
+     used to print 2 lines), and the unfinished list below shows only
+     unfinished items that were NEVER wrong. Wrong (W) + unfinished-only
+     (U) = review list length, exactly; the old lists double-counted
+     wrong-and-unfinished items in both lists. */
+  const wrongItems = qzItems().filter(it => it._wrongKeys && Object.keys(it._wrongKeys).length);
+  /* Fix2: the per-question wrong list is REMOVED from the summary card.
+     The review section below is the authoritative wrong + unfinished list.
+     (wrongItems is still computed: the next-set button below uses its length.) */
+  if (!wrongItems.length && !_unfAll.length) card.appendChild(qzEl("div", null, "🎉 全部第一次就答啱，勁！"));
+  const _unfOnly = _unfAll.filter(it => !(it._wrongKeys && Object.keys(it._wrongKeys).length));
+  if (_unfOnly.length && qzSetName !== "single" && qzSetName !== "practice") {
+    card.appendChild(qzEl("div", null, "未完成（跳過／未做完，共 " + _unfOnly.length + " 題）— 下面回顧列㩒入去可以逐題重做："));
+    _unfOnly.forEach(it => { card.appendChild(qzEl("div", null, "・" + (it.label || it.q || "練習題") + (it.type === "reveal" && it._skipped ? "（未練）" : ""))); });
   }
   const row = qzEl("div", "qz-row");
   if (wrong.length && qzSetName !== "retry") {
@@ -8346,7 +8514,7 @@ function qzFinishCard() {
   again.addEventListener("click", () => { const from = S._from; qzResetSet(qzSetName); if (qzSetName === "retry") qzSwitchSet(from || "textbook"); else qzGo(0); });
   row.appendChild(again);
   if (qzSetName === "textbook" && QZ.apply) {
-    const nx = qzEl("button", "qz-bigbtn", wrong.length === 0 ? "🎉 挑戰成功！去玩應用題一 ▶" : "➡️ 試下應用題一 ▶");
+    const nx = qzEl("button", "qz-bigbtn", (wrongItems.length === 0 && _unfAll.length === 0) ? "🎉 挑戰成功！去玩應用題一 ▶" : "➡️ 試下應用題一 ▶");
     nx.addEventListener("click", () => qzSwitchSet("apply"));
     card.appendChild(nx);
   }
@@ -8480,7 +8648,7 @@ function qzScratchEl() {
   });
   [pen, ers, und, red, clr].forEach(b => row.appendChild(b));
   const cls = qzEl("button", "qz-scclose-top", "✕ 關閉");
-  cls.addEventListener("click", () => { p.style.display = "none"; if (p._ring) p._ring.style.display = "none"; const t = document.querySelector(".qz-scratchbtn"); if (t) t.classList.remove("on"); const pk = document.querySelector(".qz-peekbtn"); if (pk) pk.style.display = "none"; });
+  cls.addEventListener("click", () => { p.style.display = "none"; if (p._ring) p._ring.style.display = "none"; const t = document.querySelector(".qz-scratchbtn"); if (t) t.classList.remove("on"); const pk = document.querySelector(".qz-peekbtn"); if (pk) { pk.style.visibility = "hidden"; pk.disabled = true; } qzScratchScrollStageIntoView(); });
   p.appendChild(cls);
   p.appendChild(row);
   p._pen = pen; p._ers = ers; p._und = und; p._red = red; p._clr = clr; p._close = cls; p._peek = null; p._stage = stg; p._row = row; p._clearArm = null; p._ring = ring;
@@ -8538,7 +8706,22 @@ function qzScratchPeekReset() {
   if (p._close) p._close.style.display = "";
   if (p._peek) p._peek.textContent = "👀 睇題目";
 }
-function qzScratchToggle() { const p = qzScratchEl(); const wasOpen = qzScratchOpen(); p.style.display = wasOpen ? "none" : "block"; if (wasOpen) qzScratchPeekReset(); if (!wasOpen) qzScratchScrollStageIntoView(); if (!wasOpen && p._ring) p._ring.style.display = "none"; if (!wasOpen) qzScratchRailCheck(); }
+/* Bug 6 fix (fix1b): opening scratch scrolls the WHOLE panel into view
+   (canvas + close pill + tools row), not just the question card. The old
+   open path called qzScratchScrollStageIntoView, which left the panel
+   bottom (tools row) below the fold on a tall match card at 390px. The
+   panel stays in flow below the card (never overlaid on it); the card
+   scrolls partly out of view but stays intact above, and peek (睇題目)
+   jumps back to it. */
+function qzScratchScrollPanelIntoView() {
+  const p = document.getElementById("qzScratch");
+  const wrap = document.querySelector(".qz-wrap");
+  if (!p || !wrap || p.style.display === "none" || p.style.display === "") return;
+  const wr = wrap.getBoundingClientRect(), pr = p.getBoundingClientRect();
+  if (pr.bottom > wr.bottom) wrap.scrollTop += (pr.bottom - wr.bottom) + 4;
+  else if (pr.top < wr.top) wrap.scrollTop -= (wr.top - pr.top) + 4;
+}
+function qzScratchToggle() { const p = qzScratchEl(); const wasOpen = qzScratchOpen(); p.style.display = wasOpen ? "none" : "block"; if (wasOpen) { qzScratchPeekReset(); qzScratchScrollStageIntoView(); } if (!wasOpen && p._ring) p._ring.style.display = "none"; if (!wasOpen) qzScratchRailCheck(); if (!wasOpen) qzScratchScrollPanelIntoView(); }
 /* Redesign #1 (peek, shared): hides canvas+hint+ring+close-pill, keeps the
    tools row, scrolls the stage into view; toggling back restores the draft
    pixel-identical (strokes live only in module vars + the canvas bitmap;
@@ -8561,7 +8744,7 @@ function qzScratchPeekToggle() {
     if (p._hint) p._hint();
     if (ring) ring.style.display = "none";
     if (p._close) p._close.style.display = "";
-    qzScratchScrollRowIntoView();
+    qzScratchScrollPanelIntoView();
   }
 }
 /* Redesign #3 (iPad rail): the SAME tools-row component, moved by CSS to a
@@ -8618,6 +8801,7 @@ document.getElementById("quizCloseBtn").addEventListener("click", () => {
   qzSpeakGen++;
   qzScratchClear();
   document.getElementById("quizModal").style.display = "none";
+  qzFinrevBarClear();
   document.body.style.overflow = "";
   if (window.speechSynthesis) try { speechSynthesis.cancel(); } catch (e) {}
 });
