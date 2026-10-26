@@ -1,7 +1,7 @@
 {
   "service": "daughter-school",
   "student": "琳琳 2A",
-  "updated": "2026-10-26T15:00:07.743589+00:00",
+  "updated": "2026-10-26T22:29:38.850376+00:00",
   "homework": [
     {
       "key": "HUM_VIDEO_1",
@@ -12,7 +12,7 @@
       "subject_en": "Humanities",
       "title_en": "Humanities Video Task 1",
       "due_display": "10月31日 (六)",
-      "days_left": 5
+      "days_left": 4
     }
   ],
   "upcoming": [
@@ -26,7 +26,7 @@
       "subject_en": "Chinese",
       "title_en": "Chinese Dictation",
       "date_display": "10月28日 (三)",
-      "days_left": 2
+      "days_left": 1
     },
     {
       "key": "CHI_PROGRESS_1",
@@ -39,7 +39,7 @@
       "subject_en": "Chinese",
       "title_en": "Chinese Formative Assessment",
       "date_display": "11月5日 (四)",
-      "days_left": 10
+      "days_left": 9
     },
     {
       "key": "ENG_DICT_3",
@@ -52,7 +52,7 @@
       "subject_en": "English",
       "title_en": "English Dictation 3",
       "date_display": "11月6日 (五)",
-      "days_left": 11
+      "days_left": 10
     },
     {
       "key": "ASSESS_1_CHI",
@@ -65,23 +65,13 @@
       "subject_en": "Chinese",
       "title_en": "Assessment 1 · Chinese (Reading + Writing)",
       "date_display": "11月19日 (四)",
-      "days_left": 24
+      "days_left": 23
     }
   ],
   "notices": {
-    "new_count": 1,
-    "latest_title": "Star Miracle頒獎禮通告",
-    "latest_date": "2026-10-26",
-    "items": [
-      {
-        "key": "NOTICE_STAR_MIRACLE",
-        "code": "eClass",
-        "title": "Star Miracle頒獎禮通告",
-        "brief": "Star Miracle頒獎禮（回條未簽）",
-        "deadline": "2026-10-26",
-        "deadline_display": "10月26日 (一)",
-        "days_left": 0
-      }
-    ]
+    "new_count": 0,
+    "latest_title": "",
+    "latest_date": "",
+    "items": []
   }
 }
