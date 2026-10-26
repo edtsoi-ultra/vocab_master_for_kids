@@ -1,7 +1,7 @@
 {
   "service": "daughter-school-detail",
   "student": "琳琳 2A",
-  "updated": "2026-10-26T12:19:11.279953+00:00",
+  "updated": "2026-10-26T13:01:10.940748+00:00",
   "homework": [
     {
       "key": "HUM_VIDEO_1",
@@ -1433,16 +1433,28 @@
       "quiz": {
         "lessons": [
           {
+            "id": "chi_l1",
+            "n": 1,
+            "title": "到海邊去",
+            "status": "preview"
+          },
+          {
+            "id": "chi_l2",
+            "n": 2,
+            "title": "植樹",
+            "status": "preview"
+          },
+          {
             "id": "chi_l3",
             "n": 3,
             "title": "心中的鈴鐺",
             "status": "live"
           },
           {
+            "id": "chi_l7",
             "n": 7,
             "status": "preview",
-            "note": "",
-            "id": "chi_l7"
+            "note": ""
           }
         ]
       },
