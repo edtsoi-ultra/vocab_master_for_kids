@@ -1542,7 +1542,12 @@ const TRIAL_QUIZ_ENTRIES = {
   ASSESS_1_CHI: { lessons: [{ id: "chi_l1", n: 1, title: "到海邊去", status: "preview" }, { id: "chi_l2", n: 2, title: "植樹", status: "preview" }, { id: "chi_l3", n: 3, title: "心中的鈴鐺", status: "live" }, { id: "chi_l7", n: 7, status: "preview", note: "" }] },
   ASSESS_1_ENG: { lessons: [{ id: "eng_u1", label: "Unit 1 · Shop around", status: "live" }, { id: "eng_u2", label: "Unit 2 · Weekend fun", status: "live" }, { id: "eng_u3", label: "Unit 3 · My school", status: "live" }, { id: "eng_u4", label: "Unit 4 · Who's the thief?", status: "live" }] },
   ASSESS_1_MATH: { lessons: [{ id: "math_u1", label: "單元一 三位數（第1-2課）", status: "live" }, { id: "math_u2", label: "單元二 加法和減法（第3-6課）", status: "live" }, { id: "math_u3", label: "單元三 角和垂直線（第7-9課）", status: "live" }, { id: "math_u4", label: "單元四 米（第10-11課）", status: "live" }] },
-  ASSESS_1_SCI: { lessons: [{ id: "sci_l1", label: "第1課 生物和非生物（單元一 動物和植物）", status: "live" }, { id: "sci_l2", label: "第2課 觀察動物（單元一 動物和植物）", status: "live" }, { id: "sci_l3", label: "第3課 動手種植物（單元一 動物和植物）", status: "live" }] }
+  ASSESS_1_SCI: { lessons: [{ id: "sci_l1", label: "第1課 生物和非生物（單元一 動物和植物）", status: "live" }, { id: "sci_l2", label: "第2課 觀察動物（單元一 動物和植物）", status: "live" }, { id: "sci_l3", label: "第3課 動手種植物（單元一 動物和植物）", status: "live" }] },
+  HW_ENG_U1: { lessons: [{ id: "eng_hw_u1", label: "Unit 1 · Shop around（功課練習）", status: "live" }] },
+  HW_ENG_U2: { lessons: [{ id: "eng_hw_u2", label: "Unit 2 · Weekend fun（功課練習）", status: "live" }] },
+  HW_ENG_U3: { lessons: [{ id: "eng_hw_u3", label: "Unit 3 · My school（功課練習）", status: "live" }] },
+  HW_ENG_U4: { lessons: [{ id: "eng_hw_u4", label: "Unit 4 · Who's the thief?（功課練習）", status: "live" }] },
+  HW_HUM: { lessons: [{ id: "hum_hw", label: "人文（功課練習）", status: "live" }] },
 };
 function applyTrialQuizEntries(item) { if (item && TRIAL_QUIZ_ENTRIES[item.key]) item.quiz = TRIAL_QUIZ_ENTRIES[item.key]; }
 fetch("school-detail.json?t=" + Date.now())
@@ -10375,7 +10380,1179 @@ const QZ_SCI_L3 = {
     ]
   }
 };
-const QZ_LESSONS = { chi_l1: QZ_L1, chi_l2: QZ_L2, chi_l3: QZ_L3, chi_l4: QZ_L4, chi_l5: QZ_L5, chi_l6: QZ_L6, chi_l7: QZ_L7, eng_u1: QZ_ENG_U1, eng_u2: QZ_ENG_U2, eng_u3: QZ_ENG_U3, eng_u4: QZ_ENG_U4, eng_u14: QZ_ENG, eng_paper: QZ_ENGPAPER, math_u1: QZ_MATH_U1, math_u2: QZ_MATH_U2, math_u3: QZ_MATH_U3, math_u4: QZ_MATH_U4, math_a1: QZ_MATH, sci_l1: QZ_SCI_L1, sci_l2: QZ_SCI_L2, sci_l3: QZ_SCI_L3, sci_a1: QZ_SCI };
+const QZ_ENG_HW_U1 = {
+  "apply": {
+    "label": "文法練習",
+    "items": [
+      {
+        "ans": 0,
+        "hint": "💡 A question starts with Is there.",
+        "label": "Is there a park?",
+        "opts": [
+          "Is there a park?",
+          "There is a park.",
+          "Is the park?",
+          "Park there is?"
+        ],
+        "q": "Ask about a park:",
+        "skill": "U1 Grammar",
+        "tag": "MC・Grammar",
+        "type": "mc",
+        "why": "We ask with Is there a park?",
+        "wrongWhy": "Is there comes first in the question."
+      },
+      {
+        "ans": 2,
+        "hint": "💡 Is there pairs with there is.",
+        "label": "Yes, there is.",
+        "opts": [
+          "there are",
+          "it is",
+          "there is",
+          "there not"
+        ],
+        "q": "Answer: Yes, ( ).",
+        "skill": "U1 Grammar",
+        "tag": "MC・Grammar",
+        "type": "mc",
+        "why": "The short answer is Yes, there is.",
+        "wrongWhy": "There is matches Is there."
+      },
+      {
+        "ans": 0,
+        "hint": "💡 The map shows the fire station beside the supermarket.",
+        "label": "next to the supermarket",
+        "opts": [
+          "next to the supermarket",
+          "behind the fire station",
+          "in front of the bank",
+          "in the library"
+        ],
+        "q": "Where is the fire station?",
+        "skill": "U1 Grammar",
+        "tag": "MC・Grammar",
+        "type": "mc",
+        "why": "The fire station is next to the supermarket.",
+        "wrongWhy": "The map shows the fire station beside the supermarket."
+      },
+      {
+        "ans": "The fire station is next to the supermarket.",
+        "hint": "💡 Start with the place, then is, then where.",
+        "label": "fire station sentence",
+        "parts": [
+          "The fire station ",
+          "is ",
+          "next to the supermarket",
+          "."
+        ],
+        "q": "Put the words in order.",
+        "shuffled": [
+          "next to the supermarket",
+          "The fire station ",
+          ".",
+          "is "
+        ],
+        "skill": "U1 Grammar",
+        "tag": "Order・Sentence",
+        "type": "order",
+        "why": "The fire station is next to the supermarket.",
+        "wrongWhy": "The place comes first, then is, then the position."
+      }
+    ]
+  },
+  "challenge": {
+    "label": "閱讀理解",
+    "items": [
+      {
+        "ans": 2,
+        "hint": "💡 The talk names the park Joyful Park.",
+        "label": "Joyful Park",
+        "opts": [
+          "Happy Park",
+          "Sunshine Park",
+          "Joyful Park",
+          "Rainbow Park"
+        ],
+        "q": "What is the name of the park?",
+        "skill": "U1 Reading",
+        "tag": "MC・Reading",
+        "type": "mc",
+        "why": "Daniel says: Joyful Park is big!",
+        "wrongWhy": "The talk names the park Joyful Park."
+      },
+      {
+        "ans": 3,
+        "hint": "💡 Daniel says Andy is playing on the swing.",
+        "label": "Andy on the swings",
+        "opts": [
+          "reading a book",
+          "riding a scooter",
+          "playing on a slide",
+          "playing on the swings"
+        ],
+        "q": "What is Andy doing?",
+        "skill": "U1 Reading",
+        "tag": "MC・Reading",
+        "type": "mc",
+        "why": "Andy is playing on the swing.",
+        "wrongWhy": "The talk says Andy is playing on the swing, not reading a book."
+      },
+      {
+        "ans": 0,
+        "hint": "💡 The lady says the hospital is behind the church.",
+        "label": "behind the church",
+        "opts": [
+          "behind",
+          "in front of",
+          "next to",
+          "far away from"
+        ],
+        "q": "Hospital is ( ) the church.",
+        "skill": "U1 Reading",
+        "tag": "MC・Reading",
+        "type": "mc",
+        "why": "The hospital is behind the church.",
+        "wrongWhy": "The lady says the hospital is behind the church."
+      },
+      {
+        "ans": 2,
+        "hint": "💡 Ryan names Sha Tin at the end.",
+        "label": "Sha Tin",
+        "opts": [
+          "Tai Po",
+          "Sai Kung",
+          "Sha Tin",
+          "Ma On Shan"
+        ],
+        "q": "Where does Ryan want to go?",
+        "skill": "U1 Reading",
+        "tag": "MC・Reading",
+        "type": "mc",
+        "why": "Ryan says: I want to go to Sha Tin.",
+        "wrongWhy": "Ryan wants to go to Sha Tin."
+      }
+    ]
+  },
+  "textbook": {
+    "label": "詞語練習",
+    "items": [
+      {
+        "ans": [
+          "cake shop"
+        ],
+        "bank": [
+          "bank",
+          "cake shop",
+          "park",
+          "cinema"
+        ],
+        "hint": "💡 A cake shop sells cakes.",
+        "label": "cake shop",
+        "q": "Fill in the blank: cake.",
+        "segs": [
+          "I buy a birthday cake for my friend Ken in a ",
+          "."
+        ],
+        "skill": "U1 Vocabulary",
+        "tag": "Fill",
+        "type": "fill",
+        "why": "We buy a birthday cake in a cake shop.",
+        "wrongWhy": "A bank keeps money. A cake shop sells cakes."
+      },
+      {
+        "ans": [
+          "fire station"
+        ],
+        "bank": [
+          "cinema",
+          "bank",
+          "fire station",
+          "post office"
+        ],
+        "hint": "💡 Firefighters put out fires.",
+        "label": "fire station",
+        "q": "Fill in the blank: fire.",
+        "segs": [
+          "Firefighters work in a ",
+          "."
+        ],
+        "skill": "U1 Vocabulary",
+        "tag": "Fill",
+        "type": "fill",
+        "why": "Firefighters work in a fire station.",
+        "wrongWhy": "Firefighters help put out fires from a fire station."
+      },
+      {
+        "ans": [
+          "cinema"
+        ],
+        "bank": [
+          "clinic",
+          "bank",
+          "restaurant",
+          "cinema"
+        ],
+        "hint": "💡 A cinema shows movies.",
+        "label": "cinema",
+        "q": "Fill in the blank: film.",
+        "segs": [
+          "We watch a movie in a ",
+          " this Saturday."
+        ],
+        "skill": "U1 Vocabulary",
+        "tag": "Fill",
+        "type": "fill",
+        "why": "We watch a movie in a cinema.",
+        "wrongWhy": "A clinic is for doctors. A cinema shows movies."
+      },
+      {
+        "ans": [
+          "post office"
+        ],
+        "bank": [
+          "park",
+          "cinema",
+          "post office",
+          "bank"
+        ],
+        "hint": "💡 A post office sells stamps.",
+        "label": "post office",
+        "q": "Fill in the blank: stamps.",
+        "segs": [
+          "People buy stamps in a ",
+          "."
+        ],
+        "skill": "U1 Vocabulary",
+        "tag": "Fill",
+        "type": "fill",
+        "why": "People buy stamps in a post office.",
+        "wrongWhy": "A bank keeps money. A post office sells stamps."
+      }
+    ]
+  }
+};
+const QZ_ENG_HW_U2 = {
+  "apply": {
+    "label": "文法練習",
+    "items": [
+      {
+        "ans": 0,
+        "hint": "💡 Grandpa is one person, so use is.",
+        "label": "is reading",
+        "opts": [
+          "is reading",
+          "are reading",
+          "am reading",
+          "reads"
+        ],
+        "q": "Grandpa ( ) in the library.",
+        "skill": "U2 Grammar",
+        "tag": "MC・Grammar",
+        "type": "mc",
+        "why": "Grandpa is reading in the library.",
+        "wrongWhy": "One person takes is, not are."
+      },
+      {
+        "ans": 2,
+        "hint": "💡 Two people take are.",
+        "label": "are chatting",
+        "opts": [
+          "is chatting",
+          "am chatting",
+          "are chatting",
+          "chatting"
+        ],
+        "q": "Mum and Tom ( ) on the bench.",
+        "skill": "U2 Grammar",
+        "tag": "MC・Grammar",
+        "type": "mc",
+        "why": "Mum and Tom are chatting on the bench.",
+        "wrongWhy": "Mum and Tom are two people, so use are."
+      },
+      {
+        "ans": 1,
+        "hint": "💡 A red light means stop.",
+        "label": "must not cross",
+        "opts": [
+          "must",
+          "must not",
+          "must be",
+          "not must"
+        ],
+        "q": "You ( ) cross on red.",
+        "skill": "U2 Grammar",
+        "tag": "MC・Grammar",
+        "type": "mc",
+        "why": "You must not cross the road when the red light is on.",
+        "wrongWhy": "On a red light, you must not cross."
+      },
+      {
+        "ans": [
+          "doing"
+        ],
+        "bank": [
+          "do",
+          "did",
+          "doing",
+          "does"
+        ],
+        "hint": "💡 After are, use doing.",
+        "label": "doing",
+        "q": "Fill in the blank: doing.",
+        "segs": [
+          "What are you ",
+          "?"
+        ],
+        "skill": "U2 Grammar",
+        "tag": "Fill",
+        "type": "fill",
+        "why": "What are you doing? is the correct question.",
+        "wrongWhy": "Are pairs with doing, not do."
+      }
+    ]
+  },
+  "challenge": {
+    "label": "閱讀理解",
+    "items": [
+      {
+        "ans": 0,
+        "hint": "💡 Brian tells Julia he is in the countryside.",
+        "label": "in the countryside",
+        "opts": [
+          "in the countryside",
+          "in the park",
+          "at school",
+          "in the supermarket"
+        ],
+        "q": "Where is Brian?",
+        "skill": "U2 Reading",
+        "tag": "MC・Reading",
+        "type": "mc",
+        "why": "Brian is in the countryside with his family.",
+        "wrongWhy": "Brian says he is in the countryside, not the park."
+      },
+      {
+        "ans": 2,
+        "hint": "💡 Brian says his mum and aunt are dancing.",
+        "label": "dancing",
+        "opts": [
+          "cooking",
+          "eating",
+          "dancing",
+          "lying down"
+        ],
+        "q": "Brian's mum is ( ).",
+        "skill": "U2 Reading",
+        "tag": "MC・Reading",
+        "type": "mc",
+        "why": "Brian's mum and aunt are dancing.",
+        "wrongWhy": "Brian says his mum and aunt are dancing."
+      },
+      {
+        "ans": 1,
+        "hint": "💡 Leo tells Jason he is drawing.",
+        "label": "drawing a picture",
+        "opts": [
+          "reading a book",
+          "drawing a picture",
+          "playing basketball",
+          "making puppets"
+        ],
+        "q": "What is Leo doing?",
+        "skill": "U2 Reading",
+        "tag": "MC・Reading",
+        "type": "mc",
+        "why": "Leo says: I am drawing a picture.",
+        "wrongWhy": "Leo is drawing a picture."
+      },
+      {
+        "ans": 3,
+        "hint": "💡 Leo says: He is my brother.",
+        "label": "Leo's brother",
+        "opts": [
+          "Jason's brother",
+          "Leo's father",
+          "Jason's father",
+          "Leo's brother"
+        ],
+        "q": "Who is Joe?",
+        "skill": "U2 Reading",
+        "tag": "MC・Reading",
+        "type": "mc",
+        "why": "Joe is Leo's brother.",
+        "wrongWhy": "Leo says Joe is his brother."
+      }
+    ]
+  },
+  "textbook": {
+    "label": "詞語練習",
+    "items": [
+      {
+        "ans": [
+          "chat"
+        ],
+        "bank": [
+          "run",
+          "chat",
+          "skip",
+          "swim"
+        ],
+        "hint": "💡 Chat means talk with family.",
+        "label": "chat",
+        "q": "Fill in the blank: chat.",
+        "segs": [
+          "We ",
+          " and dance at the picnic."
+        ],
+        "skill": "U2 Vocabulary",
+        "tag": "Fill",
+        "type": "fill",
+        "why": "We chat and dance at the picnic.",
+        "wrongWhy": "At the picnic, the family chats and dances."
+      },
+      {
+        "ans": [
+          "take photos"
+        ],
+        "bank": [
+          "run",
+          "swim",
+          "take photos",
+          "ride a scooter"
+        ],
+        "hint": "💡 A camera is for taking photos.",
+        "label": "take photos",
+        "q": "Fill in the blank: photos.",
+        "segs": [
+          "My sisters ",
+          "."
+        ],
+        "skill": "U2 Vocabulary",
+        "tag": "Fill",
+        "type": "fill",
+        "why": "My sisters take photos.",
+        "wrongWhy": "The sisters have a camera, so they take photos."
+      },
+      {
+        "ans": [
+          "ride a bicycle"
+        ],
+        "bank": [
+          "skip",
+          "chat",
+          "swim",
+          "ride a bicycle"
+        ],
+        "hint": "💡 A bicycle is for riding.",
+        "label": "ride a bicycle",
+        "q": "Fill in the blank: bicycle.",
+        "segs": [
+          "I ",
+          " at the park."
+        ],
+        "skill": "U2 Vocabulary",
+        "tag": "Fill",
+        "type": "fill",
+        "why": "I ride a bicycle at the park.",
+        "wrongWhy": "Ben rides a bicycle at the park."
+      }
+    ]
+  }
+};
+const QZ_ENG_HW_U3 = {
+  "apply": {
+    "label": "文法練習",
+    "items": [
+      {
+        "ans": 0,
+        "hint": "💡 Find library in the table, then read its floor.",
+        "label": "third floor",
+        "opts": [
+          "on the third floor",
+          "on the first floor",
+          "on the second floor",
+          "on the fourth floor"
+        ],
+        "q": "Look at the school floor table: 5/F music room, 4/F staffroom, 3/F library, 2/F art room, 1/F school hall, G/F classrooms. Where is the library?",
+        "skill": "U3 Grammar",
+        "tag": "MC・Grammar",
+        "type": "mc",
+        "why": "In the table, the library is on the third floor (3/F).",
+        "wrongWhy": "Look at the library row in the table: it says 3/F, the third floor."
+      },
+      {
+        "ans": 2,
+        "hint": "💡 Check the school floor table.",
+        "label": "first floor",
+        "opts": [
+          "on the third floor",
+          "on the fifth floor",
+          "on the first floor",
+          "on the ground floor"
+        ],
+        "q": "Where is the school hall?",
+        "skill": "U3 Grammar",
+        "tag": "MC・Grammar",
+        "type": "mc",
+        "why": "The school hall is on the first floor.",
+        "wrongWhy": "In the table, the school hall is on the first floor."
+      },
+      {
+        "ans": 1,
+        "hint": "💡 Classrooms is plural, so use are.",
+        "label": "ground floor",
+        "opts": [
+          "on the first floor",
+          "on the ground floor",
+          "on the second floor",
+          "on the fifth floor"
+        ],
+        "q": "Where are the classrooms?",
+        "skill": "U3 Grammar",
+        "tag": "MC・Grammar",
+        "type": "mc",
+        "why": "The classrooms are on the ground floor.",
+        "wrongWhy": "In the table, the classrooms are on the ground floor."
+      },
+      {
+        "ans": [
+          "draw"
+        ],
+        "bank": [
+          "sing",
+          "draw",
+          "see",
+          "buy"
+        ],
+        "hint": "💡 Pictures go with draw.",
+        "label": "draw",
+        "q": "Fill in the blank: draw.",
+        "segs": [
+          "We can ",
+          " pictures in the art room."
+        ],
+        "skill": "U3 Grammar",
+        "tag": "Fill",
+        "type": "fill",
+        "why": "We can draw pictures in the art room.",
+        "wrongWhy": "We draw pictures, not sing them."
+      },
+      {
+        "ans": [
+          "snacks"
+        ],
+        "bank": [
+          "songs",
+          "lessons",
+          "flowers",
+          "snacks"
+        ],
+        "hint": "💡 A tuck shop sells snacks.",
+        "label": "snacks",
+        "q": "Fill in the blank: snacks.",
+        "segs": [
+          "We can buy ",
+          " in the tuck shop."
+        ],
+        "skill": "U3 Grammar",
+        "tag": "Fill",
+        "type": "fill",
+        "why": "We can buy snacks in the tuck shop.",
+        "wrongWhy": "Snacks are sold in the tuck shop."
+      }
+    ]
+  },
+  "challenge": {
+    "label": "閱讀理解",
+    "items": [
+      {
+        "ans": 0,
+        "hint": "💡 Miss Lam and Miss Leung tell funny stories.",
+        "label": "Story Time",
+        "opts": [
+          "Story Time",
+          "Make Your Cards",
+          "Yummy Sandwiches",
+          "Yummy Cakes"
+        ],
+        "q": "For storybooks, join:",
+        "skill": "U3 Reading",
+        "tag": "MC・Reading",
+        "type": "mc",
+        "why": "Story Time is for storybooks.",
+        "wrongWhy": "Story Time is the storybook activity."
+      },
+      {
+        "ans": 2,
+        "hint": "💡 The poster gives the dates.",
+        "label": "21 December",
+        "opts": [
+          "19 December",
+          "20 December",
+          "21 December",
+          "22 December"
+        ],
+        "q": "Yummy Sandwiches is on:",
+        "skill": "U3 Reading",
+        "tag": "MC・Reading",
+        "type": "mc",
+        "why": "Yummy Sandwiches is on 21 December.",
+        "wrongWhy": "The poster gives 21 December for Yummy Sandwiches."
+      },
+      {
+        "ans": 3,
+        "hint": "💡 Miss Ma practises with them in the music room.",
+        "label": "the music room",
+        "opts": [
+          "the art room",
+          "the classroom",
+          "the playground",
+          "the music room"
+        ],
+        "q": "Rachel and Annie are in:",
+        "skill": "U3 Reading",
+        "tag": "MC・Reading",
+        "type": "mc",
+        "why": "Rachel and Annie are singing in the music room.",
+        "wrongWhy": "They are singing in the music room with Miss Ma."
+      }
+    ]
+  },
+  "textbook": {
+    "label": "詞語練習",
+    "items": [
+      {
+        "ans": [
+          "music room"
+        ],
+        "bank": [
+          "art room",
+          "office",
+          "music room",
+          "library"
+        ],
+        "hint": "💡 Pianos and music notes mean music room.",
+        "label": "music room",
+        "q": "Fill in the blank: music.",
+        "segs": [
+          "Yoyo sees a piano. It is a ",
+          "."
+        ],
+        "skill": "U3 Vocabulary",
+        "tag": "Fill",
+        "type": "fill",
+        "why": "A piano is in a music room.",
+        "wrongWhy": "A piano belongs in a music room."
+      },
+      {
+        "ans": [
+          "library"
+        ],
+        "bank": [
+          "tuck shop",
+          "office",
+          "classroom",
+          "library"
+        ],
+        "hint": "💡 Books live in a library.",
+        "label": "library",
+        "q": "Fill in the blank: books.",
+        "segs": [
+          "Yoyo sees bookshelves. It is a ",
+          "."
+        ],
+        "skill": "U3 Vocabulary",
+        "tag": "Fill",
+        "type": "fill",
+        "why": "Bookshelves are in a library.",
+        "wrongWhy": "Bookshelves mean a library."
+      }
+    ]
+  }
+};
+const QZ_ENG_HW_U4 = {
+  "apply": {
+    "label": "文法練習：Do / Does",
+    "items": [
+      {
+        "ans": 0,
+        "hint": "💡 She takes has.",
+        "label": "has",
+        "opts": [
+          "has",
+          "have",
+          "is",
+          "does"
+        ],
+        "q": "She ( ) a new bag.",
+        "skill": "U4 Grammar",
+        "tag": "MC・Grammar",
+        "type": "mc",
+        "why": "She has a new bag.",
+        "wrongWhy": "She takes has."
+      },
+      {
+        "ans": 1,
+        "hint": "💡 You pairs with Do.",
+        "label": "Do you",
+        "opts": [
+          "Does",
+          "Do",
+          "Are",
+          "Is"
+        ],
+        "q": "( ) you have a ruler?",
+        "skill": "U4 Grammar",
+        "tag": "MC・Grammar",
+        "type": "mc",
+        "why": "Do you have a ruler? Yes, I do.",
+        "wrongWhy": "You pairs with Do."
+      },
+      {
+        "ans": 2,
+        "hint": "💡 One person pairs with Does.",
+        "label": "Does Jayden",
+        "opts": [
+          "Do",
+          "Is",
+          "Does",
+          "Are"
+        ],
+        "q": "( ) Jayden have pencils?",
+        "skill": "U4 Grammar",
+        "tag": "MC・Grammar",
+        "type": "mc",
+        "why": "Does Jayden have pencils? No, he does not.",
+        "wrongWhy": "Jayden is one person, so use Does."
+      },
+      {
+        "ans": 3,
+        "hint": "💡 One person pairs with Does.",
+        "label": "Does Brandon",
+        "opts": [
+          "Do",
+          "Is",
+          "Are",
+          "Does"
+        ],
+        "q": "( ) Brandon go to the library?",
+        "skill": "U4 Grammar",
+        "tag": "MC・Grammar",
+        "type": "mc",
+        "why": "Does Brandon go to the library? No, he does not.",
+        "wrongWhy": "Brandon is one person, so use Does."
+      }
+    ]
+  },
+  "challenge": {
+    "label": "閱讀理解",
+    "items": [
+      {
+        "ans": 2,
+        "hint": "💡 Angus asks everyone about his umbrella.",
+        "label": "Angus",
+        "opts": [
+          "Moses",
+          "Mr Elsa",
+          "Angus",
+          "Miss Tiu"
+        ],
+        "q": "Who cannot find his umbrella?",
+        "skill": "U4 Reading",
+        "tag": "MC・Reading",
+        "type": "mc",
+        "why": "Angus cannot find his umbrella.",
+        "wrongWhy": "Angus says he cannot find his umbrella."
+      },
+      {
+        "ans": 1,
+        "hint": "💡 The notice is about Judy's hairbands.",
+        "label": "hairbands",
+        "opts": [
+          "a wallet",
+          "hairbands",
+          "an umbrella",
+          "hair clips"
+        ],
+        "q": "What does Judy lose?",
+        "skill": "U4 Reading",
+        "tag": "MC・Reading",
+        "type": "mc",
+        "why": "Judy loses her hairbands.",
+        "wrongWhy": "The notice says: These are Judy's hairbands."
+      },
+      {
+        "ans": 3,
+        "hint": "💡 Check the colours in the notice.",
+        "label": "NOT right",
+        "opts": [
+          "Brandon's wallet is orange.",
+          "The wallet has a lion on it.",
+          "Finders pass it to Miss Chan.",
+          "Judy's hairbands are black."
+        ],
+        "q": "Which sentence is NOT right?",
+        "skill": "U4 Reading",
+        "tag": "MC・Reading",
+        "type": "mc",
+        "why": "Judy's hairbands are pink and purple, not black.",
+        "wrongWhy": "The notice says the hairbands are pink and purple."
+      }
+    ]
+  },
+  "textbook": {
+    "label": "文法練習：物主詞",
+    "items": [
+      {
+        "ans": 0,
+        "hint": "💡 He takes his.",
+        "label": "his",
+        "opts": [
+          "his",
+          "her",
+          "its",
+          "their"
+        ],
+        "q": "He has a pen. It is ( ) pen.",
+        "skill": "U4 Grammar",
+        "tag": "MC・Grammar",
+        "type": "mc",
+        "why": "He has a pen. This is his pen.",
+        "wrongWhy": "He takes his."
+      },
+      {
+        "ans": 1,
+        "hint": "💡 An animal takes its.",
+        "label": "its",
+        "opts": [
+          "his",
+          "its",
+          "her",
+          "their"
+        ],
+        "q": "The dog has a bone. ( ) bone.",
+        "skill": "U4 Grammar",
+        "tag": "MC・Grammar",
+        "type": "mc",
+        "why": "The dog has a bone. This is its bone.",
+        "wrongWhy": "An animal takes its."
+      },
+      {
+        "ans": 2,
+        "hint": "💡 Two people take their.",
+        "label": "their",
+        "opts": [
+          "his",
+          "her",
+          "their",
+          "its"
+        ],
+        "q": "Peter and Angus: ( ) toys.",
+        "skill": "U4 Grammar",
+        "tag": "MC・Grammar",
+        "type": "mc",
+        "why": "Peter and Angus have two toys. These are their toys.",
+        "wrongWhy": "Two people take their."
+      },
+      {
+        "ans": [
+          "Angus's"
+        ],
+        "bank": [
+          "Mary's",
+          "Ken's",
+          "Angus's",
+          "Tom's"
+        ],
+        "hint": "💡 Use 's after a name to show it is theirs.",
+        "label": "Angus's",
+        "q": "Fill in the blank: Angus.",
+        "segs": [
+          "This is ",
+          " wallet."
+        ],
+        "skill": "U4 Grammar",
+        "tag": "Fill",
+        "type": "fill",
+        "why": "This is Angus's wallet.",
+        "wrongWhy": "Mary's, Ken's and Tom's are other people's names, not Angus's."
+      }
+    ]
+  }
+};
+const QZ_HUM_HW = {
+  "apply": {
+    "label": "資訊科技與相處",
+    "items": [
+      {
+        "ans": 0,
+        "hint": "💡 密碼不可以告訴別人。",
+        "label": "不安全做法",
+        "opts": [
+          "把平板電腦密碼告訴朋友",
+          "避免在網上透露個人資料",
+          "定期更改電郵密碼",
+          "只跟認識的朋友分享照片"
+        ],
+        "q": "以下哪種做法不安全？",
+        "skill": "資訊科技安全",
+        "tag": "選擇題",
+        "type": "mc",
+        "why": "密碼只應自己知道，告訴朋友並不安全。",
+        "wrongWhy": "保護個人資料和密碼才是安全的做法。"
+      },
+      {
+        "ans": 2,
+        "hint": "💡 直接取用別人的作品並不尊重知識產權。",
+        "label": "不尊重知識產權",
+        "opts": [
+          "親身蒐集報告資料",
+          "引用資料後列出書名和作者",
+          "在網上直接下載圖畫做報告",
+          "使用正版電腦軟件"
+        ],
+        "q": "以下哪一項不尊重知識產權？",
+        "skill": "資訊科技安全",
+        "tag": "選擇題",
+        "type": "mc",
+        "why": "未經同意下載圖畫使用，是不尊重知識產權的做法。",
+        "wrongWhy": "親身蒐集和列出出處才是尊重知識產權。"
+      },
+      {
+        "ans": 1,
+        "hint": "💡 好動和文靜是性格，羽毛球和繪畫是喜好。",
+        "label": "性格和喜好",
+        "opts": [
+          "性別和年齡",
+          "性格和喜好",
+          "身高和體重",
+          "學校和班別"
+        ],
+        "q": "小琪和小真有甚麼不同？",
+        "skill": "與人相處",
+        "tag": "選擇題",
+        "type": "mc",
+        "why": "小琪好動喜歡打羽毛球，小真文靜喜歡繪畫，她們的性格和喜好不同。",
+        "wrongWhy": "她們都是女生，性別相同；不同的是性格和喜好。"
+      },
+      {
+        "ans": 3,
+        "hint": "💡 做錯事應道歉。",
+        "label": "不恰當的話",
+        "opts": [
+          "對不起，我不是故意的。",
+          "我下次會小心一點。",
+          "我會向美恩道歉。",
+          "我不是故意的，別大驚小怪！"
+        ],
+        "q": "子明以下哪句話不恰當？",
+        "skill": "與人相處",
+        "tag": "選擇題",
+        "type": "mc",
+        "why": "子明應道歉並表示下次小心，而不是叫對方別大驚小怪。",
+        "wrongWhy": "「別大驚小怪」沒有顧及對方的感受。"
+      }
+    ]
+  },
+  "challenge": {
+    "label": "玩具・郊遊・郊野公園",
+    "items": [
+      {
+        "ans": 0,
+        "hint": "💡 兩個人對弈的玩具訓練思考。",
+        "label": "四連棋",
+        "opts": [
+          "四連棋",
+          "食物玩具",
+          "毽子",
+          "彩泥"
+        ],
+        "q": "哪款玩具可以訓練思考能力？",
+        "skill": "玩具",
+        "tag": "選擇題",
+        "type": "mc",
+        "why": "四連棋可以兩個人一起玩，並能訓練思考能力。",
+        "wrongWhy": "四連棋需要思考每一步棋。"
+      },
+      {
+        "hint": "💡 想想每種設施是給誰用的。",
+        "label": "泳灘設施配對",
+        "pairs": [
+          [
+            "更衣室",
+            "供泳客更換衣服"
+          ],
+          [
+            "沙灘椅",
+            "供遊人遮蔭和休息"
+          ],
+          [
+            "防鯊網",
+            "防止鯊魚進入泳區"
+          ],
+          [
+            "急救站",
+            "提供急救服務"
+          ],
+          [
+            "瞭望台",
+            "供救生員觀察泳客的情況"
+          ],
+          [
+            "浮台",
+            "供泳客在水面上稍作休息"
+          ]
+        ],
+        "q": "配對：泳灘設施和用途。",
+        "right": [
+          "提供急救服務",
+          "供泳客更換衣服",
+          "供泳客在水面上稍作休息",
+          "防止鯊魚進入泳區",
+          "供救生員觀察泳客的情況",
+          "供遊人遮蔭和休息"
+        ],
+        "skill": "郊遊安全",
+        "tag": "配對題",
+        "type": "match",
+        "why": "更衣室供更換衣服，沙灘椅供遮蔭休息，防鯊網防止鯊魚進入，急救站提供急救服務，瞭望台供救生員觀察，浮台供泳客在水面休息。",
+        "wrongWhy": "按設施的用途配對，不要只看名稱。"
+      },
+      {
+        "cats": [
+          [
+            "hike",
+            "遠足裝備"
+          ],
+          [
+            "both",
+            "兩者皆適用"
+          ],
+          [
+            "beach",
+            "泳灘裝備"
+          ]
+        ],
+        "chips": [
+          {
+            "cat": "hike",
+            "ch": "地圖"
+          },
+          {
+            "cat": "both",
+            "ch": "防曬霜"
+          },
+          {
+            "cat": "both",
+            "ch": "帽子"
+          },
+          {
+            "cat": "beach",
+            "ch": "拖鞋"
+          },
+          {
+            "cat": "beach",
+            "ch": "泳衣"
+          }
+        ],
+        "hint": "💡 想想每件物品在哪裏用得着。",
+        "label": "遠足泳灘分類",
+        "q": "分類：遠足和泳灘裝備。",
+        "skill": "郊遊安全",
+        "tag": "拖放題",
+        "type": "drag",
+        "why": "地圖是遠足裝備，拖鞋和泳衣是泳灘裝備，防曬霜和帽子兩者皆適用。",
+        "wrongWhy": "按物品的用途分類。"
+      },
+      {
+        "ans": 2,
+        "hint": "💡 流水響水塘以紅葉和湖面倒影聞名。",
+        "label": "八仙嶺郊野公園",
+        "opts": [
+          "大潭郊野公園",
+          "大欖郊野公園",
+          "八仙嶺郊野公園",
+          "金山郊野公園"
+        ],
+        "q": "流水響水塘位於哪個郊野公園？",
+        "skill": "郊野公園",
+        "tag": "選擇題",
+        "type": "mc",
+        "why": "流水響水塘位於八仙嶺郊野公園，遊人可以欣賞湖面「天空之鏡」和紅葉。",
+        "wrongWhy": "流水響水塘在八仙嶺郊野公園範圍。"
+      }
+    ]
+  },
+  "textbook": {
+    "label": "金錢與閒暇",
+    "items": [
+      {
+        "ans": [
+          "零用錢"
+        ],
+        "bank": [
+          "開支",
+          "保管",
+          "零用錢",
+          "餘額"
+        ],
+        "hint": "💡 每星期給的金錢叫零用錢。",
+        "label": "零用錢",
+        "q": "選詞填空：零用錢。",
+        "segs": [
+          "爸媽每星期都會給我",
+          "，我會把部分儲蓄起來。"
+        ],
+        "skill": "金錢管理",
+        "tag": "填充題",
+        "type": "fill",
+        "why": "爸媽每星期給的金錢是零用錢，把部分儲蓄起來是管理金錢的好習慣。",
+        "wrongWhy": "零用錢是爸媽定期給的金錢，儲蓄是把部分留起。"
+      },
+      {
+        "ans": 0,
+        "hint": "💡 閒暇活動是空餘時間的消遣。",
+        "label": "不是閒暇活動",
+        "opts": [
+          "做功課",
+          "打羽毛球",
+          "做手工",
+          "玩棋盤遊戲"
+        ],
+        "q": "以下哪一項不是閒暇活動？",
+        "skill": "閒暇活動",
+        "tag": "選擇題",
+        "type": "mc",
+        "why": "做功課是學習，不是閒暇活動。",
+        "wrongWhy": "打羽毛球、做手工和玩棋盤遊戲都是閒暇活動。"
+      },
+      {
+        "ans": [
+          "時間"
+        ],
+        "bank": [
+          "能力",
+          "益處",
+          "費用",
+          "時間"
+        ],
+        "hint": "💡 星期五的安排是時間因素。",
+        "label": "時間因素",
+        "q": "選詞填空：時間。",
+        "segs": [
+          "志文逢星期五要上小提琴班，他考慮了自己的興趣和",
+          "。"
+        ],
+        "skill": "閒暇活動",
+        "tag": "填充題",
+        "type": "fill",
+        "why": "志文星期五已有安排，所以他考慮了時間因素。",
+        "wrongWhy": "志文沒有興趣，而且星期五沒有空，所以考慮了興趣和時間。"
+      }
+    ]
+  }
+};
+const QZ_LESSONS = { chi_l1: QZ_L1, chi_l2: QZ_L2, chi_l3: QZ_L3, chi_l4: QZ_L4, chi_l5: QZ_L5, chi_l6: QZ_L6, chi_l7: QZ_L7, eng_u1: QZ_ENG_U1, eng_u2: QZ_ENG_U2, eng_u3: QZ_ENG_U3, eng_u4: QZ_ENG_U4, eng_u14: QZ_ENG, eng_paper: QZ_ENGPAPER, math_u1: QZ_MATH_U1, math_u2: QZ_MATH_U2, math_u3: QZ_MATH_U3, math_u4: QZ_MATH_U4, math_a1: QZ_MATH, sci_l1: QZ_SCI_L1, sci_l2: QZ_SCI_L2, sci_l3: QZ_SCI_L3, sci_a1: QZ_SCI, eng_hw_u1: QZ_ENG_HW_U1, eng_hw_u2: QZ_ENG_HW_U2, eng_hw_u3: QZ_ENG_HW_U3, eng_hw_u4: QZ_ENG_HW_U4, hum_hw: QZ_HUM_HW };
 let QZ = QZ_LESSONS.chi_l3;
 let qzSetName = "textbook", qzIdx = 0, qzBuilt = false, qzStreak = 0, qzLocked = false, qzPraiseIx = 0, qzEncIx = 0, qzBreakFor = -1, qzAutoTimer = 0;
 
@@ -11159,11 +12336,22 @@ function qzRenderDrag(item, card, fb) {
       fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + "「" + id + "」放對了！";
       if (selChip === chip) selChip = null;
       qzGain(item, id);
+      /* v5 drag completion (trial only): MC/fill pattern — on completion show
+         item.why as the final line (praise + why + speak btn). Per-chip praise
+         above is unchanged; scoring/done-state logic in qzGain is untouched.
+         Items without why keep the per-chip praise line (no empty suffix). */
+      if (qzComplete(item) && item.why) { fb.className = "qz-fb ok"; fb.textContent = "✅ " + QZ_PRAISE[qzPraiseIx++ % QZ_PRAISE.length] + qzStripPreview(item.why); const _wsb = qzSpeakBtn(item.why || ""); if (_wsb) fb.insertBefore(_wsb, fb.firstChild); }
     } else {
       chip.classList.add("wrongin");
       const _wcat = (item.cats || []).find(cfg => cfg[0] === basket.dataset.cat); const _wp2 = {}; _wp2[id] = _wcat ? _wcat[1] : basket.dataset.cat; qzNoteWrongPick(item, { type: "drag", placed: _wp2, at: Date.now() });
       const wc = qzWrong(item, id);
-      qzWrongFb(item, fb, wc, "💪 " + qzEncourage() + "「" + id + "」上下哪部分大些，再想想！", () => {
+      /* v5 drag wrong-feedback (trial only): the 上下 structure sentence is
+         CONDITIONAL, not global. Only structure items show it — marked by
+         skill "上下結構" (or label/q containing it); all other drag items get
+         encouragement only, and qzWrongFb appends the item's own wrongWhy. */
+      const _isStructDrag = item.skill === "上下結構" || String(item.label || "").includes("上下結構") || String(item.q || "").includes("上下結構");
+      const _dragWrongBase = _isStructDrag ? "💪 " + qzEncourage() + "「" + id + "」上下哪部分大些，再想想！" : "💪 " + qzEncourage() + "「" + id + "」再想想！";
+      qzWrongFb(item, fb, wc, _dragWrongBase, () => {
         item._placed = {};
         const root = tray.parentElement;
         root.querySelectorAll(".qz-chip").forEach(c => { const bk = basketEls[c.dataset.cat]; if (bk) qzBasketPlace(bk, c); c.classList.add("done"); c.classList.remove("sel"); });
