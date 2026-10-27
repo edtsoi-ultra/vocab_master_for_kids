@@ -1,7 +1,7 @@
 {
   "service": "daughter-school-detail",
   "student": "2A",
-  "updated": "2026-10-27T11:05:11.215964+00:00",
+  "updated": "2026-10-27T22:29:40.395298+00:00",
   "upcoming": [
     {
       "key": "CHI_DICT_20261028",
@@ -13,7 +13,7 @@
       "title_en": "Chinese Dictation",
       "date": "2026-10-28",
       "date_display": "10月28日 (三)",
-      "days_left": 1,
+      "days_left": 0,
       "detail": "第三次默書（10月28日，星期三）範圍 — 詞語：二上二冊第七課及已有知識（12 個）；讀默課文：第七課 P.5 第五、六段；背默課文：第七課 P.4 第二段；考考你：寫出五個形容人物性格的詞語（不能重覆甲、乙部字詞）。",
       "practice": [
         {
@@ -280,7 +280,7 @@
       "title_en": "Chinese Formative Assessment",
       "date": "2026-11-05",
       "date_display": "11月5日 (四)",
-      "days_left": 9,
+      "days_left": 8,
       "scope": "課文第3至7課",
       "practice": [
         {
@@ -1164,7 +1164,7 @@
       "title_en": "English Dictation 3",
       "date": "2026-11-06",
       "date_display": "11月6日 (五)",
-      "days_left": 10,
+      "days_left": 9,
       "scope": "Unit 3",
       "detail": "Dictation 3（11月6日）Unit 3 My School — Part A Vocabulary 30%（16 個）、Part B Sentences 60%（10 句）、Part C Learn by Heart 10%、Part D Fun Dictation（未見過，唔使準備內容，靠語感）。",
       "practice": [
@@ -1313,7 +1313,7 @@
       "title_en": "Assessment 1 · Chinese (Reading + Writing)",
       "date": "2026-11-19",
       "date_display": "11月19日 (四)",
-      "days_left": 23,
+      "days_left": 22,
       "scope": "課文一冊第1-3課·二冊第7課,單元一/二/五,進評一二 ※含已有知識",
       "practice": [
         {
@@ -1694,7 +1694,7 @@
       "title_en": "Assessment 1 · English",
       "date": "2026-11-20",
       "date_display": "11月20日 (五)",
-      "days_left": 24,
+      "days_left": 23,
       "scope": "U1-4 (TB·WB·A), FA1-2, 寫作1-3 ※含已有知識",
       "practice": [
         {
@@ -1730,7 +1730,7 @@
       "title_en": "Assessment 1 · Mathematics",
       "date": "2026-11-23",
       "date_display": "11月23日 (一)",
-      "days_left": 27,
+      "days_left": 26,
       "scope": "2上A 第1-11課, 進評1-2 ※含已有知識",
       "practice": [
         {
@@ -1823,7 +1823,7 @@
       "title_en": "Assessment 1 · Humanities",
       "date": "2026-11-24",
       "date_display": "11月24日 (二)",
-      "days_left": 28,
+      "days_left": 27,
       "scope": "第1-5課, 單元一/二 ※含已有知識",
       "practice": [
         {
@@ -1844,7 +1844,7 @@
       "title_en": "Assessment 1 · Science",
       "date": "2026-11-24",
       "date_display": "11月24日 (二)",
-      "days_left": 28,
+      "days_left": 27,
       "scope": "第1-3課 ※含已有知識",
       "practice": [
         {
@@ -1869,7 +1869,7 @@
       "subject_en": "Humanities",
       "title_en": "Humanities Video Task 1",
       "due_display": "10月31日 (六)",
-      "days_left": 4,
+      "days_left": 3,
       "detail": "「人文視訊一」（鄧詠恩老師，10月17日發佈，100分）｜派發日期：15/10/2026｜呈交日期：31/10/2026前｜Classroom 截止日期：11月1日（星期日）｜老師將根據學生的視訊影片表現進行評分與回饋。相關成績及評語將於稍後發放，屆時請家長查閲並簽署。\n\n工作紙：視訊功課(一) 個人短講｜題目：介紹我的好朋友及正確的相處之道（建議參考 第四課 交朋結友）\n題目要求：\n1. 請根據題目拍攝一段影片，1 分鐘內以廣話講述有關題目的內容。時限最多為 1 分 15 秒，限時外的內容不作評分，影片不能加入剪接及特別效果。\n2. 請於 2026 年 10 月 31 日（六）或前將影片上載到 Google Classroom (GC)繳交盒內。\n3. 內容範本：___老師，你好。我是___班的________。今天的主題是介紹我的一位好朋友，以及如何和朋友正確地相處。我的好朋友是______（說出朋友的名字）。我們經常一起____。（說出一項和朋友一起做的事）當朋友遇到困難時，我會____。（說出一個正確相處的例子）我們要尊重和愛護朋友。___老師，這是我的分享，多謝！\n\n評分表（總分/10）：內容(4分)——按題目作完整口頭匯報、內容充實；表達技巧(2分)——咬字清晰、聲量語調恰當、詞語略有變化、意思完整清晰；非語言表達(2分)——眼神交流自然、面部表情豐富、手勢動作配合自然；輔助工具(1分)——能適當使用；準時繳交(1分)。\n\n附件：工作紙正面（指示）及背面（評分表）相片各一。繳交方式：影片檔案經 GC「新增或建立」上載到繳交盒。",
       "hints": [
         "先寫講稿後拍攝：照工作紙開頭結尾範本填好，練到 1 分鐘內講完先至正式拍。",
