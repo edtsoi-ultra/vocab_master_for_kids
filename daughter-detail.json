@@ -1,7 +1,7 @@
 {
   "service": "daughter-school-detail",
   "student": "琳琳 2A",
-  "updated": "2026-10-28T06:48:43.269894+00:00",
+  "updated": "2026-10-28T22:29:42.451437+00:00",
   "homework": [
     {
       "key": "HUM_VIDEO_1",
@@ -12,7 +12,7 @@
       "subject_en": "Humanities",
       "title_en": "Humanities Video Task 1",
       "due_display": "10月31日 (六)",
-      "days_left": 3,
+      "days_left": 2,
       "detail": "「人文視訊一」（鄧詠恩老師，10月17日發佈，100分）｜派發日期：15/10/2026｜呈交日期：31/10/2026前｜Classroom 截止日期：11月1日（星期日）｜老師將根據學生的視訊影片表現進行評分與回饋。相關成績及評語將於稍後發放，屆時請家長查閲並簽署。\n\n工作紙：視訊功課(一) 個人短講｜題目：介紹我的好朋友及正確的相處之道（建議參考 第四課 交朋結友）\n題目要求：\n1. 請根據題目拍攝一段影片，1 分鐘內以廣話講述有關題目的內容。時限最多為 1 分 15 秒，限時外的內容不作評分，影片不能加入剪接及特別效果。\n2. 請於 2026 年 10 月 31 日（六）或前將影片上載到 Google Classroom (GC)繳交盒內。\n3. 內容範本：___老師，你好。我是___班的________。今天的主題是介紹我的一位好朋友，以及如何和朋友正確地相處。我的好朋友是______（說出朋友的名字）。我們經常一起____。（說出一項和朋友一起做的事）當朋友遇到困難時，我會____。（說出一個正確相處的例子）我們要尊重和愛護朋友。___老師，這是我的分享，多謝！\n\n評分表（總分/10）：內容(4分)——按題目作完整口頭匯報、內容充實；表達技巧(2分)——咬字清晰、聲量語調恰當、詞語略有變化、意思完整清晰；非語言表達(2分)——眼神交流自然、面部表情豐富、手勢動作配合自然；輔助工具(1分)——能適當使用；準時繳交(1分)。\n\n附件：工作紙正面（指示）及背面（評分表）相片各一。繳交方式：影片檔案經 GC「新增或建立」上載到繳交盒。",
       "hints": [
         "先寫講稿後拍攝：照工作紙開頭結尾範本填好，練到 1 分鐘內講完先至正式拍。",
@@ -97,7 +97,7 @@
       "subject_en": "Mathematics",
       "title_en": "Maths Video Task 1",
       "due_display": "10月25日 (日)",
-      "days_left": -3,
+      "days_left": -4,
       "detail": "「2026-27 年度 二年級 數學科 第一學段視訊功課(1)」（甘麗姸老師，10月9日發佈）｜題目：利用數卡排出兩組三位數後，比較這兩個三位數的大小｜形式：錄影（約1分鐘）｜繳交狀態：已繳交（上星期經 Google Classroom）｜截止日期：10月25日（星期六）",
       "source_tier": "verified_capture",
       "source": "Google Classroom 檢查 2026-10-25（狀態：已繳交）＋ Eddie 確認截止日期 10月25日"
@@ -114,7 +114,7 @@
       "subject_en": "Chinese",
       "title_en": "Chinese Dictation",
       "date_display": "10月28日 (三)",
-      "days_left": 0,
+      "days_left": -1,
       "detail": "第三次默書（10月28日，星期三）範圍 — 詞語：二上二冊第七課及已有知識（12 個）；讀默課文：第七課 P.5 第五、六段；背默課文：第七課 P.4 第二段；考考你：寫出五個形容人物性格的詞語（不能重覆甲、乙部字詞）。",
       "practice": [
         {
@@ -382,7 +382,7 @@
       "subject_en": "Chinese",
       "title_en": "Chinese Formative Assessment",
       "date_display": "11月5日 (四)",
-      "days_left": 8,
+      "days_left": 7,
       "practice": [
         {
           "q": "溫習任務：朗讀課文第3至7課，每課一次；唔識讀嘅字圈起，請家長記低，之後集中練讀。",
@@ -1267,7 +1267,7 @@
       "subject_en": "English",
       "title_en": "English Dictation 3",
       "date_display": "11月6日 (五)",
-      "days_left": 9,
+      "days_left": 8,
       "detail": "Dictation 3（11月6日）Unit 3 My School — Part A Vocabulary 30%（16 個）、Part B Sentences 60%（10 句）、Part C Learn by Heart 10%、Part D Fun Dictation（未見過，唔使準備內容，靠語感）。",
       "practice": [
         {
@@ -1416,7 +1416,7 @@
       "subject_en": "Chinese",
       "title_en": "Assessment 1 · Chinese (Reading + Writing)",
       "date_display": "11月19日 (四)",
-      "days_left": 22,
+      "days_left": 21,
       "practice": [
         {
           "q": "溫習任務：重溫進評題庫（第3課與進評共用同一題庫，㩒下面互動練習）＋朗讀第1、2課課文各一次。",
@@ -1798,7 +1798,7 @@
       "subject_en": "English",
       "title_en": "Assessment 1 · English",
       "date_display": "11月20日 (五)",
-      "days_left": 23,
+      "days_left": 22,
       "practice": [
         {
           "q": "溫習任務：重讀 U1-U4 課文，每課一次；生字表自默一次（錯字抄 3 次）。"
@@ -1835,7 +1835,7 @@
       "subject_en": "Mathematics",
       "title_en": "Assessment 1 · Mathematics",
       "date_display": "11月23日 (一)",
-      "days_left": 26,
+      "days_left": 25,
       "practice": [
         {
           "subject": "數學",
@@ -1929,7 +1929,7 @@
       "subject_en": "Humanities",
       "title_en": "Assessment 1 · Humanities",
       "date_display": "11月24日 (二)",
-      "days_left": 27,
+      "days_left": 26,
       "practice": [
         {
           "q": "溫習任務：朗讀人文第1-5課課文重點，每課一次，請家長提問 2 題。",
@@ -1951,7 +1951,7 @@
       "subject_en": "Science",
       "title_en": "Assessment 1 · Science",
       "date_display": "11月24日 (二)",
-      "days_left": 27,
+      "days_left": 26,
       "practice": [
         {
           "q": "溫習任務：朗讀科學第1-3課（生物和非生物／觀察動物／動手種植物），講出每課 1 個重點。",
@@ -1977,7 +1977,7 @@
         "brief": "明天只帶數學書＋交數學功課，穿萬聖節服飾",
         "deadline": "2026-10-29",
         "deadline_display": "10月29日 (四)",
-        "days_left": 1
+        "days_left": 0
       }
     ]
   }
