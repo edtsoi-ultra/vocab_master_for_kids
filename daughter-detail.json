@@ -1,7 +1,7 @@
 {
   "service": "daughter-school-detail",
   "student": "琳琳 2A",
-  "updated": "2026-10-27T22:29:40.395298+00:00",
+  "updated": "2026-10-28T06:48:43.269894+00:00",
   "homework": [
     {
       "key": "HUM_VIDEO_1",
@@ -1968,7 +1968,17 @@
     }
   ],
   "notices": {
-    "new_count": 0,
-    "items": []
+    "new_count": 1,
+    "items": [
+      {
+        "key": "NOTICE_HALLOWEEN_20261029",
+        "code": "溫馨提示",
+        "title": "溫馨提示：明天只需要帶數學書及交數學功課，另外穿着萬聖節服飾",
+        "brief": "明天只帶數學書＋交數學功課，穿萬聖節服飾",
+        "deadline": "2026-10-29",
+        "deadline_display": "10月29日 (四)",
+        "days_left": 1
+      }
+    ]
   }
 }
