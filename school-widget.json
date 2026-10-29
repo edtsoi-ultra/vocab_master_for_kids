@@ -1,7 +1,7 @@
 {
   "service": "daughter-school",
   "student": "2A",
-  "updated": "2026-10-28T22:29:39.231864+00:00",
+  "updated": "2026-10-29T22:29:38.780441+00:00",
   "homework": [
     {
       "key": "HUM_VIDEO_1",
@@ -11,7 +11,7 @@
       "subject_en": "Humanities",
       "title_en": "Humanities Video Task 1",
       "due_display": "10月31日 (六)",
-      "days_left": 2
+      "days_left": 1
     }
   ],
   "upcoming": [
@@ -26,7 +26,7 @@
       "subject_en": "Chinese",
       "title_en": "Chinese Formative Assessment",
       "date_display": "11月5日 (四)",
-      "days_left": 7
+      "days_left": 6
     },
     {
       "key": "ENG_DICT_3",
@@ -39,7 +39,7 @@
       "subject_en": "English",
       "title_en": "English Dictation 3",
       "date_display": "11月6日 (五)",
-      "days_left": 8
+      "days_left": 7
     },
     {
       "key": "ASSESS_1_CHI",
@@ -52,23 +52,26 @@
       "subject_en": "Chinese",
       "title_en": "Assessment 1 · Chinese (Reading + Writing)",
       "date_display": "11月19日 (四)",
+      "days_left": 20
+    },
+    {
+      "key": "ASSESS_1_ENG",
+      "type": "評估",
+      "subject": "英文",
+      "title": "評估一・英文",
+      "date": "2026-11-20",
+      "scope": "U1-4 (TB·WB·A), FA1-2, 寫作1-3 ※含已有知識",
+      "type_en": "Assessment",
+      "subject_en": "English",
+      "title_en": "Assessment 1 · English",
+      "date_display": "11月20日 (五)",
       "days_left": 21
     }
   ],
   "notices": {
-    "new_count": 1,
-    "latest_title": "溫馨提示：明天只需要帶數學書及交數學功課，另外穿着萬聖節服飾",
-    "latest_date": "2026-10-29",
-    "items": [
-      {
-        "key": "NOTICE_HALLOWEEN_20261029",
-        "code": "溫馨提示",
-        "title": "溫馨提示：明天只需要帶數學書及交數學功課，另外穿着萬聖節服飾",
-        "brief": "明天只帶數學書＋交數學功課，穿萬聖節服飾",
-        "deadline": "2026-10-29",
-        "deadline_display": "10月29日 (四)",
-        "days_left": 0
-      }
-    ]
+    "new_count": 0,
+    "latest_title": "",
+    "latest_date": "",
+    "items": []
   }
 }
