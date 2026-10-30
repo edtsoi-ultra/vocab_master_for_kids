@@ -1,7 +1,7 @@
 {
   "service": "daughter-school",
   "student": "琳琳 2A",
-  "updated": "2026-10-30T10:09:21.363441+00:00",
+  "updated": "2026-10-30T10:09:55.103902+00:00",
   "homework": [
     {
       "key": "HUM_VIDEO_1",
@@ -70,9 +70,18 @@
     }
   ],
   "notices": {
-    "new_count": 0,
-    "latest_title": "",
-    "latest_date": "",
-    "items": []
+    "new_count": 1,
+    "latest_title": "借用流動電腦裝置配套物品 通告",
+    "latest_date": "2026-11-06",
+    "items": [
+      {
+        "code": "2627-133",
+        "title": "借用流動電腦裝置配套物品 通告",
+        "brief": "借用流動電腦裝置配套物品 通告",
+        "deadline": "2026-11-06",
+        "deadline_display": "11月6日 (五)",
+        "days_left": 7
+      }
+    ]
   }
 }
