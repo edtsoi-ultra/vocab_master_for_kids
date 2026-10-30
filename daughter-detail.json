@@ -1,7 +1,7 @@
 {
   "service": "daughter-school-detail",
   "student": "琳琳 2A",
-  "updated": "2026-10-30T11:12:58.331110+00:00",
+  "updated": "2026-10-30T15:00:38.963985+00:00",
   "homework": [
     {
       "key": "HUM_VIDEO_1",
@@ -1137,6 +1137,18 @@
       ],
       "source_tier": "verified_capture",
       "source": "學校 Dictation 3 範圍紙 ‘2A Unit 3 My School’ (P.5) — Eddie 相片 2026-10-23"
+    },
+    {
+      "key": "ENG_FA2",
+      "type": "進評",
+      "subject": "英文",
+      "title": "英文進評 FA2",
+      "date": "2026-11-13",
+      "type_en": "Formative Assessment",
+      "subject_en": "English",
+      "title_en": "English Formative Assessment FA2",
+      "date_display": "11月13日 (五)",
+      "days_left": 14
     },
     {
       "key": "ASSESS_1_CHI",
