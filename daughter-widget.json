@@ -1,7 +1,7 @@
 {
   "service": "daughter-school",
   "student": "琳琳 2A",
-  "updated": "2026-10-30T11:12:54.831681+00:00",
+  "updated": "2026-10-30T15:00:35.068662+00:00",
   "homework": [
     {
       "key": "HUM_VIDEO_1",
@@ -43,6 +43,18 @@
       "days_left": 7
     },
     {
+      "key": "ENG_FA2",
+      "type": "進評",
+      "subject": "英文",
+      "title": "英文進評 FA2",
+      "date": "2026-11-13",
+      "type_en": "Formative Assessment",
+      "subject_en": "English",
+      "title_en": "English Formative Assessment FA2",
+      "date_display": "11月13日 (五)",
+      "days_left": 14
+    },
+    {
       "key": "ASSESS_1_CHI",
       "type": "評估",
       "subject": "中文",
@@ -54,19 +66,6 @@
       "title_en": "Assessment 1 · Chinese (Reading + Writing)",
       "date_display": "11月19日 (四)",
       "days_left": 20
-    },
-    {
-      "key": "ASSESS_1_ENG",
-      "type": "評估",
-      "subject": "英文",
-      "title": "評估一・英文",
-      "date": "2026-11-20",
-      "scope": "U1-4 (TB·WB·A), FA1-2, 寫作1-3 ※含已有知識",
-      "type_en": "Assessment",
-      "subject_en": "English",
-      "title_en": "Assessment 1 · English",
-      "date_display": "11月20日 (五)",
-      "days_left": 21
     }
   ],
   "notices": {
