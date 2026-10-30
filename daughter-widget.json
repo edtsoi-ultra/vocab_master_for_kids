@@ -1,7 +1,7 @@
 {
   "service": "daughter-school",
   "student": "琳琳 2A",
-  "updated": "2026-10-30T15:00:35.068662+00:00",
+  "updated": "2026-10-30T22:29:43.161638+00:00",
   "homework": [
     {
       "key": "HUM_VIDEO_1",
@@ -12,7 +12,7 @@
       "subject_en": "Humanities",
       "title_en": "Humanities Video Task 1",
       "due_display": "10月31日 (六)",
-      "days_left": 1
+      "days_left": 0
     }
   ],
   "upcoming": [
@@ -27,7 +27,7 @@
       "subject_en": "Chinese",
       "title_en": "Chinese Formative Assessment",
       "date_display": "11月5日 (四)",
-      "days_left": 6
+      "days_left": 5
     },
     {
       "key": "ENG_DICT_3",
@@ -40,7 +40,7 @@
       "subject_en": "English",
       "title_en": "English Dictation 3",
       "date_display": "11月6日 (五)",
-      "days_left": 7
+      "days_left": 6
     },
     {
       "key": "ENG_FA2",
@@ -52,7 +52,7 @@
       "subject_en": "English",
       "title_en": "English Formative Assessment FA2",
       "date_display": "11月13日 (五)",
-      "days_left": 14
+      "days_left": 13
     },
     {
       "key": "ASSESS_1_CHI",
@@ -65,7 +65,7 @@
       "subject_en": "Chinese",
       "title_en": "Assessment 1 · Chinese (Reading + Writing)",
       "date_display": "11月19日 (四)",
-      "days_left": 20
+      "days_left": 19
     }
   ],
   "notices": {
@@ -79,7 +79,7 @@
         "brief": "借用流動電腦裝置配套物品 通告",
         "deadline": "2026-11-06",
         "deadline_display": "11月6日 (五)",
-        "days_left": 7
+        "days_left": 6
       }
     ]
   }
