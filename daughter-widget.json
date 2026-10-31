@@ -1,7 +1,7 @@
 {
   "service": "daughter-school",
   "student": "琳琳 2A",
-  "updated": "2026-10-31T04:43:18.785607+00:00",
+  "updated": "2026-10-31T22:29:39.592586+00:00",
   "homework": [
     {
       "key": "PET_ART_COMP_2026",
@@ -13,7 +13,7 @@
       "subject_en": "Visual Arts",
       "title_en": "Pet Drawing Competition — Submit Entry",
       "due_display": "11月9日 (一)",
-      "days_left": 9
+      "days_left": 8
     },
     {
       "key": "HUM_VIDEO_1",
@@ -24,7 +24,7 @@
       "subject_en": "Humanities",
       "title_en": "Humanities Video Task 1",
       "due_display": "10月31日 (六)",
-      "days_left": 0
+      "days_left": -1
     }
   ],
   "upcoming": [
@@ -39,7 +39,7 @@
       "subject_en": "Chinese",
       "title_en": "Chinese Formative Assessment",
       "date_display": "11月5日 (四)",
-      "days_left": 5
+      "days_left": 4
     },
     {
       "key": "ENG_DICT_3",
@@ -52,7 +52,7 @@
       "subject_en": "English",
       "title_en": "English Dictation 3",
       "date_display": "11月6日 (五)",
-      "days_left": 6
+      "days_left": 5
     },
     {
       "key": "ENG_FA2",
@@ -65,7 +65,7 @@
       "subject_en": "English",
       "title_en": "English Formative Assessment FA2",
       "date_display": "11月13日 (五)",
-      "days_left": 13
+      "days_left": 12
     },
     {
       "key": "ASSESS_1_CHI",
@@ -78,22 +78,13 @@
       "subject_en": "Chinese",
       "title_en": "Assessment 1 · Chinese (Reading + Writing)",
       "date_display": "11月19日 (四)",
-      "days_left": 19
+      "days_left": 18
     }
   ],
   "notices": {
-    "new_count": 1,
-    "latest_title": "借用流動電腦裝置配套物品 通告",
-    "latest_date": "2026-11-06",
-    "items": [
-      {
-        "code": "2627-133",
-        "title": "借用流動電腦裝置配套物品 通告",
-        "brief": "借用流動電腦裝置配套物品 通告",
-        "deadline": "2026-11-06",
-        "deadline_display": "11月6日 (五)",
-        "days_left": 6
-      }
-    ]
+    "new_count": 0,
+    "latest_title": "",
+    "latest_date": "",
+    "items": []
   }
 }
