@@ -1,19 +1,8 @@
 {
   "service": "daughter-school",
   "student": "2A",
-  "updated": "2026-10-31T04:43:18.785607+00:00",
-  "homework": [
-    {
-      "key": "HUM_VIDEO_1",
-      "subject": "人文",
-      "title": "人文視訊一",
-      "due": "2026-10-31",
-      "subject_en": "Humanities",
-      "title_en": "Humanities Video Task 1",
-      "due_display": "10月31日 (六)",
-      "days_left": 0
-    }
-  ],
+  "updated": "2026-10-31T22:29:39.592586+00:00",
+  "homework": [],
   "upcoming": [
     {
       "key": "CHI_PROGRESS_1",
@@ -26,7 +15,7 @@
       "subject_en": "Chinese",
       "title_en": "Chinese Formative Assessment",
       "date_display": "11月5日 (四)",
-      "days_left": 5
+      "days_left": 4
     },
     {
       "key": "ENG_DICT_3",
@@ -39,7 +28,7 @@
       "subject_en": "English",
       "title_en": "English Dictation 3",
       "date_display": "11月6日 (五)",
-      "days_left": 6
+      "days_left": 5
     },
     {
       "key": "ENG_FA2",
@@ -52,7 +41,7 @@
       "subject_en": "English",
       "title_en": "English Formative Assessment FA2",
       "date_display": "11月13日 (五)",
-      "days_left": 13
+      "days_left": 12
     },
     {
       "key": "ASSESS_1_CHI",
@@ -65,22 +54,13 @@
       "subject_en": "Chinese",
       "title_en": "Assessment 1 · Chinese (Reading + Writing)",
       "date_display": "11月19日 (四)",
-      "days_left": 19
+      "days_left": 18
     }
   ],
   "notices": {
-    "new_count": 1,
-    "latest_title": "借用流動電腦裝置配套物品 通告",
-    "latest_date": "2026-11-06",
-    "items": [
-      {
-        "code": "2627-133",
-        "title": "借用流動電腦裝置配套物品 通告",
-        "brief": "借用流動電腦裝置配套物品 通告",
-        "deadline": "2026-11-06",
-        "deadline_display": "11月6日 (五)",
-        "days_left": 6
-      }
-    ]
+    "new_count": 0,
+    "latest_title": "",
+    "latest_date": "",
+    "items": []
   }
 }
