@@ -1,7 +1,7 @@
 {
   "service": "daughter-school-detail",
   "student": "2A",
-  "updated": "2026-10-31T04:43:22.244350+00:00",
+  "updated": "2026-10-31T22:29:42.833163+00:00",
   "upcoming": [
     {
       "key": "CHI_PROGRESS_1",
@@ -13,7 +13,7 @@
       "title_en": "Chinese Formative Assessment",
       "date": "2026-11-05",
       "date_display": "11月5日 (四)",
-      "days_left": 5,
+      "days_left": 4,
       "scope": "課文第3至7課",
       "practice": [
         {
@@ -897,7 +897,7 @@
       "title_en": "English Dictation 3",
       "date": "2026-11-06",
       "date_display": "11月6日 (五)",
-      "days_left": 6,
+      "days_left": 5,
       "scope": "Unit 3",
       "detail": "Dictation 3（11月6日）Unit 3 My School — Part A Vocabulary 30%（16 個）、Part B Sentences 60%（10 句）、Part C Learn by Heart 10%、Part D Fun Dictation（未見過，唔使準備內容，靠語感）。",
       "practice": [
@@ -1046,7 +1046,7 @@
       "title_en": "English Formative Assessment FA2",
       "date": "2026-11-13",
       "date_display": "11月13日 (五)",
-      "days_left": 13,
+      "days_left": 12,
       "scope": "Unit 3–4",
       "detail": "英文進評 FA2（11月13日）範圍：Unit 3 My School + Unit 4 Who's the thief?。Unit 3 生字16個、句子10句已齊（同 Dict 3 嗰份範圍紙）。Unit 4 主題係 personal belongings（個人物品），文法重點：① 人名 + 's 表擁有（This is Bob's watch.）② do / does 問答（Do you have hairbands? Yes, I do.）；Unit 4 嘅生字表同句子表暫時未有，要等範圍紙先補得齊。",
       "words": [
@@ -1161,7 +1161,7 @@
       "title_en": "Assessment 1 · Chinese (Reading + Writing)",
       "date": "2026-11-19",
       "date_display": "11月19日 (四)",
-      "days_left": 19,
+      "days_left": 18,
       "scope": "課文一冊第1-3課·二冊第7課,單元一/二/五,進評一二 ※含已有知識",
       "practice": [
         {
@@ -1542,7 +1542,7 @@
       "title_en": "Assessment 1 · English",
       "date": "2026-11-20",
       "date_display": "11月20日 (五)",
-      "days_left": 20,
+      "days_left": 19,
       "scope": "U1-4 (TB·WB·A), FA1-2, 寫作1-3 ※含已有知識",
       "practice": [
         {
@@ -1578,7 +1578,7 @@
       "title_en": "Assessment 1 · Mathematics",
       "date": "2026-11-23",
       "date_display": "11月23日 (一)",
-      "days_left": 23,
+      "days_left": 22,
       "scope": "2上A 第1-11課, 進評1-2 ※含已有知識",
       "practice": [
         {
@@ -1671,7 +1671,7 @@
       "title_en": "Assessment 1 · Humanities",
       "date": "2026-11-24",
       "date_display": "11月24日 (二)",
-      "days_left": 24,
+      "days_left": 23,
       "scope": "第1-5課, 單元一/二 ※含已有知識",
       "practice": [
         {
@@ -1692,7 +1692,7 @@
       "title_en": "Assessment 1 · Science",
       "date": "2026-11-24",
       "date_display": "11月24日 (二)",
-      "days_left": 24,
+      "days_left": 23,
       "scope": "第1-3課 ※含已有知識",
       "practice": [
         {
@@ -1708,108 +1708,9 @@
       "source": "評估一範圍（eClass 通告 2627-125）"
     }
   ],
-  "homework": [
-    {
-      "key": "HUM_VIDEO_1",
-      "subject": "人文",
-      "title": "人文視訊一",
-      "due": "2026-10-31",
-      "subject_en": "Humanities",
-      "title_en": "Humanities Video Task 1",
-      "due_display": "10月31日 (六)",
-      "days_left": 0,
-      "detail": "「人文視訊一」（鄧詠恩老師，10月17日發佈，100分）｜派發日期：15/10/2026｜呈交日期：31/10/2026前｜Classroom 截止日期：11月1日（星期日）｜老師將根據學生的視訊影片表現進行評分與回饋。相關成績及評語將於稍後發放，屆時請家長查閲並簽署。\n\n工作紙：視訊功課(一) 個人短講｜題目：介紹我的好朋友及正確的相處之道（建議參考 第四課 交朋結友）\n題目要求：\n1. 請根據題目拍攝一段影片，1 分鐘內以廣話講述有關題目的內容。時限最多為 1 分 15 秒，限時外的內容不作評分，影片不能加入剪接及特別效果。\n2. 請於 2026 年 10 月 31 日（六）或前將影片上載到 Google Classroom (GC)繳交盒內。\n3. 內容範本：___老師，你好。我是___班的________。今天的主題是介紹我的一位好朋友，以及如何和朋友正確地相處。我的好朋友是______（說出朋友的名字）。我們經常一起____。（說出一項和朋友一起做的事）當朋友遇到困難時，我會____。（說出一個正確相處的例子）我們要尊重和愛護朋友。___老師，這是我的分享，多謝！\n\n評分表（總分/10）：內容(4分)——按題目作完整口頭匯報、內容充實；表達技巧(2分)——咬字清晰、聲量語調恰當、詞語略有變化、意思完整清晰；非語言表達(2分)——眼神交流自然、面部表情豐富、手勢動作配合自然；輔助工具(1分)——能適當使用；準時繳交(1分)。\n\n附件：工作紙正面（指示）及背面（評分表）相片各一。繳交方式：影片檔案經 GC「新增或建立」上載到繳交盒。",
-      "hints": [
-        "先寫講稿後拍攝：照工作紙開頭結尾範本填好，練到 1 分鐘內講完先至正式拍。",
-        "硬上限 1 分 15 秒：超時部分不作評分；手機一次過拍，唔可以剪接或加特別效果。",
-        "鏡頭表現攞分：眼望鏡頭、有表情同自然手勢；帶一樣輔助工具（如朋友張相／畫作）用得其所可加分。",
-        "交期：工作紙寫 31/10（六）或前上載（Classroom 顯示截止 11/1），按早嘅 31/10 交最穩陣，拍完即日交。"
-      ],
-      "practice": [
-        {
-          "q": "揀一位好朋友，諗一件你哋成日一齊做嘅事"
-        },
-        {
-          "q": "諗一個幫朋友嘅例子：例如朋友唔開心，你會點做？"
-        },
-        {
-          "q": "照工作紙範本寫好成份講稿（開頭＋朋友＋一齊做嘅事＋點樣相處＋結尾）"
-        },
-        {
-          "q": "讀出嚟計時：要喺 1 分鐘之內，唔可以超過 1 分 15 秒"
-        },
-        {
-          "q": "對住鏡頭練習 3 次：望住鏡頭、保持笑容、加少少自然手勢"
-        },
-        {
-          "q": "準備一樣輔助工具：朋友嘅相，或者你畫嘅一幅畫"
-        },
-        {
-          "q": "正式拍片：一次過拍晒，唔可以剪接，唔可以加特別效果"
-        },
-        {
-          "q": "請家長幫手將影片上載去 Google Classroom 繳交盒（10月31日或之前）",
-          "guide": true
-        }
-      ],
-      "source": "Google Classroom 功課指示",
-      "practice_en": [
-        {
-          "q": "Pick one good friend, and think of one thing you often do together"
-        },
-        {
-          "q": "Think of one example of helping a friend (e.g. when your friend is sad, what would you do?)"
-        },
-        {
-          "q": "Write the full script using the worksheet template (opening + friend + activity together + how to get along + ending)"
-        },
-        {
-          "q": "Read it aloud and time it: within 1 minute, never over 1 minute 15 seconds"
-        },
-        {
-          "q": "Practise 3 times facing the camera: look at the camera, smile, use a few natural hand gestures"
-        },
-        {
-          "q": "Prepare one prop: a photo of your friend, or a drawing you made"
-        },
-        {
-          "q": "Film it in one take: no editing, no special effects"
-        },
-        {
-          "q": "Parent: please upload the video to the Google Classroom turn-in box (on or before 31 Oct)",
-          "guide": true
-        }
-      ],
-      "hints_en": [
-        "Write the script first, then film: fill in the worksheet's opening/ending template and practise until it fits within 1 minute.",
-        "Hard limit 1:15 — anything over is not marked; film in one take on the phone, no editing or special effects.",
-        "Camera presence scores marks: eye contact with the lens, facial expressions and natural gestures; one prop used well (a friend's photo or a drawing) can add marks.",
-        "Deadline: the worksheet says upload on or before Sat 31 Oct (Classroom shows 1 Nov) — safest to submit on 31 Oct, right after filming."
-      ]
-    }
-  ],
+  "homework": [],
   "notices": {
-    "new_count": 1,
-    "items": [
-      {
-        "code": "2627-133",
-        "title": "借用流動電腦裝置配套物品 通告",
-        "brief": "借用流動電腦裝置配套物品 通告",
-        "deadline": "2026-11-06",
-        "deadline_display": "11月6日 (五)",
-        "days_left": 6,
-        "detail": "優質教育基金電子學習撥款計劃—流動電腦裝置（2026/27學年）：學校推行混合模式學習，建議學生備有個人流動電腦裝置。學校參加教育局計劃，申請撥款購買裝置供有經濟需要的學生借用。申請資格：正領取綜援／學校書簿津貼，或經學校識別為家庭經濟能力有限的學生；2021至2026年度期間已借用iPad者不合資格。裝置規格：A14晶片或以上、記憶體4GB或以上、10吋或以上屏幕、解像度1366x768或以上（支援多點觸控及手寫筆）、儲存128GB或以上、Wi-Fi 802.11n/ac或以上、Lightning／USB Type-C、前後相機、iOS 18或以上。填妥的回條連同證明文件於2026年11月1日前交回校務處；如正等待綜援／書簿津貼結果，可先交回條，結果通知書於2026年11月8日前交回。查詢：黃偉標老師 2661 9383。回條選項：不參加／申請參加（須填聲明：綜援、書簿津貼或家庭經濟能力有限，並承諾資格終止或離校時歸還裝置）。",
-        "points": [
-          "借用裝置計劃：優質教育基金電子學習撥款計劃，供有經濟需要學生借用流動電腦裝置（不是購買）",
-          "資格：領取綜援／書簿津貼，或學校識別為家庭經濟能力有限；2021–2026年已借iPad者不合資格",
-          "交回條＋證明文件限期：2026年11月1日前交校務處（注意：早過eClass系統簽署限期11月6日）",
-          "等候綜援／書簿津貼結果者：先交回條，結果通知書11月8日前補交",
-          "eClass簽署限期：2026年11月6日 12:00（回條未簽）",
-          "查詢：黃偉標老師 2661 9383"
-        ],
-        "source_tier": "verified_capture",
-        "source": "eClass 通告原文"
-      }
-    ]
+    "new_count": 0,
+    "items": []
   }
 }
