@@ -1,7 +1,7 @@
 {
   "service": "daughter-school",
   "student": "琳琳 2A",
-  "updated": "2026-10-31T04:29:35.079756+00:00",
+  "updated": "2026-10-31T04:43:18.785607+00:00",
   "homework": [
     {
       "key": "PET_ART_COMP_2026",
@@ -60,6 +60,7 @@
       "subject": "英文",
       "title": "英文進評 FA2",
       "date": "2026-11-13",
+      "scope": "Unit 3–4",
       "type_en": "Formative Assessment",
       "subject_en": "English",
       "title_en": "English Formative Assessment FA2",
