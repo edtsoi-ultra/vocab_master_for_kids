@@ -1,7 +1,7 @@
 {
   "service": "daughter-school-detail",
   "student": "琳琳 2A",
-  "updated": "2026-10-31T04:29:38.682614+00:00",
+  "updated": "2026-10-31T04:43:22.244350+00:00",
   "homework": [
     {
       "key": "PET_ART_COMP_2026",
@@ -1157,11 +1157,114 @@
       "subject": "英文",
       "title": "英文進評 FA2",
       "date": "2026-11-13",
+      "scope": "Unit 3–4",
       "type_en": "Formative Assessment",
       "subject_en": "English",
       "title_en": "English Formative Assessment FA2",
       "date_display": "11月13日 (五)",
-      "days_left": 13
+      "days_left": 13,
+      "detail": "英文進評 FA2（11月13日）範圍：Unit 3 My School + Unit 4 Who's the thief?。Unit 3 生字16個、句子10句已齊（同 Dict 3 嗰份範圍紙）。Unit 4 主題係 personal belongings（個人物品），文法重點：① 人名 + 's 表擁有（This is Bob's watch.）② do / does 問答（Do you have hairbands? Yes, I do.）；Unit 4 嘅生字表同句子表暫時未有，要等範圍紙先補得齊。",
+      "words": [
+        {
+          "text": "a music room",
+          "meaning": "音樂室",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "sing songs",
+          "meaning": "唱歌",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "an art room",
+          "meaning": "美術室",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "draw pictures",
+          "meaning": "畫畫",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "an office",
+          "meaning": "校務處",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "a classroom",
+          "meaning": "課室",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "have lessons",
+          "meaning": "上課",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "play games",
+          "meaning": "玩遊戲",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "a tuck shop",
+          "meaning": "小食部",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "a computer room",
+          "meaning": "電腦室",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "toilets",
+          "meaning": "洗手間",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "a sick room",
+          "meaning": "醫療室",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "a corridor",
+          "meaning": "走廊",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "fourth",
+          "meaning": "第四",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "fifth",
+          "meaning": "第五",
+          "lesson": "Unit 3"
+        },
+        {
+          "text": "sixth",
+          "meaning": "第六",
+          "lesson": "Unit 3"
+        }
+      ],
+      "sentences": [
+        "We can read books in the library.",
+        "The tuck shop is on the ground floor.",
+        "The school hall is on the first floor.",
+        "We can have recess on the second floor.",
+        "We can see our school cat in the garden.",
+        "The staffroom is on the third floor.",
+        "The playground is my favourite place at school.",
+        "Megan can buy some healthy snacks.",
+        "I can watch a play in the school hall.",
+        "Fred can play ball games with his friends."
+      ],
+      "focus_points": [
+        "Unit 3：學校地方生字 + on the ___ floor / in the ___ 句式（同 Dict 3 內容，溫返熟就得）",
+        "Unit 4 文法：人名 + 's（Bob's watch）、Do/Does you…? Yes, I do. / No, I don't.",
+        "Unit 4 生字（personal belongings）未有正式表 — 有 FA2 範圍紙嘅話影相比我，即刻補齊練習"
+      ],
+      "source_tier": "verified_capture",
+      "source": "範圍 Unit 3–4 — Eddie 確認 2026-10-31；Unit 3 內容來自 Dictation 3 範圍紙（verified）；Unit 4 課題/文法來自課本目錄頁 capture"
     },
     {
       "key": "ASSESS_1_CHI",
