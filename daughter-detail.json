@@ -1,8 +1,21 @@
 {
   "service": "daughter-school-detail",
   "student": "琳琳 2A",
-  "updated": "2026-10-30T22:29:46.141201+00:00",
+  "updated": "2026-10-31T04:29:38.682614+00:00",
   "homework": [
+    {
+      "key": "PET_ART_COMP_2026",
+      "subject": "視藝",
+      "title": "寵物繪畫比賽・交作品",
+      "due": "2026-11-09",
+      "status": "pending",
+      "personal": true,
+      "subject_en": "Visual Arts",
+      "title_en": "Pet Drawing Competition — Submit Entry",
+      "due_display": "11月9日 (一)",
+      "days_left": 9,
+      "detail": "第十一屆香港青少年及兒童寵物藝術比賽（小學P.1-P.2組）｜報名＋交作品截止：11月9日｜交件方法：填網上表格報名＋用WhatsApp影作品相交件，記得保留原稿｜費用全免｜結果11月13日公布"
+    },
     {
       "key": "HUM_VIDEO_1",
       "subject": "人文",
