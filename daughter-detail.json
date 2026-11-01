@@ -1,7 +1,7 @@
 {
   "service": "daughter-school-detail",
   "student": "琳琳 2A",
-  "updated": "2026-10-31T22:29:42.833163+00:00",
+  "updated": "2026-11-01T11:58:54.597005+00:00",
   "homework": [
     {
       "key": "PET_ART_COMP_2026",
@@ -15,13 +15,15 @@
       "due_display": "11月9日 (一)",
       "days_left": 8,
       "detail": "第十一屆香港青少年及兒童寵物藝術比賽（小學P.1-P.2組）｜報名＋交作品截止：11月9日｜交件方法：填網上表格報名＋用WhatsApp影作品相交件，記得保留原稿｜費用全免｜結果11月13日公布"
-    },
+    }
+  ],
+  "homework_done": [
     {
       "key": "HUM_VIDEO_1",
       "subject": "人文",
       "title": "人文視訊一",
       "due": "2026-10-31",
-      "status": "pending",
+      "status": "submitted",
       "subject_en": "Humanities",
       "title_en": "Humanities Video Task 1",
       "due_display": "10月31日 (六)",
@@ -98,9 +100,7 @@
         "Camera presence scores marks: eye contact with the lens, facial expressions and natural gestures; one prop used well (a friend's photo or a drawing) can add marks.",
         "Deadline: the worksheet says upload on or before Sat 31 Oct (Classroom shows 1 Nov) — safest to submit on 31 Oct, right after filming."
       ]
-    }
-  ],
-  "homework_done": [
+    },
     {
       "key": "MATH_VIDEO_1",
       "subject": "數學",
