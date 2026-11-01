@@ -1,442 +1,109 @@
 {
- "updated": "2026-10-30T22:13:47.193423+00:00",
+ "updated": "2026-11-01T13:27:45.471070+00:00",
  "technical": {
-  "status": "ok",
-  "data_date": "2026-10-30",
-  "tickers": {
-   "AAPL": {
-    "symbol": "AAPL",
-    "tier": "mag7",
-    "score": 67.8,
-    "band": "偏強",
-    "close": 344.63,
-    "sma50": 333.04,
-    "subs": {
-     "trend": 1.0,
-     "mom": -0.34,
-     "str": 0.29,
-     "vol": -0.23,
-     "pos": 0.92,
-     "vola": 0.76
-    },
-    "trend_formula": "standard",
-    "divergence_detail": {
-     "warn_items": [
-      "pct52>=90"
-     ],
-     "death_cross": null
-    },
-    "rsi": 55.0,
-    "adx": 20.0,
-    "pct52": 98.0,
-    "range_pos": 96.0,
-    "history_days": 501,
-    "degraded": [],
-    "data_quality": [],
-    "flags": [],
-    "divergence": false,
-    "subs_row": "趨+1.0 動-0.3 強+0.3 量-0.2 位+0.9 波+0.8",
-    "sample_ok": true,
-    "warnings": [
-     "高位"
-    ],
-    "severe": false
-   },
-   "MSFT": {
-    "symbol": "MSFT",
-    "tier": "mag7",
-    "score": 58.3,
-    "band": "偏強",
-    "close": 521.91,
-    "sma50": 512.91,
-    "subs": {
-     "trend": 1.0,
-     "mom": -0.41,
-     "str": -0.38,
-     "vol": -0.43,
-     "pos": 0.77,
-     "vola": 0.25
-    },
-    "trend_formula": "standard",
-    "divergence_detail": {
-     "warn_items": [
-      "pct52>=90"
-     ],
-     "death_cross": null
-    },
-    "rsi": 49.0,
-    "adx": 23.0,
-    "pct52": 92.0,
-    "range_pos": 89.0,
-    "history_days": 501,
-    "degraded": [],
-    "data_quality": [],
-    "flags": [],
-    "divergence": false,
-    "subs_row": "趨+1.0 動-0.4 強-0.4 量-0.4 位+0.8 波+0.2",
-    "sample_ok": true,
-    "warnings": [
-     "高位"
-    ],
-    "severe": false
-   },
-   "GOOGL": {
-    "symbol": "GOOGL",
-    "tier": "mag7",
-    "score": 10.2,
-    "band": "弱勢",
-    "close": 279.84,
-    "sma50": 339.07,
-    "subs": {
-     "trend": -1.0,
-     "mom": -0.74,
-     "str": -0.5,
-     "vol": -0.64,
-     "pos": -0.9,
-     "vola": -0.97
-    },
-    "trend_formula": "standard",
-    "divergence_detail": {
-     "warn_items": [
-      "死叉"
-     ],
-     "death_cross": {
-      "days_ago": 1,
-      "days_remaining": 3
-     }
-    },
-    "rsi": 21.0,
-    "adx": 26.0,
-    "pct52": 3.0,
-    "range_pos": 5.0,
-    "history_days": 501,
-    "degraded": [],
-    "data_quality": [],
-    "flags": [
-     "死叉（5日內）",
-     "RSI超賣",
-     "布林下破"
-    ],
-    "divergence": false,
-    "subs_row": "趨-1.0 動-0.7 強-0.5 量-0.6 位-0.9 波-1.0",
-    "sample_ok": true,
-    "warnings": [
-     "死叉（5日內）",
-     "RSI超賣",
-     "布林下破"
-    ],
-    "severe": true
-   },
-   "AMZN": {
-    "symbol": "AMZN",
-    "tier": "mag7",
-    "score": 33.2,
-    "band": "偏弱",
-    "close": 240.35,
-    "sma50": 254.28,
-    "subs": {
-     "trend": -0.4,
-     "mom": -0.54,
-     "str": -0.12,
-     "vol": -0.25,
-     "pos": -0.02,
-     "vola": -0.47
-    },
-    "trend_formula": "standard",
-    "divergence_detail": {
-     "warn_items": [],
-     "death_cross": null
-    },
-    "rsi": 38.0,
-    "adx": 15.0,
-    "pct52": 44.0,
-    "range_pos": 49.0,
-    "history_days": 501,
-    "degraded": [],
-    "data_quality": [],
-    "flags": [
-     "布林下破"
-    ],
-    "divergence": false,
-    "subs_row": "趨-0.4 動-0.5 強-0.1 量-0.2 位-0.0 波-0.5",
-    "sample_ok": true,
-    "warnings": [
-     "布林下破"
-    ],
-    "severe": false
-   },
-   "META": {
-    "symbol": "META",
-    "tier": "mag7",
-    "score": 23.5,
-    "band": "弱勢",
-    "close": 614.99,
-    "sma50": 669.98,
-    "subs": {
-     "trend": -0.4,
-     "mom": -0.6,
-     "str": -0.55,
-     "vol": -0.74,
-     "pos": -0.29,
-     "vola": -0.71
-    },
-    "trend_formula": "standard",
-    "divergence_detail": {
-     "warn_items": [],
-     "death_cross": null
-    },
-    "rsi": 33.0,
-    "adx": 28.0,
-    "pct52": 39.0,
-    "range_pos": 35.0,
-    "history_days": 501,
-    "degraded": [],
-    "data_quality": [],
-    "flags": [],
-    "divergence": false,
-    "subs_row": "趨-0.4 動-0.6 強-0.6 量-0.7 位-0.3 波-0.7",
-    "sample_ok": true,
-    "warnings": [],
-    "severe": false
-   },
-   "NVDA": {
-    "symbol": "NVDA",
-    "tier": "mag7",
-    "score": 45.9,
-    "band": "中性",
-    "close": 204.64,
-    "sma50": 221.75,
-    "subs": {
-     "trend": 0.4,
-     "mom": -0.58,
-     "str": -0.28,
-     "vol": -0.26,
-     "pos": 0.07,
-     "vola": 0.36
-    },
-    "trend_formula": "standard",
-    "divergence_detail": {
-     "warn_items": [],
-     "death_cross": null
-    },
-    "rsi": 35.0,
-    "adx": 20.0,
-    "pct52": 58.0,
-    "range_pos": 53.0,
-    "history_days": 501,
-    "degraded": [],
-    "data_quality": [],
-    "flags": [],
-    "divergence": false,
-    "subs_row": "趨+0.4 動-0.6 強-0.3 量-0.3 位+0.1 波+0.4",
-    "sample_ok": true,
-    "warnings": [],
-    "severe": false
-   },
-   "TSLA": {
-    "symbol": "TSLA",
-    "tier": "mag7",
-    "score": 66.6,
-    "band": "偏強",
-    "close": 399.81,
-    "sma50": 369.6,
-    "subs": {
-     "trend": 0.4,
-     "mom": 0.53,
-     "str": 0.12,
-     "vol": 0.09,
-     "pos": 0.06,
-     "vola": 0.83
-    },
-    "trend_formula": "standard",
-    "divergence_detail": {
-     "warn_items": [],
-     "death_cross": null
-    },
-    "rsi": 61.0,
-    "adx": 15.0,
-    "pct52": 52.0,
-    "range_pos": 53.0,
-    "history_days": 501,
-    "degraded": [],
-    "data_quality": [],
-    "flags": [],
-    "divergence": false,
-    "subs_row": "趨+0.4 動+0.5 強+0.1 量+0.1 位+0.1 波+0.8",
-    "sample_ok": true,
-    "warnings": [],
-    "severe": false
-   },
-   "SPCX": {
-    "symbol": "SPCX",
-    "tier": "wishlist",
-    "score": 35.4,
-    "band": "偏弱",
-    "close": 134.72,
-    "sma50": 149.56,
-    "subs": {
-     "trend": -0.1,
-     "mom": -0.55,
-     "str": -0.2,
-     "vol": -0.2,
-     "pos": -0.49,
-     "vola": 0.0
-    },
-    "trend_formula": "degraded",
-    "divergence_detail": {
-     "warn_items": [],
-     "death_cross": null
-    },
-    "rsi": 37.0,
-    "adx": 18.0,
-    "pct52": 20.0,
-    "range_pos": 26.0,
-    "history_days": 98,
-    "degraded": [
-     "歷史得 98 日，無 200 日線"
-    ],
-    "data_quality": [],
-    "flags": [],
-    "divergence": false,
-    "subs_row": "趨-0.1 動-0.6 強-0.2 量-0.2 位-0.5 波+0.0",
-    "sample_ok": false,
-    "warnings": [],
-    "severe": false
-   },
-   "SNDK": {
-    "symbol": "SNDK",
-    "tier": "wishlist",
-    "score": 31.6,
-    "band": "偏弱",
-    "close": 1150.89,
-    "sma50": 1557.91,
-    "subs": {
-     "trend": -0.4,
-     "mom": -0.61,
-     "str": -0.47,
-     "vol": -0.14,
-     "pos": -0.11,
-     "vola": -0.3
-    },
-    "trend_formula": "standard",
-    "divergence_detail": {
-     "warn_items": [],
-     "death_cross": null
-    },
-    "rsi": 33.0,
-    "adx": 25.0,
-    "pct52": 51.0,
-    "range_pos": 45.0,
-    "history_days": 431,
-    "degraded": [],
-    "data_quality": [],
-    "flags": [],
-    "divergence": false,
-    "subs_row": "趨-0.4 動-0.6 強-0.5 量-0.1 位-0.1 波-0.3",
-    "sample_ok": true,
-    "warnings": [],
-    "severe": false
-   }
-  }
+  "status": "error",
+  "message": "⚠️ 數據更新失敗",
+  "at": "2026-10-31T06:13:17.773507+08:00",
+  "error": null
  },
  "sentiment": {
-  "as_of": "2026-10-25",
-  "note": "2026-10-25 週報首次正式採集：wishlist 三組為本週實測；Mag7 市場組仍沿用 2026-10-21 初始值（週報 Mag7 只做簡表，不做輿情深挖）",
+  "as_of": "2026-11-01",
+  "note": "2026-11-01 週報採集：wishlist 三組為本週實測；Mag7 市場組仍沿用 2026-10-21 初始值（週報 Mag7 只做簡表，不做輿情深挖）。輿情異動 gate：本週無翻轉、無單週負面率跳升 >=20pp，故不作異動通報。",
   "states": {
-   "SPCX": {
-    "market": {
-     "state": "中性",
-     "conf": "低信心",
-     "neg_rate": 0.4,
-     "driver": "Q3 大勝（收入+161%、EPS $0.45勝預期）vs 10-22 約13億股解禁拋售 -9.1%，兩股力拉鋸；AltIndex Reddit 情緒 64/100 中性"
-    },
-    "employee": {
-     "state": "中性",
-     "conf": "低信心",
-     "neg_rate": 0.4,
-     "driver": "Glassdoor 3.8星、70%推薦、前景樂觀80%；工時2.5星與中層管理為持續扣分項"
-    },
-    "customer": {
-     "state": "中性",
-     "conf": "低信心",
-     "neg_rate": 0.38,
-     "driver": "Starlink 滿意度76/100高於行均73；擁擠附加費（最高$1,500）與客服難聯絡為主訴，本週無新事故"
-    }
-   },
-   "SNDK": {
-    "market": {
-     "state": "中性",
-     "conf": "低信心",
-     "neg_rate": 0.46,
-     "driver": "10-22 半導體拋售跟跌8.5%；分析師仍普遍看好（15 Buy/2 Hold，均值目標$2,206，+75%），StockTwits 週五轉回偏好區"
-    },
-    "employee": {
-     "state": "中性",
-     "conf": "低信心",
-     "neg_rate": 0.5,
-     "driver": "本週無新帖；Glassdoor 累計3.4星、62%推薦，好同事/薪酬 vs 裁員重組/工時拉鋸"
-    },
-    "customer": {
-     "state": "中性",
-     "conf": "低信心",
-     "neg_rate": 0.5,
-     "driver": "本週無新產品事件；舊 Extreme 系列2023故障信任問題仍是主旋律，2026評測認為速度/做工仍可"
-    }
-   },
    "AAPL": {
     "market": {
-     "state": "中性",
      "conf": "低信心",
+     "driver": "",
      "neg_rate": null,
-     "driver": ""
-    }
-   },
-   "MSFT": {
-    "market": {
-     "state": "中性",
-     "conf": "低信心",
-     "neg_rate": null,
-     "driver": ""
-    }
-   },
-   "GOOGL": {
-    "market": {
-     "state": "中性",
-     "conf": "低信心",
-     "neg_rate": null,
-     "driver": ""
+     "state": "中性"
     }
    },
    "AMZN": {
     "market": {
-     "state": "中性",
      "conf": "低信心",
+     "driver": "",
      "neg_rate": null,
-     "driver": ""
+     "state": "中性"
+    }
+   },
+   "GOOGL": {
+    "market": {
+     "conf": "低信心",
+     "driver": "",
+     "neg_rate": null,
+     "state": "中性"
     }
    },
    "META": {
     "market": {
-     "state": "中性",
      "conf": "低信心",
+     "driver": "Q3 勝預期但自由現金流轉負，10-22 跌 7%（週報簡表用，輿情未正式採集）",
      "neg_rate": null,
-     "driver": "Q3 勝預期但自由現金流轉負，10-22 跌 7%（週報簡表用，輿情未正式採集）"
+     "state": "中性"
+    }
+   },
+   "MSFT": {
+    "market": {
+     "conf": "低信心",
+     "driver": "",
+     "neg_rate": null,
+     "state": "中性"
     }
    },
    "NVDA": {
     "market": {
-     "state": "中性",
      "conf": "低信心",
+     "driver": "",
      "neg_rate": null,
-     "driver": ""
+     "state": "中性"
+    }
+   },
+   "SNDK": {
+    "customer": {
+     "conf": "低信心",
+     "driver": "本週無新產品事件；舊 Extreme 系列 2023 故障信任問題仍是主旋律，2026 評測認為速度/做工仍可",
+     "neg_rate": 0.5,
+     "state": "中性"
+    },
+    "employee": {
+     "conf": "低信心",
+     "driver": "本週無新帖；Glassdoor 累計 3.4星、62%推薦不變，好同事/薪酬 vs 裁員重組/工時拉鋸",
+     "neg_rate": 0.5,
+     "state": "中性"
+    },
+    "market": {
+     "conf": "低信心",
+     "driver": "社交樣本主題「業績大勝但股價照跌」：10-29 業績後 -5.3%，10-30 再 -13.5% 至 $1,150.89；散戶辯論主因是 AI 支出恐懼而非業績本身",
+     "neg_rate": 0.5,
+     "state": "中性"
+    }
+   },
+   "SPCX": {
+    "customer": {
+     "conf": "低信心",
+     "driver": "easyJet 宣布 2027 年起機隊用 Starlink 為正面消息；擁擠附加費與客服難聯絡為主訴，本週無新事故",
+     "neg_rate": 0.38,
+     "state": "中性"
+    },
+    "employee": {
+     "conf": "低信心",
+     "driver": "Glassdoor 3.8星、69-71%推薦、前景樂觀80%不變；工時2.5星與中層管理為持續扣分項，本週無新事件",
+     "neg_rate": 0.4,
+     "state": "中性"
+    },
+    "market": {
+     "conf": "低信心",
+     "driver": "10-30 AI 拋售跟跌 -6.4% 至 $134.72，但 Bernstein 10-26 上調目標 $248→$267、共識 17 Buy/4 Hold/0 Sell；7 日情緒分 0.77 偏正向，兩股力拉鋸",
+     "neg_rate": 0.42,
+     "state": "中性"
     }
    },
    "TSLA": {
     "market": {
-     "state": "偏好",
      "conf": "低信心",
+     "driver": "與 SpaceX 各設獨立委員會探討合併",
      "neg_rate": null,
-     "driver": "與 SpaceX 各設獨立委員會探討合併"
+     "state": "偏好"
     }
    }
   }
