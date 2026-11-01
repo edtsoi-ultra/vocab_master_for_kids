@@ -1,1 +1,232 @@
-{"service": "FinanceWidget", "updated": "2026-10-25T20:13:50+08:00", "fx": {"strongest": {"name": "人民幣", "code": "USD/CNY", "percentile": 100.0, "rate": "6.6513"}, "weakest": {"name": "港元", "code": "USD/HKD", "percentile": 3.5, "rate": "7.8456"}}, "commodity": {"highest": {"name": "布蘭特原油", "percentile": 88.5, "price": "111.53"}, "lowest": {"name": "黃金", "percentile": 4.5, "price": "4021.10"}, "mover": {"name": "布蘭特原油", "day_change": -3.29, "price": "111.53"}}, "daily": {"date": "2026-10-30", "fx": [{"name": "人民幣", "code": "USD/CNY", "rate": "6.6513", "percentile": 100.0, "day_change": 0.22}, {"name": "韓圜", "code": "USD/KRW", "rate": "1338.18", "percentile": 91.8, "day_change": 0.16}, {"name": "澳元", "code": "AUD/USD", "rate": "0.7030", "percentile": 72.1, "day_change": -0.4}, {"name": "星元", "code": "USD/SGD", "rate": "1.2794", "percentile": 59.2, "day_change": 0.12}, {"name": "日圓", "code": "USD/JPY", "rate": "157.74", "percentile": 51.8, "day_change": 0.06}, {"name": "英鎊", "code": "GBP/USD", "rate": "1.3383", "percentile": 44.9, "day_change": 0.41}, {"name": "加元", "code": "USD/CAD", "rate": "1.3978", "percentile": 37.1, "day_change": 0.07}, {"name": "瑞郎", "code": "USD/CHF", "rate": "0.8230", "percentile": 16.2, "day_change": 0.6}, {"name": "歐元", "code": "EUR/USD", "rate": "1.1191", "percentile": 6.9, "day_change": 0.31}, {"name": "港元", "code": "USD/HKD", "rate": "7.8456", "percentile": 3.5, "day_change": -0.01}], "commodities": [{"name": "布蘭特原油", "price": "111.53", "unit": "美元/桶", "percentile": 88.5, "day_change": -3.29}, {"name": "銅", "price": "6.56", "unit": "美元/磅", "percentile": 87.3, "day_change": -1.16}, {"name": "WTI原油", "price": "102.77", "unit": "美元/桶", "percentile": 82.4, "day_change": -0.01}, {"name": "大豆", "price": "1233.75", "unit": "美分/蒲式耳", "percentile": 69.1, "day_change": 0.76}, {"name": "小麥", "price": "605.25", "unit": "美分/蒲式耳", "percentile": 38.0, "day_change": 1.04}, {"name": "玉米", "price": "450.25", "unit": "美分/蒲式耳", "percentile": 34.2, "day_change": -0.33}, {"name": "天然氣", "price": "2.90", "unit": "美元/mmBtu", "percentile": 7.6, "day_change": 2.84}, {"name": "白銀", "price": "51.99", "unit": "美元/安士", "percentile": 7.2, "day_change": -2.74}, {"name": "黃金", "price": "4021.10", "unit": "美元/安士", "percentile": 4.5, "day_change": -0.75}], "updated": "2026-10-30T00:30:04.497988+00:00"}}
+{
+  "service": "FinanceWidget",
+  "updated": "2026-11-01T20:14:18+08:00",
+  "fx": {
+    "strongest": {
+      "name": "人民幣",
+      "code": "USD/CNY",
+      "percentile": 100.0,
+      "rate": "6.6540"
+    },
+    "weakest": {
+      "name": "港元",
+      "code": "USD/HKD",
+      "percentile": 5.2,
+      "rate": "7.8442"
+    },
+    "top3": [
+      {
+        "name": "人民幣",
+        "percentile": 100.0
+      },
+      {
+        "name": "韓圜",
+        "percentile": 93.3
+      },
+      {
+        "name": "澳元",
+        "percentile": 72.7
+      }
+    ],
+    "bottom3": [
+      {
+        "name": "港元",
+        "percentile": 5.2
+      },
+      {
+        "name": "歐元",
+        "percentile": 6.0
+      },
+      {
+        "name": "瑞郎",
+        "percentile": 13.7
+      }
+    ]
+  },
+  "commodity": {
+    "highest": {
+      "name": "布蘭特原油",
+      "percentile": 91.7,
+      "price": "113.43 美元/桶"
+    },
+    "lowest": {
+      "name": "黃金",
+      "percentile": 0.0,
+      "price": "3898.90 美元/安士"
+    },
+    "mover": {
+      "name": "天然氣",
+      "week_change": 9.77,
+      "price": "2.90 美元/mmBtu"
+    },
+    "top3": [
+      {
+        "name": "布蘭特原油",
+        "percentile": 91.7
+      },
+      {
+        "name": "WTI原油",
+        "percentile": 84.7
+      },
+      {
+        "name": "銅",
+        "percentile": 82.9
+      }
+    ],
+    "bottom3": [
+      {
+        "name": "黃金",
+        "percentile": 0.0
+      },
+      {
+        "name": "白銀",
+        "percentile": 3.2
+      },
+      {
+        "name": "天然氣",
+        "percentile": 7.6
+      }
+    ]
+  },
+  "daily": {
+    "date": "2026-10-30",
+    "fx": [
+      {
+        "name": "人民幣",
+        "code": "USD/CNY",
+        "rate": "6.6513",
+        "percentile": 100.0,
+        "day_change": 0.22
+      },
+      {
+        "name": "韓圜",
+        "code": "USD/KRW",
+        "rate": "1338.18",
+        "percentile": 91.8,
+        "day_change": 0.16
+      },
+      {
+        "name": "澳元",
+        "code": "AUD/USD",
+        "rate": "0.7030",
+        "percentile": 72.1,
+        "day_change": -0.4
+      },
+      {
+        "name": "星元",
+        "code": "USD/SGD",
+        "rate": "1.2794",
+        "percentile": 59.2,
+        "day_change": 0.12
+      },
+      {
+        "name": "日圓",
+        "code": "USD/JPY",
+        "rate": "157.74",
+        "percentile": 51.8,
+        "day_change": 0.06
+      },
+      {
+        "name": "英鎊",
+        "code": "GBP/USD",
+        "rate": "1.3383",
+        "percentile": 44.9,
+        "day_change": 0.41
+      },
+      {
+        "name": "加元",
+        "code": "USD/CAD",
+        "rate": "1.3978",
+        "percentile": 37.1,
+        "day_change": 0.07
+      },
+      {
+        "name": "瑞郎",
+        "code": "USD/CHF",
+        "rate": "0.8230",
+        "percentile": 16.2,
+        "day_change": 0.6
+      },
+      {
+        "name": "歐元",
+        "code": "EUR/USD",
+        "rate": "1.1191",
+        "percentile": 6.9,
+        "day_change": 0.31
+      },
+      {
+        "name": "港元",
+        "code": "USD/HKD",
+        "rate": "7.8456",
+        "percentile": 3.5,
+        "day_change": -0.01
+      }
+    ],
+    "commodities": [
+      {
+        "name": "布蘭特原油",
+        "price": "111.53",
+        "unit": "美元/桶",
+        "percentile": 88.5,
+        "day_change": -3.29
+      },
+      {
+        "name": "銅",
+        "price": "6.56",
+        "unit": "美元/磅",
+        "percentile": 87.3,
+        "day_change": -1.16
+      },
+      {
+        "name": "WTI原油",
+        "price": "102.77",
+        "unit": "美元/桶",
+        "percentile": 82.4,
+        "day_change": -0.01
+      },
+      {
+        "name": "大豆",
+        "price": "1233.75",
+        "unit": "美分/蒲式耳",
+        "percentile": 69.1,
+        "day_change": 0.76
+      },
+      {
+        "name": "小麥",
+        "price": "605.25",
+        "unit": "美分/蒲式耳",
+        "percentile": 38.0,
+        "day_change": 1.04
+      },
+      {
+        "name": "玉米",
+        "price": "450.25",
+        "unit": "美分/蒲式耳",
+        "percentile": 34.2,
+        "day_change": -0.33
+      },
+      {
+        "name": "天然氣",
+        "price": "2.90",
+        "unit": "美元/mmBtu",
+        "percentile": 7.6,
+        "day_change": 2.84
+      },
+      {
+        "name": "白銀",
+        "price": "51.99",
+        "unit": "美元/安士",
+        "percentile": 7.2,
+        "day_change": -2.74
+      },
+      {
+        "name": "黃金",
+        "price": "4021.10",
+        "unit": "美元/安士",
+        "percentile": 4.5,
+        "day_change": -0.75
+      }
+    ],
+    "updated": "2026-10-30T00:30:04.497988+00:00"
+  }
+}
