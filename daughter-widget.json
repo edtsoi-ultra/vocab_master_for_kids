@@ -1,7 +1,7 @@
 {
   "service": "daughter-school",
   "student": "琳琳 2A",
-  "updated": "2026-10-31T22:29:39.592586+00:00",
+  "updated": "2026-11-01T11:58:50.890288+00:00",
   "homework": [
     {
       "key": "PET_ART_COMP_2026",
@@ -14,17 +14,6 @@
       "title_en": "Pet Drawing Competition — Submit Entry",
       "due_display": "11月9日 (一)",
       "days_left": 8
-    },
-    {
-      "key": "HUM_VIDEO_1",
-      "subject": "人文",
-      "title": "人文視訊一",
-      "due": "2026-10-31",
-      "status": "pending",
-      "subject_en": "Humanities",
-      "title_en": "Humanities Video Task 1",
-      "due_display": "10月31日 (六)",
-      "days_left": -1
     }
   ],
   "upcoming": [
