@@ -1,6 +1,6 @@
 {
   "service": "card-repayment",
-  "updated": "2026-10-21T21:22:20.362496+08:00",
+  "updated": "2026-11-03T06:48:13.508197+08:00",
   "cards": [
     {
       "name": "HSBC",
@@ -40,17 +40,6 @@
       ]
     },
     {
-      "name": "AEON",
-      "tail": "3706",
-      "entries": [
-        {
-          "due_date": "2026-11-02",
-          "amount": 23183,
-          "estimated": false
-        }
-      ]
-    },
-    {
       "name": "Explorer",
       "tail": "51009",
       "entries": [
@@ -82,7 +71,12 @@
       "tail": "4011",
       "entries": [
         {
-          "due_date": "2027-02-20",
+          "due_date": "2026-11-19",
+          "amount": 10206,
+          "estimated": false
+        },
+        {
+          "due_date": "2027-02-19",
           "amount": 17499,
           "estimated": true
         }
