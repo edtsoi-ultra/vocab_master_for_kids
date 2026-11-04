@@ -1,6 +1,6 @@
 {
   "service": "card-repayment",
-  "updated": "2026-11-03T06:48:13.508197+08:00",
+  "updated": "2026-11-04T14:47:41.605382+08:00",
   "cards": [
     {
       "name": "HSBC",
@@ -88,6 +88,17 @@
       "entries": [
         {
           "due_date": "2027-02-14",
+          "amount": 17499,
+          "estimated": true
+        }
+      ]
+    },
+    {
+      "name": "ONE+",
+      "tail": "9006",
+      "entries": [
+        {
+          "due_date": "2027-02-11",
           "amount": 17499,
           "estimated": true
         }
