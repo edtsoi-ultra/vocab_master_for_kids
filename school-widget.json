@@ -1,7 +1,7 @@
 {
   "service": "daughter-school",
   "student": "2A",
-  "updated": "2026-11-05T19:28:55.010897+08:00",
+  "updated": "2026-11-05T19:29:52.283705+08:00",
   "homework": [],
   "upcoming": [
     {
@@ -58,7 +58,7 @@
     }
   ],
   "notices": {
-    "new_count": 1,
+    "new_count": 2,
     "latest_title": "有關6/11(星期五)家教會主辦之勾菜瓜布工作坊",
     "latest_date": "2026-11-06",
     "items": [
@@ -70,6 +70,14 @@
         "deadline": "2026-11-06",
         "deadline_display": "11月6日 (五)",
         "days_left": 1
+      },
+      {
+        "code": "2627-146",
+        "title": "2026-27年度第三學習階段書簿雜費 通告 - 2A、2B、2C",
+        "brief": "2026-27年度第三學習階段書簿雜費 通告 - 2A、2B",
+        "deadline": "2026-11-27",
+        "deadline_display": "11月27日 (五)",
+        "days_left": 22
       }
     ]
   }
