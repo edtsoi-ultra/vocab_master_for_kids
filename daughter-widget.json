@@ -1,7 +1,7 @@
 {
   "service": "daughter-school",
   "student": "琳琳 2A",
-  "updated": "2026-11-06T10:06:52.251203+00:00",
+  "updated": "2026-11-06T10:07:58.431738+00:00",
   "homework": [
     {
       "key": "PET_ART_COMP_2026",
@@ -71,7 +71,7 @@
     }
   ],
   "notices": {
-    "new_count": 1,
+    "new_count": 2,
     "latest_title": "有關6/11(星期五)家教會主辦之勾菜瓜布工作坊",
     "latest_date": "2026-11-06",
     "items": [
@@ -83,6 +83,14 @@
         "deadline": "2026-11-06",
         "deadline_display": "11月6日 (五)",
         "days_left": 0
+      },
+      {
+        "code": "2627-158",
+        "title": "成長樂印獎勵計劃 第一學習階段「Pay Day」換領日 通告",
+        "brief": "成長樂印獎勵計劃 第一學習階段「Pay Day」換領日 通告",
+        "deadline": "2026-11-13",
+        "deadline_display": "11月13日 (五)",
+        "days_left": 7
       }
     ]
   }
