@@ -1,22 +1,9 @@
 {
   "service": "daughter-school",
   "student": "2A",
-  "updated": "2026-11-06T10:07:58.431738+00:00",
+  "updated": "2026-11-06T22:29:36.163495+00:00",
   "homework": [],
   "upcoming": [
-    {
-      "key": "ENG_DICT_3",
-      "type": "默書",
-      "subject": "英文",
-      "title": "英文默書 Dict 3",
-      "date": "2026-11-06",
-      "scope": "Unit 3",
-      "type_en": "Dictation",
-      "subject_en": "English",
-      "title_en": "English Dictation 3",
-      "date_display": "11月6日 (五)",
-      "days_left": 0
-    },
     {
       "key": "ENG_FA2",
       "type": "進評",
@@ -28,7 +15,7 @@
       "subject_en": "English",
       "title_en": "English Formative Assessment FA2",
       "date_display": "11月13日 (五)",
-      "days_left": 7
+      "days_left": 6
     },
     {
       "key": "ASSESS_1_CHI",
@@ -41,22 +28,34 @@
       "subject_en": "Chinese",
       "title_en": "Assessment 1 · Chinese (Reading + Writing)",
       "date_display": "11月19日 (四)",
+      "days_left": 12
+    },
+    {
+      "key": "ASSESS_1_ENG",
+      "type": "評估",
+      "subject": "英文",
+      "title": "評估一・英文",
+      "date": "2026-11-20",
+      "scope": "U1-4 (TB·WB·A), FA1-2, 寫作1-3 ※含已有知識",
+      "type_en": "Assessment",
+      "subject_en": "English",
+      "title_en": "Assessment 1 · English",
+      "date_display": "11月20日 (五)",
       "days_left": 13
     }
   ],
   "notices": {
     "new_count": 1,
-    "latest_title": "有關6/11(星期五)家教會主辦之勾菜瓜布工作坊",
-    "latest_date": "2026-11-06",
+    "latest_title": "成長樂印獎勵計劃 第一學習階段「Pay Day」換領日 通告",
+    "latest_date": "2026-11-13",
     "items": [
       {
-        "key": "NOTICE_PTA_WORKSHOP_20261106",
-        "code": "學校通告",
-        "title": "有關6/11(星期五)家教會主辦之勾菜瓜布工作坊",
-        "brief": "家教會工作坊：11月6日（五）09:55–11:20 家長資源室，名額30個先到先得",
-        "deadline": "2026-11-06",
-        "deadline_display": "11月6日 (五)",
-        "days_left": 0
+        "code": "2627-158",
+        "title": "成長樂印獎勵計劃 第一學習階段「Pay Day」換領日 通告",
+        "brief": "成長樂印獎勵計劃 第一學習階段「Pay Day」換領日 通告",
+        "deadline": "2026-11-13",
+        "deadline_display": "11月13日 (五)",
+        "days_left": 6
       }
     ]
   }
