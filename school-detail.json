@@ -1,157 +1,8 @@
 {
   "service": "daughter-school-detail",
   "student": "2A",
-  "updated": "2026-11-06T10:08:01.454516+00:00",
+  "updated": "2026-11-06T22:29:42.484124+00:00",
   "upcoming": [
-    {
-      "key": "ENG_DICT_3",
-      "type": "默書",
-      "type_en": "Dictation",
-      "subject": "英文",
-      "subject_en": "English",
-      "title": "英文默書 Dict 3",
-      "title_en": "English Dictation 3",
-      "date": "2026-11-06",
-      "date_display": "11月6日 (五)",
-      "days_left": 0,
-      "scope": "Unit 3",
-      "detail": "Dictation 3（11月6日）Unit 3 My School — Part A Vocabulary 30%（16 個）、Part B Sentences 60%（10 句）、Part C Learn by Heart 10%、Part D Fun Dictation（未見過，唔使準備內容，靠語感）。",
-      "practice": [
-        {
-          "q": "默書任務：Part A 16 個生字自默一次，錯嘅每個抄寫 3 次。",
-          "lesson": "Unit 3"
-        },
-        {
-          "q": "【Spelling】邊個串法啱？fifth / fiveth",
-          "a": "fifth（five 去 e 再加 th，ve 變 f）",
-          "lesson": "Unit 3"
-        },
-        {
-          "q": "【默寫句子】The tuck shop is on the ground floor.",
-          "a": "The tuck shop is on the ground floor.",
-          "lesson": "Unit 3"
-        },
-        {
-          "q": "【默寫句子】We can have recess on the second floor.",
-          "a": "We can have recess on the second floor.",
-          "lesson": "Unit 3"
-        },
-        {
-          "q": "【默寫句子】The playground is my favourite place at school.",
-          "a": "The playground is my favourite place at school.（favourite 英式串法，有 u）",
-          "lesson": "Unit 3"
-        },
-        {
-          "q": "【背誦】Part C Learn by Heart：Today is sunny. Let's go to the garden. The flowers are beautiful. What a wonderful day!",
-          "lesson": "Unit 3"
-        }
-      ],
-      "words": [
-        {
-          "text": "a music room",
-          "meaning": "音樂室",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "sing songs",
-          "meaning": "唱歌",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "an art room",
-          "meaning": "美術室",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "draw pictures",
-          "meaning": "畫畫",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "an office",
-          "meaning": "校務處",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "a classroom",
-          "meaning": "課室",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "have lessons",
-          "meaning": "上課",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "play games",
-          "meaning": "玩遊戲",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "a tuck shop",
-          "meaning": "小食部",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "a computer room",
-          "meaning": "電腦室",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "toilets",
-          "meaning": "洗手間",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "a sick room",
-          "meaning": "醫療室",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "a corridor",
-          "meaning": "走廊",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "fourth",
-          "meaning": "第四",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "fifth",
-          "meaning": "第五",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "sixth",
-          "meaning": "第六",
-          "lesson": "Unit 3"
-        }
-      ],
-      "sentences": [
-        "We can read books in the library.",
-        "The tuck shop is on the ground floor.",
-        "The school hall is on the first floor.",
-        "We can have recess on the second floor.",
-        "We can see our school cat in the garden.",
-        "The staffroom is on the third floor.",
-        "The playground is my favourite place at school.",
-        "Megan can buy some healthy snacks.",
-        "I can watch a play in the school hall.",
-        "Fred can play ball games with his friends."
-      ],
-      "recite_sentences": [
-        "Today is sunny. Let's go to the garden. The flowers are beautiful. What a wonderful day!"
-      ],
-      "focus_points": [
-        "Part A 生字 16 個（學校地方 + fourth/fifth/sixth）",
-        "Part B 句子 10 句：重點係 in the library / on the ___ floor 句式",
-        "Part C Learn by Heart：Today is sunny…（要背）",
-        "易錯：fifth（唔係 fiveth）、sixth 結尾 th、staffroom 一個字、favourite 英式串法"
-      ],
-      "source_tier": "verified_capture",
-      "source": "學校 Dictation 3 範圍紙 ‘2A Unit 3 My School’ (P.5) — Eddie 相片 2026-10-23"
-    },
     {
       "key": "ENG_FA2",
       "type": "進評",
@@ -162,7 +13,7 @@
       "title_en": "English Formative Assessment FA2",
       "date": "2026-11-13",
       "date_display": "11月13日 (五)",
-      "days_left": 7,
+      "days_left": 6,
       "scope": "Unit 3–4",
       "detail": "英文進評 FA2（11月13日）範圍：Unit 3 My School + Unit 4 Who's the thief?。Unit 3 生字16個、句子10句已齊（同 Dict 3 嗰份範圍紙）。Unit 4 主題係 personal belongings（個人物品），文法重點：① 人名 + 's 表擁有（This is Bob's watch.）② do / does 問答（Do you have hairbands? Yes, I do.）；Unit 4 嘅生字表同句子表暫時未有，要等範圍紙先補得齊。",
       "words": [
@@ -277,7 +128,7 @@
       "title_en": "Assessment 1 · Chinese (Reading + Writing)",
       "date": "2026-11-19",
       "date_display": "11月19日 (四)",
-      "days_left": 13,
+      "days_left": 12,
       "scope": "課文一冊第1-3課·二冊第7課,單元一/二/五,進評一二 ※含已有知識",
       "practice": [
         {
@@ -658,7 +509,7 @@
       "title_en": "Assessment 1 · English",
       "date": "2026-11-20",
       "date_display": "11月20日 (五)",
-      "days_left": 14,
+      "days_left": 13,
       "scope": "U1-4 (TB·WB·A), FA1-2, 寫作1-3 ※含已有知識",
       "practice": [
         {
@@ -694,7 +545,7 @@
       "title_en": "Assessment 1 · Mathematics",
       "date": "2026-11-23",
       "date_display": "11月23日 (一)",
-      "days_left": 17,
+      "days_left": 16,
       "scope": "2上A 第1-11課, 進評1-2 ※含已有知識",
       "practice": [
         {
@@ -787,7 +638,7 @@
       "title_en": "Assessment 1 · Humanities",
       "date": "2026-11-24",
       "date_display": "11月24日 (二)",
-      "days_left": 18,
+      "days_left": 17,
       "scope": "第1-5課, 單元一/二 ※含已有知識",
       "practice": [
         {
@@ -808,7 +659,7 @@
       "title_en": "Assessment 1 · Science",
       "date": "2026-11-24",
       "date_display": "11月24日 (二)",
-      "days_left": 18,
+      "days_left": 17,
       "scope": "第1-3課 ※含已有知識",
       "practice": [
         {
@@ -829,20 +680,20 @@
     "new_count": 1,
     "items": [
       {
-        "key": "NOTICE_PTA_WORKSHOP_20261106",
-        "code": "學校通告",
-        "title": "有關6/11(星期五)家教會主辦之勾菜瓜布工作坊",
-        "brief": "家教會工作坊：11月6日（五）09:55–11:20 家長資源室，名額30個先到先得",
-        "deadline": "2026-11-06",
-        "deadline_display": "11月6日 (五)",
-        "days_left": 0,
-        "detail": "家教會主辦家長工作坊（學校宣布，2026-11-04 14:54 發出，林偉文副校，全校家長）：2026年11月6日（星期五）上午 09:55–11:20，家長資源室，由蘇老師帶領家長製作菜瓜布，認識勾菜技巧。名額 30 人，先到先得，家長透過學校網頁連結或掃描二維碼報名。查詢：郭詩敏老師。內文沒有列出費用，也沒有 eClass 回條簽署限期（此為宣布，非回條通告）。",
+        "code": "2627-158",
+        "title": "成長樂印獎勵計劃 第一學習階段「Pay Day」換領日 通告",
+        "brief": "成長樂印獎勵計劃 第一學習階段「Pay Day」換領日 通告",
+        "deadline": "2026-11-13",
+        "deadline_display": "11月13日 (五)",
+        "days_left": 6,
+        "detail": "「成長樂印獎勵計劃」為校本獎勵計劃，學生全年度可藉學習、品格等各方面表現獲得「成長樂印」分數，累積一定積分後可於「Pay Day」兌換不同類型活動。第一學習階段「Pay Day」將於11月24日（周二）課堂時間內進行，所有活動將於11月9日（周一）開始兌換，名額先到先得。換領時間：11月9–13日。換領方式：一至二年級於校內向班主任報名換領；三至六年級於校內小息／午息期間換領，或於eClass應用程式中的「獎勵計劃」換領。注意事項：所有活動兌換分數為10分，與校長活動為20分；所有活動名額有限，先到先得；每名學生只可兌換一項活動；所有活動一旦兌換，將不設退分及更換；所選兌換項目如出現超額情況，將以抽籤形式決定最終名單；如學生未有兌換活動，將由學校安排參加指定活動。隨通告附上「eClass Parent」App中「獎勵計劃」使用方法介紹影片（掃瞄二維碼參看）。查詢：周嘉鵬老師 2661 9383。回條簽署限期：2026年11月13日12:00。",
         "points": [
-          "日期時間：11月6日（星期五）09:55–11:20",
-          "地點：家長資源室；對象：全校家長",
-          "內容：家教會「勾菜瓜布工作坊」，蘇老師帶領製作菜瓜布、認識勾菜技巧",
-          "名額 30 人，先到先得；報名：學校網頁連結或掃描二維碼",
-          "查詢：郭詩敏老師；內文無費用、無 eClass 回條限期"
+          "「Pay Day」11月24日（周二）課堂時間內進行；換領期11月9–13日，名額先到先得",
+          "一至二年級（包括琳琳）：於校內向班主任報名換領",
+          "每項活動10分，校長活動20分；每名學生只可兌換一項活動",
+          "一經兌換，不設退分及更換；超額項目以抽籤決定",
+          "未兌換活動者，學校會安排參加指定活動",
+          "回條簽署限期11月13日中午12:00；查詢：周嘉鵬老師 2661 9383"
         ],
         "source_tier": "verified_capture",
         "source": "eClass 通告原文"
