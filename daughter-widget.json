@@ -1,7 +1,7 @@
 {
   "service": "daughter-school",
   "student": "琳琳 2A",
-  "updated": "2026-11-06T22:29:36.163495+00:00",
+  "updated": "2026-11-07T22:29:37.368587+00:00",
   "homework": [
     {
       "key": "PET_ART_COMP_2026",
@@ -13,23 +13,10 @@
       "subject_en": "Visual Arts",
       "title_en": "Pet Drawing Competition — Submit Entry",
       "due_display": "11月9日 (一)",
-      "days_left": 2
+      "days_left": 1
     }
   ],
   "upcoming": [
-    {
-      "key": "ENG_DICT_3",
-      "type": "默書",
-      "subject": "英文",
-      "title": "英文默書 Dict 3",
-      "date": "2026-11-06",
-      "scope": "Unit 3",
-      "type_en": "Dictation",
-      "subject_en": "English",
-      "title_en": "English Dictation 3",
-      "date_display": "11月6日 (五)",
-      "days_left": -1
-    },
     {
       "key": "ENG_FA2",
       "type": "進評",
@@ -41,7 +28,7 @@
       "subject_en": "English",
       "title_en": "English Formative Assessment FA2",
       "date_display": "11月13日 (五)",
-      "days_left": 6
+      "days_left": 5
     },
     {
       "key": "ASSESS_1_CHI",
@@ -54,7 +41,7 @@
       "subject_en": "Chinese",
       "title_en": "Assessment 1 · Chinese (Reading + Writing)",
       "date_display": "11月19日 (四)",
-      "days_left": 12
+      "days_left": 11
     },
     {
       "key": "ASSESS_1_ENG",
@@ -67,22 +54,26 @@
       "subject_en": "English",
       "title_en": "Assessment 1 · English",
       "date_display": "11月20日 (五)",
-      "days_left": 13
+      "days_left": 12
+    },
+    {
+      "key": "ASSESS_1_MATH",
+      "type": "評估",
+      "subject": "數學",
+      "title": "評估一・數學",
+      "date": "2026-11-23",
+      "scope": "2上A 第1-11課, 進評1-2 ※含已有知識",
+      "type_en": "Assessment",
+      "subject_en": "Mathematics",
+      "title_en": "Assessment 1 · Mathematics",
+      "date_display": "11月23日 (一)",
+      "days_left": 15
     }
   ],
   "notices": {
-    "new_count": 1,
-    "latest_title": "成長樂印獎勵計劃 第一學習階段「Pay Day」換領日 通告",
-    "latest_date": "2026-11-13",
-    "items": [
-      {
-        "code": "2627-158",
-        "title": "成長樂印獎勵計劃 第一學習階段「Pay Day」換領日 通告",
-        "brief": "成長樂印獎勵計劃 第一學習階段「Pay Day」換領日 通告",
-        "deadline": "2026-11-13",
-        "deadline_display": "11月13日 (五)",
-        "days_left": 6
-      }
-    ]
+    "new_count": 0,
+    "latest_title": "",
+    "latest_date": "",
+    "items": []
   }
 }
