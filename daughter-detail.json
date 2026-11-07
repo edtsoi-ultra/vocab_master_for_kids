@@ -1,7 +1,7 @@
 {
   "service": "daughter-school-detail",
   "student": "琳琳 2A",
-  "updated": "2026-11-06T22:29:42.484124+00:00",
+  "updated": "2026-11-07T22:29:40.954982+00:00",
   "homework": [
     {
       "key": "PET_ART_COMP_2026",
@@ -13,245 +13,12 @@
       "subject_en": "Visual Arts",
       "title_en": "Pet Drawing Competition — Submit Entry",
       "due_display": "11月9日 (一)",
-      "days_left": 2,
+      "days_left": 1,
       "detail": "第十一屆香港青少年及兒童寵物藝術比賽（小學P.1-P.2組）｜報名＋交作品截止：11月9日｜交件方法：填網上表格報名＋用WhatsApp影作品相交件，記得保留原稿｜費用全免｜結果11月13日公布"
     }
   ],
-  "homework_done": [
-    {
-      "key": "HUM_VIDEO_1",
-      "subject": "人文",
-      "title": "人文視訊一",
-      "due": "2026-10-31",
-      "status": "submitted",
-      "subject_en": "Humanities",
-      "title_en": "Humanities Video Task 1",
-      "due_display": "10月31日 (六)",
-      "days_left": -7,
-      "detail": "「人文視訊一」（鄧詠恩老師，10月17日發佈，100分）｜派發日期：15/10/2026｜呈交日期：31/10/2026前｜Classroom 截止日期：11月1日（星期日）｜老師將根據學生的視訊影片表現進行評分與回饋。相關成績及評語將於稍後發放，屆時請家長查閲並簽署。\n\n工作紙：視訊功課(一) 個人短講｜題目：介紹我的好朋友及正確的相處之道（建議參考 第四課 交朋結友）\n題目要求：\n1. 請根據題目拍攝一段影片，1 分鐘內以廣話講述有關題目的內容。時限最多為 1 分 15 秒，限時外的內容不作評分，影片不能加入剪接及特別效果。\n2. 請於 2026 年 10 月 31 日（六）或前將影片上載到 Google Classroom (GC)繳交盒內。\n3. 內容範本：___老師，你好。我是___班的________。今天的主題是介紹我的一位好朋友，以及如何和朋友正確地相處。我的好朋友是______（說出朋友的名字）。我們經常一起____。（說出一項和朋友一起做的事）當朋友遇到困難時，我會____。（說出一個正確相處的例子）我們要尊重和愛護朋友。___老師，這是我的分享，多謝！\n\n評分表（總分/10）：內容(4分)——按題目作完整口頭匯報、內容充實；表達技巧(2分)——咬字清晰、聲量語調恰當、詞語略有變化、意思完整清晰；非語言表達(2分)——眼神交流自然、面部表情豐富、手勢動作配合自然；輔助工具(1分)——能適當使用；準時繳交(1分)。\n\n附件：工作紙正面（指示）及背面（評分表）相片各一。繳交方式：影片檔案經 GC「新增或建立」上載到繳交盒。",
-      "hints": [
-        "先寫講稿後拍攝：照工作紙開頭結尾範本填好，練到 1 分鐘內講完先至正式拍。",
-        "硬上限 1 分 15 秒：超時部分不作評分；手機一次過拍，唔可以剪接或加特別效果。",
-        "鏡頭表現攞分：眼望鏡頭、有表情同自然手勢；帶一樣輔助工具（如朋友張相／畫作）用得其所可加分。",
-        "交期：工作紙寫 31/10（六）或前上載（Classroom 顯示截止 11/1），按早嘅 31/10 交最穩陣，拍完即日交。"
-      ],
-      "practice": [
-        {
-          "q": "揀一位好朋友，諗一件你哋成日一齊做嘅事"
-        },
-        {
-          "q": "諗一個幫朋友嘅例子：例如朋友唔開心，你會點做？"
-        },
-        {
-          "q": "照工作紙範本寫好成份講稿（開頭＋朋友＋一齊做嘅事＋點樣相處＋結尾）"
-        },
-        {
-          "q": "讀出嚟計時：要喺 1 分鐘之內，唔可以超過 1 分 15 秒"
-        },
-        {
-          "q": "對住鏡頭練習 3 次：望住鏡頭、保持笑容、加少少自然手勢"
-        },
-        {
-          "q": "準備一樣輔助工具：朋友嘅相，或者你畫嘅一幅畫"
-        },
-        {
-          "q": "正式拍片：一次過拍晒，唔可以剪接，唔可以加特別效果"
-        },
-        {
-          "q": "請家長幫手將影片上載去 Google Classroom 繳交盒（10月31日或之前）",
-          "guide": true
-        }
-      ],
-      "answer_key": [
-        "範例講稿（家長參考，約 50–60 秒；朋友名係範例，琳琳要換返自己真正嘅好朋友）：「鄧老師，你好。我是 2A 班的琳琳。今天的主題是介紹我的一位好朋友，以及如何和朋友正確地相處。我的好朋友是欣欣。我們經常一起畫畫和玩遊戲。當朋友遇到困難時，我會耐心聆聽，又會同佢分享玩具。如果我做錯了事，我會說對不起。我們要尊重和愛護朋友。鄧老師，這是我的分享，多謝！」",
-        "相處之道詞語庫（幫琳琳揀嚟填講稿）：耐心聆聽、分享玩具、幫助對方、尊重朋友、做錯事說對不起、一起解決問題。"
-      ],
-      "source": "Google Classroom 功課指示",
-      "practice_en": [
-        {
-          "q": "Pick one good friend, and think of one thing you often do together"
-        },
-        {
-          "q": "Think of one example of helping a friend (e.g. when your friend is sad, what would you do?)"
-        },
-        {
-          "q": "Write the full script using the worksheet template (opening + friend + activity together + how to get along + ending)"
-        },
-        {
-          "q": "Read it aloud and time it: within 1 minute, never over 1 minute 15 seconds"
-        },
-        {
-          "q": "Practise 3 times facing the camera: look at the camera, smile, use a few natural hand gestures"
-        },
-        {
-          "q": "Prepare one prop: a photo of your friend, or a drawing you made"
-        },
-        {
-          "q": "Film it in one take: no editing, no special effects"
-        },
-        {
-          "q": "Parent: please upload the video to the Google Classroom turn-in box (on or before 31 Oct)",
-          "guide": true
-        }
-      ],
-      "hints_en": [
-        "Write the script first, then film: fill in the worksheet's opening/ending template and practise until it fits within 1 minute.",
-        "Hard limit 1:15 — anything over is not marked; film in one take on the phone, no editing or special effects.",
-        "Camera presence scores marks: eye contact with the lens, facial expressions and natural gestures; one prop used well (a friend's photo or a drawing) can add marks.",
-        "Deadline: the worksheet says upload on or before Sat 31 Oct (Classroom shows 1 Nov) — safest to submit on 31 Oct, right after filming."
-      ]
-    }
-  ],
+  "homework_done": [],
   "upcoming": [
-    {
-      "key": "ENG_DICT_3",
-      "type": "默書",
-      "subject": "英文",
-      "title": "英文默書 Dict 3",
-      "date": "2026-11-06",
-      "scope": "Unit 3",
-      "type_en": "Dictation",
-      "subject_en": "English",
-      "title_en": "English Dictation 3",
-      "date_display": "11月6日 (五)",
-      "days_left": -1,
-      "detail": "Dictation 3（11月6日）Unit 3 My School — Part A Vocabulary 30%（16 個）、Part B Sentences 60%（10 句）、Part C Learn by Heart 10%、Part D Fun Dictation（未見過，唔使準備內容，靠語感）。",
-      "practice": [
-        {
-          "q": "默書任務：Part A 16 個生字自默一次，錯嘅每個抄寫 3 次。",
-          "lesson": "Unit 3"
-        },
-        {
-          "q": "【Spelling】邊個串法啱？fifth / fiveth",
-          "a": "fifth（five 去 e 再加 th，ve 變 f）",
-          "lesson": "Unit 3"
-        },
-        {
-          "q": "【默寫句子】The tuck shop is on the ground floor.",
-          "a": "The tuck shop is on the ground floor.",
-          "lesson": "Unit 3"
-        },
-        {
-          "q": "【默寫句子】We can have recess on the second floor.",
-          "a": "We can have recess on the second floor.",
-          "lesson": "Unit 3"
-        },
-        {
-          "q": "【默寫句子】The playground is my favourite place at school.",
-          "a": "The playground is my favourite place at school.（favourite 英式串法，有 u）",
-          "lesson": "Unit 3"
-        },
-        {
-          "q": "【背誦】Part C Learn by Heart：Today is sunny. Let's go to the garden. The flowers are beautiful. What a wonderful day!",
-          "lesson": "Unit 3"
-        }
-      ],
-      "words": [
-        {
-          "text": "a music room",
-          "meaning": "音樂室",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "sing songs",
-          "meaning": "唱歌",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "an art room",
-          "meaning": "美術室",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "draw pictures",
-          "meaning": "畫畫",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "an office",
-          "meaning": "校務處",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "a classroom",
-          "meaning": "課室",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "have lessons",
-          "meaning": "上課",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "play games",
-          "meaning": "玩遊戲",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "a tuck shop",
-          "meaning": "小食部",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "a computer room",
-          "meaning": "電腦室",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "toilets",
-          "meaning": "洗手間",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "a sick room",
-          "meaning": "醫療室",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "a corridor",
-          "meaning": "走廊",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "fourth",
-          "meaning": "第四",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "fifth",
-          "meaning": "第五",
-          "lesson": "Unit 3"
-        },
-        {
-          "text": "sixth",
-          "meaning": "第六",
-          "lesson": "Unit 3"
-        }
-      ],
-      "sentences": [
-        "We can read books in the library.",
-        "The tuck shop is on the ground floor.",
-        "The school hall is on the first floor.",
-        "We can have recess on the second floor.",
-        "We can see our school cat in the garden.",
-        "The staffroom is on the third floor.",
-        "The playground is my favourite place at school.",
-        "Megan can buy some healthy snacks.",
-        "I can watch a play in the school hall.",
-        "Fred can play ball games with his friends."
-      ],
-      "recite_sentences": [
-        "Today is sunny. Let's go to the garden. The flowers are beautiful. What a wonderful day!"
-      ],
-      "focus_points": [
-        "Part A 生字 16 個（學校地方 + fourth/fifth/sixth）",
-        "Part B 句子 10 句：重點係 in the library / on the ___ floor 句式",
-        "Part C Learn by Heart：Today is sunny…（要背）",
-        "易錯：fifth（唔係 fiveth）、sixth 結尾 th、staffroom 一個字、favourite 英式串法"
-      ],
-      "source_tier": "verified_capture",
-      "source": "學校 Dictation 3 範圍紙 ‘2A Unit 3 My School’ (P.5) — Eddie 相片 2026-10-23"
-    },
     {
       "key": "ENG_FA2",
       "type": "進評",
@@ -263,7 +30,7 @@
       "subject_en": "English",
       "title_en": "English Formative Assessment FA2",
       "date_display": "11月13日 (五)",
-      "days_left": 6,
+      "days_left": 5,
       "detail": "英文進評 FA2（11月13日）範圍：Unit 3 My School + Unit 4 Who's the thief?。Unit 3 生字16個、句子10句已齊（同 Dict 3 嗰份範圍紙）。Unit 4 主題係 personal belongings（個人物品），文法重點：① 人名 + 's 表擁有（This is Bob's watch.）② do / does 問答（Do you have hairbands? Yes, I do.）；Unit 4 嘅生字表同句子表暫時未有，要等範圍紙先補得齊。",
       "words": [
         {
@@ -378,7 +145,7 @@
       "subject_en": "Chinese",
       "title_en": "Assessment 1 · Chinese (Reading + Writing)",
       "date_display": "11月19日 (四)",
-      "days_left": 12,
+      "days_left": 11,
       "practice": [
         {
           "q": "溫習任務：重溫進評題庫（第3課與進評共用同一題庫，㩒下面互動練習）＋朗讀第1、2課課文各一次。",
@@ -760,7 +527,7 @@
       "subject_en": "English",
       "title_en": "Assessment 1 · English",
       "date_display": "11月20日 (五)",
-      "days_left": 13,
+      "days_left": 12,
       "practice": [
         {
           "q": "溫習任務：重讀 U1-U4 課文，每課一次；生字表自默一次（錯字抄 3 次）。"
@@ -797,7 +564,7 @@
       "subject_en": "Mathematics",
       "title_en": "Assessment 1 · Mathematics",
       "date_display": "11月23日 (一)",
-      "days_left": 16,
+      "days_left": 15,
       "practice": [
         {
           "subject": "數學",
@@ -891,7 +658,7 @@
       "subject_en": "Humanities",
       "title_en": "Assessment 1 · Humanities",
       "date_display": "11月24日 (二)",
-      "days_left": 17,
+      "days_left": 16,
       "practice": [
         {
           "q": "溫習任務：朗讀人文第1-5課課文重點，每課一次，請家長提問 2 題。",
@@ -913,7 +680,7 @@
       "subject_en": "Science",
       "title_en": "Assessment 1 · Science",
       "date_display": "11月24日 (二)",
-      "days_left": 17,
+      "days_left": 16,
       "practice": [
         {
           "q": "溫習任務：朗讀科學第1-3課（生物和非生物／觀察動物／動手種植物），講出每課 1 個重點。",
@@ -930,27 +697,7 @@
     }
   ],
   "notices": {
-    "new_count": 1,
-    "items": [
-      {
-        "code": "2627-158",
-        "title": "成長樂印獎勵計劃 第一學習階段「Pay Day」換領日 通告",
-        "brief": "成長樂印獎勵計劃 第一學習階段「Pay Day」換領日 通告",
-        "deadline": "2026-11-13",
-        "deadline_display": "11月13日 (五)",
-        "days_left": 6,
-        "detail": "「成長樂印獎勵計劃」為校本獎勵計劃，學生全年度可藉學習、品格等各方面表現獲得「成長樂印」分數，累積一定積分後可於「Pay Day」兌換不同類型活動。第一學習階段「Pay Day」將於11月24日（周二）課堂時間內進行，所有活動將於11月9日（周一）開始兌換，名額先到先得。換領時間：11月9–13日。換領方式：一至二年級於校內向班主任報名換領；三至六年級於校內小息／午息期間換領，或於eClass應用程式中的「獎勵計劃」換領。注意事項：所有活動兌換分數為10分，與校長活動為20分；所有活動名額有限，先到先得；每名學生只可兌換一項活動；所有活動一旦兌換，將不設退分及更換；所選兌換項目如出現超額情況，將以抽籤形式決定最終名單；如學生未有兌換活動，將由學校安排參加指定活動。隨通告附上「eClass Parent」App中「獎勵計劃」使用方法介紹影片（掃瞄二維碼參看）。查詢：周嘉鵬老師 2661 9383。回條簽署限期：2026年11月13日12:00。",
-        "points": [
-          "「Pay Day」11月24日（周二）課堂時間內進行；換領期11月9–13日，名額先到先得",
-          "一至二年級（包括琳琳）：於校內向班主任報名換領",
-          "每項活動10分，校長活動20分；每名學生只可兌換一項活動",
-          "一經兌換，不設退分及更換；超額項目以抽籤決定",
-          "未兌換活動者，學校會安排參加指定活動",
-          "回條簽署限期11月13日中午12:00；查詢：周嘉鵬老師 2661 9383"
-        ],
-        "source_tier": "verified_capture",
-        "source": "eClass 通告原文"
-      }
-    ]
+    "new_count": 0,
+    "items": []
   }
 }
