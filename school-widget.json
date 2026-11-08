@@ -1,7 +1,7 @@
 {
   "service": "daughter-school",
   "student": "2A",
-  "updated": "2026-11-07T22:29:37.368587+00:00",
+  "updated": "2026-11-08T22:29:36.209330+00:00",
   "homework": [],
   "upcoming": [
     {
@@ -15,7 +15,7 @@
       "subject_en": "English",
       "title_en": "English Formative Assessment FA2",
       "date_display": "11月13日 (五)",
-      "days_left": 5
+      "days_left": 4
     },
     {
       "key": "ASSESS_1_CHI",
@@ -28,7 +28,7 @@
       "subject_en": "Chinese",
       "title_en": "Assessment 1 · Chinese (Reading + Writing)",
       "date_display": "11月19日 (四)",
-      "days_left": 11
+      "days_left": 10
     },
     {
       "key": "ASSESS_1_ENG",
@@ -41,7 +41,7 @@
       "subject_en": "English",
       "title_en": "Assessment 1 · English",
       "date_display": "11月20日 (五)",
-      "days_left": 12
+      "days_left": 11
     },
     {
       "key": "ASSESS_1_MATH",
@@ -54,7 +54,7 @@
       "subject_en": "Mathematics",
       "title_en": "Assessment 1 · Mathematics",
       "date_display": "11月23日 (一)",
-      "days_left": 15
+      "days_left": 14
     }
   ],
   "notices": {
