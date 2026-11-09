@@ -1,21 +1,8 @@
 {
   "service": "daughter-school",
   "student": "琳琳 2A",
-  "updated": "2026-11-08T22:29:36.209330+00:00",
-  "homework": [
-    {
-      "key": "PET_ART_COMP_2026",
-      "subject": "視藝",
-      "title": "寵物繪畫比賽・交作品",
-      "due": "2026-11-09",
-      "status": "pending",
-      "personal": true,
-      "subject_en": "Visual Arts",
-      "title_en": "Pet Drawing Competition — Submit Entry",
-      "due_display": "11月9日 (一)",
-      "days_left": 0
-    }
-  ],
+  "updated": "2026-11-09T10:09:01.703175+00:00",
+  "homework": [],
   "upcoming": [
     {
       "key": "ENG_FA2",
