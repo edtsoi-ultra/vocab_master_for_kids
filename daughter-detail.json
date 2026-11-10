@@ -1,7 +1,7 @@
 {
   "service": "daughter-school-detail",
   "student": "琳琳 2A",
-  "updated": "2026-11-09T22:29:40.462788+00:00",
+  "updated": "2026-11-10T19:41:06.565774+08:00",
   "homework": [],
   "homework_done": [],
   "upcoming": [
@@ -118,7 +118,21 @@
         "Unit 4 生字（personal belongings）未有正式表 — 有 FA2 範圍紙嘅話影相比我，即刻補齊練習"
       ],
       "source_tier": "verified_capture",
-      "source": "範圍 Unit 3–4 — Eddie 確認 2026-10-31；Unit 3 內容來自 Dictation 3 範圍紙（verified）；Unit 4 課題/文法來自課本目錄頁 capture"
+      "source": "範圍 Unit 3–4 — Eddie 確認 2026-10-31；Unit 3 內容來自 Dictation 3 範圍紙（verified）；Unit 4 課題/文法來自課本目錄頁 capture；題庫：外部 agent 供題（Eddie 2026-11-10 交入，50 題 5 Levels），Muse 編入 eng_fa2_u3/eng_fa2_u4 兩 bank，答案位置已打散（A/B/C/D = 13/13/12/12），QA lint + 盲答核對通過",
+      "quiz": {
+        "lessons": [
+          {
+            "id": "eng_fa2_u3",
+            "label": "Unit 3 · My school (FA2)",
+            "status": "live"
+          },
+          {
+            "id": "eng_fa2_u4",
+            "label": "Unit 4 · Who's the thief? (FA2)",
+            "status": "live"
+          }
+        ]
+      }
     },
     {
       "key": "ASSESS_1_CHI",
