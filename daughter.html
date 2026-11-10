@@ -11560,7 +11560,891 @@ const QZ_HUM_HW = {
     ]
   }
 };
-const QZ_LESSONS = { chi_l1: QZ_L1, chi_l2: QZ_L2, chi_l3: QZ_L3, chi_l4: QZ_L4, chi_l5: QZ_L5, chi_l6: QZ_L6, chi_l7: QZ_L7, eng_u1: QZ_ENG_U1, eng_u2: QZ_ENG_U2, eng_u3: QZ_ENG_U3, eng_u4: QZ_ENG_U4, eng_u14: QZ_ENG, eng_paper: QZ_ENGPAPER, math_u1: QZ_MATH_U1, math_u2: QZ_MATH_U2, math_u3: QZ_MATH_U3, math_u4: QZ_MATH_U4, math_a1: QZ_MATH, sci_l1: QZ_SCI_L1, sci_l2: QZ_SCI_L2, sci_l3: QZ_SCI_L3, sci_a1: QZ_SCI, eng_hw_u1: QZ_ENG_HW_U1, eng_hw_u2: QZ_ENG_HW_U2, eng_hw_u3: QZ_ENG_HW_U3, eng_hw_u4: QZ_ENG_HW_U4, hum_hw: QZ_HUM_HW };
+const QZ_ENG_FA2_U3 = {
+  "easy": {
+    "label": "簡易版",
+    "items": [
+      {
+        "type": "mc",
+        "skill": "School Places Vocabulary",
+        "tag": "MC",
+        "q": "We sing songs in the ___.",
+        "opts": [
+          "music room",
+          "computer room",
+          "sick room",
+          "tuck shop"
+        ],
+        "ans": 0,
+        "why": "We sing songs and play instruments in the music room.",
+        "hint": "💡 Think about where musical instruments and singing happen.",
+        "label": "Vocab: music room",
+        "wrongWhy": "The sick room is for resting when unwell; the tuck shop is for buying snacks."
+      },
+      {
+        "type": "mc",
+        "skill": "School Places Vocabulary",
+        "tag": "MC",
+        "q": "We draw pictures in the ___.",
+        "opts": [
+          "staffroom",
+          "art room",
+          "corridor",
+          "toilets"
+        ],
+        "ans": 1,
+        "why": "We draw, paint, and create artwork in the art room.",
+        "hint": "💡 \"Art\" means drawing and painting.",
+        "label": "Vocab: art room",
+        "wrongWhy": "A corridor is a hallway; toilets are washrooms."
+      },
+      {
+        "type": "mc",
+        "skill": "School Places Vocabulary",
+        "tag": "MC",
+        "q": "Megan can buy some healthy snacks at the ___.",
+        "opts": [
+          "library",
+          "garden",
+          "tuck shop",
+          "music room"
+        ],
+        "ans": 2,
+        "why": "Students buy snacks and drinks at the school tuck shop.",
+        "hint": "💡 Where do you buy food and drinks at recess?",
+        "label": "Vocab: tuck shop",
+        "wrongWhy": "You borrow books in the library and see flowers in the garden."
+      },
+      {
+        "type": "mc",
+        "skill": "School Places Vocabulary",
+        "tag": "MC",
+        "q": "When students feel sick, they rest in the ___.",
+        "opts": [
+          "playground",
+          "sick room",
+          "classroom",
+          "art room"
+        ],
+        "ans": 1,
+        "why": "The sick room is where sick students rest and see the school nurse.",
+        "hint": "💡 Look at the word \"sick\" in the question.",
+        "label": "Vocab: sick room",
+        "wrongWhy": "The playground is for playing; the classroom is for lessons."
+      },
+      {
+        "type": "mc",
+        "skill": "School Places Vocabulary",
+        "tag": "MC",
+        "q": "We use keyboards and mice to learn in the ___.",
+        "opts": [
+          "computer room",
+          "staffroom",
+          "garden",
+          "school hall"
+        ],
+        "ans": 0,
+        "why": "Computer rooms have computers, keyboards, and screens for lessons.",
+        "hint": "💡 Which room has computers for students?",
+        "label": "Vocab: computer room",
+        "wrongWhy": "The school hall is used for assemblies and watching plays."
+      },
+      {
+        "type": "mc",
+        "skill": "School Places Vocabulary",
+        "tag": "MC",
+        "q": "Please do not run in the ___ outside the classrooms.",
+        "opts": [
+          "garden",
+          "playground",
+          "hall",
+          "corridor"
+        ],
+        "ans": 3,
+        "why": "A corridor is the narrow passage connecting classrooms. Running there is dangerous.",
+        "hint": "💡 It is the long walkway outside your classroom door.",
+        "label": "Vocab: corridor",
+        "wrongWhy": "Playgrounds and gardens are outdoor open areas."
+      },
+      {
+        "type": "mc",
+        "skill": "School Places Vocabulary",
+        "tag": "MC",
+        "q": "The principal and school clerks work in the ___.",
+        "opts": [
+          "art room",
+          "office",
+          "toilets",
+          "tuck shop"
+        ],
+        "ans": 1,
+        "why": "Administrative staff and the principal work in the school office.",
+        "hint": "💡 Where does your parent go when visiting the school?",
+        "label": "Vocab: an office",
+        "wrongWhy": "The tuck shop sells food; the art room is for painting."
+      },
+      {
+        "type": "mc",
+        "skill": "School Places Vocabulary",
+        "tag": "MC",
+        "q": "Students wash their hands in the ___.",
+        "opts": [
+          "staffroom",
+          "corridor",
+          "library",
+          "toilets"
+        ],
+        "ans": 3,
+        "why": "Sinks, soap, and restrooms are located in the toilets.",
+        "hint": "💡 Where do you go to use the washroom?",
+        "label": "Vocab: toilets",
+        "wrongWhy": "A staffroom is for teachers only."
+      },
+      {
+        "type": "mc",
+        "skill": "School Places Vocabulary",
+        "tag": "MC",
+        "q": "We have English and Chinese lessons in our ___.",
+        "opts": [
+          "classroom",
+          "tuck shop",
+          "sick room",
+          "garden"
+        ],
+        "ans": 0,
+        "why": "Normal daily lessons take place in the classroom.",
+        "hint": "💡 Where do your desks and blackboards stay every day?",
+        "label": "Vocab: classroom",
+        "wrongWhy": "The tuck shop is for snacks, and the sick room is for resting."
+      },
+      {
+        "type": "mc",
+        "skill": "Verb-Noun Collocation",
+        "tag": "MC",
+        "q": "Which action matches the art room?",
+        "opts": [
+          "draw pictures",
+          "sing songs",
+          "play ball games",
+          "buy snacks"
+        ],
+        "ans": 0,
+        "why": "We \"draw pictures\" in the art room.",
+        "hint": "💡 What do you do with crayons and paper?",
+        "label": "Collocation: draw pictures",
+        "wrongWhy": "We \"sing songs\" in the music room and \"buy snacks\" at the tuck shop."
+      }
+    ]
+  },
+  "apply": {
+    "label": "應用題一",
+    "items": [
+      {
+        "type": "mc",
+        "skill": "Preposition of Floor",
+        "tag": "MC",
+        "q": "The tuck shop is ___ the ground floor.",
+        "opts": [
+          "in",
+          "under",
+          "on",
+          "at"
+        ],
+        "ans": 2,
+        "why": "We always use the preposition \"on\" with building floors (on the ground floor).",
+        "hint": "💡 Remember the textbook rule: \"on the ___ floor\".",
+        "label": "Preposition: on the ground floor",
+        "wrongWhy": "We use \"in\" for rooms or enclosed areas, not for floors."
+      },
+      {
+        "type": "mc",
+        "skill": "Preposition of Room",
+        "tag": "MC",
+        "q": "We can have lessons ___ the classroom.",
+        "opts": [
+          "to",
+          "on",
+          "of",
+          "in"
+        ],
+        "ans": 3,
+        "why": "We use \"in\" for rooms and buildings (in the classroom).",
+        "hint": "💡 You are inside the room, so use \"in\".",
+        "label": "Preposition: in the classroom",
+        "wrongWhy": "We use \"on\" for floors or surfaces, not inside rooms."
+      },
+      {
+        "type": "mc",
+        "skill": "Ordinal Numbers",
+        "tag": "MC",
+        "q": "The staffroom is on the ___ floor. (Floor 3)",
+        "opts": [
+          "second",
+          "thirteen",
+          "third",
+          "three"
+        ],
+        "ans": 2,
+        "why": "Floor 3 is called the \"third\" floor.",
+        "hint": "💡 1st = first, 2nd = second, 3rd = third.",
+        "label": "Ordinal: third floor",
+        "wrongWhy": "\"Three\" is a cardinal number; floors use ordinal numbers (first, second, third)."
+      },
+      {
+        "type": "mc",
+        "skill": "Ordinal Numbers Spelling",
+        "tag": "MC",
+        "q": "Floor 4 is called the ___ floor.",
+        "opts": [
+          "fourteen",
+          "forth",
+          "four",
+          "fourth"
+        ],
+        "ans": 3,
+        "why": "The ordinal number for 4 is \"fourth\" (spelled f-o-u-r-t-h).",
+        "hint": "💡 Write \"four\" and add \"-th\".",
+        "label": "Ordinal: fourth",
+        "wrongWhy": "\"Four\" is cardinal; \"forth\" means forward in old English."
+      },
+      {
+        "type": "mc",
+        "skill": "Ordinal Numbers Spelling",
+        "tag": "MC",
+        "q": "Floor 5 is called the ___ floor.",
+        "opts": [
+          "five",
+          "fifteen",
+          "fifth",
+          "fiveth"
+        ],
+        "ans": 2,
+        "why": "The ordinal form of five changes spelling to \"fifth\".",
+        "hint": "💡 The letter 'v' changes to 'f' in \"fifth\".",
+        "label": "Ordinal: fifth",
+        "wrongWhy": "\"Fiveth\" is an incorrect spelling; \"five\" is cardinal."
+      },
+      {
+        "type": "mc",
+        "skill": "Ordinal Numbers Spelling",
+        "tag": "MC",
+        "q": "Floor 6 is called the ___ floor.",
+        "opts": [
+          "sixthe",
+          "six",
+          "sixteen",
+          "sixth"
+        ],
+        "ans": 3,
+        "why": "6th is written as \"sixth\".",
+        "hint": "💡 Write \"six\" and add \"-th\".",
+        "label": "Ordinal: sixth",
+        "wrongWhy": "\"Six\" is cardinal; \"sixteen\" is 16."
+      },
+      {
+        "type": "mc",
+        "skill": "Preposition of Floor",
+        "tag": "MC",
+        "q": "Where is the school hall? It is ___ the first floor.",
+        "opts": [
+          "in",
+          "into",
+          "by",
+          "on"
+        ],
+        "ans": 3,
+        "why": "Floors take \"on\": It is on the first floor.",
+        "hint": "💡 Rule: on + the + ordinal number + floor.",
+        "label": "Preposition: on the first floor",
+        "wrongWhy": "\"In the first floor\" is grammatically incorrect."
+      },
+      {
+        "type": "mc",
+        "skill": "Preposition of Room",
+        "tag": "MC",
+        "q": "We can read books ___ the library.",
+        "opts": [
+          "on",
+          "in",
+          "at on",
+          "under"
+        ],
+        "ans": 1,
+        "why": "We are inside the library room, so we use \"in\".",
+        "hint": "💡 You sit inside the room to read.",
+        "label": "Preposition: in the library",
+        "wrongWhy": "\"On the library\" would mean on top of the library roof!"
+      },
+      {
+        "type": "mc",
+        "skill": "Preposition of Floor",
+        "tag": "MC",
+        "q": "We can have recess ___ the second floor.",
+        "opts": [
+          "on",
+          "to",
+          "with",
+          "in"
+        ],
+        "ans": 0,
+        "why": "We say on the second floor.",
+        "hint": "💡 Which preposition goes with \"the second floor\"?",
+        "label": "Preposition: on the second floor",
+        "wrongWhy": "Do not use \"in\" for floor levels."
+      },
+      {
+        "type": "mc",
+        "skill": "Preposition of Place",
+        "tag": "MC",
+        "q": "We can see our school cat ___ the garden.",
+        "opts": [
+          "on",
+          "in",
+          "above",
+          "under"
+        ],
+        "ans": 1,
+        "why": "Textbook sentence 5: We can see our school cat in the garden.",
+        "hint": "💡 The cat is inside the garden area.",
+        "label": "Preposition: in the garden",
+        "wrongWhy": "We say \"in the garden\", not \"on the garden\"."
+      }
+    ]
+  },
+  "challenge": {
+    "label": "應用題二",
+    "items": [
+      {
+        "type": "mc",
+        "skill": "Question Word (Where)",
+        "tag": "MC",
+        "q": "___ is the library? — It is on the second floor.",
+        "opts": [
+          "Where",
+          "When",
+          "What",
+          "Who"
+        ],
+        "ans": 0,
+        "why": "\"Where\" asks about location and places.",
+        "hint": "💡 The answer tells you a place (on the second floor).",
+        "label": "Question Word: Where",
+        "wrongWhy": "\"What\" asks about things; \"Who\" asks about people."
+      },
+      {
+        "type": "mc",
+        "skill": "Textbook Sentence Collocation",
+        "tag": "MC",
+        "q": "I can watch a ___ in the school hall.",
+        "opts": [
+          "game",
+          "play",
+          "cat",
+          "book"
+        ],
+        "ans": 1,
+        "why": "Textbook sentence 9: I can watch a play in the school hall.",
+        "hint": "💡 A drama performance on stage is called a \"play\".",
+        "label": "Sentence: watch a play",
+        "wrongWhy": "We read a book and play a game; we \"watch a play\" (drama)."
+      },
+      {
+        "type": "mc",
+        "skill": "Textbook Sentence Collocation",
+        "tag": "MC",
+        "q": "Fred can play ___ games with his friends in the playground.",
+        "opts": [
+          "book",
+          "desk",
+          "ball",
+          "snack"
+        ],
+        "ans": 2,
+        "why": "Textbook sentence 10: Fred can play ball games with his friends.",
+        "hint": "💡 Basketball and football are kinds of \"_____ games\".",
+        "label": "Sentence: play ball games",
+        "wrongWhy": "\"Book games\" and \"desk games\" do not match the textbook sentence."
+      },
+      {
+        "type": "mc",
+        "skill": "Action-Place Match",
+        "tag": "MC",
+        "q": "We can ___ books in the library.",
+        "opts": [
+          "draw",
+          "read",
+          "sing",
+          "wash"
+        ],
+        "ans": 1,
+        "why": "In a library, students \"read books\".",
+        "hint": "💡 What do you do with a storybook?",
+        "label": "Collocation: read books",
+        "wrongWhy": "You sing in the music room and draw in the art room."
+      },
+      {
+        "type": "mc",
+        "skill": "Textbook Vocabulary (favourite)",
+        "tag": "MC",
+        "q": "The playground is my ___ place at school.",
+        "opts": [
+          "favourite",
+          "hungry",
+          "heavy",
+          "delicious"
+        ],
+        "ans": 0,
+        "why": "Textbook sentence 7: The playground is my favourite place at school.",
+        "hint": "💡 It means the place you like best of all.",
+        "label": "Sentence: favourite place",
+        "wrongWhy": "\"Delicious\" and \"hungry\" describe food or appetite, not a place."
+      },
+      {
+        "type": "mc",
+        "skill": "Adjective Usage (healthy)",
+        "tag": "MC",
+        "q": "Megan can buy some ___ snacks.",
+        "opts": [
+          "noisy",
+          "healthy",
+          "sick",
+          "sunny"
+        ],
+        "ans": 1,
+        "why": "Textbook sentence 8 & Life skills: Megan can buy some healthy snacks.",
+        "hint": "💡 Good food like fruit that is good for your body is \"_____\".",
+        "label": "Sentence: healthy snacks",
+        "wrongWhy": "\"Noisy\" and \"sick\" snacks make no sense."
+      },
+      {
+        "type": "mc",
+        "skill": "Sentence Structure Reordering",
+        "tag": "MC",
+        "q": "Rearrange: [on / The music room / is / the first floor / .]",
+        "opts": [
+          "Is the music room on the first floor.",
+          "On the first floor the music room is.",
+          "The music room on is the first floor.",
+          "The music room is on the first floor."
+        ],
+        "ans": 3,
+        "why": "Subject (The music room) + verb (is) + prepositional phrase (on the first floor).",
+        "hint": "💡 Start with \"The music room\", then add \"is\".",
+        "label": "Reorder: The music room is...",
+        "wrongWhy": "One wrong option puts the verb \"is\" in the wrong position."
+      },
+      {
+        "type": "mc",
+        "skill": "Sentence Structure Reordering",
+        "tag": "MC",
+        "q": "Rearrange: [in / We / the classroom / can / have lessons / .]",
+        "opts": [
+          "In the classroom we have lessons can.",
+          "We have lessons in can the classroom.",
+          "We can in the classroom have lessons.",
+          "We can have lessons in the classroom."
+        ],
+        "ans": 3,
+        "why": "Pattern: Subject (We) + modal (can) + verb phrase (have lessons) + place (in the classroom).",
+        "hint": "💡 Start with \"We can\", then the action, then the place.",
+        "label": "Reorder: We can have lessons...",
+        "wrongWhy": "\"Can\" must be followed directly by the action verb \"have\"."
+      },
+      {
+        "type": "mc",
+        "skill": "Learn by Heart Recitation",
+        "tag": "MC",
+        "q": "Complete the recitation: \"Today is sunny. Let's go to the garden. The flowers are ___.\"",
+        "opts": [
+          "sick",
+          "hungry",
+          "beautiful",
+          "fourth"
+        ],
+        "ans": 2,
+        "why": "Recitation passage: The flowers are beautiful. What a wonderful day!",
+        "hint": "💡 Which nice word describes lovely flowers?",
+        "label": "Recite: The flowers are beautiful",
+        "wrongWhy": "Flowers are not sick or hungry."
+      },
+      {
+        "type": "mc",
+        "skill": "Learn by Heart Recitation",
+        "tag": "MC",
+        "q": "Complete the recitation: \"What a ___ day!\"",
+        "opts": [
+          "wonderful",
+          "cold",
+          "rainy",
+          "third"
+        ],
+        "ans": 0,
+        "why": "Unit 3 Learn by Heart ending: What a wonderful day!",
+        "hint": "💡 It starts with 'w' and means great or fantastic!",
+        "label": "Recite: wonderful day",
+        "wrongWhy": "The passage begins with \"Today is sunny\", so it is not rainy or cold."
+      }
+    ]
+  }
+};
+const QZ_ENG_FA2_U4 = {
+  "easy": {
+    "label": "簡易版",
+    "items": [
+      {
+        "type": "mc",
+        "skill": "Possessive Nouns ('s)",
+        "tag": "MC",
+        "q": "This watch belongs to Bob. It is ___.",
+        "opts": [
+          "of Bob watch",
+          "Bob watch",
+          "Bob's watch",
+          "Bobs' watch"
+        ],
+        "ans": 2,
+        "why": "We add an apostrophe and 's' ('s) after a singular name to show ownership: Bob's watch.",
+        "hint": "💡 Put an apostrophe and 's' after Bob's name.",
+        "label": "Grammar: Bob's watch",
+        "wrongWhy": "\"Bobs'\" is for plural names ending in s; \"Bob watch\" lacks the possessive marker."
+      },
+      {
+        "type": "mc",
+        "skill": "Possessive Nouns ('s)",
+        "tag": "MC",
+        "q": "This pencil case belongs to Mary. It is ___.",
+        "opts": [
+          "Mary pencil case",
+          "Mary' pencil case",
+          "Mary's pencil case",
+          "Marys pencil case"
+        ],
+        "ans": 2,
+        "why": "We write Mary's to show that the pencil case belongs to Mary.",
+        "hint": "💡 You need the little mark (') and then 's'.",
+        "label": "Grammar: Mary's pencil case",
+        "wrongWhy": "\"Marys\" without an apostrophe is just an incorrect plural form."
+      },
+      {
+        "type": "mc",
+        "skill": "Possessive Nouns ('s)",
+        "tag": "MC",
+        "q": "Ken lost his water bottle. We found ___.",
+        "opts": [
+          "Ken water bottle",
+          "Ken is water bottle",
+          "Kens' water bottle",
+          "Ken's water bottle"
+        ],
+        "ans": 3,
+        "why": "The bottle belongs to Ken, so it is Ken's water bottle.",
+        "hint": "💡 Add 's to Ken.",
+        "label": "Grammar: Ken's water bottle",
+        "wrongWhy": "\"Ken is water bottle\" means Ken is a bottle!"
+      },
+      {
+        "type": "mc",
+        "skill": "Possessive Nouns ('s)",
+        "tag": "MC",
+        "q": "These hairbands belong to Amy. They are ___.",
+        "opts": [
+          "Amy hairbands",
+          "Amy's hairbands",
+          "of Amy hairbands",
+          "Amys' hairbands"
+        ],
+        "ans": 1,
+        "why": "Even when the object is plural (hairbands), the owner is singular (Amy's).",
+        "hint": "💡 Amy is one girl: Amy + 's.",
+        "label": "Grammar: Amy's hairbands",
+        "wrongWhy": "Amy is one person, so we use 's, not s'."
+      },
+      {
+        "type": "mc",
+        "skill": "Possessive Nouns ('s)",
+        "tag": "MC",
+        "q": "Look at ___ school bag. It is very neat.",
+        "opts": [
+          "Tim is",
+          "Tims",
+          "Tim'",
+          "Tim's"
+        ],
+        "ans": 3,
+        "why": "We say Tim's school bag to show ownership.",
+        "hint": "💡 Which one has the possessive apostrophe-s?",
+        "label": "Grammar: Tim's school bag",
+        "wrongWhy": "\"Tims\" without an apostrophe does not show possession."
+      },
+      {
+        "type": "mc",
+        "skill": "Possessive Syntax Recognition",
+        "tag": "MC",
+        "q": "Which sentence shows correct ownership?",
+        "opts": [
+          "This is Tom's jacket.",
+          "This is Toms jacket.",
+          "This is Tom' jacket.",
+          "This is Tom jacket."
+        ],
+        "ans": 0,
+        "why": "Singular nouns add 's (Tom's jacket).",
+        "hint": "💡 Look for the name with 's.",
+        "label": "Syntax: Tom's jacket",
+        "wrongWhy": "The other options are missing the correct apostrophe-s."
+      },
+      {
+        "type": "mc",
+        "skill": "Possessive Nouns ('s)",
+        "tag": "MC",
+        "q": "Sam found a wallet on the desk. It is ___.",
+        "opts": [
+          "teacher wallet",
+          "teachers wallet",
+          "of teacher wallet",
+          "teacher's wallet"
+        ],
+        "ans": 3,
+        "why": "The wallet belongs to the teacher, so it is the teacher's wallet.",
+        "hint": "💡 Add 's to teacher.",
+        "label": "Grammar: teacher's wallet",
+        "wrongWhy": "Without 's, the noun cannot act as an owner."
+      },
+      {
+        "type": "mc",
+        "skill": "Possessive Nouns ('s)",
+        "tag": "MC",
+        "q": "Peter is looking for his umbrella. Is this ___?",
+        "opts": [
+          "Peter umbrella",
+          "Peter is umbrella",
+          "Peters' umbrella",
+          "Peter's umbrella"
+        ],
+        "ans": 3,
+        "why": "The umbrella belongs to Peter, so we write Peter's umbrella.",
+        "hint": "💡 Peter + 's.",
+        "label": "Grammar: Peter's umbrella",
+        "wrongWhy": "Do not put the apostrophe after 's' for a singular name."
+      },
+      {
+        "type": "mc",
+        "skill": "Possessive Nouns ('s)",
+        "tag": "MC",
+        "q": "That is not my ruler. It is ___.",
+        "opts": [
+          "Kelly ruler",
+          "Kelly's ruler",
+          "Kellys ruler",
+          "Kelly' ruler"
+        ],
+        "ans": 1,
+        "why": "To show the ruler belongs to Kelly, write Kelly's ruler.",
+        "hint": "💡 Kelly + 's.",
+        "label": "Grammar: Kelly's ruler",
+        "wrongWhy": "\"Kellys\" is missing the apostrophe."
+      },
+      {
+        "type": "mc",
+        "skill": "Question Word (Whose)",
+        "tag": "MC",
+        "q": "Which question asks about the owner of the watch?",
+        "opts": [
+          "Where watch is this?",
+          "Whose watch is this?",
+          "Who watch is this?",
+          "What watch is this?"
+        ],
+        "ans": 1,
+        "why": "\"Whose\" asks who owns something (Whose watch is this? It is Bob's watch.).",
+        "hint": "💡 \"Whose\" sounds like \"who's\" but asks about ownership.",
+        "label": "Question Word: Whose",
+        "wrongWhy": "\"Where\" asks for location; \"Who\" means which person, not possessive."
+      }
+    ]
+  },
+  "apply": {
+    "label": "應用題一",
+    "items": [
+      {
+        "type": "mc",
+        "skill": "Simple Present Question (Do / Does)",
+        "tag": "MC",
+        "q": "___ you have hairbands? — Yes, I do.",
+        "opts": [
+          "Do",
+          "Does",
+          "Are",
+          "Is"
+        ],
+        "ans": 0,
+        "why": "We use \"Do\" with the pronoun \"you\" in simple present tense questions (Do you have...?).",
+        "hint": "💡 Look at the answer: \"Yes, I do.\"",
+        "label": "Grammar: Do you have...?",
+        "wrongWhy": "\"Does\" is used with singular third-person pronouns (he / she / it)."
+      },
+      {
+        "type": "mc",
+        "skill": "Short Answer (Do / Does)",
+        "tag": "MC",
+        "q": "Do you have a watch? — Yes, I ___.",
+        "opts": [
+          "am",
+          "do",
+          "does",
+          "have"
+        ],
+        "ans": 1,
+        "why": "Questions starting with \"Do you...?\" are answered with \"Yes, I do.\" or \"No, I don't.\"",
+        "hint": "💡 The question begins with \"Do\", so match with \"do\".",
+        "label": "Grammar: Yes, I do",
+        "wrongWhy": "\"Yes, I have\" is not the standard short response to a \"Do you...?\" question."
+      },
+      {
+        "type": "mc",
+        "skill": "Negative Short Answer",
+        "tag": "MC",
+        "q": "Do you have an umbrella? — No, I ___.",
+        "opts": [
+          "doesn't",
+          "don't",
+          "am not",
+          "not"
+        ],
+        "ans": 1,
+        "why": "Negative short answer for \"you\": No, I don't. (do + not).",
+        "hint": "💡 I + do not = I don't.",
+        "label": "Grammar: No, I don't",
+        "wrongWhy": "\"Doesn't\" is for he/she/it; \"am not\" is for the verb 'to be'."
+      },
+      {
+        "type": "mc",
+        "skill": "Simple Present Question (Does)",
+        "tag": "MC",
+        "q": "___ he have a pencil case? — Yes, he does.",
+        "opts": [
+          "Is",
+          "Are",
+          "Does",
+          "Do"
+        ],
+        "ans": 2,
+        "why": "We use \"Does\" with singular pronouns like \"he\" or \"she\" (Does he have...?).",
+        "hint": "💡 Look at the answer: \"Yes, he does.\"",
+        "label": "Grammar: Does he have...?",
+        "wrongWhy": "\"Do\" is only used with I / you / we / they."
+      },
+      {
+        "type": "mc",
+        "skill": "Negative Short Answer (Does)",
+        "tag": "MC",
+        "q": "Does she have a comb? — No, she ___.",
+        "opts": [
+          "don't",
+          "not",
+          "doesn't",
+          "isn't"
+        ],
+        "ans": 2,
+        "why": "Negative short answer for \"she\": No, she doesn't. (does + not).",
+        "hint": "💡 Does + not = doesn't.",
+        "label": "Grammar: No, she doesn't",
+        "wrongWhy": "\"Don't\" is used with I/you/they, not she."
+      }
+    ]
+  },
+  "challenge": {
+    "label": "應用題二",
+    "items": [
+      {
+        "type": "mc",
+        "skill": "Base Verb after Does",
+        "tag": "MC",
+        "q": "Does Bob ___ his watch? — Yes, he does.",
+        "opts": [
+          "have",
+          "has",
+          "having",
+          "haves"
+        ],
+        "ans": 0,
+        "why": "After \"Does\", the main verb must return to its base form: have (never has).",
+        "hint": "💡 Does is already doing the work, so use base word \"have\".",
+        "label": "Grammar: Does Bob have...?",
+        "wrongWhy": "\"Does Bob has\" is a common error; \"Does\" already carries the third-person -s."
+      },
+      {
+        "type": "mc",
+        "skill": "Simple Present Question (Do)",
+        "tag": "MC",
+        "q": "___ they have their school bags? — Yes, they do.",
+        "opts": [
+          "Do",
+          "Are",
+          "Is",
+          "Does"
+        ],
+        "ans": 0,
+        "why": "\"They\" is plural, so we use \"Do they have...?\".",
+        "hint": "💡 They = plural, so use \"Do\".",
+        "label": "Grammar: Do they have...?",
+        "wrongWhy": "\"Does\" cannot be used with plural subjects like \"they\"."
+      },
+      {
+        "type": "mc",
+        "skill": "Short Answer (Does)",
+        "tag": "MC",
+        "q": "Does Mary have a tissue pack? — Yes, she ___.",
+        "opts": [
+          "is",
+          "has",
+          "does",
+          "do"
+        ],
+        "ans": 2,
+        "why": "Question starts with \"Does Mary...?\", so the answer is Yes, she does.",
+        "hint": "💡 Match \"Does\" with \"does\".",
+        "label": "Grammar: Yes, she does",
+        "wrongWhy": "Do not switch to \"do\" or \"has\"."
+      },
+      {
+        "type": "mc",
+        "skill": "Question Structure Reordering",
+        "tag": "MC",
+        "q": "Rearrange: [you / Do / have / hairbands / ?]",
+        "opts": [
+          "Do you have hairbands?",
+          "Have you do hairbands?",
+          "Do have you hairbands?",
+          "You do have hairbands?"
+        ],
+        "ans": 0,
+        "why": "Standard question pattern: Auxiliary (Do) + Subject (you) + Verb (have) + Object (hairbands)?",
+        "hint": "💡 Start with \"Do\", then \"you\", then \"have\".",
+        "label": "Reorder: Do you have hairbands?",
+        "wrongWhy": "A statement word order with a question mark is not a proper question."
+      },
+      {
+        "type": "mc",
+        "skill": "Question Structure Reordering",
+        "tag": "MC",
+        "q": "Rearrange: [Bob / his watch / Does / have / ?]",
+        "opts": [
+          "Has Bob does his watch?",
+          "Bob does have his watch?",
+          "Does Bob have his watch?",
+          "Does Bob has his watch?"
+        ],
+        "ans": 2,
+        "why": "Pattern: Does + Subject (Bob) + base verb (have) + Object (his watch)?",
+        "hint": "💡 Auxiliary \"Does\" comes first, and use base verb \"have\".",
+        "label": "Reorder: Does Bob have his watch?",
+        "wrongWhy": "Using \"has\" after \"Does\" is incorrect — \"Does\" already carries the third-person -s."
+      }
+    ]
+  }
+};
+const QZ_LESSONS = { chi_l1: QZ_L1, chi_l2: QZ_L2, chi_l3: QZ_L3, chi_l4: QZ_L4, chi_l5: QZ_L5, chi_l6: QZ_L6, chi_l7: QZ_L7, eng_u1: QZ_ENG_U1, eng_u2: QZ_ENG_U2, eng_u3: QZ_ENG_U3, eng_u4: QZ_ENG_U4, eng_u14: QZ_ENG, eng_paper: QZ_ENGPAPER, math_u1: QZ_MATH_U1, math_u2: QZ_MATH_U2, math_u3: QZ_MATH_U3, math_u4: QZ_MATH_U4, math_a1: QZ_MATH, sci_l1: QZ_SCI_L1, sci_l2: QZ_SCI_L2, sci_l3: QZ_SCI_L3, sci_a1: QZ_SCI, eng_fa2_u3: QZ_ENG_FA2_U3, eng_fa2_u4: QZ_ENG_FA2_U4, eng_hw_u1: QZ_ENG_HW_U1, eng_hw_u2: QZ_ENG_HW_U2, eng_hw_u3: QZ_ENG_HW_U3, eng_hw_u4: QZ_ENG_HW_U4, hum_hw: QZ_HUM_HW };
 let QZ = QZ_LESSONS.chi_l3;
 let qzSetName = "textbook", qzIdx = 0, qzBuilt = false, qzStreak = 0, qzLocked = false, qzPraiseIx = 0, qzEncIx = 0, qzBreakFor = -1, qzAutoTimer = 0;
 
@@ -13408,6 +14292,8 @@ const QZ_REVIEW = {
   eng_u2: { title: "English Unit 2 Weekend fun 重點", points: ["現在進行時：I am / We are + 動詞 -ing", "in / on 講地方", "must / must not 講規則"] },
   eng_u3: { title: "English Unit 3 My school 重點", points: ["where 問地方：Where is the library?", "on 講樓層：on the second floor", "in 講地方：in the classroom"] },
   eng_u4: { title: "English Unit 4 Who's the thief? 重點", points: ["'s 表示擁有：Bob's watch", "do / does 問答現在式：Do you have hairbands?"] },
+  eng_fa2_u3: { title: "English FA2 Unit 3 My school 重點", points: ["where 問地方：Where is the library?", "on 講樓層：on the second floor", "in 講地方：in the classroom", "序數詞：fourth / fifth / sixth"] },
+  eng_fa2_u4: { title: "English FA2 Unit 4 Who's the thief? 重點", points: ["'s 表示擁有：Bob's watch", "do / does 問答現在式：Do you have hairbands? Yes, I do."] },
   math_u1: { title: "數學單元一 三位數重點", points: ["三位數：百位、十位、個位"] },
   math_u2: { title: "數學單元二 加法和減法重點", points: ["加法和減法：進位和退位要小心"] },
   math_u3: { title: "數學單元三 角和垂直線重點", points: ["角：直角、銳角（比直角小）、鈍角（比直角大）", "垂直線：兩條線相交成直角"] },
