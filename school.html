@@ -12019,34 +12019,48 @@ const QZ_ENG_FA2_U3 = {
         "wrongWhy": "\"Noisy\" and \"sick\" snacks make no sense."
       },
       {
-        "type": "mc",
+        "type": "order",
         "skill": "Sentence Structure Reordering",
-        "tag": "MC",
-        "q": "Rearrange: [on / The music room / is / the first floor / .]",
-        "opts": [
-          "Is the music room on the first floor.",
-          "On the first floor the music room is.",
-          "The music room on is the first floor.",
-          "The music room is on the first floor."
+        "tag": "Order",
+        "q": "排好句子：按詞語放入框。",
+        "parts": [
+          "The music room ",
+          "is ",
+          "on the first floor",
+          "."
         ],
-        "ans": 3,
+        "shuffled": [
+          "on the first floor",
+          ".",
+          "The music room ",
+          "is "
+        ],
+        "ans": "The music room is on the first floor.",
         "why": "Subject (The music room) + verb (is) + prepositional phrase (on the first floor).",
         "hint": "💡 Start with \"The music room\", then add \"is\".",
         "label": "Reorder: The music room is...",
         "wrongWhy": "One wrong option puts the verb \"is\" in the wrong position."
       },
       {
-        "type": "mc",
+        "type": "order",
         "skill": "Sentence Structure Reordering",
-        "tag": "MC",
-        "q": "Rearrange: [in / We / the classroom / can / have lessons / .]",
-        "opts": [
-          "In the classroom we have lessons can.",
-          "We have lessons in can the classroom.",
-          "We can in the classroom have lessons.",
-          "We can have lessons in the classroom."
+        "tag": "Order",
+        "q": "排好句子：按詞語放入框。",
+        "parts": [
+          "We ",
+          "can ",
+          "have lessons ",
+          "in the classroom",
+          "."
         ],
-        "ans": 3,
+        "shuffled": [
+          "in the classroom",
+          "We ",
+          ".",
+          "can ",
+          "have lessons "
+        ],
+        "ans": "We can have lessons in the classroom.",
         "why": "Pattern: Subject (We) + modal (can) + verb phrase (have lessons) + place (in the classroom).",
         "hint": "💡 Start with \"We can\", then the action, then the place.",
         "label": "Reorder: We can have lessons...",
@@ -12410,34 +12424,50 @@ const QZ_ENG_FA2_U4 = {
         "wrongWhy": "Do not switch to \"do\" or \"has\"."
       },
       {
-        "type": "mc",
+        "type": "order",
         "skill": "Question Structure Reordering",
-        "tag": "MC",
-        "q": "Rearrange: [you / Do / have / hairbands / ?]",
-        "opts": [
-          "Do you have hairbands?",
-          "Have you do hairbands?",
-          "Do have you hairbands?",
-          "You do have hairbands?"
+        "tag": "Order",
+        "q": "排好句子：按詞語放入框。",
+        "parts": [
+          "Do ",
+          "you ",
+          "have ",
+          "hairbands",
+          "?"
         ],
-        "ans": 0,
+        "shuffled": [
+          "you ",
+          "hairbands",
+          "Do ",
+          "?",
+          "have "
+        ],
+        "ans": "Do you have hairbands?",
         "why": "Standard question pattern: Auxiliary (Do) + Subject (you) + Verb (have) + Object (hairbands)?",
         "hint": "💡 Start with \"Do\", then \"you\", then \"have\".",
         "label": "Reorder: Do you have hairbands?",
         "wrongWhy": "A statement word order with a question mark is not a proper question."
       },
       {
-        "type": "mc",
+        "type": "order",
         "skill": "Question Structure Reordering",
-        "tag": "MC",
-        "q": "Rearrange: [Bob / his watch / Does / have / ?]",
-        "opts": [
-          "Has Bob does his watch?",
-          "Bob does have his watch?",
-          "Does Bob have his watch?",
-          "Does Bob has his watch?"
+        "tag": "Order",
+        "q": "排好句子：按詞語放入框。",
+        "parts": [
+          "Does ",
+          "Bob ",
+          "have ",
+          "his watch",
+          "?"
         ],
-        "ans": 2,
+        "shuffled": [
+          "Bob ",
+          "his watch",
+          "Does ",
+          "?",
+          "have "
+        ],
+        "ans": "Does Bob have his watch?",
         "why": "Pattern: Does + Subject (Bob) + base verb (have) + Object (his watch)?",
         "hint": "💡 Auxiliary \"Does\" comes first, and use base verb \"have\".",
         "label": "Reorder: Does Bob have his watch?",
