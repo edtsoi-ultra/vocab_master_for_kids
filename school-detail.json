@@ -1,7 +1,7 @@
 {
   "service": "daughter-school-detail",
   "student": "2A",
-  "updated": "2026-11-10T22:29:39.525686+00:00",
+  "updated": "2026-11-11T10:09:51.975705+00:00",
   "upcoming": [
     {
       "key": "ENG_FA2",
@@ -689,7 +689,27 @@
       "source": "評估一範圍（eClass 通告 2627-125）"
     }
   ],
-  "homework": [],
+  "homework": [
+    {
+      "key": "ENG_SING_1",
+      "subject": "英文",
+      "title": "26/11 ThanksGiving Singing Contest",
+      "due": "2026-11-26",
+      "subject_en": "English",
+      "title_en": "Thanksgiving Singing Contest",
+      "due_display": "11月26日 (四)",
+      "days_left": 15,
+      "detail": "「26/11 ThanksGiving Singing Contest --lyrics」（羅欣怡老師，11月10日發佈）｜班際歌唱比賽將於 11月26日舉行（感恩節）。\n\n老師指示（原文）：\"This year we'll be having inter-class singing contest on 26/11---Thanksgiving❤️ Please sing along with the video and practice singing the song. :)\"\n\n附件：YouTube 影片「Thank You Song | CoComelon Nursery Rhymes & Kids Songs」（3 分鐘）— https://www.youtube.com/watch?v=0eEkWvekQiE\n\nClassroom 沒有顯示截止日期（比賽日期 11月26日）。繳交方式：沒有檔案要交，練習後在 Classroom 按「標示為完成」。",
+      "hints": [
+        "每日跟住 YouTube 片唱 2–3 次，熟習旋律同歌詞，唔使一次過背晒。",
+        "逐句跟唱：邊句唔熟就重播嗰句，唱熟先接下一句。",
+        "比賽喺 11月26日，提前幾日練好，唔好臨比賽先練。",
+        "練習完之後，喺 Classroom 按「標示為完成」。"
+      ],
+      "source_tier": "verified_capture",
+      "source": "Google Classroom 功課指示"
+    }
+  ],
   "notices": {
     "new_count": 0,
     "items": []
