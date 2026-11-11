@@ -1,8 +1,20 @@
 {
   "service": "daughter-school",
   "student": "琳琳 2A",
-  "updated": "2026-11-10T22:29:36.326997+00:00",
-  "homework": [],
+  "updated": "2026-11-11T10:09:47.953969+00:00",
+  "homework": [
+    {
+      "key": "ENG_SING_1",
+      "subject": "英文",
+      "title": "26/11 ThanksGiving Singing Contest",
+      "due": "2026-11-26",
+      "status": "pending",
+      "subject_en": "English",
+      "title_en": "Thanksgiving Singing Contest",
+      "due_display": "11月26日 (四)",
+      "days_left": 15
+    }
+  ],
   "upcoming": [
     {
       "key": "ENG_FA2",
