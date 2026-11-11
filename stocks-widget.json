@@ -1,60 +1,22 @@
 {
- "updated": "2026-11-10T22:13:55.344160+00:00",
+ "updated": "2026-11-11T22:13:50.695486+00:00",
  "technical": {
   "status": "ok",
-  "data_date": "2026-11-10",
+  "data_date": "2026-11-11",
   "tickers": {
    "AAPL": {
     "symbol": "AAPL",
     "tier": "mag7",
-    "score": 62.1,
-    "band": "偏強",
-    "close": 348.51,
-    "sma50": 337.27,
+    "score": 74.7,
+    "band": "強勢",
+    "close": 355.63,
+    "sma50": 337.88,
     "subs": {
      "trend": 1.0,
-     "mom": -0.33,
-     "str": 0.19,
-     "vol": -0.4,
-     "pos": 0.96,
-     "vola": -0.75
-    },
-    "trend_formula": "standard",
-    "divergence_detail": {
-     "warn_items": [
-      "pct52>=90"
-     ],
-     "death_cross": null
-    },
-    "rsi": 56.0,
-    "adx": 17.0,
-    "pct52": 99.0,
-    "range_pos": 98.0,
-    "history_days": 501,
-    "degraded": [],
-    "data_quality": [],
-    "flags": [],
-    "divergence": false,
-    "subs_row": "趨+1.0 動-0.3 強+0.2 量-0.4 位+1.0 波-0.8",
-    "sample_ok": true,
-    "warnings": [
-     "高位"
-    ],
-    "severe": false
-   },
-   "MSFT": {
-    "symbol": "MSFT",
-    "tier": "mag7",
-    "score": 57.2,
-    "band": "偏強",
-    "close": 533.16,
-    "sma50": 517.8,
-    "subs": {
-     "trend": 1.0,
-     "mom": -0.37,
-     "str": -0.23,
-     "vol": -0.53,
-     "pos": 0.78,
+     "mom": 0.53,
+     "str": 0.2,
+     "vol": -0.27,
+     "pos": 1.0,
      "vola": -0.52
     },
     "trend_formula": "standard",
@@ -64,16 +26,59 @@
      ],
      "death_cross": null
     },
-    "rsi": 52.0,
+    "rsi": 60.0,
+    "adx": 17.0,
+    "pct52": 100.0,
+    "range_pos": 100.0,
+    "history_days": 501,
+    "degraded": [],
+    "data_quality": [],
+    "flags": [
+     "52週新高",
+     "布林上破"
+    ],
+    "divergence": false,
+    "subs_row": "趨+1.0 動+0.5 強+0.2 量-0.3 位+1.0 波-0.5",
+    "sample_ok": true,
+    "warnings": [
+     "52週新高",
+     "布林上破",
+     "高位"
+    ],
+    "severe": false
+   },
+   "MSFT": {
+    "symbol": "MSFT",
+    "tier": "mag7",
+    "score": 55.9,
+    "band": "偏強",
+    "close": 521.12,
+    "sma50": 518.2,
+    "subs": {
+     "trend": 1.0,
+     "mom": -0.43,
+     "str": -0.21,
+     "vol": -0.52,
+     "pos": 0.66,
+     "vola": -0.61
+    },
+    "trend_formula": "standard",
+    "divergence_detail": {
+     "warn_items": [
+      "pct52>=90"
+     ],
+     "death_cross": null
+    },
+    "rsi": 48.0,
     "adx": 18.0,
-    "pct52": 96.0,
-    "range_pos": 89.0,
+    "pct52": 90.0,
+    "range_pos": 83.0,
     "history_days": 501,
     "degraded": [],
     "data_quality": [],
     "flags": [],
     "divergence": false,
-    "subs_row": "趨+1.0 動-0.4 強-0.2 量-0.5 位+0.8 波-0.5",
+    "subs_row": "趨+1.0 動-0.4 強-0.2 量-0.5 位+0.7 波-0.6",
     "sample_ok": true,
     "warnings": [
      "高位"
@@ -83,33 +88,33 @@
    "GOOGL": {
     "symbol": "GOOGL",
     "tier": "mag7",
-    "score": 14.2,
+    "score": 15.1,
     "band": "弱勢",
-    "close": 287.38,
-    "sma50": 330.72,
+    "close": 293.45,
+    "sma50": 329.89,
     "subs": {
      "trend": -1.0,
-     "mom": -0.61,
-     "str": -0.65,
-     "vol": -0.28,
-     "pos": -0.79,
-     "vola": -0.91
+     "mom": -0.54,
+     "str": -0.62,
+     "vol": -0.38,
+     "pos": -0.69,
+     "vola": -0.86
     },
     "trend_formula": "standard",
     "divergence_detail": {
      "warn_items": [],
      "death_cross": null
     },
-    "rsi": 33.0,
-    "adx": 30.0,
-    "pct52": 6.0,
-    "range_pos": 11.0,
+    "rsi": 38.0,
+    "adx": 29.0,
+    "pct52": 10.0,
+    "range_pos": 15.0,
     "history_days": 501,
     "degraded": [],
     "data_quality": [],
     "flags": [],
     "divergence": false,
-    "subs_row": "趨-1.0 動-0.6 強-0.7 量-0.3 位-0.8 波-0.9",
+    "subs_row": "趨-1.0 動-0.5 強-0.6 量-0.4 位-0.7 波-0.9",
     "sample_ok": true,
     "warnings": [],
     "severe": false
@@ -117,35 +122,33 @@
    "AMZN": {
     "symbol": "AMZN",
     "tier": "mag7",
-    "score": 73.2,
+    "score": 70.9,
     "band": "強勢",
-    "close": 270.87,
-    "sma50": 254.18,
+    "close": 266.17,
+    "sma50": 254.41,
     "subs": {
      "trend": 1.0,
-     "mom": 0.54,
+     "mom": 0.49,
      "str": 0.04,
-     "vol": -0.01,
-     "pos": 0.69,
-     "vola": -0.87
+     "vol": -0.15,
+     "pos": 0.58,
+     "vola": -0.91
     },
     "trend_formula": "standard",
     "divergence_detail": {
-     "warn_items": [
-      "pct52>=90"
-     ],
+     "warn_items": [],
      "death_cross": null
     },
-    "rsi": 62.0,
+    "rsi": 57.0,
     "adx": 13.0,
-    "pct52": 94.0,
-    "range_pos": 85.0,
+    "pct52": 90.0,
+    "range_pos": 79.0,
     "history_days": 501,
     "degraded": [],
     "data_quality": [],
     "flags": [],
     "divergence": false,
-    "subs_row": "趨+1.0 動+0.5 強+0.0 量-0.0 位+0.7 波-0.9",
+    "subs_row": "趨+1.0 動+0.5 強+0.0 量-0.1 位+0.6 波-0.9",
     "sample_ok": true,
     "warnings": [
      "高位"
@@ -155,33 +158,33 @@
    "META": {
     "symbol": "META",
     "tier": "mag7",
-    "score": 45.3,
-    "band": "中性",
-    "close": 641.39,
-    "sma50": 677.57,
+    "score": 43.0,
+    "band": "偏弱",
+    "close": 628.77,
+    "sma50": 678.57,
     "subs": {
-     "trend": 0.4,
-     "mom": -0.44,
-     "str": -0.48,
-     "vol": 0.07,
-     "pos": -0.08,
-     "vola": -0.67
+     "trend": -0.4,
+     "mom": 0.32,
+     "str": -0.46,
+     "vol": 0.15,
+     "pos": -0.18,
+     "vola": -0.69
     },
     "trend_formula": "standard",
     "divergence_detail": {
      "warn_items": [],
      "death_cross": null
     },
-    "rsi": 46.0,
+    "rsi": 43.0,
     "adx": 25.0,
-    "pct52": 56.0,
-    "range_pos": 46.0,
+    "pct52": 48.0,
+    "range_pos": 41.0,
     "history_days": 501,
     "degraded": [],
     "data_quality": [],
     "flags": [],
     "divergence": false,
-    "subs_row": "趨+0.4 動-0.4 強-0.5 量+0.1 位-0.1 波-0.7",
+    "subs_row": "趨-0.4 動+0.3 強-0.5 量+0.1 位-0.2 波-0.7",
     "sample_ok": true,
     "warnings": [],
     "severe": false
@@ -189,127 +192,17 @@
    "NVDA": {
     "symbol": "NVDA",
     "tier": "mag7",
-    "score": 14.6,
+    "score": 17.4,
     "band": "弱勢",
-    "close": 168.89,
-    "sma50": 218.0,
+    "close": 173.73,
+    "sma50": 217.12,
     "subs": {
      "trend": -0.4,
-     "mom": -0.71,
-     "str": -0.81,
-     "vol": -0.99,
-     "pos": -0.9,
-     "vola": -1.0
-    },
-    "trend_formula": "standard",
-    "divergence_detail": {
-     "warn_items": [],
-     "death_cross": null
-    },
-    "rsi": 24.0,
-    "adx": 35.0,
-    "pct52": 1.0,
-    "range_pos": 5.0,
-    "history_days": 501,
-    "degraded": [],
-    "data_quality": [],
-    "flags": [
-     "RSI超賣",
-     "布林下破"
-    ],
-    "divergence": false,
-    "subs_row": "趨-0.4 動-0.7 強-0.8 量-1.0 位-0.9 波-1.0",
-    "sample_ok": true,
-    "warnings": [
-     "RSI超賣",
-     "布林下破"
-    ],
-    "severe": false
-   },
-   "TSLA": {
-    "symbol": "TSLA",
-    "tier": "mag7",
-    "score": 33.7,
-    "band": "偏弱",
-    "close": 379.78,
-    "sma50": 372.96,
-    "subs": {
-     "trend": -0.4,
-     "mom": -0.39,
-     "str": -0.15,
-     "vol": -0.28,
-     "pos": -0.15,
-     "vola": -0.59
-    },
-    "trend_formula": "standard",
-    "divergence_detail": {
-     "warn_items": [],
-     "death_cross": null
-    },
-    "rsi": 51.0,
-    "adx": 16.0,
-    "pct52": 36.0,
-    "range_pos": 43.0,
-    "history_days": 501,
-    "degraded": [],
-    "data_quality": [],
-    "flags": [],
-    "divergence": false,
-    "subs_row": "趨-0.4 動-0.4 強-0.1 量-0.3 位-0.1 波-0.6",
-    "sample_ok": true,
-    "warnings": [],
-    "severe": false
-   },
-   "SPCX": {
-    "symbol": "SPCX",
-    "tier": "wishlist",
-    "score": 29.2,
-    "band": "弱勢",
-    "close": 143.09,
-    "sma50": 149.18,
-    "subs": {
-     "trend": -1.0,
-     "mom": -0.41,
-     "str": -0.28,
-     "vol": -0.12,
-     "pos": -0.32,
-     "vola": -0.05
-    },
-    "trend_formula": "degraded",
-    "divergence_detail": {
-     "warn_items": [],
-     "death_cross": null
-    },
-    "rsi": 49.0,
-    "adx": 20.0,
-    "pct52": 40.0,
-    "range_pos": 34.0,
-    "history_days": 105,
-    "degraded": [
-     "歷史得 105 日，無 200 日線"
-    ],
-    "data_quality": [],
-    "flags": [],
-    "divergence": false,
-    "subs_row": "趨-1.0 動-0.4 強-0.3 量-0.1 位-0.3 波-0.1",
-    "sample_ok": false,
-    "warnings": [],
-    "severe": false
-   },
-   "SNDK": {
-    "symbol": "SNDK",
-    "tier": "wishlist",
-    "score": 21.5,
-    "band": "弱勢",
-    "close": 859.99,
-    "sma50": 1478.33,
-    "subs": {
-     "trend": -0.4,
-     "mom": -0.65,
+     "mom": -0.66,
      "str": -0.89,
-     "vol": -0.38,
-     "pos": -0.38,
-     "vola": -0.79
+     "vol": -0.72,
+     "pos": -0.77,
+     "vola": -0.99
     },
     "trend_formula": "standard",
     "divergence_detail": {
@@ -318,20 +211,124 @@
     },
     "rsi": 29.0,
     "adx": 37.0,
-    "pct52": 42.0,
-    "range_pos": 31.0,
-    "history_days": 438,
+    "pct52": 3.0,
+    "range_pos": 12.0,
+    "history_days": 501,
     "degraded": [],
     "data_quality": [],
     "flags": [
      "RSI超賣"
     ],
     "divergence": false,
-    "subs_row": "趨-0.4 動-0.7 強-0.9 量-0.4 位-0.4 波-0.8",
+    "subs_row": "趨-0.4 動-0.7 強-0.9 量-0.7 位-0.8 波-1.0",
     "sample_ok": true,
     "warnings": [
      "RSI超賣"
     ],
+    "severe": false
+   },
+   "TSLA": {
+    "symbol": "TSLA",
+    "tier": "mag7",
+    "score": 50.1,
+    "band": "中性",
+    "close": 390.84,
+    "sma50": 373.65,
+    "subs": {
+     "trend": 0.4,
+     "mom": -0.35,
+     "str": 0.11,
+     "vol": -0.12,
+     "pos": -0.03,
+     "vola": -0.52
+    },
+    "trend_formula": "standard",
+    "divergence_detail": {
+     "warn_items": [],
+     "death_cross": null
+    },
+    "rsi": 54.0,
+    "adx": 15.0,
+    "pct52": 44.0,
+    "range_pos": 48.0,
+    "history_days": 501,
+    "degraded": [],
+    "data_quality": [],
+    "flags": [],
+    "divergence": false,
+    "subs_row": "趨+0.4 動-0.3 強+0.1 量-0.1 位-0.0 波-0.5",
+    "sample_ok": true,
+    "warnings": [],
+    "severe": false
+   },
+   "SPCX": {
+    "symbol": "SPCX",
+    "tier": "wishlist",
+    "score": 28.4,
+    "band": "弱勢",
+    "close": 139.75,
+    "sma50": 149.13,
+    "subs": {
+     "trend": -1.0,
+     "mom": -0.44,
+     "str": -0.26,
+     "vol": -0.13,
+     "pos": -0.39,
+     "vola": -0.07
+    },
+    "trend_formula": "degraded",
+    "divergence_detail": {
+     "warn_items": [],
+     "death_cross": null
+    },
+    "rsi": 47.0,
+    "adx": 19.0,
+    "pct52": 32.0,
+    "range_pos": 31.0,
+    "history_days": 106,
+    "degraded": [
+     "歷史得 106 日，無 200 日線"
+    ],
+    "data_quality": [],
+    "flags": [],
+    "divergence": false,
+    "subs_row": "趨-1.0 動-0.4 強-0.3 量-0.1 位-0.4 波-0.1",
+    "sample_ok": false,
+    "warnings": [],
+    "severe": false
+   },
+   "SNDK": {
+    "symbol": "SNDK",
+    "tier": "wishlist",
+    "score": 24.8,
+    "band": "弱勢",
+    "close": 977.69,
+    "sma50": 1467.15,
+    "subs": {
+     "trend": -0.4,
+     "mom": -0.55,
+     "str": -0.9,
+     "vol": -0.31,
+     "pos": -0.27,
+     "vola": -0.64
+    },
+    "trend_formula": "standard",
+    "divergence_detail": {
+     "warn_items": [],
+     "death_cross": null
+    },
+    "rsi": 37.0,
+    "adx": 37.0,
+    "pct52": 46.0,
+    "range_pos": 37.0,
+    "history_days": 439,
+    "degraded": [],
+    "data_quality": [],
+    "flags": [],
+    "divergence": false,
+    "subs_row": "趨-0.4 動-0.6 強-0.9 量-0.3 位-0.3 波-0.6",
+    "sample_ok": true,
+    "warnings": [],
     "severe": false
    }
   }
