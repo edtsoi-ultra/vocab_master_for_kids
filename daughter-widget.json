@@ -1,7 +1,7 @@
 {
   "service": "daughter-school",
   "student": "琳琳 2A",
-  "updated": "2026-11-11T21:21:50.228132+08:00",
+  "updated": "2026-11-11T22:29:35.349718+00:00",
   "homework": [
     {
       "key": "ENG_SING_1",
@@ -12,7 +12,7 @@
       "subject_en": "English",
       "title_en": "Thanksgiving Singing Contest",
       "due_display": "11月26日 (四)",
-      "days_left": 15
+      "days_left": 14
     }
   ],
   "upcoming": [
@@ -27,7 +27,7 @@
       "subject_en": "English",
       "title_en": "English Formative Assessment FA2",
       "date_display": "11月13日 (五)",
-      "days_left": 2
+      "days_left": 1
     },
     {
       "key": "ASSESS_1_CHI",
@@ -40,7 +40,7 @@
       "subject_en": "Chinese",
       "title_en": "Assessment 1 · Chinese (Reading + Writing)",
       "date_display": "11月19日 (四)",
-      "days_left": 8
+      "days_left": 7
     },
     {
       "key": "ASSESS_1_ENG",
@@ -53,7 +53,7 @@
       "subject_en": "English",
       "title_en": "Assessment 1 · English",
       "date_display": "11月20日 (五)",
-      "days_left": 9
+      "days_left": 8
     },
     {
       "key": "ASSESS_1_MATH",
@@ -66,7 +66,7 @@
       "subject_en": "Mathematics",
       "title_en": "Assessment 1 · Mathematics",
       "date_display": "11月23日 (一)",
-      "days_left": 12
+      "days_left": 11
     }
   ],
   "notices": {
@@ -81,7 +81,7 @@
         "brief": "12月午膳訂購：供應商 apps 平台 11月11–20日開放，11月20日前完成",
         "deadline": "2026-11-20",
         "deadline_display": "11月20日 (五)",
-        "days_left": 9
+        "days_left": 8
       }
     ]
   }
