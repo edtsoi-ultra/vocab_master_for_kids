@@ -1,7 +1,7 @@
 {
   "service": "daughter-school-detail",
   "student": "琳琳 2A",
-  "updated": "2026-11-11T21:20:45.898494+08:00",
+  "updated": "2026-11-11T21:21:53.583637+08:00",
   "homework": [
     {
       "key": "ENG_SING_1",
@@ -718,7 +718,26 @@
     }
   ],
   "notices": {
-    "new_count": 0,
-    "items": []
+    "new_count": 1,
+    "items": [
+      {
+        "key": "NOTICE_DEC_LUNCH_20261111",
+        "code": "學校宣布",
+        "title": "有關訂購12月午膳安排",
+        "brief": "12月午膳訂購：供應商 apps 平台 11月11–20日開放，11月20日前完成",
+        "deadline": "2026-11-20",
+        "deadline_display": "11月20日 (五)",
+        "days_left": 9,
+        "detail": "學校宣布（2026-11-11 08:00，林偉文副校，全校）：「有關訂購12月午膳安排」。供應商由11-20/11將開放apps平台，讓各位家長替子女訂購十二月份午膳。請各位家長於時限內完成有關訂購，謝謝配合！（英文原文：The lunch box supplier will open the app platform from 11 to 20 November 2026 to enable parents to order lunch for their children for December. Please complete your orders within the specified date. Thank you for your cooperation!）",
+        "points": [
+          "12月午膳訂購：供應商 apps 平台於 11月11–20日開放",
+          "家長須於 11月20日或之前完成訂購",
+          "全校適用（林偉文副校發出）",
+          "宣布內無提及金額、無回條，訂購經供應商 apps 平台辦理"
+        ],
+        "source_tier": "verified_capture",
+        "source": "eClass 通告原文"
+      }
+    ]
   }
 }
