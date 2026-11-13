@@ -1,7 +1,7 @@
 {
   "service": "daughter-school",
   "student": "2A",
-  "updated": "2026-11-13T18:40:39.613996+08:00",
+  "updated": "2026-11-13T18:41:56.144904+08:00",
   "homework": [
     {
       "key": "ENG_SING_1",
@@ -69,10 +69,26 @@
     }
   ],
   "notices": {
-    "new_count": 1,
-    "latest_title": "有關訂購12月午膳安排",
-    "latest_date": "2026-11-20",
+    "new_count": 3,
+    "latest_title": "「核心家長義工」招募及培訓課程",
+    "latest_date": "2026-11-19",
     "items": [
+      {
+        "code": "2627-153",
+        "title": "「核心家長義工」招募及培訓課程",
+        "brief": "「核心家長義工」招募及培訓課程",
+        "deadline": "2026-11-19",
+        "deadline_display": "11月19日 (四)",
+        "days_left": 6
+      },
+      {
+        "code": "2627-152",
+        "title": "「賽馬會流金匯」防跌講座",
+        "brief": "「賽馬會流金匯」防跌講座",
+        "deadline": "2026-11-19",
+        "deadline_display": "11月19日 (四)",
+        "days_left": 6
+      },
       {
         "key": "NOTICE_DEC_LUNCH_20261111",
         "code": "學校宣布",
