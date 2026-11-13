@@ -1,7 +1,7 @@
 {
   "service": "daughter-school-detail",
   "student": "琳琳 2A",
-  "updated": "2026-11-13T18:41:59.241609+08:00",
+  "updated": "2026-11-13T22:29:46.517338+00:00",
   "homework": [
     {
       "key": "ENG_SING_1",
@@ -12,7 +12,7 @@
       "subject_en": "English",
       "title_en": "Thanksgiving Singing Contest",
       "due_display": "11月26日 (四)",
-      "days_left": 13,
+      "days_left": 12,
       "detail": "「26/11 ThanksGiving Singing Contest --lyrics」（羅欣怡老師，11月10日發佈）｜班際歌唱比賽將於 11月26日舉行（感恩節）。\n\n老師指示（原文）：\"This year we'll be having inter-class singing contest on 26/11---Thanksgiving❤️ Please sing along with the video and practice singing the song. :)\"\n\n附件：YouTube 影片「Thank You Song | CoComelon Nursery Rhymes & Kids Songs」（3 分鐘）— https://www.youtube.com/watch?v=0eEkWvekQiE\n\nClassroom 沒有顯示截止日期（比賽日期 11月26日）。繳交方式：沒有檔案要交，練習後在 Classroom 按「標示為完成」。",
       "hints": [
         "每日跟住 YouTube 片唱 2–3 次，熟習旋律同歌詞，唔使一次過背晒。",
@@ -37,7 +37,7 @@
       "subject_en": "English",
       "title_en": "English Formative Assessment FA2",
       "date_display": "11月13日 (五)",
-      "days_left": 0,
+      "days_left": -1,
       "detail": "英文進評 FA2（11月13日）範圍：Unit 3 My School + Unit 4 Who's the thief?。Unit 3 生字16個、句子10句已齊（同 Dict 3 嗰份範圍紙）。Unit 4 主題係 personal belongings（個人物品），文法重點：① 人名 + 's 表擁有（This is Bob's watch.）② do / does 問答（Do you have hairbands? Yes, I do.）；Unit 4 嘅生字表同句子表暫時未有，要等範圍紙先補得齊。",
       "words": [
         {
@@ -166,7 +166,7 @@
       "subject_en": "Chinese",
       "title_en": "Assessment 1 · Chinese (Reading + Writing)",
       "date_display": "11月19日 (四)",
-      "days_left": 6,
+      "days_left": 5,
       "practice": [
         {
           "q": "溫習任務：重溫進評題庫（第3課與進評共用同一題庫，㩒下面互動練習）＋朗讀第1、2課課文各一次。",
@@ -548,7 +548,7 @@
       "subject_en": "English",
       "title_en": "Assessment 1 · English",
       "date_display": "11月20日 (五)",
-      "days_left": 7,
+      "days_left": 6,
       "practice": [
         {
           "q": "溫習任務：重讀 U1-U4 課文，每課一次；生字表自默一次（錯字抄 3 次）。"
@@ -585,7 +585,7 @@
       "subject_en": "Mathematics",
       "title_en": "Assessment 1 · Mathematics",
       "date_display": "11月23日 (一)",
-      "days_left": 10,
+      "days_left": 9,
       "practice": [
         {
           "subject": "數學",
@@ -679,7 +679,7 @@
       "subject_en": "Humanities",
       "title_en": "Assessment 1 · Humanities",
       "date_display": "11月24日 (二)",
-      "days_left": 11,
+      "days_left": 10,
       "practice": [
         {
           "q": "溫習任務：朗讀人文第1-5課課文重點，每課一次，請家長提問 2 題。",
@@ -701,7 +701,7 @@
       "subject_en": "Science",
       "title_en": "Assessment 1 · Science",
       "date_display": "11月24日 (二)",
-      "days_left": 11,
+      "days_left": 10,
       "practice": [
         {
           "q": "溫習任務：朗讀科學第1-3課（生物和非生物／觀察動物／動手種植物），講出每課 1 個重點。",
@@ -726,7 +726,7 @@
         "brief": "「核心家長義工」招募及培訓課程",
         "deadline": "2026-11-19",
         "deadline_display": "11月19日 (四)",
-        "days_left": 6,
+        "days_left": 5,
         "detail": "本校現正招募家長義工，成為「核心家長義工」。核心家長義工將協助校方統籌義工工作，並定期與負責老師進行聯繫及溝通，透過家校合作，促進家校建立良好的伙伴關係。簡介會及培訓課程：日期：2025年11月22日(星期六)；時間：上午9:00–11:00；地點：禤景榮學校106室；對象：有意成為「核心家長義工」之學生家長。備註：成功報名「核心家長義工」的家長將於2026年11月20日(星期五)收到家長義工組 WhatsApp 群組邀請，請留意相關訊息；報名家長必須出席簡介會及培訓課程，如未能出席，將不獲考慮；學校會定期舉辦不同的家長義工培訓活動。查詢：伍家燕老師。回條：將會出席／未能出席核心家長義工簡介會及培訓課程，請於2026年11月19日或以前簽署此電子通告。",
         "points": [
           "招募「核心家長義工」，協助校方統籌義工工作，定期與負責老師聯繫溝通",
@@ -744,7 +744,7 @@
         "brief": "「賽馬會流金匯」防跌講座",
         "deadline": "2026-11-19",
         "deadline_display": "11月19日 (四)",
-        "days_left": 6,
+        "days_left": 5,
         "detail": "賽馬會流金匯將於本校舉辦防跌講座，旨在提升家長及學生的防跌意識，並介紹實用的防跌技巧。日期：12月4日(星期五)；時間：上午10時45分至11時45分；地點：本校禮堂；對象：家長及學生；內容：講解防跌的重要性、常見跌倒原因及預防方法；費用：免費。備註：講座由賽馬會流金匯的專業團隊主講，內容包括防跌知識及實用技巧；活動當天請家長及學生準時出席，並攜帶學生手冊以作記錄。查詢：致電2670 3849與陳家慧老師聯絡。回條：將會出席／未能出席「賽馬會流金匯」防跌講座，請於2026年11月19日或以前簽署此電子通告。",
         "points": [
           "「賽馬會流金匯」防跌講座：12月4日(星期五)上午10:45–11:45，本校禮堂",
@@ -762,7 +762,7 @@
         "brief": "12月午膳訂購：供應商 apps 平台 11月11–20日開放，11月20日前完成",
         "deadline": "2026-11-20",
         "deadline_display": "11月20日 (五)",
-        "days_left": 7,
+        "days_left": 6,
         "detail": "學校宣布（2026-11-11 08:00，林偉文副校，全校）：「有關訂購12月午膳安排」。供應商由11-20/11將開放apps平台，讓各位家長替子女訂購十二月份午膳。請各位家長於時限內完成有關訂購，謝謝配合！（英文原文：The lunch box supplier will open the app platform from 11 to 20 November 2026 to enable parents to order lunch for their children for December. Please complete your orders within the specified date. Thank you for your cooperation!）",
         "points": [
           "12月午膳訂購：供應商 apps 平台於 11月11–20日開放",
