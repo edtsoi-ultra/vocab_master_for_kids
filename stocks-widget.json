@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-13T22:13:36.218129+00:00",
+ "updated": "2026-11-15T13:32:50.166111+00:00",
  "technical": {
   "status": "ok",
   "data_date": "2026-11-13",
@@ -336,8 +336,8 @@
   }
  },
  "sentiment": {
-  "as_of": "2026-11-08",
-  "note": "2026-11-08 週報採集：wishlist 三組為本週實測；Mag7 市場組仍沿用舊值（週報 Mag7 只做簡表，不做輿情深挖）。輿情異動 gate：SNDK 市場組 中性→偏好、SNDK 顧客組 中性→偏淡、SPCX 市場組 中性→偏好、SPCX 顧客組 中性→偏好，四組翻轉但上週均無同一新狀態嘅初步跡象（pending 一律 null），且無單週負面率上升 >=20pp，故不作異動通報；四組翻轉記 pending 供下週確認。",
+  "as_of": "2026-11-15",
+  "note": "2026-11-15 週報採集：wishlist 三組為本週實測；Mag7 市場組仍沿用舊值（週報 Mag7 只做簡表，不做輿情深挖）。輿情異動 gate：SPCX 顧客組 偏好→偏淡，單週負面率 0.38→0.70（+32pp），觸發 gate (b)，列為本週異動（惟樣本以 Trustpilot 投訴為主，N=10 低信心，需下週確認）。SNDK 市場組 偏好→中性、SNDK 顧客組 偏淡→中性，兩組翻轉但上週均無同一新狀態嘅初步跡象，且無單週負面率上升 >=20pp，故不作異動通報；兩組翻轉記 pending 供下週確認。SPCX 市場組維持偏好，兩隻員工組繼續樣本不足。",
   "states": {
    "AAPL": {
     "market": {
@@ -382,7 +382,7 @@
    "NVDA": {
     "market": {
      "conf": "低信心",
-     "driver": "",
+     "driver": "黃仁勳 11-12 辭任 CEO，CFO Colette Kress 署任；11-17 業績（週報簡表用，輿情未正式採集）",
      "neg_rate": null,
      "state": "中性"
     }
@@ -390,40 +390,40 @@
    "SNDK": {
     "customer": {
      "conf": "低信心",
-     "driver": "N=5，全部舊問題翻炒，本週無新產品事故：Extreme Portable SSD 2023 故障史仍是主旋律（Walmart 減價帖留言重提故障、叫人備份）",
-     "neg_rate": 0.6,
-     "state": "偏淡"
+     "driver": "N=5，neg 0.40：Extreme Pro 評測正面但嫌貴、讀速未達標稱；Portable SSD V3 評測負面（USB 2.0 速度，僅標稱 4%）；舊款故障史仍被翻提",
+     "neg_rate": 0.4,
+     "state": "中性"
     },
     "employee": {
      "conf": "樣本不足",
-     "driver": "本週 Glassdoor／Blind 搵唔到 SNDK 新帖文（N=0）；背景：Glassdoor 3.4星、62%推薦，裁員重組為持續負評主題",
+     "driver": "本週 Glassdoor／Blind 搵唔到 SNDK 新帖文（N=0）；背景：Glassdoor 3.4星、62%推薦、44%正面展望，裁員重組為持續負評主題",
      "neg_rate": null,
      "state": "樣本不足"
     },
     "market": {
-     "conf": "可參考",
-     "driver": "N=65，neg 0.28：政治市暴跌下散戶抄底式看好（蝕錢撈底，非信心看好）；主因中期選舉＋德州數據中心禁令＋AI 暫停提案，11-05 單日 -22.3%",
-     "neg_rate": 0.28,
-     "state": "偏好"
+     "conf": "低信心",
+     "driver": "N=15（9 則社媒帖 + 6 篇分析），neg 0.27：NAND 定價見頂論主導（TrendForce 10 月合約價持平、512Gb TLC 現貨一週 -9.2%），抵銷破紀錄 Q1 及指引；Reddit 討論量回落（81 則/日，-41%）",
+     "neg_rate": 0.27,
+     "state": "中性"
     }
    },
    "SPCX": {
     "customer": {
      "conf": "低信心",
-     "driver": "N=8，neg 0.38（邊界數字，緊貼 0.40 分界，實質好壞參半）：Starlink 短暫全球斷網約 30 分鐘（11-05/06 前後），斷網後速度兩極",
-     "neg_rate": 0.38,
-     "state": "偏好"
+     "driver": "N=10，neg 0.70：Starlink 動態定價引發加價反彈（Residential Max $130→$156，+20%），Trustpilot 近期評論多為負面（加價、斷線、客服難聯絡）；樣本以投訴平台為主，需下週確認",
+     "neg_rate": 0.7,
+     "state": "偏淡"
     },
     "employee": {
      "conf": "樣本不足",
-     "driver": "本週僅 1 則新評論（Blind 11-03 軟件工程師 4.0星：讚學習機會、批 WLB 差）；背景：Glassdoor 3.8星、71%推薦，工時 2.5星",
+     "driver": "本週 Blind 搵唔到 SpaceX 新評論（N=0）；背景：Blind 3.5星、WLB 2.2星，工時長為長期主調",
      "neg_rate": null,
      "state": "樣本不足"
     },
     "market": {
      "conf": "低信心",
-     "driver": "N=24（FB／IG／Threads 抽樣，Reddit 投資版未見可量化樣本），neg 0.21：撈底留言主導，討論高度政治化；中期選舉後 11-05 跌 9%，11-06 反彈 8.6%",
-     "neg_rate": 0.21,
+     "driver": "N=17（12 則社媒帖 + 5 篇分析），neg 0.18：Q3 首季盈利、Starlink 佔收入逾半且盈利，抵銷估值貴（~$1.9T）及 12-08 禁售期憂慮",
+     "neg_rate": 0.18,
      "state": "偏好"
     }
    },
