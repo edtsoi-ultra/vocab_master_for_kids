@@ -1,7 +1,7 @@
 {
   "service": "daughter-school",
   "student": "2A",
-  "updated": "2026-11-20T10:04:24.783781+00:00",
+  "updated": "2026-11-20T20:46:01.690565+08:00",
   "homework": [
     {
       "key": "ENG_SING_1",
@@ -56,7 +56,7 @@
     }
   ],
   "notices": {
-    "new_count": 1,
+    "new_count": 3,
     "latest_title": "有關訂購12月午膳安排",
     "latest_date": "2026-11-20",
     "items": [
@@ -68,6 +68,22 @@
         "deadline": "2026-11-20",
         "deadline_display": "11月20日 (五)",
         "days_left": 0
+      },
+      {
+        "code": "2627-175",
+        "title": "二至五年級家長日及一般事項 通告",
+        "brief": "二至五年級家長日及一般事項 通告",
+        "deadline": "2026-11-27",
+        "deadline_display": "11月27日 (五)",
+        "days_left": 7
+      },
+      {
+        "code": "2627-179",
+        "title": "聯校音樂比賽2027 通告",
+        "brief": "聯校音樂比賽2027 通告",
+        "deadline": "2026-12-04",
+        "deadline_display": "12月4日 (五)",
+        "days_left": 14
       }
     ]
   }
