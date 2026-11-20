@@ -1,44 +1,8 @@
 {
   "service": "daughter-school-detail",
   "student": "2A",
-  "updated": "2026-11-20T20:46:05.591529+08:00",
+  "updated": "2026-11-20T22:29:40.744705+00:00",
   "upcoming": [
-    {
-      "key": "ASSESS_1_ENG",
-      "type": "評估",
-      "type_en": "Assessment",
-      "subject": "英文",
-      "subject_en": "English",
-      "title": "評估一・英文",
-      "title_en": "Assessment 1 · English",
-      "date": "2026-11-20",
-      "date_display": "11月20日 (五)",
-      "days_left": 0,
-      "scope": "U1-4 (TB·WB·A), FA1-2, 寫作1-3 ※含已有知識",
-      "practice": [
-        {
-          "q": "溫習任務：重讀 U1-U4 課文，每課一次；生字表自默一次（錯字抄 3 次）。"
-        },
-        {
-          "q": "溫習任務：寫作 1-3 重溫 — 每篇朗讀一次，圈起唔識嘅字。",
-          "guide": true
-        }
-      ],
-      "quiz": {
-        "sets": [
-          {
-            "id": "eng_u14",
-            "title": "英文評估（U1-U4）"
-          },
-          {
-            "id": "eng_paper",
-            "title": "歷屆卷風格"
-          }
-        ]
-      },
-      "source_tier": "scope_guess",
-      "source": "評估一範圍（eClass 通告 2627-125）"
-    },
     {
       "key": "ASSESS_1_MATH",
       "type": "評估",
@@ -49,7 +13,7 @@
       "title_en": "Assessment 1 · Mathematics",
       "date": "2026-11-23",
       "date_display": "11月23日 (一)",
-      "days_left": 3,
+      "days_left": 2,
       "scope": "2上A 第1-11課, 進評1-2 ※含已有知識",
       "practice": [
         {
@@ -142,7 +106,7 @@
       "title_en": "Assessment 1 · Humanities",
       "date": "2026-11-24",
       "date_display": "11月24日 (二)",
-      "days_left": 4,
+      "days_left": 3,
       "scope": "第1-5課, 單元一/二 ※含已有知識",
       "practice": [
         {
@@ -163,7 +127,7 @@
       "title_en": "Assessment 1 · Science",
       "date": "2026-11-24",
       "date_display": "11月24日 (二)",
-      "days_left": 4,
+      "days_left": 3,
       "scope": "第1-3課 ※含已有知識",
       "practice": [
         {
@@ -188,7 +152,7 @@
       "subject_en": "English",
       "title_en": "Thanksgiving Singing Contest",
       "due_display": "11月26日 (四)",
-      "days_left": 6,
+      "days_left": 5,
       "detail": "「26/11 ThanksGiving Singing Contest --lyrics」（羅欣怡老師，11月10日發佈）｜班際歌唱比賽將於 11月26日舉行（感恩節）。\n\n老師指示（原文）：\"This year we'll be having inter-class singing contest on 26/11---Thanksgiving❤️ Please sing along with the video and practice singing the song. :)\"\n\n附件：YouTube 影片「Thank You Song | CoComelon Nursery Rhymes & Kids Songs」（3 分鐘）— https://www.youtube.com/watch?v=0eEkWvekQiE\n\nClassroom 沒有顯示截止日期（比賽日期 11月26日）。繳交方式：沒有檔案要交，練習後在 Classroom 按「標示為完成」。",
       "hints": [
         "每日跟住 YouTube 片唱 2–3 次，熟習旋律同歌詞，唔使一次過背晒。",
@@ -201,33 +165,15 @@
     }
   ],
   "notices": {
-    "new_count": 3,
+    "new_count": 2,
     "items": [
-      {
-        "key": "NOTICE_DEC_LUNCH_20261111",
-        "code": "學校宣布",
-        "title": "有關訂購12月午膳安排",
-        "brief": "12月午膳訂購：供應商 apps 平台 11月11–20日開放，11月20日前完成",
-        "deadline": "2026-11-20",
-        "deadline_display": "11月20日 (五)",
-        "days_left": 0,
-        "detail": "學校宣布（2026-11-11 08:00，林偉文副校，全校）：「有關訂購12月午膳安排」。供應商由11-20/11將開放apps平台，讓各位家長替子女訂購十二月份午膳。請各位家長於時限內完成有關訂購，謝謝配合！（英文原文：The lunch box supplier will open the app platform from 11 to 20 November 2026 to enable parents to order lunch for their children for December. Please complete your orders within the specified date. Thank you for your cooperation!）",
-        "points": [
-          "12月午膳訂購：供應商 apps 平台於 11月11–20日開放",
-          "家長須於 11月20日或之前完成訂購",
-          "全校適用（林偉文副校發出）",
-          "宣布內無提及金額、無回條，訂購經供應商 apps 平台辦理"
-        ],
-        "source_tier": "verified_capture",
-        "source": "eClass 通告原文"
-      },
       {
         "code": "2627-175",
         "title": "二至五年級家長日及一般事項 通告",
         "brief": "二至五年級家長日及一般事項 通告",
         "deadline": "2026-11-27",
         "deadline_display": "11月27日 (五)",
-        "days_left": 7,
+        "days_left": 6,
         "detail": "二至五年級家長日定於2026年12月11日（星期五）舉行。當日小一至小五學生上半天課，下午1:00放學。班主任面見按學號分段：1–5號 1:15–1:45；6–10號 1:45–2:15；11–15號 2:45–3:15；16–20號 3:15–3:45；21–25號 3:45–4:15；26–30號 4:15–4:45。蔡諾琳（2A，17號）面見時間為3:15–3:45，地點205室。家長講座1:15–4:30於禮堂舉行（詳見第176號通告）。書展2:15–5:15於活力地帶舉行，家長完成面見後可於2:15–5:00入場，請帶備現金。2026年12月16–18日由半天課改為全天課。2026–27年度第三學習階段書簿費包括$100按金，隨本學期書簿費收取，下學期退還。回條：「本人已知悉有關二至五年級家長日及一般事項事宜」，請於2026年11月27日或以前簽署。",
         "points": [
           "家長日：2026年12月11日（星期五），小一至小五半天課，1:00放學",
@@ -245,7 +191,7 @@
         "brief": "聯校音樂比賽2027 通告",
         "deadline": "2026-12-04",
         "deadline_display": "12月4日 (五)",
-        "days_left": 14,
+        "days_left": 13,
         "detail": "聯校音樂比賽2026–2027由香港學校音樂及朗誦協會主辦，對象為小二至小六學生，設獨奏及合奏組別（鋼琴、弦樂、管樂、中樂、牧童笛、聲樂、合唱等）。報名：請於2026年12月4日中午12時前經通告內 Google 表格連結報名，並於限期前經 ePayment／eClass 繳費（個人組 $70，2026–27年度只適用於香港學校音樂及朗誦協會會員學校，費用有變動；團體組 $500；逾期繳費作棄權論）。校內綵排下午4:30–5:30：獨奏組 2027年2月19–20日，合奏組 2月17–18日。比賽：獨奏組 2027年2月22–23日上午9:00–下午4:00，合奏組 2月25–26日上午9:00–下午5:00，地點觀塘區會堂多用途禮堂（觀塘同仁街6號地下）。頒獎禮 2027年3月11日晚上6:30–8:00。學校只為獨奏組提供鋼琴伴奏；不設接送，家長須自行接送子女往返比賽場地。回條：「本人已知悉有關聯校音樂比賽2027事宜」，請於2026年12月4日或以前簽署。",
         "points": [
           "聯校音樂比賽2027（小二至小六）：報名限期 12月4日中午12時，經通告內 Google 表格報名",
