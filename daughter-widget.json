@@ -1,7 +1,7 @@
 {
   "service": "daughter-school",
   "student": "琳琳 2A",
-  "updated": "2026-11-21T10:08:10.853177+00:00",
+  "updated": "2026-11-21T22:29:26.172392+00:00",
   "homework": [
     {
       "key": "ENG_SING_1",
@@ -12,23 +12,10 @@
       "subject_en": "English",
       "title_en": "Thanksgiving Singing Contest",
       "due_display": "11月26日 (四)",
-      "days_left": 5
+      "days_left": 4
     }
   ],
   "upcoming": [
-    {
-      "key": "ASSESS_1_ENG",
-      "type": "評估",
-      "subject": "英文",
-      "title": "評估一・英文",
-      "date": "2026-11-20",
-      "scope": "U1-4 (TB·WB·A), FA1-2, 寫作1-3 ※含已有知識",
-      "type_en": "Assessment",
-      "subject_en": "English",
-      "title_en": "Assessment 1 · English",
-      "date_display": "11月20日 (五)",
-      "days_left": -1
-    },
     {
       "key": "ASSESS_1_MATH",
       "type": "評估",
@@ -40,7 +27,7 @@
       "subject_en": "Mathematics",
       "title_en": "Assessment 1 · Mathematics",
       "date_display": "11月23日 (一)",
-      "days_left": 2
+      "days_left": 1
     },
     {
       "key": "ASSESS_1_HUM",
@@ -53,7 +40,7 @@
       "subject_en": "Humanities",
       "title_en": "Assessment 1 · Humanities",
       "date_display": "11月24日 (二)",
-      "days_left": 3
+      "days_left": 2
     },
     {
       "key": "ASSESS_1_SCI",
@@ -66,29 +53,37 @@
       "subject_en": "Science",
       "title_en": "Assessment 1 · Science",
       "date_display": "11月24日 (二)",
-      "days_left": 3
+      "days_left": 2
     }
   ],
   "notices": {
-    "new_count": 2,
-    "latest_title": "二至五年級家長日及一般事項 通告",
-    "latest_date": "2026-11-27",
+    "new_count": 5,
+    "latest_title": "「核心家長義工」招募及培訓課程 通告",
+    "latest_date": "2026-11-23",
     "items": [
+      {
+        "code": "2627-153",
+        "title": "「核心家長義工」招募及培訓課程 通告",
+        "brief": "「核心家長義工」招募及培訓課程 通告",
+        "deadline": "2026-11-23",
+        "deadline_display": "11月23日 (一)",
+        "days_left": 1
+      },
+      {
+        "code": "2627-152",
+        "title": "「賽馬會流金匯」防跌講座 通告",
+        "brief": "「賽馬會流金匯」防跌講座 通告",
+        "deadline": "2026-11-23",
+        "deadline_display": "11月23日 (一)",
+        "days_left": 1
+      },
       {
         "code": "2627-175",
         "title": "二至五年級家長日及一般事項 通告",
         "brief": "二至五年級家長日及一般事項 通告",
         "deadline": "2026-11-27",
         "deadline_display": "11月27日 (五)",
-        "days_left": 6
-      },
-      {
-        "code": "2627-179",
-        "title": "聯校音樂比賽2027 通告",
-        "brief": "聯校音樂比賽2027 通告",
-        "deadline": "2026-12-04",
-        "deadline_display": "12月4日 (五)",
-        "days_left": 13
+        "days_left": 5
       }
     ]
   }
