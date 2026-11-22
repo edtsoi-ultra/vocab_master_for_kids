@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-20T22:13:35.029933+00:00",
+ "updated": "2026-11-22T13:31:25.712935+00:00",
  "technical": {
   "status": "ok",
   "data_date": "2026-11-20",
@@ -349,8 +349,8 @@
   }
  },
  "sentiment": {
-  "as_of": "2026-11-15",
-  "note": "2026-11-15 週報採集：wishlist 三組為本週實測；Mag7 市場組仍沿用舊值（週報 Mag7 只做簡表，不做輿情深挖）。輿情異動 gate：SPCX 顧客組 偏好→偏淡，單週負面率 0.38→0.70（+32pp），觸發 gate (b)，列為本週異動（惟樣本以 Trustpilot 投訴為主，N=10 低信心，需下週確認）。SNDK 市場組 偏好→中性、SNDK 顧客組 偏淡→中性，兩組翻轉但上週均無同一新狀態嘅初步跡象，且無單週負面率上升 >=20pp，故不作異動通報；兩組翻轉記 pending 供下週確認。SPCX 市場組維持偏好，兩隻員工組繼續樣本不足。",
+  "as_of": "2026-11-22",
+  "note": "2026-11-22 週報採集：wishlist 三組為本週實測；Mag7 市場組仍沿用舊值（週報 Mag7 只做簡表，不做輿情深挖）。輿情異動 gate：SNDK 市場組 中性→偏淡（neg 0.27→0.73，+46pp），觸發 gate (b) 單週負面率跳升 >=20pp，列為本週異動；翻轉上週無同一新狀態初步跡象，(a) 不成立，但 (b) 已足夠。SPCX 市場組維持偏好（neg 0.18→0.10）。SNDK 顧客組、SPCX 顧客組本週樣本不足（N<5），不發狀態，上週 pending（SNDK 顧客 中性、SPCX 顧客 偏淡）未確認，留待下週。兩隻員工組繼續樣本不足。",
   "states": {
    "AAPL": {
     "market": {
@@ -402,41 +402,41 @@
    },
    "SNDK": {
     "customer": {
-     "conf": "低信心",
-     "driver": "N=5，neg 0.40：Extreme Pro 評測正面但嫌貴、讀速未達標稱；Portable SSD V3 評測負面（USB 2.0 速度，僅標稱 4%）；舊款故障史仍被翻提",
-     "neg_rate": 0.4,
-     "state": "中性"
+     "conf": "樣本不足",
+     "driver": "本週無新獨立評測（N=1：Amazon 綜合 4.2★/4,726 評，褒貶參半，11-18 更新）；Extreme Pro USB4 評測好壞參半（極速快、持續寫入失望、4K 隨機寫入倒退）、舊款故障史仍被翻提",
+     "neg_rate": null,
+     "state": "樣本不足"
     },
     "employee": {
      "conf": "樣本不足",
-     "driver": "本週 Glassdoor／Blind 搵唔到 SNDK 新帖文（N=0）；背景：Glassdoor 3.4星、62%推薦、44%正面展望，裁員重組為持續負評主題",
+     "driver": "本週 Glassdoor／Blind 無新帖（N=0）；近兩週 Jobstore 新增 3 則（11-03/05，3.6–3.9★）：工程文化獲讚、管理層決策慢、晉升停滯；背景：Glassdoor 3.4★、62%推薦、44%正面展望，上次裁員 2026-08",
      "neg_rate": null,
      "state": "樣本不足"
     },
     "market": {
      "conf": "低信心",
-     "driver": "N=15（9 則社媒帖 + 6 篇分析），neg 0.27：NAND 定價見頂論主導（TrendForce 10 月合約價持平、512Gb TLC 現貨一週 -9.2%），抵銷破紀錄 Q1 及指引；Reddit 討論量回落（81 則/日，-41%）",
-     "neg_rate": 0.27,
-     "state": "中性"
+     "driver": "N=30（IG/Threads/FB 熱帖，按互動量取，關鍵詞抽取），neg 0.73：TrendForce 削 NAND 2027 預測 + 8拆1 後首日 -16%，拆股混淆（-90% 截圖洗版）疊加記憶體見頂論；上週 中性→偏淡，neg +46pp，觸發異動 gate (b)",
+     "neg_rate": 0.73,
+     "state": "偏淡"
     }
    },
    "SPCX": {
     "customer": {
-     "conf": "低信心",
-     "driver": "N=10，neg 0.70：Starlink 動態定價引發加價反彈（Residential Max $130→$156，+20%），Trustpilot 近期評論多為負面（加價、斷線、客服難聯絡）；樣本以投訴平台為主，需下週確認",
-     "neg_rate": 0.7,
-     "state": "偏淡"
+     "conf": "樣本不足",
+     "driver": "本週無新增 Starlink 加價投訴樣本（N=0）；上週 偏淡 pending 未確認；動態定價反彈（Residential Max $130→$156）仍是未解決主題，需下週再確認",
+     "neg_rate": null,
+     "state": "樣本不足"
     },
     "employee": {
      "conf": "樣本不足",
-     "driver": "本週 Blind 搵唔到 SpaceX 新評論（N=0）；背景：Blind 3.5星、WLB 2.2星，工時長為長期主調",
+     "driver": "本週 Blind 無新評論（N=0）；最新一則 11-03（4.0★）：學習機會多、WLB 是禁忌詞；背景：Blind 3.5★、WLB 2.2★，工時長為長期主調",
      "neg_rate": null,
      "state": "樣本不足"
     },
     "market": {
      "conf": "低信心",
-     "driver": "N=17（12 則社媒帖 + 5 篇分析），neg 0.18：Q3 首季盈利、Starlink 佔收入逾半且盈利，抵銷估值貴（~$1.9T）及 12-08 禁售期憂慮",
-     "neg_rate": 0.18,
+     "driver": "N=30（IG/Threads/FB 熱帖，按互動量取，關鍵詞抽取），neg 0.10：Starship Flight 15 成功回收上面級 + Q3 破紀錄抵銷週五 AI 拋售 -7.7%；估值貴（~39x P/S）仍是主要質疑",
+     "neg_rate": 0.1,
      "state": "偏好"
     }
    },
