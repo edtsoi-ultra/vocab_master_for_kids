@@ -1,1 +1,82 @@
-{"service": "GMRWI", "score": 47, "change": -8, "band": "watch", "band_display": "觀察區", "date": "2026-11-15", "updated": "2026-11-15T20:58:05+08:00", "daily": {"score": 62, "band": "watch", "band_display": "觀察區", "date": "2026-11-19", "data_date": "2026-11-19", "components": {"bond": 67, "equity": 67, "sentiment": 73, "commodity": 46, "fx": 36}, "markers": {"score": 62, "components": {"bond": 67, "equity": 67, "sentiment": 73, "commodity": 46, "fx": 36}}, "proxy": {"score": 62, "components": {"bond": 61, "equity": 75, "sentiment": 65, "commodity": 47, "fx": 46}}, "baseline": {"date": "2026-11-13", "components": {"bond": 66, "equity": 34, "sentiment": 39, "commodity": 39, "fx": 52}}, "inputs": {"us10y": 5.05, "vix": 28.9, "move": 96.0, "move_source": "real", "spx_5d_pct": -5.49, "breadth_proxy": 28.3, "brent": 90.1, "dxy": 103.91, "btc_5d_pct": -4.1, "hy_ratio_dd": 2.97, "vix_chg_pts": 10.2, "complacency_prem": 0.0}, "note": "每日 v3.2 proxy 引擎；分數 = 週分 + (今日 proxy − 上週五 proxy) delta-chain，非週日官方版本", "updated": "2026-11-19T21:25:22.369076+00:00", "divergence": {"active": true, "delta": 15, "weekly": 47, "daily": 62}}, "components": {"bond": 72, "equity": 26, "sentiment": 47, "commodity": 38, "fx": 42}}
+{
+  "service": "GMRWI",
+  "score": 70,
+  "change": 23,
+  "band": "watch",
+  "band_display": "觀察區",
+  "date": "2026-11-22",
+  "updated": "2026-11-22T20:58:13+08:00",
+  "daily": {
+    "score": 62,
+    "band": "watch",
+    "band_display": "觀察區",
+    "date": "2026-11-19",
+    "data_date": "2026-11-19",
+    "components": {
+      "bond": 67,
+      "equity": 67,
+      "sentiment": 73,
+      "commodity": 46,
+      "fx": 36
+    },
+    "markers": {
+      "score": 62,
+      "components": {
+        "bond": 67,
+        "equity": 67,
+        "sentiment": 73,
+        "commodity": 46,
+        "fx": 36
+      }
+    },
+    "proxy": {
+      "score": 62,
+      "components": {
+        "bond": 61,
+        "equity": 75,
+        "sentiment": 65,
+        "commodity": 47,
+        "fx": 46
+      }
+    },
+    "baseline": {
+      "date": "2026-11-13",
+      "components": {
+        "bond": 66,
+        "equity": 34,
+        "sentiment": 39,
+        "commodity": 39,
+        "fx": 52
+      }
+    },
+    "inputs": {
+      "us10y": 5.05,
+      "vix": 28.9,
+      "move": 96.0,
+      "move_source": "real",
+      "spx_5d_pct": -5.49,
+      "breadth_proxy": 28.3,
+      "brent": 90.1,
+      "dxy": 103.91,
+      "btc_5d_pct": -4.1,
+      "hy_ratio_dd": 2.97,
+      "vix_chg_pts": 10.2,
+      "complacency_prem": 0.0
+    },
+    "note": "每日 v3.2 proxy 引擎；分數 = 週分 + (今日 proxy − 上週五 proxy) delta-chain，非週日官方版本",
+    "updated": "2026-11-19T21:25:22.369076+00:00",
+    "divergence": {
+      "active": true,
+      "delta": 15,
+      "weekly": 47,
+      "daily": 62
+    }
+  },
+  "components": {
+    "bond": 78,
+    "equity": 70,
+    "sentiment": 80,
+    "commodity": 58,
+    "fx": 42
+  }
+}
