@@ -1,7 +1,7 @@
 {
   "service": "daughter-school-detail",
   "student": "琳琳 2A",
-  "updated": "2026-11-26T19:23:45.740920+08:00",
+  "updated": "2026-11-26T22:29:48.460601+00:00",
   "homework": [
     {
       "key": "ENG_SING_1",
@@ -12,7 +12,7 @@
       "subject_en": "English",
       "title_en": "Thanksgiving Singing Contest",
       "due_display": "11月26日 (四)",
-      "days_left": 0,
+      "days_left": -1,
       "detail": "「26/11 ThanksGiving Singing Contest --lyrics」（羅欣怡老師，11月10日發佈）｜班際歌唱比賽將於 11月26日舉行（感恩節）。\n\n老師指示（原文）：\"This year we'll be having inter-class singing contest on 26/11---Thanksgiving❤️ Please sing along with the video and practice singing the song. :)\"\n\n附件：YouTube 影片「Thank You Song | CoComelon Nursery Rhymes & Kids Songs」（3 分鐘）— https://www.youtube.com/watch?v=0eEkWvekQiE\n\nClassroom 沒有顯示截止日期（比賽日期 11月26日）。繳交方式：沒有檔案要交，練習後在 Classroom 按「標示為完成」。",
       "hints": [
         "每日跟住 YouTube 片唱 2–3 次，熟習旋律同歌詞，唔使一次過背晒。",
@@ -37,7 +37,7 @@
       "subject_en": "Chinese",
       "title_en": "Chinese Dictation",
       "date_display": "12月10日 (四)",
-      "days_left": 14,
+      "days_left": 13,
       "detail": "第四次默書（12月10日，星期四）範圍 — 詞語：二上二冊第十一、十二課（12 個）；讀默課文：第十一課第二段；背默課文：第十二課第三段；考考你：老師抽五個詞組，默方格內的詞語。",
       "words": [
         {
@@ -113,7 +113,7 @@
         "brief": "家教會家長運動日：11月27日（五）09:55–11:20 學校禮堂，著運動服，有輕食",
         "deadline": "2026-11-27",
         "deadline_display": "11月27日 (五)",
-        "days_left": 1,
+        "days_left": 0,
         "detail": "學校宣布（2026-11-25 18:57，林偉文副校，全校）：「有27/11(星期五)家教會主辦之家長運動日~花式跳繩班」。「溫馨提示各位家長，有關家教會主辦的家長運動日：日期：27/11(星期五) 時間：09：55-11：20 地點：學校禮堂 備註：敬請穿著運動服裝及備有簡單茶點 歡迎各位家長依時出席！」",
         "points": [
           "家教會家長運動日（花式跳繩班）：2026年11月27日（星期五）09:55–11:20",
