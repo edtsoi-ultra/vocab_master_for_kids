@@ -1,7 +1,7 @@
 {
   "service": "daughter-school",
   "student": "2A",
-  "updated": "2026-11-27T18:23:53.967899+08:00",
+  "updated": "2026-11-27T22:29:34.924009+00:00",
   "homework": [],
   "upcoming": [
     {
@@ -15,30 +15,21 @@
       "subject_en": "Chinese",
       "title_en": "Chinese Dictation",
       "date_display": "12月10日 (四)",
-      "days_left": 13
+      "days_left": 12
     }
   ],
   "notices": {
-    "new_count": 2,
-    "latest_title": "有27/11(星期五)家教會主辦之家長運動日~花式跳繩班",
-    "latest_date": "2026-11-27",
+    "new_count": 1,
+    "latest_title": "航天AI科普班招生",
+    "latest_date": "2026-12-02",
     "items": [
-      {
-        "key": "NOTICE_PARENT_SPORTS_DAY_20261127",
-        "code": "學校通告",
-        "title": "有27/11(星期五)家教會主辦之家長運動日~花式跳繩班",
-        "brief": "家教會家長運動日：11月27日（五）09:55–11:20 學校禮堂，著運動服，有輕食",
-        "deadline": "2026-11-27",
-        "deadline_display": "11月27日 (五)",
-        "days_left": 0
-      },
       {
         "code": "2627-185",
         "title": "航天AI科普班招生",
         "brief": "航天AI科普班招生",
         "deadline": "2026-12-02",
         "deadline_display": "12月2日 (三)",
-        "days_left": 5
+        "days_left": 4
       }
     ]
   }
