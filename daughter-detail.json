@@ -1,7 +1,7 @@
 {
   "service": "daughter-school-detail",
   "student": "琳琳 2A",
-  "updated": "2026-11-27T18:23:57.103638+08:00",
+  "updated": "2026-11-27T22:29:38.240032+00:00",
   "homework": [
     {
       "key": "ENG_SING_1",
@@ -12,7 +12,7 @@
       "subject_en": "English",
       "title_en": "Thanksgiving Singing Contest",
       "due_display": "11月26日 (四)",
-      "days_left": -1,
+      "days_left": -2,
       "detail": "「26/11 ThanksGiving Singing Contest --lyrics」（羅欣怡老師，11月10日發佈）｜班際歌唱比賽將於 11月26日舉行（感恩節）。\n\n老師指示（原文）：\"This year we'll be having inter-class singing contest on 26/11---Thanksgiving❤️ Please sing along with the video and practice singing the song. :)\"\n\n附件：YouTube 影片「Thank You Song | CoComelon Nursery Rhymes & Kids Songs」（3 分鐘）— https://www.youtube.com/watch?v=0eEkWvekQiE\n\nClassroom 沒有顯示截止日期（比賽日期 11月26日）。繳交方式：沒有檔案要交，練習後在 Classroom 按「標示為完成」。",
       "hints": [
         "每日跟住 YouTube 片唱 2–3 次，熟習旋律同歌詞，唔使一次過背晒。",
@@ -37,7 +37,7 @@
       "subject_en": "Chinese",
       "title_en": "Chinese Dictation",
       "date_display": "12月10日 (四)",
-      "days_left": 13,
+      "days_left": 12,
       "detail": "第四次默書（12月10日，星期四）範圍 — 詞語：二上二冊第十一、十二課（12 個）；讀默課文：第十一課第二段；背默課文：第十二課第三段；考考你：老師抽五個詞組，默方格內的詞語。",
       "words": [
         {
@@ -104,33 +104,15 @@
     }
   ],
   "notices": {
-    "new_count": 2,
+    "new_count": 1,
     "items": [
-      {
-        "key": "NOTICE_PARENT_SPORTS_DAY_20261127",
-        "code": "學校通告",
-        "title": "有27/11(星期五)家教會主辦之家長運動日~花式跳繩班",
-        "brief": "家教會家長運動日：11月27日（五）09:55–11:20 學校禮堂，著運動服，有輕食",
-        "deadline": "2026-11-27",
-        "deadline_display": "11月27日 (五)",
-        "days_left": 0,
-        "detail": "學校宣布（2026-11-25 18:57，林偉文副校，全校）：「有27/11(星期五)家教會主辦之家長運動日~花式跳繩班」。「溫馨提示各位家長，有關家教會主辦的家長運動日：日期：27/11(星期五) 時間：09：55-11：20 地點：學校禮堂 備註：敬請穿著運動服裝及備有簡單茶點 歡迎各位家長依時出席！」",
-        "points": [
-          "家教會家長運動日（花式跳繩班）：2026年11月27日（星期五）09:55–11:20",
-          "地點：學校禮堂",
-          "請穿著運動服裝出席；現場備有簡單茶點",
-          "全校家長適用（林偉文副校發出）；宣布內無回條、無繳費、無報名安排"
-        ],
-        "source_tier": "verified_capture",
-        "source": "eClass 通告原文"
-      },
       {
         "code": "2627-185",
         "title": "航天AI科普班招生",
         "brief": "航天AI科普班招生",
         "deadline": "2026-12-02",
         "deadline_display": "12月2日 (三)",
-        "days_left": 5,
+        "days_left": 4,
         "detail": "學校與香港航天科技教育學院（HKATA）合辦「航天AI科普班」，以英語為主授課，培養學生對航天科技及人工智能機械人嘅興趣，提升科學探究及解難能力；表現優秀嘅學生有機會獲推薦代表學校參加校際科技比賽。逢星期六，共8堂：2027年1月16、23、30日，2月13、20、27日，3月20日，4月3日，下午2:30–4:00，地點為學校 Smart Learner Space／課室（地下大堂集合）。對象：初小組小一至小三、高小組小四至小六；名額20人（報名人數超過10人會安排2位導師或分兩班，每班最少8人）。費用$2,880；出席率達80%或以上可獲學校資助$600；著整齊校服或體育服。初小組：航天模型製作（長征火箭系列、鵲橋中繼衛星、神舟載人飛船）；E28 AI機械人工程（頭部、腿部結構及身體系統整合）。高小組：航天模型製作（長征火箭系列、北斗衛星、祝融號火星車）；E28 AI機械人工程及編程（機械人結構組裝、AI Prompting、積木編程）。回條須於2026年12月2日或之前簽署，現階段毋須繳費；超額抽籤；學校將於2026年12月7日經eClass通知取錄結果；獲取錄者須於2026年12月10日或之前經eClass Alipay繳費。查詢：羅俊傑主任或陳業民老師，電話2661 9383。",
         "points": [
           "航天AI科普班：逢星期六共8堂（2027年1月16日至4月3日），下午2:30–4:00，學校 Smart Learner Space",
