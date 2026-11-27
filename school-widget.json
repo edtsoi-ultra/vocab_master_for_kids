@@ -1,7 +1,7 @@
 {
   "service": "daughter-school",
   "student": "2A",
-  "updated": "2026-11-27T18:22:22.356310+08:00",
+  "updated": "2026-11-27T18:23:53.967899+08:00",
   "homework": [],
   "upcoming": [
     {
@@ -19,7 +19,7 @@
     }
   ],
   "notices": {
-    "new_count": 1,
+    "new_count": 2,
     "latest_title": "有27/11(星期五)家教會主辦之家長運動日~花式跳繩班",
     "latest_date": "2026-11-27",
     "items": [
@@ -31,6 +31,14 @@
         "deadline": "2026-11-27",
         "deadline_display": "11月27日 (五)",
         "days_left": 0
+      },
+      {
+        "code": "2627-185",
+        "title": "航天AI科普班招生",
+        "brief": "航天AI科普班招生",
+        "deadline": "2026-12-02",
+        "deadline_display": "12月2日 (三)",
+        "days_left": 5
       }
     ]
   }
