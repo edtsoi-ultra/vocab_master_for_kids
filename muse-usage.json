@@ -1,1 +1,1 @@
-{"service": "Muse", "plan": "Power", "usage_percent": 0, "period": "weekly", "reset": "2026-12-05T09:49:00+08:00", "reset_display": "Dec 5 9:49AM", "extra_tokens_percent": 5, "extra_tokens_left": "1.8B tokens", "updated": "2026-11-28T10:34:11+08:00"}
+{"service": "Muse", "plan": "Power", "usage_percent": 4, "period": "weekly", "reset": "2026-12-05T09:49:00+08:00", "reset_display": "Dec 5 9:49AM", "extra_tokens_percent": 5, "extra_tokens_left": "1.8B tokens", "updated": "2026-11-28T16:34:08+08:00"}
